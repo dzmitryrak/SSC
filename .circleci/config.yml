@@ -1,0 +1,98 @@
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+# https://circleci.com/docs/2.0/browser-testing/#selenium
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.2.1
+jobs:
+  tests:
+    parallelism: 3
+    docker:
+      - image: cimg/openjdk:11.0-browsers
+    working_directory: ~/repo
+    steps:
+      - browser-tools/install-browser-tools
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run:
+          name: Setting access rights for test executor
+          command: chmod 777 src/test/resources/run-tests-parallel.sh
+      - run:
+          name: Running tests
+          command: ./src/test/resources/run-tests-parallel.sh
+      - run:
+          name: Fail report-generation job
+          command: set -o pipefail
+          when: on_fail
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - target/allure-results/*
+      - store_test_results:
+          path: target/surefire-reports/junitreports
+      - store_artifacts:
+          path: target/allure-results/
+          destination: target/allure-results/
+  report-generation:
+    docker:
+      - image: cimg/openjdk:11.0
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Creation of shared reporting folder
+          command: mkdir -p ~/repo/target/allure-results/
+      - run:
+          name: Copying individual test results into shared folder
+          command: cp -r /tmp/workspace/target/allure-results/* ~/repo/target/allure-results/
+      - run:
+          name: Checking list of report files collected
+          command: ls ~/repo/target/allure-results/
+      - run:
+          name: Generation of Allure Report
+          command: mvn allure:report
+      - store_test_results:
+          path: target/surefire-reports/junitreports
+      - store_artifacts:
+          path: target/site/allure-maven-plugin/
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - tests
+      - report-generation:
+          requires:
+            - tests
+  periodical:
+    triggers:
+      - schedule:
+          cron: "1 8 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - tests
+      - report-generation:
+          requires:
+            - tests

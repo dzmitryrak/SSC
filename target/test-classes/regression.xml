@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="3" name="Regression test suite" parallel="tests">
+    <test name="Create Read Update Delete Account and Contact">
+        <classes>
+            <class name="com.itechart.tests.ui.AccountCRUDTest"/>
+            <class name="com.itechart.tests.ui.ContactCRUDTest"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="Login Test and Create Read Update Delete Lead">
+        <classes>
+            <class name="com.itechart.tests.ui.LeadCRUDTest"/>
+            <class name="com.itechart.tests.ui.LoginTest"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="API Tests: Get and Create Account, Contact and Lead">
+        <classes>
+            <class name="com.itechart.tests.api.CrudApiAccountTest"/>
+            <class name="com.itechart.tests.api.CrudApiContactTest"/>
+            <class name="com.itechart.tests.api.CrudApiLeadTest"/>
+        </classes>
+    </test> <!-- Test -->
+</suite>
