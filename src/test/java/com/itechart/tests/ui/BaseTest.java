@@ -7,6 +7,7 @@ import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.account.AccountListViewPage;
+import com.itechart.pages.account.AccountModalPage;
 import com.itechart.steps.AccountSteps;
 import com.itechart.steps.ContactSteps;
 import com.itechart.steps.LeadSteps;
@@ -35,6 +36,7 @@ public abstract class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
     protected AccountListViewPage accountListViewPage;
+    protected AccountModalPage accountModalPage;
     protected AccountDetailsPage accountDetailsPage;
     protected AccountFactory accountFactory = new AccountFactory();
     protected ContactFactory contactFactory = new ContactFactory();
@@ -56,6 +58,10 @@ public abstract class BaseTest {
         driver.manage().window().maximize();
         iTestContext.setAttribute("driver", driver);
         loginPage = new LoginPage(driver);
+        homePage = new HomePage(driver);
+        accountDetailsPage = new AccountDetailsPage(driver);
+        accountListViewPage = new AccountListViewPage(driver);
+        accountModalPage = new AccountModalPage(driver);
         loginSteps = new LoginSteps(driver);
         accountSteps = new AccountSteps(driver);
         contactSteps = new ContactSteps(driver);

@@ -1,5 +1,6 @@
 package com.itechart.pages.account;
 
+import com.github.javafaker.Faker;
 import com.itechart.models.Account;
 import com.itechart.pages.BasePage;
 import io.qameta.allure.Step;
@@ -33,6 +34,7 @@ public class AccountDetailsPage extends BasePage {
         return true;
     }
 
+
     @Step("Open Details tab")
     public AccountDetailsPage openDetails() {
         clickJS(DETAILS_TAB);
@@ -60,14 +62,14 @@ public class AccountDetailsPage extends BasePage {
     }
 
     @Step("Click on Dropdown icon menu")
-    public AccountDetailsPage clickIconDropdownMenu(){
+    public AccountDetailsPage clickIconDropdownMenu() {
         try {
             driver.findElement(ICON_DROPDOWN_MENU).click();
-        } catch (StaleElementReferenceException e){
-                log.warn("Cannot find Icon Dropdown menu icon");
-                log.warn(e.getLocalizedMessage());
-           //     driver.findElement(ICON_DROPDOWN_MENU).click;
-            }
+        } catch (StaleElementReferenceException e) {
+            log.warn("Cannot find Icon Dropdown menu icon");
+            log.warn(e.getLocalizedMessage());
+            //     driver.findElement(ICON_DROPDOWN_MENU).click;
+        }
         return this;
     }
 
@@ -97,4 +99,29 @@ public class AccountDetailsPage extends BasePage {
         driver.findElement(DELETE_MODAL_BUTTON).click();
         return new AccountListViewPage(driver);
     }
+
+    public static Account createNewAccount() {
+
+        Faker faker = new Faker();
+        return new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
+    }
+
 }
