@@ -6,20 +6,54 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AccountCRUDTest extends BaseTest {
+
+    private final String username = propertyReader.getPropertyValueByKey("username");
+    private final String password = propertyReader.getPropertyValueByKey("password");
 
     @Test(description = "Create Read Update Delete Account record")
     public void createNewAccountRecord() {
         Account account = accountFactory.createNewAccount(true);
         Account updatedAccount = accountFactory.createNewAccount(true);
+
+        loginPage.open();
+        loginPage.login(username, password);
+        homePage.isPageOpened();
+        accountListViewPage.open();
+        accountListViewPage
+                .clickNewButton()
+                .enterData(account)
+                .clickSaveButton()
+                .isPageOpened();
+        Assert.assertTrue(isAccountCreated, "Account is not created");
+        accountDetailsPage
+                .openDetails()
+                .validate(account);
+
+
+
+
         loginSteps.login(USERNAME, PASSWORD);
         accountSteps
                 .openAccountListViewPage()
                 .create(account)
                 .validate(account);
     }
+
+
+    //@Test(description = "Create Read Update Delete Account record")
+    //    public void createNewAccountRecord() {
+    //        Account account = accountFactory.createNewAccount(true);
+    //        Account updatedAccount = accountFactory.createNewAccount(true);
+    //        loginSteps.login(USERNAME, PASSWORD);
+    //        accountSteps
+    //                .openAccountListViewPage()
+    //                .create(account)
+    //                .validate(account);
+    //    }
 
     //TODO fix
 /*                .edit(updatedAccount)

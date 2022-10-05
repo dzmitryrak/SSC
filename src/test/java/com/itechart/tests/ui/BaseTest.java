@@ -5,6 +5,8 @@ import com.itechart.models.factory.ContactFactory;
 import com.itechart.models.factory.LeadFactory;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
+import com.itechart.pages.account.AccountDetailsPage;
+import com.itechart.pages.account.AccountListViewPage;
 import com.itechart.steps.AccountSteps;
 import com.itechart.steps.ContactSteps;
 import com.itechart.steps.LeadSteps;
@@ -32,6 +34,8 @@ public abstract class BaseTest {
     protected LeadSteps leadSteps;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected AccountListViewPage accountListViewPage;
+    protected AccountDetailsPage accountDetailsPage;
     protected AccountFactory accountFactory = new AccountFactory();
     protected ContactFactory contactFactory = new ContactFactory();
     protected LeadFactory leadFactory = new LeadFactory();

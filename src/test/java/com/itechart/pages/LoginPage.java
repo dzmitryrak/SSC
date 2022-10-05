@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 @Log4j2
 public class LoginPage extends BasePage {
     private final String loginUrl = propertyReader.getPropertyValueByKey("loginUrl");
+
     private static final By USERNAME_LOCATOR = By.id("username");
     private static final By PASSWORD_LOCATOR = By.id("password");
     private static final By LOGIN_BUTTON_LOCATOR = By.id("Login");
