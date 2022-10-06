@@ -1,8 +1,4 @@
 package com.itechart.tests.ui;
-
-import com.itechart.models.factory.AccountFactory;
-import com.itechart.models.factory.ContactFactory;
-import com.itechart.models.factory.LeadFactory;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.account.AccountDetailsPage;
@@ -38,9 +34,6 @@ public abstract class BaseTest {
     protected AccountListViewPage accountListViewPage;
     protected AccountModalPage accountModalPage;
     protected AccountDetailsPage accountDetailsPage;
-    protected AccountFactory accountFactory = new AccountFactory();
-    protected ContactFactory contactFactory = new ContactFactory();
-    protected LeadFactory leadFactory = new LeadFactory();
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final String USERNAME = propertyReader.getPropertyValueByKey("username");
     protected final String PASSWORD = propertyReader.getPropertyValueByKey("password");
