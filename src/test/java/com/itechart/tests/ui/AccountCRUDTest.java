@@ -1,14 +1,10 @@
 package com.itechart.tests.ui;
 
-import com.itechart.models.Account;
 import com.itechart.configurations.Retry;
+import com.itechart.models.Account;
 import com.itechart.pages.account.AccountDetailsPage;
-import groovy.util.slurpersupport.Attribute;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AccountCRUDTest extends BaseTest {
@@ -18,7 +14,6 @@ public class AccountCRUDTest extends BaseTest {
 
     Account account = AccountDetailsPage.createNewAccount();
     Account updatedAccount = AccountDetailsPage.createNewAccount();
-    // Создал метод создания нового аккаунта и updated аккаунта в AccountDetailPage, который создает в тестах новый акк, и он передается в тесты
 
     @Test(description = "Create Read Update Delete Account record")
     public void createNewAccountRecord() {
@@ -44,44 +39,72 @@ public class AccountCRUDTest extends BaseTest {
                 .validate(account);
     }
 
-    @Test(description = "Create Read Update Delete Account record")
-        public void create1NewAccountRecord() {
-            Account account = accountFactory.createNewAccount(true);
-            Account updatedAccount = accountFactory.createNewAccount(true);
-            loginSteps.login(USERNAME, PASSWORD);
-            accountSteps
-                    .openAccountListViewPage()
-                    .create(account)
-                    .validate(account);
-        }
-
-    //TODO fix
-/*                .edit(updatedAccount)
-                .validate(updatedAccount) */
-
     @Test(retryAnalyzer = Retry.class, description = "Edit new account created")
     public void editNewAccountRecord() {
-        Account account = accountFactory.createNewAccount(true);
-        Account updatedAccount = accountFactory.createNewAccount(true);
-        loginSteps.login(USERNAME, PASSWORD);
-        accountSteps
-                .openAccountListViewPage()
-                .create(account)
+
+        loginPage.open();
+        loginPage.login(username, password);
+        homePage.isPageOpened();
+        accountListViewPage.open();
+        accountListViewPage
+                .clickNewButton()
+                .enterData(account)
+                .clickSaveButton()
+                .isPageOpened();
+//        boolean isAccountCreated =
+//                accountListViewPage
+//                        .clickNewButton()
+//                        .enterData(account)
+//                        .clickSaveButton()
+//                        .isPageOpened();
+//        Assert.assertTrue(isAccountCreated, "Account is not created");
+        accountDetailsPage
+                .openDetails()
                 .validate(account)
-                .edit(account)
-                .validate(account);
+                .clickIconDropdownMenu()
+                .clickEditDetailsButton()
+                .clearData()
+                .enterData(updatedAccount)
+                .clickSaveButton();
+        accountDetailsPage.openDetails();
+        accountDetailsPage.validate(updatedAccount);
     }
 
     @Test(retryAnalyzer = Retry.class, description = "Delete new account created")
     public void deleteNewAccountRecord() {
-        Account account = accountFactory.createNewAccount(true);
-        Account updatedAccount = accountFactory.createNewAccount(true);
-        loginSteps.login(USERNAME, PASSWORD);
-        accountSteps
-                .openAccountListViewPage()
-                .create(account)
-                .validate(account)
-                .delete();
+
+        loginPage.open();
+        loginPage.login(username, password);
+        homePage.isPageOpened();
+        accountListViewPage.open();
+        accountListViewPage
+                .clickNewButton()
+                .enterData(account)
+                .clickSaveButton()
+                .isPageOpened();
+//        boolean isAccountCreated =
+//                accountListViewPage
+//                        .clickNewButton()
+//                        .enterData(account)
+//                        .clickSaveButton()
+//                        .isPageOpened();
+//        Assert.assertTrue(isAccountCreated, "Account is not created");
+        accountDetailsPage
+                .openDetails()
+                .validate(account);
+
+        accountDetailsPage
+                .clickIconDropdownMenu()
+                .clickDeleteButton()
+                .delete()
+                .isSuccessDeleteMessageDisplayed();
+//        boolean isRecordDeleted =
+//                accountDetailsPage
+//                        .clickIconDropdownMenu()
+//                        .clickDeleteButton()
+//                        .delete()
+//                        .isSuccessDeleteMessageDisplayed();
+        //    Assert.assertTrue(isRecordDeleted, "Record deletion failed");
     }
 
     public void clickJS(By locator) {
