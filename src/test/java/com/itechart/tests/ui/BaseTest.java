@@ -1,10 +1,9 @@
 package com.itechart.tests.ui;
-
-import com.itechart.models.factory.AccountFactory;
-import com.itechart.models.factory.ContactFactory;
-import com.itechart.models.factory.LeadFactory;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
+import com.itechart.pages.account.AccountDetailsPage;
+import com.itechart.pages.account.AccountListViewPage;
+import com.itechart.pages.account.AccountModalPage;
 import com.itechart.steps.AccountSteps;
 import com.itechart.steps.ContactSteps;
 import com.itechart.steps.LeadSteps;
@@ -27,14 +26,12 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseTest {
     protected WebDriver driver;
     protected LoginSteps loginSteps;
-    protected AccountSteps accountSteps;
-    protected ContactSteps contactSteps;
     protected LeadSteps leadSteps;
     protected LoginPage loginPage;
     protected HomePage homePage;
-    protected AccountFactory accountFactory = new AccountFactory();
-    protected ContactFactory contactFactory = new ContactFactory();
-    protected LeadFactory leadFactory = new LeadFactory();
+    protected AccountListViewPage accountListViewPage;
+    protected AccountModalPage accountModalPage;
+    protected AccountDetailsPage accountDetailsPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final String USERNAME = propertyReader.getPropertyValueByKey("username");
     protected final String PASSWORD = propertyReader.getPropertyValueByKey("password");
@@ -52,9 +49,11 @@ public abstract class BaseTest {
         driver.manage().window().maximize();
         iTestContext.setAttribute("driver", driver);
         loginPage = new LoginPage(driver);
+        homePage = new HomePage(driver);
+        accountDetailsPage = new AccountDetailsPage(driver);
+        accountListViewPage = new AccountListViewPage(driver);
+        accountModalPage = new AccountModalPage(driver);
         loginSteps = new LoginSteps(driver);
-        accountSteps = new AccountSteps(driver);
-        contactSteps = new ContactSteps(driver);
         leadSteps = new LeadSteps(driver);
     }
 
@@ -68,3 +67,8 @@ public abstract class BaseTest {
             driver.quit();
     }
 }
+
+/*
+названия брачный по примеру: feature/ITA-1-removal-of-steps
+названия комитов по примеру: ITA-1 removed utils
+ */

@@ -1,53 +1,155 @@
 package com.itechart.tests.ui;
 
+import com.github.javafaker.Faker;
 import com.itechart.models.Account;
-import com.itechart.configurations.Retry;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class AccountCRUDTest extends BaseTest {
 
+    Faker faker = new Faker();
+
     @Test(description = "Create Read Update Delete Account record")
     public void createNewAccountRecord() {
-        Account account = accountFactory.createNewAccount(true);
-        Account updatedAccount = accountFactory.createNewAccount(true);
-        loginSteps.login(USERNAME, PASSWORD);
-        accountSteps
-                .openAccountListViewPage()
-                .create(account)
+        Account account = new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
+
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        accountListViewPage.open();
+        accountListViewPage
+                .clickNewButton()
+                .enterData(account)
+                .clickSaveButton()
+                .isPageOpened();
+        accountDetailsPage
+                .openDetails()
                 .validate(account);
     }
 
-    //TODO fix
-/*                .edit(updatedAccount)
-                .validate(updatedAccount) */
-
-    @Test(retryAnalyzer = Retry.class, description = "Edit new account created")
+    @Test(description = "Edit new account created")
     public void editNewAccountRecord() {
-        Account account = accountFactory.createNewAccount(true);
-        Account updatedAccount = accountFactory.createNewAccount(true);
-        loginSteps.login(USERNAME, PASSWORD);
-        accountSteps
-                .openAccountListViewPage()
-                .create(account)
+
+        Account account = new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
+
+        Account updatedAccount = new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
+
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        accountListViewPage.open();
+        accountListViewPage
+                .clickNewButton()
+                .enterData(account)
+                .clickSaveButton()
+                .isPageOpened();
+        accountDetailsPage
+                .openDetails()
                 .validate(account)
-                .edit(account)
-                .validate(account);
+                .clickIconDropdownMenu()
+                .clickEditDetailsButton()
+                .clearData()
+                .enterData(updatedAccount)
+                .clickSaveButton();
+        accountDetailsPage.openDetails();
+        accountDetailsPage.validate(updatedAccount);
     }
 
-    @Test(retryAnalyzer = Retry.class, description = "Delete new account created")
+    @Test(description = "Delete new account created")
     public void deleteNewAccountRecord() {
-        Account account = accountFactory.createNewAccount(true);
-        Account updatedAccount = accountFactory.createNewAccount(true);
-        loginSteps.login(USERNAME, PASSWORD);
-        accountSteps
-                .openAccountListViewPage()
-                .create(account)
-                .validate(account)
-                .delete();
+
+        Account account = new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
+
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        accountListViewPage.open();
+        accountListViewPage
+                .clickNewButton()
+                .enterData(account)
+                .clickSaveButton()
+                .isPageOpened();
+        accountDetailsPage
+                .openDetails()
+                .validate(account);
+        accountDetailsPage
+                .clickIconDropdownMenu()
+                .clickDeleteButton()
+                .delete()
+                .isSuccessDeleteMessageDisplayed();
     }
 
     public void clickJS(By locator) {

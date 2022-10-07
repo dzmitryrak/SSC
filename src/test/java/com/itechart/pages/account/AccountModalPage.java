@@ -81,6 +81,7 @@ public class AccountModalPage extends BasePage {
     @Step("Click on Save button")
     public AccountDetailsPage clickSaveButton() {
         driver.findElement(SAVE_BUTTON_LOCATOR).click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(SAVE_BUTTON_LOCATOR));
         return new AccountDetailsPage(driver);
     }
 
