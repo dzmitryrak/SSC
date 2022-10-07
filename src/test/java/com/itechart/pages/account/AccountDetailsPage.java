@@ -1,6 +1,5 @@
 package com.itechart.pages.account;
 
-import com.github.javafaker.Faker;
 import com.itechart.models.Account;
 import com.itechart.pages.BasePage;
 import io.qameta.allure.Step;
@@ -8,9 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Log4j2
 public class AccountDetailsPage extends BasePage {
@@ -99,29 +96,4 @@ public class AccountDetailsPage extends BasePage {
         driver.findElement(DELETE_MODAL_BUTTON).click();
         return new AccountListViewPage(driver);
     }
-
-    public static Account createNewAccount() {
-
-        Faker faker = new Faker();
-        return new Account(
-                faker.name().name(),
-                "Prospect",
-                faker.internet().url(),
-                "Apparel",
-                faker.phoneNumber().phoneNumber(),
-                faker.lorem().sentence(),
-                faker.number().digit(),
-                faker.address().streetAddress(),
-                faker.address().city(),
-                faker.address().zipCode(),
-                faker.address().state(),
-                faker.address().country(),
-                faker.address().streetAddress(),
-                faker.address().city(),
-                faker.address().zipCode(),
-                faker.address().state(),
-                faker.address().country(),
-                "Dmitry Rak");
-    }
-
 }

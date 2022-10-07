@@ -1,19 +1,36 @@
 package com.itechart.tests.ui;
 
-import com.itechart.configurations.Retry;
+import com.github.javafaker.Faker;
 import com.itechart.models.Account;
-import com.itechart.pages.account.AccountDetailsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
 
 public class AccountCRUDTest extends BaseTest {
 
-    Account account = AccountDetailsPage.createNewAccount();
-    Account updatedAccount = AccountDetailsPage.createNewAccount();
+    Faker faker = new Faker();
 
     @Test(description = "Create Read Update Delete Account record")
     public void createNewAccountRecord() {
+        Account account = new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
@@ -31,6 +48,46 @@ public class AccountCRUDTest extends BaseTest {
 
     @Test(description = "Edit new account created")
     public void editNewAccountRecord() {
+
+        Account account = new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
+
+        Account updatedAccount = new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
@@ -55,6 +112,26 @@ public class AccountCRUDTest extends BaseTest {
 
     @Test(description = "Delete new account created")
     public void deleteNewAccountRecord() {
+
+        Account account = new Account(
+                faker.name().name(),
+                "Prospect",
+                faker.internet().url(),
+                "Apparel",
+                faker.phoneNumber().phoneNumber(),
+                faker.lorem().sentence(),
+                faker.number().digit(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                faker.address().streetAddress(),
+                faker.address().city(),
+                faker.address().zipCode(),
+                faker.address().state(),
+                faker.address().country(),
+                "Dmitry Rak");
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
