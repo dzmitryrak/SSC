@@ -53,7 +53,7 @@ public class AccountCRUDTest extends BaseTest {
         accountDetailsPage.validate(updatedAccount);
     }
 
-    @Test(retryAnalyzer = Retry.class, description = "Delete new account created")
+    @Test(description = "Delete new account created")
     public void deleteNewAccountRecord() {
 
         loginPage.open();
