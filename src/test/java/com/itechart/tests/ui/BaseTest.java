@@ -71,3 +71,8 @@ public abstract class BaseTest {
             driver.quit();
     }
 }
+
+/*
+названия брачный по примеру: feature/ITA-1-removal-of-steps
+названия комитов по примеру: ITA-1 removed utils
+ */
