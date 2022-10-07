@@ -14,8 +14,7 @@ import org.openqa.selenium.WebDriver;
 public class LeadModalPage extends BasePage {
     private final By SAVE_BUTTON_LOCATOR = By.xpath("//*[@title='Save']");
 
-    public LeadModalPage(WebDriver driver) {
-        super(driver);
+    public LeadModalPage() {
     }
 
     @Step("Enter data into fields")
@@ -38,7 +37,7 @@ public class LeadModalPage extends BasePage {
         new TextArea(driver, "Street").write(lead.getStreet());
         new LightInput(driver, "City").write(lead.getCity());
         new LightInput(driver, "Country").write(lead.getCountry());
-        return new LeadModalPage(driver);
+        return new LeadModalPage();
     }
 
     @Step("Clear data from fields")
@@ -66,6 +65,6 @@ public class LeadModalPage extends BasePage {
     @Step("Click on Save button")
     public LeadDetailsPage clickSaveButton() {
         driver.findElement(SAVE_BUTTON_LOCATOR).click();
-        return new LeadDetailsPage(driver);
+        return new LeadDetailsPage();
     }
 }

@@ -15,7 +15,6 @@ public class AccountListViewPage extends BasePage {
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
 
     public AccountListViewPage(WebDriver driver) {
-        super(driver);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class AccountListViewPage extends BasePage {
         /*wait.until(ExpectedConditions.presenceOfElementLocated(NEW_BUTTON_LOCATOR));
         driver.findElement(NEW_BUTTON_LOCATOR).click();*/
         driver.get(baseUrl + "lightning/o/Account/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
-        return new AccountModalPage(driver);
+        return new AccountModalPage();
     }
 
     @Step("Check that Account was deleted successfully")

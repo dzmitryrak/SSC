@@ -23,7 +23,7 @@ public class AciertoTesst extends BaseTest {
         driver.findElement(By.cssSelector("[data-gtm=email]")).sendKeys("acierto1@mailinator.com");
         driver.findElement(By.cssSelector("[data-gtm=phone]")).sendKeys("911000222");
         clickJS(By.cssSelector("[data-gtm=continue]"));
-        new WebDriverWait(driver, 60).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".results-list")));
+        //new WebDriverWait(driver, 60).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".results-list")));
     }
 
     public void clickJS(By locator) {

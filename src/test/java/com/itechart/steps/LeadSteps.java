@@ -15,7 +15,7 @@ public class LeadSteps extends BaseTest {
     private final LeadDetailsPage leadDetailsPage;
 
     public LeadSteps(WebDriver driver) {
-        leadListViewPage = new LeadListViewPage(driver);
+        leadListViewPage = new LeadListViewPage();
         leadDetailsPage = new LeadDetailsPage(driver);
     }
 

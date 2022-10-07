@@ -52,7 +52,7 @@ public abstract class BaseTest {
         homePage = new HomePage(driver);
         accountDetailsPage = new AccountDetailsPage(driver);
         accountListViewPage = new AccountListViewPage(driver);
-        accountModalPage = new AccountModalPage(driver);
+        accountModalPage = new AccountModalPage();
         loginSteps = new LoginSteps(driver);
         leadSteps = new LeadSteps(driver);
     }

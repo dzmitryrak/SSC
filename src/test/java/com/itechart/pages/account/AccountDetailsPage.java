@@ -21,7 +21,6 @@ public class AccountDetailsPage extends BasePage {
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
 
     public AccountDetailsPage(WebDriver driver) {
-        super(driver);
     }
 
     @Step("Check that Account Details page was opened")
@@ -41,7 +40,7 @@ public class AccountDetailsPage extends BasePage {
     @Step("Click Edit button")
     public AccountModalPage clickEditDetailsButton() {
         driver.findElement(EDIT_DETAILS_BUTTON_LOCATOR).click();
-        return new AccountModalPage(driver);
+        return new AccountModalPage();
     }
 
     @Step("Validation of entered data")

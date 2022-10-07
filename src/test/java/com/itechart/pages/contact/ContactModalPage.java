@@ -16,7 +16,6 @@ public class ContactModalPage extends BasePage {
     private static final By SAVE_BUTTON_LOCATOR = By.xpath("//button[@name='SaveEdit']");
 
     public ContactModalPage(WebDriver driver) {
-        super(driver);
     }
 
     @Step("Enter data into fields")

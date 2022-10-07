@@ -17,10 +17,6 @@ public class AccountModalPage extends BasePage {
     private final By EMPTY_REQUIRED_FIELD_LOCATOR = By.xpath("//li[contains(text(),'These required fields must be completed')]");
     private final By MODAL_HEADER_LOCATOR = By.xpath("//div[@class='slds-modal__header']");
 
-    public AccountModalPage(WebDriver driver) {
-        super(driver);
-    }
-
     @Override
     public boolean isPageOpened() {
         try {

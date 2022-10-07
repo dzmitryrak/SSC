@@ -14,8 +14,7 @@ public class LeadListViewPage extends BasePage {
     private final By NEW_BUTTON_LOCATOR = By.xpath("(//div[@title ='New']) [1]");
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
 
-    public LeadListViewPage(WebDriver driver) {
-        super(driver);
+    public LeadListViewPage() {
     }
 
     @Step("Open List View for Lead")
@@ -34,7 +33,7 @@ public class LeadListViewPage extends BasePage {
     public LeadModalPage clickNewButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(NEW_BUTTON_LOCATOR));
         driver.findElement(NEW_BUTTON_LOCATOR).click();
-        return new LeadModalPage(driver);
+        return new LeadModalPage();
     }
 
     @Step("Check that Lead was deleted successfully")

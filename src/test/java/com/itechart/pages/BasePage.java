@@ -21,9 +21,7 @@ public abstract class BasePage {
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final By USERPROFILE_BUTTON_LOCATOR = By.xpath("//*[contains(@class, 'slds-global-actions__item')]//ancestor::button[contains(@class, 'branding-userProfile-button')]");
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, 10);
+    public BasePage() {
         baseUrl = propertyReader.getPropertyValueByKey("base.url");
     }
 
