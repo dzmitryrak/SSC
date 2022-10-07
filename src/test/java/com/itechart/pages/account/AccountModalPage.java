@@ -7,6 +7,9 @@ import lombok.extern.log4j.Log4j2;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+
+import java.util.Map;
 
 @Log4j2
 public class AccountModalPage extends BasePage {
@@ -24,35 +27,49 @@ public class AccountModalPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         try {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(MODAL_HEADER_LOCATOR));
-            return false;
+            wait.until(ExpectedConditions.visibilityOfElementLocated(MODAL_HEADER_LOCATOR));
+            return true;
         } catch (TimeoutException | NoSuchElementException e) {
             log.warn("Account Modal is not open");
             log.warn(e.getLocalizedMessage());
-            return true;
+            Assert.fail();
+            return false;
         }
+    }
+
+    public AccountModalPage enterData(Map<String, String> data) {
+        log.info("Entering Account Data: {}", data);
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String fieldLabel = entry.getKey();
+            String value = entry.getValue();
+            sfHelper.fill(driver, fieldLabel, value);
+        }
+        return this;
     }
 
     @Step("Enter data into fields")
     public AccountModalPage enterData(Account account) {
         log.info("Entering Account Data: {}", account);
-        new LightInput(driver, "Account Name").write(account.getName());
-        new LightDropDown(driver, "Type").selectOption(account.getType());
-        new LightInput(driver, "Website").write(account.getWebsite());
-        new TextArea(driver, "Description").write(account.getDescription());
-        new LightInput(driver, "Phone").write(account.getPhone());
-        new LightDropDown(driver, "Industry").selectOption(account.getIndustry());
-        new LightInput(driver, "Employees").write(account.getNumberOfEmployees());
-        new TextArea(driver, "Billing Street").write(account.getBillingStreet());
-        new LightInput(driver, "Billing City").write(account.getBillingCity());
-        new LightInput(driver, "Billing State/Province").write(account.getBillingState());
-        new LightInput(driver, "Billing Zip/Postal Code").write(account.getBillingPostalCode());
-        new LightInput(driver, "Billing Country").write(account.getBillingCountry());
-        new TextArea(driver, "Shipping Street").write(account.getShippingStreet());
-        new LightInput(driver, "Shipping City").write(account.getShippingCity());
-        new LightInput(driver, "Shipping State/Province").write(account.getShippingState());
-        new LightInput(driver, "Shipping Zip/Postal Code").write(account.getShippingPostalCode());
-        new LightInput(driver, "Shipping Country").write(account.getShippingCountry());
+        sfHelper.fill(driver, "Account Name", account.getName());
+        sfHelper.fill(driver, "Type", account.getType());
+        sfHelper.fill(driver, "Description", account.getDescription());
+        //new LightInput(driver, "Account Name").write(account.getName());
+        //new LightDropDown(driver, "Type").selectOption(account.getType());
+        sfHelper.fill(driver, "Website", account.getWebsite());
+        //new TextArea(driver, "Description").write(account.getDescription());
+        sfHelper.fill(driver, "Phone", account.getPhone());
+        sfHelper.fill(driver, "Industry", account.getIndustry());
+        sfHelper.fill(driver, "Employees", account.getNumberOfEmployees());
+        sfHelper.fill(driver, "Billing Street", account.getBillingStreet());
+        sfHelper.fill(driver, "Billing City", account.getBillingCity());
+        sfHelper.fill(driver, "Billing State/Province", account.getBillingState());
+        sfHelper.fill(driver, "Billing Zip/Postal Code", account.getBillingPostalCode());
+        sfHelper.fill(driver, "Billing Country", account.getBillingCountry());
+        sfHelper.fill(driver, "Shipping Street", account.getShippingStreet());
+        sfHelper.fill(driver, "Shipping City", account.getShippingCity());
+        sfHelper.fill(driver, "Shipping State/Province", account.getShippingState());
+        sfHelper.fill(driver, "Shipping Zip/Postal Code", account.getShippingPostalCode());
+        sfHelper.fill(driver, "Shipping Country", account.getShippingCountry());
         return this;
     }
 

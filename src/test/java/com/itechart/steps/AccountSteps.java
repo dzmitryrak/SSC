@@ -9,6 +9,8 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import java.util.Map;
+
 @Log4j2
 public class AccountSteps extends BaseTest {
     private final AccountListViewPage accountListViewPage;
@@ -17,6 +19,19 @@ public class AccountSteps extends BaseTest {
     public AccountSteps(WebDriver driver) {
         accountListViewPage = new AccountListViewPage(driver);
         accountDetailsPage = new AccountDetailsPage(driver);
+    }
+
+    @Step("Creating Account")
+    public AccountSteps create(Map<String, String> account) {
+        log.info("Creating Account: {}", account);
+        boolean isAccountCreated =
+                accountListViewPage
+                        .clickNewButton()
+                        .enterData(account)
+                        .clickSaveButton()
+                        .isPageOpened();
+        Assert.assertTrue(isAccountCreated, "Account is not created");
+        return this;
     }
 
     @Step("Creating Account: {account.accountName}")
