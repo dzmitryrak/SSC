@@ -51,11 +51,11 @@ public class LoginPage extends BasePage {
 
     @Step("Get error message")
     public String getErrorMessage() {
-        return driver.findElement(ERROR_MESSAGE_LOCATOR).getText();
+        return $(ERROR_MESSAGE_LOCATOR).getText();
     }
 
     @Step("Check the displaying of Username")
     public boolean isUsernameDisplayed() {
-        return driver.findElement(USERNAME_LABEL_LOCATOR).isDisplayed();
+        return $(USERNAME_LABEL_LOCATOR).isDisplayed();
     }
 }

@@ -51,6 +51,6 @@ public abstract class BasePage {
     }
 
     public void clickJS(By locator) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", $(locator));
     }
 }
