@@ -9,9 +9,6 @@ import org.testng.annotations.Test;
 
 public class AccountCRUDTest extends BaseTest {
 
-    private final String username = propertyReader.getPropertyValueByKey("username");
-    private final String password = propertyReader.getPropertyValueByKey("password");
-
     Account account = AccountDetailsPage.createNewAccount();
     Account updatedAccount = AccountDetailsPage.createNewAccount();
 
@@ -19,7 +16,7 @@ public class AccountCRUDTest extends BaseTest {
     public void createNewAccountRecord() {
 
         loginPage.open();
-        loginPage.login(username, password);
+        loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         accountListViewPage.open();
         accountListViewPage
@@ -36,7 +33,7 @@ public class AccountCRUDTest extends BaseTest {
     public void editNewAccountRecord() {
 
         loginPage.open();
-        loginPage.login(username, password);
+        loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         accountListViewPage.open();
         accountListViewPage
@@ -60,7 +57,7 @@ public class AccountCRUDTest extends BaseTest {
     public void deleteNewAccountRecord() {
 
         loginPage.open();
-        loginPage.login(username, password);
+        loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         accountListViewPage.open();
         accountListViewPage
