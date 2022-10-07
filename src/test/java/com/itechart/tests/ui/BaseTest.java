@@ -26,8 +26,6 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseTest {
     protected WebDriver driver;
     protected LoginSteps loginSteps;
-    protected AccountSteps accountSteps;
-    protected ContactSteps contactSteps;
     protected LeadSteps leadSteps;
     protected LoginPage loginPage;
     protected HomePage homePage;
@@ -56,8 +54,6 @@ public abstract class BaseTest {
         accountListViewPage = new AccountListViewPage(driver);
         accountModalPage = new AccountModalPage(driver);
         loginSteps = new LoginSteps(driver);
-        accountSteps = new AccountSteps(driver);
-        contactSteps = new ContactSteps(driver);
         leadSteps = new LeadSteps(driver);
     }
 
