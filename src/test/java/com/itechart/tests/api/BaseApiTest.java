@@ -1,8 +1,5 @@
 package com.itechart.tests.api;
 
-import com.itechart.models.factory.AccountFactory;
-import com.itechart.models.factory.ContactFactory;
-import com.itechart.models.factory.LeadFactory;
 import com.itechart.adapters.AccountAdapter;
 import com.itechart.adapters.ContactAdapter;
 import com.itechart.adapters.LeadAdapter;
@@ -18,7 +15,4 @@ public class BaseApiTest {
     protected AccountAdapter accountAdapter = new AccountAdapter();
     protected ContactAdapter contactAdapter = new ContactAdapter();
     protected LeadAdapter leadAdapter = new LeadAdapter();
-    protected AccountFactory accountFactory = new AccountFactory();
-    protected ContactFactory contactFactory = new ContactFactory();
-    protected LeadFactory leadFactory = new LeadFactory();
 }

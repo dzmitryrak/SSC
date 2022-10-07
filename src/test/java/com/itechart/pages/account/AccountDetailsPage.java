@@ -50,6 +50,7 @@ public class AccountDetailsPage extends BasePage {
     @Step("Validation of entered data")
     public AccountDetailsPage validate(Account account) {
         log.info("Validating Account Data: {}", account);
+        waitForPageLoaded();
         validateInput("Account Name", account.getName());
         validateInput("Type", account.getType());
         validateInput("Description", account.getDescription());
@@ -72,7 +73,6 @@ public class AccountDetailsPage extends BasePage {
         }
         return this;
     }
-
 
     @Step("Click on Delete button")
     public AccountDetailsPage clickDeleteButton() {

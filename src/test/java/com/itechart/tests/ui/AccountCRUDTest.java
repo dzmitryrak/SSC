@@ -27,19 +27,12 @@ public class AccountCRUDTest extends BaseTest {
                 .enterData(account)
                 .clickSaveButton()
                 .isPageOpened();
-//        boolean isAccountCreated =
-//                accountListViewPage
-//                        .clickNewButton()
-//                        .enterData(account)
-//                        .clickSaveButton()
-//                        .isPageOpened();
-//        Assert.assertTrue(isAccountCreated, "Account is not created");
         accountDetailsPage
                 .openDetails()
                 .validate(account);
     }
 
-    @Test(retryAnalyzer = Retry.class, description = "Edit new account created")
+    @Test(description = "Edit new account created")
     public void editNewAccountRecord() {
 
         loginPage.open();
@@ -51,13 +44,6 @@ public class AccountCRUDTest extends BaseTest {
                 .enterData(account)
                 .clickSaveButton()
                 .isPageOpened();
-//        boolean isAccountCreated =
-//                accountListViewPage
-//                        .clickNewButton()
-//                        .enterData(account)
-//                        .clickSaveButton()
-//                        .isPageOpened();
-//        Assert.assertTrue(isAccountCreated, "Account is not created");
         accountDetailsPage
                 .openDetails()
                 .validate(account)
@@ -82,29 +68,14 @@ public class AccountCRUDTest extends BaseTest {
                 .enterData(account)
                 .clickSaveButton()
                 .isPageOpened();
-//        boolean isAccountCreated =
-//                accountListViewPage
-//                        .clickNewButton()
-//                        .enterData(account)
-//                        .clickSaveButton()
-//                        .isPageOpened();
-//        Assert.assertTrue(isAccountCreated, "Account is not created");
         accountDetailsPage
                 .openDetails()
                 .validate(account);
-
         accountDetailsPage
                 .clickIconDropdownMenu()
                 .clickDeleteButton()
                 .delete()
                 .isSuccessDeleteMessageDisplayed();
-//        boolean isRecordDeleted =
-//                accountDetailsPage
-//                        .clickIconDropdownMenu()
-//                        .clickDeleteButton()
-//                        .delete()
-//                        .isSuccessDeleteMessageDisplayed();
-        //    Assert.assertTrue(isRecordDeleted, "Record deletion failed");
     }
 
     public void clickJS(By locator) {
