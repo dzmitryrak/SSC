@@ -1,11 +1,11 @@
 package com.itechart.tests.ui;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.account.AccountListViewPage;
 import com.itechart.pages.account.AccountModalPage;
-import com.itechart.steps.AccountSteps;
-import com.itechart.steps.ContactSteps;
 import com.itechart.steps.LeadSteps;
 import com.itechart.steps.LoginSteps;
 import com.itechart.configurations.TestListener;

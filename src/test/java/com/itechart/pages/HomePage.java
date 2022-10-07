@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static com.codeborne.selenide.Selenide.$;
+
 @Log4j2
 public class HomePage extends BasePage {
     private final By LOGO_LOCATOR = By.xpath("//*[contains(@class, 'slds-page-header')]//ancestor::lightning-primitive-icon/*[@data-key='home']");
@@ -22,7 +24,7 @@ public class HomePage extends BasePage {
     public boolean isPageOpened() {
         wait.until(ExpectedConditions.presenceOfElementLocated(LOGO_LOCATOR));
         waitForPageLoaded();
-        return driver.findElement(LOGO_LOCATOR).isDisplayed();
+        return $(LOGO_LOCATOR).isDisplayed();
     }
 }
 

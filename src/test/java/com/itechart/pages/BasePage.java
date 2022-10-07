@@ -1,6 +1,8 @@
 package com.itechart.pages;
 
 import com.itechart.utils.PropertyReader;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -27,13 +29,13 @@ public abstract class BasePage {
 
     public boolean isPageOpened() {
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(USERPROFILE_BUTTON_LOCATOR));
-        return driver.findElement(USERPROFILE_BUTTON_LOCATOR).isDisplayed();
+        return $(USERPROFILE_BUTTON_LOCATOR).isDisplayed();
     }
 
     public void validateInput(String label, String expectedInput) {
         String locator = "//div[contains(@class, 'active')]//span[text()='%s']/ancestor::records-record-layout-item//" +
         "*[@data-output-element-id='output-field']";
-        WebElement input = driver.findElement(By.xpath(String.format(locator, label)));
+        WebElement input = $(By.xpath(String.format(locator, label)));
         String actualInput = input.getText();
         log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
         Assert.assertTrue(input.getText().contains(expectedInput),
