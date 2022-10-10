@@ -21,7 +21,6 @@ public class ContactDetailsPage extends BasePage {
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
 
     public ContactDetailsPage(WebDriver driver) {
-        super(driver);
     }
 
     @Step("Click Edit button")

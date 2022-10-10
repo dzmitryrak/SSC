@@ -44,16 +44,16 @@ public abstract class BaseTest {
         //options.addArguments("--start-maximized");
         options.addArguments("--disable-notifications");
         //options.addArguments("--headless");
-        driver = new ChromeDriver(options);
+       driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         iTestContext.setAttribute("driver", driver);
-        loginPage = new LoginPage(driver);
-        homePage = new HomePage(driver);
+        loginPage = new LoginPage();
+        homePage = new HomePage();
         accountDetailsPage = new AccountDetailsPage(driver);
         accountListViewPage = new AccountListViewPage(driver);
         accountModalPage = new AccountModalPage();
-        loginSteps = new LoginSteps(driver);
+        loginSteps = new LoginSteps();
         leadSteps = new LeadSteps(driver);
     }
 

@@ -22,8 +22,7 @@ public class LoginPage extends BasePage {
     private static final By USERNAME_LABEL_LOCATOR = By.cssSelector(".usernamelabel");
 
 
-    public LoginPage(WebDriver driver) {
-        super(driver);
+    public LoginPage() {
     }
 
     @Step("Check that page was opened")
@@ -46,7 +45,7 @@ public class LoginPage extends BasePage {
         $(USERNAME_LOCATOR).setValue(username);
         $(PASSWORD_LOCATOR).setValue(password);
         $(LOGIN_BUTTON_LOCATOR).click();
-        return new HomePage(driver);
+        return new HomePage();
     }
 
     @Step("Get error message")

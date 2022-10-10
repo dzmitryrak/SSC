@@ -14,7 +14,6 @@ public class ContactListViewPage extends BasePage {
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
 
     public ContactListViewPage(WebDriver driver) {
-        super(driver);
     }
 
     @Step("Open List View for Contact")

@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static com.codeborne.selenide.Selenide.$;
+
 @Log4j2
 public class LightLookup {
     WebDriver driver;
@@ -16,28 +18,27 @@ public class LightLookup {
     String lookupOption = "(//records-lwc-detail-panel//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item) [1]";
     String DELETE_ACTION_LOCATOR = "//records-lwc-detail-panel//*[text()='%s']/ancestor::*[@class='slds-form-element']//lightning-primitive-icon[@lightning-basecombobox_basecombobox]";
 
-    public LightLookup(WebDriver driver, String label) {
-        this.driver = driver;
+    public LightLookup(String label) {
         this.label = label;
     }
 
     public void selectOption(String option) {
         log.debug("Selecting option '{}' from {} lookup", option, label);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
-        WebElement element = driver.findElement(By.xpath(String.format(inputLocator, label)));
+        WebElement element = $(By.xpath(String.format(inputLocator, label)));
         executor.executeScript("arguments[0].click();", element);
-        WebElement element3 = new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(lookupOption, option))));
-        WebElement element1 = driver.findElement(By.xpath(String.format(lookupOption, option)));
+//        WebElement element3 = new WebDriverWait(driver, 5)
+//                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(lookupOption, option))));
+        WebElement element1 = $(By.xpath(String.format(lookupOption, option)));
         executor.executeScript("arguments[0].click();", element1);
     }
 
     public void clear() {
         log.debug("Deleting lookup {}", label);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
-        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions.
-                elementToBeClickable(By.xpath(String.format(DELETE_ACTION_LOCATOR, label))));
-        WebElement element1 = driver.findElement(By.xpath(String.format(DELETE_ACTION_LOCATOR, label)));
+//        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions.
+//                elementToBeClickable(By.xpath(String.format(DELETE_ACTION_LOCATOR, label))));
+        WebElement element1 = $(By.xpath(String.format(DELETE_ACTION_LOCATOR, label)));
         executor.executeScript("arguments[0].click();", element1);
     }
 }

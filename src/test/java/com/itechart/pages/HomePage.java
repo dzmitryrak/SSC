@@ -11,8 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class HomePage extends BasePage {
     private final By LOGO_LOCATOR = By.xpath("//*[contains(@class, 'slds-page-header')]//ancestor::lightning-primitive-icon/*[@data-key='home']");
 
-    public HomePage(WebDriver driver) {
-        super(driver);
+    public HomePage() {
     }
 
     public HomePage open() {
@@ -22,8 +21,8 @@ public class HomePage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(LOGO_LOCATOR));
-        waitForPageLoaded();
+//        wait.until(ExpectedConditions.presenceOfElementLocated(LOGO_LOCATOR));
+//        waitForPageLoaded();
         return $(LOGO_LOCATOR).isDisplayed();
     }
 }

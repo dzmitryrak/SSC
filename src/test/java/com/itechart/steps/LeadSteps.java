@@ -16,7 +16,7 @@ public class LeadSteps extends BaseTest {
 
     public LeadSteps(WebDriver driver) {
         leadListViewPage = new LeadListViewPage();
-        leadDetailsPage = new LeadDetailsPage(driver);
+        leadDetailsPage = new LeadDetailsPage();
     }
 
     @Step("Creating Lead: {lead.firstName} {lead.lastName}")
