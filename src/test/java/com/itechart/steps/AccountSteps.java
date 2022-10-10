@@ -9,6 +9,8 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import static com.codeborne.selenide.Configuration.baseUrl;
+
 @Log4j2
 public class AccountSteps extends BaseTest {
     private final AccountListViewPage accountListViewPage;
@@ -47,7 +49,7 @@ public class AccountSteps extends BaseTest {
     @Step("Opening Account List View Page")
     public AccountSteps openAccountListViewPage() {
         log.info("Opening Account List View Page");
-        accountListViewPage.open();
+ //       accountListViewPage.openUrl(baseUrl + "lightning/o/Account/list");
         return this;
     }
 

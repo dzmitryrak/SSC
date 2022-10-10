@@ -23,7 +23,7 @@ public class AccountModalPage extends BasePage {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(MODAL_HEADER_LOCATOR));
             return false;
         } catch (TimeoutException | NoSuchElementException e) {
-            log.warn("Account Modal is not open");
+            log.warn("Account Modal is not openUrl");
             log.warn(e.getLocalizedMessage());
             return true;
         }

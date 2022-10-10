@@ -8,6 +8,9 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+
 @Log4j2
 public class AccountListViewPage extends BasePage {
     private final By BREADCRUMB_LOCATOR = By.cssSelector(".slds-var-p-right_x-small");
@@ -19,13 +22,13 @@ public class AccountListViewPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(BREADCRUMB_LOCATOR));
-        return driver.findElement(BREADCRUMB_LOCATOR).getText().contains("Accounts");
+//        wait.until(ExpectedConditions.presenceOfElementLocated(BREADCRUMB_LOCATOR));
+        return $(BREADCRUMB_LOCATOR).getText().contains("Accounts");
     }
 
     @Step("Open List View for Account")
-    public AccountListViewPage open() {
-        driver.get(baseUrl + "lightning/o/Account/list");
+    public AccountListViewPage openUrl() {
+        open(baseUrl + "lightning/o/Account/list");
         return this;
     }
 
@@ -33,7 +36,7 @@ public class AccountListViewPage extends BasePage {
     public AccountModalPage clickNewButton() {
         /*wait.until(ExpectedConditions.presenceOfElementLocated(NEW_BUTTON_LOCATOR));
         driver.findElement(NEW_BUTTON_LOCATOR).click();*/
-        driver.get(baseUrl + "lightning/o/Account/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
+        open(baseUrl + "lightning/o/Account/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
         return new AccountModalPage();
     }
 
@@ -42,11 +45,11 @@ public class AccountListViewPage extends BasePage {
         boolean isSuccessMessageDisplayed;
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(SUCCESS_DELETE_MESSAGE));
-            isSuccessMessageDisplayed = driver.findElement(SUCCESS_DELETE_MESSAGE).isDisplayed();
+            isSuccessMessageDisplayed = $(SUCCESS_DELETE_MESSAGE).isDisplayed();
         } catch (StaleElementReferenceException e) {
             log.warn("Account record successfully deleted message is not found");
             log.warn(e.getLocalizedMessage());
-            isSuccessMessageDisplayed = driver.findElement(SUCCESS_DELETE_MESSAGE).isDisplayed();
+            isSuccessMessageDisplayed = $(SUCCESS_DELETE_MESSAGE).isDisplayed();
         }
         return isSuccessMessageDisplayed;
     }

@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
 
+import static com.codeborne.selenide.Configuration.baseUrl;
+
 public class AccountCRUDTest extends BaseTest {
 
     Faker faker = new Faker();
@@ -35,7 +37,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.open();
+        accountListViewPage.openUrl();
         accountListViewPage
                 .clickNewButton()
                 .enterData(account)
@@ -92,7 +94,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.open();
+        accountListViewPage.openUrl();
         accountListViewPage
                 .clickNewButton()
                 .enterData(account)
@@ -136,7 +138,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.open();
+        accountListViewPage.openUrl();
         accountListViewPage
                 .clickNewButton()
                 .enterData(account)

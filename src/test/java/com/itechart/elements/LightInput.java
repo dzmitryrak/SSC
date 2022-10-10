@@ -4,6 +4,8 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.codeborne.selenide.Selenide.$;
+
 @Log4j2
 public class LightInput {
     WebDriver driver;
@@ -17,11 +19,11 @@ public class LightInput {
 
     public void write(String text) {
         log.debug("Writing text '{}' into input with label {}", text, label);
-        driver.findElement(By.xpath(String.format(inputLocator, label))).sendKeys(text);
+        $(By.xpath(String.format(inputLocator, label))).sendKeys(text);
     }
 
     public void clear() {
         log.debug("Deleting text from input with label {}", label);
-        driver.findElement(By.xpath(String.format(inputLocator, label))).clear();
+        $(By.xpath(String.format(inputLocator, label))).clear();
     }
 }
