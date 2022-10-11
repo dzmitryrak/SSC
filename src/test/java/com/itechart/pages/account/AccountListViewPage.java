@@ -1,12 +1,13 @@
 package com.itechart.pages.account;
 
+import com.codeborne.selenide.Condition;
 import com.itechart.pages.BasePage;
-import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -43,7 +44,7 @@ public class AccountListViewPage extends BasePage {
     public boolean isSuccessDeleteMessageDisplayed() {
         boolean isSuccessMessageDisplayed;
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(SUCCESS_DELETE_MESSAGE));
+            $(SUCCESS_DELETE_MESSAGE).should(exist);
             isSuccessMessageDisplayed = $(SUCCESS_DELETE_MESSAGE).isDisplayed();
         } catch (StaleElementReferenceException e) {
             log.warn("Account record successfully deleted message is not found");

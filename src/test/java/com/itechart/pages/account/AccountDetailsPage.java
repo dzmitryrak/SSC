@@ -85,15 +85,15 @@ public class AccountDetailsPage extends BasePage {
     }
 
     public boolean isModalOpened() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(DELETE_MODAL_TITLE));
-        wait.until(ExpectedConditions.elementToBeClickable(DELETE_MODAL_BUTTON));
+        $(DELETE_MODAL_TITLE).should(exist);
+        $(DELETE_MODAL_BUTTON).should(exist);
         return $(DELETE_MODAL_TITLE).getText().contains("Delete");
     }
 
     @Step("Confirm deletion of an account")
     public AccountListViewPage delete() {
         if (!isModalOpened()) throw new RuntimeException("Delete modal is not opened");
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(SUCCESS_MESSAGE));
+        $(SUCCESS_MESSAGE).should(exist);
         $(DELETE_MODAL_BUTTON).click();
         return new AccountListViewPage();
     }

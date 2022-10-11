@@ -3,7 +3,6 @@ package com.itechart.pages;
 import com.codeborne.selenide.Selenide;
 import com.itechart.utils.PropertyReader;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Condition.*;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -51,6 +50,5 @@ public abstract class BasePage {
 
     public void clickJS(By locator) {
         Selenide.executeJavaScript("arguments[0].click();", $(locator));
-      //  ((JavascriptExecutor) driver).executeScript("arguments[0].click();", $(locator));
     }
 }
