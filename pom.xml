@@ -12,6 +12,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <selenium.version>3.141.59</selenium.version>
+        <selenide.version>6.8.1</selenide.version>
         <testng.version>7.4.0</testng.version>
         <webdrivermanager.version>4.4.3</webdrivermanager.version>
         <faker.version>1.0.2</faker.version>
@@ -28,11 +29,13 @@
     </properties>
 
     <dependencies>
+
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>

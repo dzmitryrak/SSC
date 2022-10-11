@@ -1,11 +1,13 @@
 package com.itechart.tests.ui;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
+
+import com.codeborne.selenide.Configuration;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.account.AccountListViewPage;
 import com.itechart.pages.account.AccountModalPage;
-import com.itechart.steps.AccountSteps;
-import com.itechart.steps.ContactSteps;
 import com.itechart.steps.LeadSteps;
 import com.itechart.steps.LoginSteps;
 import com.itechart.configurations.TestListener;
@@ -25,8 +27,6 @@ import java.util.concurrent.TimeUnit;
 @Listeners(TestListener.class)
 public abstract class BaseTest {
     protected WebDriver driver;
-    protected LoginSteps loginSteps;
-    protected LeadSteps leadSteps;
     protected LoginPage loginPage;
     protected HomePage homePage;
     protected AccountListViewPage accountListViewPage;
@@ -37,28 +37,15 @@ public abstract class BaseTest {
     protected final String PASSWORD = propertyReader.getPropertyValueByKey("password");
 
     @BeforeClass(description = "Open browser")
-    public void setUp(ITestContext iTestContext) {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        //TODO not working
-        //options.addArguments("--start-maximized");
-        options.addArguments("--disable-notifications");
-        //options.addArguments("--headless");
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        iTestContext.setAttribute("driver", driver);
-        loginPage = new LoginPage(driver);
-        homePage = new HomePage(driver);
-        accountDetailsPage = new AccountDetailsPage(driver);
-        accountListViewPage = new AccountListViewPage(driver);
-        accountModalPage = new AccountModalPage(driver);
-        loginSteps = new LoginSteps(driver);
-        leadSteps = new LeadSteps(driver);
-    }
+    public void setUp() {
+        Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
+        Configuration.timeout = 5000;
 
-    public void openHomePage() {
-        homePage.open();
+        loginPage = new LoginPage();
+        homePage = new HomePage();
+        accountDetailsPage = new AccountDetailsPage();
+        accountListViewPage = new AccountListViewPage();
+        accountModalPage = new AccountModalPage();
     }
 
     @AfterClass(alwaysRun = true, description = "Close browser")

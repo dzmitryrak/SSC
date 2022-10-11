@@ -9,14 +9,16 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import static com.codeborne.selenide.Configuration.baseUrl;
+
 @Log4j2
 public class AccountSteps extends BaseTest {
     private final AccountListViewPage accountListViewPage;
     private final AccountDetailsPage accountDetailsPage;
 
     public AccountSteps(WebDriver driver) {
-        accountListViewPage = new AccountListViewPage(driver);
-        accountDetailsPage = new AccountDetailsPage(driver);
+        accountListViewPage = new AccountListViewPage();
+        accountDetailsPage = new AccountDetailsPage();
     }
 
     @Step("Creating Account: {account.accountName}")
@@ -41,13 +43,6 @@ public class AccountSteps extends BaseTest {
                 .clearData()
                 .enterData(account)
                 .clickSaveButton();
-        return this;
-    }
-
-    @Step("Opening Account List View Page")
-    public AccountSteps openAccountListViewPage() {
-        log.info("Opening Account List View Page");
-        accountListViewPage.open();
         return this;
     }
 

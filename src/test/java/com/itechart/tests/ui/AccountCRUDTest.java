@@ -1,5 +1,4 @@
 package com.itechart.tests.ui;
-
 import com.github.javafaker.Faker;
 import com.itechart.models.Account;
 import org.openqa.selenium.By;
@@ -35,7 +34,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.open();
+        accountListViewPage.openUrl();
         accountListViewPage
                 .clickNewButton()
                 .enterData(account)
@@ -92,7 +91,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.open();
+        accountListViewPage.openUrl();
         accountListViewPage
                 .clickNewButton()
                 .enterData(account)
@@ -136,7 +135,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.open();
+        accountListViewPage.openUrl();
         accountListViewPage
                 .clickNewButton()
                 .enterData(account)

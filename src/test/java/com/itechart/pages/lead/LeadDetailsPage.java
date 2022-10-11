@@ -6,10 +6,10 @@ import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static com.codeborne.selenide.Selenide.$;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 @Log4j2
 public class LeadDetailsPage extends BasePage {
@@ -21,8 +21,7 @@ public class LeadDetailsPage extends BasePage {
     private final By DELETE_MODAL_TITLE = By.xpath("//div[@class='modal-container slds-modal__container']//h2");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
 
-    public LeadDetailsPage(WebDriver driver) {
-        super(driver);
+    public LeadDetailsPage() {
     }
 
     @Step("Check that Lead Details page was opened")
@@ -34,22 +33,18 @@ public class LeadDetailsPage extends BasePage {
 
     public String getTitle() {
         wait.until(ExpectedConditions.presenceOfElementLocated(LEAD_TITLE));
-        return driver.findElement(LEAD_TITLE).getText();
+        return $(LEAD_TITLE).getText();
     }
 
     public LeadDetailsPage openDetails() {
-        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions
-                .elementToBeClickable(DETAILS_TAB));
-        driver.findElement(DETAILS_TAB).click();
+        $(DETAILS_TAB).click();
         return this;
     }
 
     @Step("Click Edit button")
     public LeadModalPage clickEditDetailsButton() {
-        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions
-                .presenceOfElementLocated(EDIT_DETAILS_BUTTON_LOCATOR));
-        driver.findElement(EDIT_DETAILS_BUTTON_LOCATOR).click();
-        return new LeadModalPage(driver);
+        $(EDIT_DETAILS_BUTTON_LOCATOR).click();
+        return new LeadModalPage();
     }
 
     @Step("Validation of entered data")
@@ -74,26 +69,26 @@ public class LeadDetailsPage extends BasePage {
     @Step("Click on Delete button")
     public LeadDetailsPage clickDeleteButton() {
         try {
-            driver.findElement(DELETE_BUTTON).click();
+            $(DELETE_BUTTON).click();
         } catch (StaleElementReferenceException e) {
             log.warn("Cannot find Delete button");
             log.warn(e.getLocalizedMessage());
-            driver.findElement(DELETE_BUTTON).click();
+            $(DELETE_BUTTON).click();
         }
         return this;
     }
 
     public boolean isModalOpened() {
         wait.until(ExpectedConditions.presenceOfElementLocated(DELETE_MODAL_TITLE));
-        wait.until(ExpectedConditions.elementToBeClickable(DELETE_MODAL_BUTTON));
-        return driver.findElement(DELETE_MODAL_TITLE).getText().contains("Delete");
+        wait.until(elementToBeClickable(DELETE_MODAL_BUTTON));
+        return $(DELETE_MODAL_TITLE).getText().contains("Delete");
     }
 
     @Step("Confirm deletion of an lead")
     public LeadListViewPage delete() {
         if (!isModalOpened()) throw new RuntimeException("Delete modal is not opened");
         wait.until(ExpectedConditions.invisibilityOfElementLocated(SUCCESS_MESSAGE));
-        driver.findElement(DELETE_MODAL_BUTTON).click();
-        return new LeadListViewPage(driver);
+        $(DELETE_MODAL_BUTTON).click();
+        return new LeadListViewPage();
     }
 }

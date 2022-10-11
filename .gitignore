@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 target*
+build/
+
+target/
 
 # Log file
 *.log
@@ -12,8 +15,10 @@ target*
 .mtj.tmp/
 
 # Package Files #
+
 *.jar
 *.war
+compiler.*
 *.nar
 *.ear
 *.zip

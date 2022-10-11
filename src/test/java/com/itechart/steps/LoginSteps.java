@@ -6,14 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class LoginSteps extends BaseTest {
-    private final WebDriver driver;
 
-    public LoginSteps(WebDriver driver) {
-        this.driver = driver;
+    public LoginSteps() {
     }
 
     public LoginSteps login(String username, String password) {
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage();
         homePage = loginPage
                 .open()
                 .login(username, password);
