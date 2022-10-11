@@ -2,13 +2,11 @@ package com.itechart.elements;
 
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class LightInput {
-    WebDriver driver;
     String label;
     String inputLocator = "//records-lwc-detail-panel//*[text()='%s']/parent::*[contains(@class,'slds-form-element')]//input";
 

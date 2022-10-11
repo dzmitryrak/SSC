@@ -1,12 +1,18 @@
 package com.itechart.pages.account;
 
-import com.itechart.elements.*;
-import com.itechart.pages.BasePage;
+import com.itechart.elements.LightDropDown;
+import com.itechart.elements.LightInput;
+import com.itechart.elements.TextArea;
 import com.itechart.models.Account;
-import lombok.extern.log4j.Log4j2;
+import com.itechart.pages.BasePage;
 import io.qameta.allure.Step;
-import org.openqa.selenium.*;
+import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class AccountModalPage extends BasePage {
@@ -76,27 +82,27 @@ public class AccountModalPage extends BasePage {
 
     @Step("Click on Save button")
     public AccountDetailsPage clickSaveButton() {
-        driver.findElement(SAVE_BUTTON_LOCATOR).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(SAVE_BUTTON_LOCATOR));
+        $(SAVE_BUTTON_LOCATOR).click();
+    //    wait.until(ExpectedConditions.invisibilityOfElementLocated(SAVE_BUTTON_LOCATOR));
         return new AccountDetailsPage();
     }
 
     public AccountDetailsPage clickSaveAndNewButton() {
-        driver.findElement(SAVE_AND_NEW_BUTTON_LOCATOR).click();
+        $(SAVE_AND_NEW_BUTTON_LOCATOR).click();
         return new AccountDetailsPage();
     }
 
     public AccountListViewPage clickCancelButton() {
-        driver.findElement(CANCEL_BUTTON_LOCATOR).click();
+        $(CANCEL_BUTTON_LOCATOR).click();
         return new AccountListViewPage();
     }
 
     public AccountListViewPage clickCrossButton() {
-        driver.findElement(CROSS_BUTTON_LOCATOR).click();
+        $(CROSS_BUTTON_LOCATOR).click();
         return new AccountListViewPage();
     }
 
     public boolean isEmptyRequiredFieldsValidationError() {
-        return driver.findElement(EMPTY_REQUIRED_FIELD_LOCATOR).isDisplayed();
+        return $(EMPTY_REQUIRED_FIELD_LOCATOR).isDisplayed();
     }
 }

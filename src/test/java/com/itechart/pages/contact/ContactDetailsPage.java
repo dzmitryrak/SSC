@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.concurrent.TimeUnit;
 
+import static com.codeborne.selenide.Selenide.$;
+
 @Log4j2
 public class ContactDetailsPage extends BasePage {
     private final By TITLE_CONTACT_LOCATOR = By.xpath("//div[@class='entityNameTitle slds-line-height--reset']");
@@ -26,7 +28,7 @@ public class ContactDetailsPage extends BasePage {
     @Step("Click Edit button")
     public ContactModalPage clickEditDetailsButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(EDIT_DETAILS_BUTTON_LOCATOR));
-        driver.findElement(EDIT_DETAILS_BUTTON_LOCATOR).click();
+        $(EDIT_DETAILS_BUTTON_LOCATOR).click();
         return new ContactModalPage();
     }
 

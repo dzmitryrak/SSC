@@ -24,16 +24,12 @@ public class SFDropDown {
     public void select(String option) {
         log.debug("Selecting option '{}' in drop-down {}", option, label);
         $(By.xpath(String.format(locator, label))).click();
-//        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions
-//                .presenceOfElementLocated(By.xpath(String.format(optionLocator, option))));
         $(By.xpath(String.format(optionLocator, option))).click();
     }
 
     public void clear() {
         log.debug("Clearing option in drop-down {}", label);
         $(By.xpath(String.format(locator, label))).click();
-//        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions
-//                .presenceOfElementLocated(By.xpath(String.format(optionLocator, "--None--"))));
         $(By.xpath(String.format(optionLocator, "--None--"))).click();
     }
 }

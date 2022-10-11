@@ -27,8 +27,6 @@ public class LightLookup {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         WebElement element = $(By.xpath(String.format(inputLocator, label)));
         executor.executeScript("arguments[0].click();", element);
-//        WebElement element3 = new WebDriverWait(driver, 5)
-//                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(lookupOption, option))));
         WebElement element1 = $(By.xpath(String.format(lookupOption, option)));
         executor.executeScript("arguments[0].click();", element1);
     }
@@ -36,8 +34,6 @@ public class LightLookup {
     public void clear() {
         log.debug("Deleting lookup {}", label);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
-//        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions.
-//                elementToBeClickable(By.xpath(String.format(DELETE_ACTION_LOCATOR, label))));
         WebElement element1 = $(By.xpath(String.format(DELETE_ACTION_LOCATOR, label)));
         executor.executeScript("arguments[0].click();", element1);
     }

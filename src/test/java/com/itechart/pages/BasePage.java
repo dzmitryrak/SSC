@@ -1,5 +1,6 @@
 package com.itechart.pages;
 
+import com.codeborne.selenide.Selenide;
 import com.itechart.utils.PropertyReader;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
@@ -49,6 +50,7 @@ public abstract class BasePage {
     }
 
     public void clickJS(By locator) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", $(locator));
+        Selenide.executeJavaScript("arguments[0].click();", $(locator));
+      //  ((JavascriptExecutor) driver).executeScript("arguments[0].click();", $(locator));
     }
 }

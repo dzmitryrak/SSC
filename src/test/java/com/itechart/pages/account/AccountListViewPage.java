@@ -1,11 +1,10 @@
 package com.itechart.pages.account;
 
 import com.itechart.pages.BasePage;
-import lombok.extern.log4j.Log4j2;
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static com.codeborne.selenide.Selenide.$;
