@@ -27,7 +27,7 @@ public class ContactDetailsPage extends BasePage {
     public ContactModalPage clickEditDetailsButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(EDIT_DETAILS_BUTTON_LOCATOR));
         driver.findElement(EDIT_DETAILS_BUTTON_LOCATOR).click();
-        return new ContactModalPage(driver);
+        return new ContactModalPage();
     }
 
     @Step("Check that Contact Details page was opened")

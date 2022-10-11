@@ -17,7 +17,7 @@ public class AccountListViewPage extends BasePage {
     private final By NEW_BUTTON_LOCATOR = By.xpath("(//div[@title ='New']) [1]");
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
 
-    public AccountListViewPage(WebDriver driver) {
+    public AccountListViewPage() {
     }
 
     @Override

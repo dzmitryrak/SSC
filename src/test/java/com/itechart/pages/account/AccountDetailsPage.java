@@ -20,7 +20,7 @@ public class AccountDetailsPage extends BasePage {
     private final By DELETE_MODAL_TITLE = By.xpath("//div[@class='modal-container slds-modal__container']//h2");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
 
-    public AccountDetailsPage(WebDriver driver) {
+    public AccountDetailsPage() {
     }
 
     @Step("Check that Account Details page was opened")
@@ -93,6 +93,6 @@ public class AccountDetailsPage extends BasePage {
         if (!isModalOpened()) throw new RuntimeException("Delete modal is not opened");
         wait.until(ExpectedConditions.invisibilityOfElementLocated(SUCCESS_MESSAGE));
         driver.findElement(DELETE_MODAL_BUTTON).click();
-        return new AccountListViewPage(driver);
+        return new AccountListViewPage();
     }
 }

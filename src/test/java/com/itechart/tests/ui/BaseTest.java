@@ -50,11 +50,11 @@ public abstract class BaseTest {
         iTestContext.setAttribute("driver", driver);
         loginPage = new LoginPage();
         homePage = new HomePage();
-        accountDetailsPage = new AccountDetailsPage(driver);
-        accountListViewPage = new AccountListViewPage(driver);
+        accountDetailsPage = new AccountDetailsPage();
+        accountListViewPage = new AccountListViewPage();
         accountModalPage = new AccountModalPage();
         loginSteps = new LoginSteps();
-        leadSteps = new LeadSteps(driver);
+        leadSteps = new LeadSteps();
     }
 
     public void openHomePage() {

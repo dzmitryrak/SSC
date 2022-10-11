@@ -25,7 +25,7 @@ public class ContactListViewPage extends BasePage {
     @Step("Click on New button")
     public ContactModalPage clickNewButton() {
         driver.findElement(NEW_BUTTON_LOCATOR).click();
-        return new ContactModalPage(driver);
+        return new ContactModalPage();
     }
 
     @Step("Check that Contact was deleted successfully")

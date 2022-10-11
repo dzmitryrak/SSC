@@ -15,35 +15,35 @@ import org.openqa.selenium.WebDriver;
 public class ContactModalPage extends BasePage {
     private static final By SAVE_BUTTON_LOCATOR = By.xpath("//button[@name='SaveEdit']");
 
-    public ContactModalPage(WebDriver driver) {
+    public ContactModalPage() {
     }
 
     @Step("Enter data into fields")
     public ContactModalPage enterData(Contact contact) {
         log.info("Entering Contact Data: {}", contact);
-        new LightDropDown(driver, "Salutation").selectOption(contact.getSalutation());
-        new LightInput(driver, "First Name").write(contact.getFirstName());
-        new LightInput(driver, "Last Name").write(contact.getLastName());
-        new LightInput(driver, "Title").write(contact.getTitle());
-        new LightInput(driver, "Email").write(contact.getEmail());
-        new LightInput(driver, "Phone").write(contact.getPhone());
-        new LightInput(driver, "Mobile").write(contact.getMobilePhone());
-        new LightInput(driver, "Department").write(contact.getDepartment());
-        new LightInput(driver, "Fax").write(contact.getFax());
+        new LightDropDown( "Salutation").selectOption(contact.getSalutation());
+        new LightInput("First Name").write(contact.getFirstName());
+        new LightInput( "Last Name").write(contact.getLastName());
+        new LightInput( "Title").write(contact.getTitle());
+        new LightInput( "Email").write(contact.getEmail());
+        new LightInput( "Phone").write(contact.getPhone());
+        new LightInput( "Mobile").write(contact.getMobilePhone());
+        new LightInput( "Department").write(contact.getDepartment());
+        new LightInput( "Fax").write(contact.getFax());
         return this;
     }
 
     @Step("Clear data from fields")
     public ContactModalPage clearData() {
-        new LightDropDown(driver, "Salutation").clear();
-        new LightInput(driver, "First Name").clear();
-        new LightInput(driver, "Last Name").clear();
-        new LightInput(driver, "Title").clear();
-        new LightInput(driver, "Email").clear();
-        new LightInput(driver, "Phone").clear();
-        new LightInput(driver, "Mobile").clear();
-        new LightInput(driver, "Department").clear();
-        new LightInput(driver, "Fax").clear();
+        new LightDropDown( "Salutation").clear();
+        new LightInput( "First Name").clear();
+        new LightInput("Last Name").clear();
+        new LightInput( "Title").clear();
+        new LightInput( "Email").clear();
+        new LightInput( "Phone").clear();
+        new LightInput( "Mobile").clear();
+        new LightInput( "Department").clear();
+        new LightInput( "Fax").clear();
         return this;
     }
 

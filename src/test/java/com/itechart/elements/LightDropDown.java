@@ -15,8 +15,7 @@ public class LightDropDown {
     String inputLocator = "//records-lwc-detail-panel//*[text()='%s']/parent::*[contains(@class,'slds-form-element')]//button";
     String lookupOption = "//records-lwc-detail-panel//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
 
-    public LightDropDown(WebDriver driver, String label) {
-        this.driver = driver;
+    public LightDropDown(String label) {
         this.label = label;
     }
 

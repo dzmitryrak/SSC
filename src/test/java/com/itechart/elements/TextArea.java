@@ -11,7 +11,7 @@ public class TextArea {
     String textAreaLocator = "//records-lwc-detail-panel//*[text()='%s']" +
             "/ancestor::*[contains(@class, 'uiInput') or contains(@class, 'slds-form-element')]//textarea";
 
-    public TextArea(WebDriver driver, String label) {
+    public TextArea(String label) {
         this.driver = driver;
         this.label = label;
     }

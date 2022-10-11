@@ -17,8 +17,8 @@ public class AccountSteps extends BaseTest {
     private final AccountDetailsPage accountDetailsPage;
 
     public AccountSteps(WebDriver driver) {
-        accountListViewPage = new AccountListViewPage(driver);
-        accountDetailsPage = new AccountDetailsPage(driver);
+        accountListViewPage = new AccountListViewPage();
+        accountDetailsPage = new AccountDetailsPage();
     }
 
     @Step("Creating Account: {account.accountName}")

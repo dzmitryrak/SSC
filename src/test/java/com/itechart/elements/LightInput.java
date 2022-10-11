@@ -12,8 +12,7 @@ public class LightInput {
     String label;
     String inputLocator = "//records-lwc-detail-panel//*[text()='%s']/parent::*[contains(@class,'slds-form-element')]//input";
 
-    public LightInput(WebDriver driver, String label) {
-        this.driver = driver;
+    public LightInput(String label) {
         this.label = label;
     }
 
