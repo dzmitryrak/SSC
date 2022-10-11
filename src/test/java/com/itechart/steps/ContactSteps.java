@@ -15,7 +15,7 @@ public class ContactSteps extends BaseTest {
     private final ContactDetailsPage contactDetailsPage;
 
     public ContactSteps(WebDriver driver) {
-        contactListViewPage = new ContactListViewPage(driver);
+        contactListViewPage = new ContactListViewPage();
         contactDetailsPage = new ContactDetailsPage(driver);
     }
 

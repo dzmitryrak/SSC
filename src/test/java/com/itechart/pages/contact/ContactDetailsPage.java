@@ -87,6 +87,6 @@ public class ContactDetailsPage extends BasePage {
         if (!isModalOpened()) throw new RuntimeException("Delete modal is not opened");
         wait.until(ExpectedConditions.invisibilityOfElementLocated(SUCCESS_MESSAGE));
         driver.findElement(DELETE_MODAL_BUTTON).click();
-        return new ContactListViewPage(driver);
+        return new ContactListViewPage();
     }
 }

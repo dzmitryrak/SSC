@@ -1,5 +1,6 @@
 package com.itechart.pages.contact;
 
+import com.codeborne.selenide.Selenide;
 import com.itechart.pages.BasePage;
 import lombok.extern.log4j.Log4j2;
 import io.qameta.allure.Step;
@@ -13,12 +14,12 @@ public class ContactListViewPage extends BasePage {
     private static final By NEW_BUTTON_LOCATOR = By.xpath("//a[@title='New']");
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
 
-    public ContactListViewPage(WebDriver driver) {
+    public ContactListViewPage() {
     }
 
     @Step("Open List View for Contact")
     public ContactListViewPage open() {
-        driver.get(baseUrl + "lightning/o/Contact/list?filterName=Recent");
+        Selenide.open("lightning/o/Contact/list?filterName=Recent");
         return this;
     }
 

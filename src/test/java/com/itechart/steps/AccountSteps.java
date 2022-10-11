@@ -46,13 +46,6 @@ public class AccountSteps extends BaseTest {
         return this;
     }
 
-    @Step("Opening Account List View Page")
-    public AccountSteps openAccountListViewPage() {
-        log.info("Opening Account List View Page");
- //       accountListViewPage.openUrl(baseUrl + "lightning/o/Account/list");
-        return this;
-    }
-
     @Step("Validating Account: {account.accountName}")
     public AccountSteps validate(Account account) {
         log.info("Validating Account: {}", account);

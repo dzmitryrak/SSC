@@ -21,10 +21,6 @@ public class LoginPage extends BasePage {
     private static final By LOGO_LOCATOR = By.id("logo");
     private static final By USERNAME_LABEL_LOCATOR = By.cssSelector(".usernamelabel");
 
-
-    public LoginPage() {
-    }
-
     @Step("Check that page was opened")
     @Override
     public boolean isPageOpened() {

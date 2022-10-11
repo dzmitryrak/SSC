@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class LoginSteps extends BaseTest {
-   // private final WebDriver driver;
 
     public LoginSteps() {
     }

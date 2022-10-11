@@ -1,6 +1,5 @@
 package com.itechart.pages.account;
 
-import com.codeborne.selenide.Condition;
 import com.itechart.pages.BasePage;
 import lombok.extern.log4j.Log4j2;
 import io.qameta.allure.Step;
@@ -8,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -17,18 +17,15 @@ public class AccountListViewPage extends BasePage {
     private final By NEW_BUTTON_LOCATOR = By.xpath("(//div[@title ='New']) [1]");
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
 
-    public AccountListViewPage() {
-    }
-
     @Override
     public boolean isPageOpened() {
-//        wait.until(ExpectedConditions.presenceOfElementLocated(BREADCRUMB_LOCATOR));
+        $(BREADCRUMB_LOCATOR).shouldBe(visible);
         return $(BREADCRUMB_LOCATOR).getText().contains("Accounts");
     }
 
     @Step("Open List View for Account")
     public AccountListViewPage openUrl() {
-        open(baseUrl + "lightning/o/Account/list");
+        open("lightning/o/Account/list");
         return this;
     }
 

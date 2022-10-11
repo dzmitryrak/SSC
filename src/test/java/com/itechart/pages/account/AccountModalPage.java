@@ -12,6 +12,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
@@ -29,7 +30,7 @@ public class AccountModalPage extends BasePage {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(MODAL_HEADER_LOCATOR));
             return false;
         } catch (TimeoutException | NoSuchElementException e) {
-            log.warn("Account Modal is not openUrl");
+            log.warn("Account Modal is not open");
             log.warn(e.getLocalizedMessage());
             return true;
         }
@@ -82,8 +83,8 @@ public class AccountModalPage extends BasePage {
 
     @Step("Click on Save button")
     public AccountDetailsPage clickSaveButton() {
+        $(SAVE_BUTTON_LOCATOR).shouldBe(visible);
         $(SAVE_BUTTON_LOCATOR).click();
-    //    wait.until(ExpectedConditions.invisibilityOfElementLocated(SAVE_BUTTON_LOCATOR));
         return new AccountDetailsPage();
     }
 
