@@ -1,12 +1,9 @@
 package com.itechart.tests.ui;
-
 import com.github.javafaker.Faker;
 import com.itechart.models.Account;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
-
-import static com.codeborne.selenide.Configuration.baseUrl;
 
 public class AccountCRUDTest extends BaseTest {
 

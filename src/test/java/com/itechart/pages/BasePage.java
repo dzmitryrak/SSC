@@ -5,7 +5,6 @@ import com.itechart.utils.PropertyReader;
 import static com.codeborne.selenide.Selenide.*;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -43,7 +42,7 @@ public abstract class BasePage {
     public void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
-                return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
+                return Selenide.executeJavaScript("return document.readyState").toString().equals("complete");
             }
         };
     }

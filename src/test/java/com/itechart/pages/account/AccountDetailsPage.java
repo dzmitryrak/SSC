@@ -6,9 +6,9 @@ import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
@@ -48,7 +48,7 @@ public class AccountDetailsPage extends BasePage {
     @Step("Validation of entered data")
     public AccountDetailsPage validate(Account account) {
         log.info("Validating Account Data: {}", account);
-        waitForPageLoaded();
+        $(byText(account.getName())).shouldBe(visible);
         validateInput("Account Name", account.getName());
         validateInput("Type", account.getType());
         validateInput("Description", account.getDescription());
