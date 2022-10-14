@@ -1,27 +1,18 @@
 package com.itechart.tests.ui;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Condition.*;
 
 import com.codeborne.selenide.Configuration;
+import com.itechart.configurations.TestListener;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.account.AccountListViewPage;
 import com.itechart.pages.account.AccountModalPage;
-import com.itechart.steps.LeadSteps;
-import com.itechart.steps.LoginSteps;
-import com.itechart.configurations.TestListener;
 import com.itechart.utils.PropertyReader;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
-import java.util.concurrent.TimeUnit;
 
 @Log4j2
 @Listeners(TestListener.class)

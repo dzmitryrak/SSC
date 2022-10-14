@@ -2,6 +2,7 @@
 *.class
 target*
 build/
+.idea
 
 target/
 
@@ -16,6 +17,7 @@ target/
 
 # Package Files #
 
+*.idea
 *.jar
 *.war
 compiler.*
