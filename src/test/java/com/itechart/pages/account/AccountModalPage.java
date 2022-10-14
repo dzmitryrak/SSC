@@ -1,9 +1,5 @@
 package com.itechart.pages.account;
 
-import com.itechart.elements.LightDropDown;
-import com.itechart.elements.LightInput;
-import com.itechart.elements.TextArea;
-import com.itechart.models.Account;
 import com.itechart.pages.BasePage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -27,41 +26,30 @@ public class AccountModalPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         try {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(MODAL_HEADER_LOCATOR));
-            return false;
+            wait.until(ExpectedConditions.visibilityOfElementLocated(MODAL_HEADER_LOCATOR));
+            return true;
         } catch (TimeoutException | NoSuchElementException e) {
             log.warn("Account Modal is not open");
             log.warn(e.getLocalizedMessage());
-            return true;
+            Assert.fail();
+            return false;
         }
     }
 
-    @Step("Enter data into fields")
-    public AccountModalPage enterData(Account account) {
-        log.info("Entering Account Data: {}", account);
-        new LightInput( "Account Name").write(account.getName());
-        new LightDropDown("Type").selectOption(account.getType());
-        new LightInput("Website").write(account.getWebsite());
-        new TextArea("Description").write(account.getDescription());
-        new LightInput( "Phone").write(account.getPhone());
-        new LightDropDown( "Industry").selectOption(account.getIndustry());
-        new LightInput( "Employees").write(account.getNumberOfEmployees());
-        new TextArea("Billing Street").write(account.getBillingStreet());
-        new LightInput( "Billing City").write(account.getBillingCity());
-        new LightInput("Billing State/Province").write(account.getBillingState());
-        new LightInput( "Billing Zip/Postal Code").write(account.getBillingPostalCode());
-        new LightInput("Billing Country").write(account.getBillingCountry());
-        new TextArea("Shipping Street").write(account.getShippingStreet());
-        new LightInput("Shipping City").write(account.getShippingCity());
-        new LightInput( "Shipping State/Province").write(account.getShippingState());
-        new LightInput( "Shipping Zip/Postal Code").write(account.getShippingPostalCode());
-        new LightInput( "Shipping Country").write(account.getShippingCountry());
+    public AccountModalPage enterData(Map<String, String> data) {
+        log.info("Entering Account Data: {}", data);
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String fieldLabel = entry.getKey();
+            String value = entry.getValue();
+            sfHelper.fill(driver, fieldLabel, value);
+        }
         return this;
     }
 
     @Step("Clear data from fields")
     public AccountModalPage clearData() {
-        new LightDropDown( "Industry").clear();
+        //TODO fix to work with hashmap
+       /* new LightDropDown( "Industry").clear();
         new LightInput("Account Name").clear();
         new LightDropDown( "Type").clear();
         new LightInput("Website").clear();
@@ -77,7 +65,7 @@ public class AccountModalPage extends BasePage {
         new LightInput("Shipping Country").clear();
         new TextArea("Billing Street").clear();
         new TextArea("Shipping Street").clear();
-        new TextArea("Description").clear();
+        new TextArea("Description").clear();*/
         return this;
     }
 
