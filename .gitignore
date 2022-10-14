@@ -17,6 +17,7 @@ target/
 
 # Package Files #
 
+*.idea
 *.jar
 *.war
 compiler.*
