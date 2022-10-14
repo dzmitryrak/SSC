@@ -1,4 +1,4 @@
-package com.itechart.configurations;
+package com.itechart.tests.base;
 
 import com.itechart.utils.AllureUtils;
 import lombok.extern.log4j.Log4j2;
@@ -7,6 +7,8 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import java.util.concurrent.TimeUnit;
+
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @Log4j2
 public class TestListener implements ITestListener {
@@ -26,9 +28,8 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         //TODO Api request to set failed status of test case
-        WebDriver driver = (WebDriver) iTestResult.getTestContext().getAttribute("driver");
-        if(driver != null)
-        AllureUtils.takeScreenshot(driver);
+
+        AllureUtils.takeScreenshot(getWebDriver());
         log.info("-------------- FAILED TEST {} Duration: {} ----------------", iTestResult.getName(),
                 getExecutionTime(iTestResult));
     }

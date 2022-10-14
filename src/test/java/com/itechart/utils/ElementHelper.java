@@ -1,4 +1,4 @@
-package com.itechart.elements;
+package com.itechart.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -9,8 +9,11 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
+//TODO rework for Selenide
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
     String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist//button";
@@ -58,7 +61,7 @@ public class ElementHelper {
              JavascriptExecutor executor = (JavascriptExecutor) driver;
              WebElement element = driver.findElement(By.xpath(String.format(lookUpField, elementLabel)));
              executor.executeScript("arguments[0].click();", element);
-             new WebDriverWait(driver, 5)
+             new WebDriverWait(driver, Duration.of(5, ChronoUnit.SECONDS))
                      .until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(lookupOption, value))));
              WebElement element1 = driver.findElement(By.xpath(String.format(lookupOption, value)));
              executor.executeScript("arguments[0].click();", element1);

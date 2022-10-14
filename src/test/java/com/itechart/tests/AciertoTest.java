@@ -1,6 +1,7 @@
-package com.itechart.tests.ui;
+package com.itechart.tests;
 
 import com.codeborne.selenide.Selenide;
+import com.itechart.tests.base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 

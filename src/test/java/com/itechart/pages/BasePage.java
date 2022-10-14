@@ -1,7 +1,7 @@
 package com.itechart.pages;
 
 import com.codeborne.selenide.Selenide;
-import com.itechart.elements.ElementHelper;
+import com.itechart.utils.ElementHelper;
 import com.itechart.utils.PropertyReader;
 import static com.codeborne.selenide.Selenide.*;
 import lombok.extern.log4j.Log4j2;

@@ -1,8 +1,5 @@
 package com.itechart.pages.account;
 
-import com.itechart.elements.LightDropDown;
-import com.itechart.elements.LightInput;
-import com.itechart.elements.TextArea;
 import com.itechart.pages.BasePage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -51,7 +48,8 @@ public class AccountModalPage extends BasePage {
 
     @Step("Clear data from fields")
     public AccountModalPage clearData() {
-        new LightDropDown( "Industry").clear();
+        //TODO fix to work with hashmap
+       /* new LightDropDown( "Industry").clear();
         new LightInput("Account Name").clear();
         new LightDropDown( "Type").clear();
         new LightInput("Website").clear();
@@ -67,7 +65,7 @@ public class AccountModalPage extends BasePage {
         new LightInput("Shipping Country").clear();
         new TextArea("Billing Street").clear();
         new TextArea("Shipping Street").clear();
-        new TextArea("Description").clear();
+        new TextArea("Description").clear();*/
         return this;
     }
 

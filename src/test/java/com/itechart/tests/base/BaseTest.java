@@ -1,7 +1,6 @@
-package com.itechart.tests.ui;
+package com.itechart.tests.base;
 
 import com.codeborne.selenide.Configuration;
-import com.itechart.configurations.TestListener;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.account.AccountDetailsPage;
@@ -14,10 +13,11 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 @Log4j2
 @Listeners(TestListener.class)
 public abstract class BaseTest {
-    protected WebDriver driver;
     protected LoginPage loginPage;
     protected HomePage homePage;
     protected AccountListViewPage accountListViewPage;
@@ -32,6 +32,7 @@ public abstract class BaseTest {
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
 
+        getWebDriver().manage().window().maximize();
         loginPage = new LoginPage();
         homePage = new HomePage();
         accountDetailsPage = new AccountDetailsPage();
@@ -41,12 +42,6 @@ public abstract class BaseTest {
 
     @AfterClass(alwaysRun = true, description = "Close browser")
     public void tearDown() {
-        if (driver != null)
-            driver.quit();
+        getWebDriver().quit();
     }
 }
-
-/*
-названия брачный по примеру: feature/ITA-1-removal-of-steps
-названия комитов по примеру: ITA-1 removed utils
- */
