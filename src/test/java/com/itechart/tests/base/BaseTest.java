@@ -32,7 +32,7 @@ public abstract class BaseTest {
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
 
-        getWebDriver().manage().window().maximize();
+//        getWebDriver().manage().window().maximize();
         loginPage = new LoginPage();
         homePage = new HomePage();
         accountDetailsPage = new AccountDetailsPage();
