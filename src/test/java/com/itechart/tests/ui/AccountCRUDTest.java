@@ -41,10 +41,6 @@ public class AccountCRUDTest extends BaseTest {
         //.validate(account);
     }
 
-    //TODO fix
-/*                .edit(updatedAccount)
-                .validate(updatedAccount) */
-
     @Test(retryAnalyzer = Retry.class, description = "Edit new account created")
     public void editNewAccountRecord() {
         Account account = accountFactory.createNewAccount(true);
@@ -73,4 +69,6 @@ public class AccountCRUDTest extends BaseTest {
     public void clickJS(By locator) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(locator));
     }
+
+
 }
