@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.concurrent.TimeUnit;
 
+import static com.codeborne.selenide.Selenide.$;
+
 @Log4j2
 public class ContactDetailsPage extends BasePage {
     private final By TITLE_CONTACT_LOCATOR = By.xpath("//div[@class='entityNameTitle slds-line-height--reset']");
@@ -21,14 +23,13 @@ public class ContactDetailsPage extends BasePage {
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
 
     public ContactDetailsPage(WebDriver driver) {
-        super(driver);
     }
 
     @Step("Click Edit button")
     public ContactModalPage clickEditDetailsButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(EDIT_DETAILS_BUTTON_LOCATOR));
-        driver.findElement(EDIT_DETAILS_BUTTON_LOCATOR).click();
-        return new ContactModalPage(driver);
+        $(EDIT_DETAILS_BUTTON_LOCATOR).click();
+        return new ContactModalPage();
     }
 
     @Step("Check that Contact Details page was opened")
@@ -86,6 +87,6 @@ public class ContactDetailsPage extends BasePage {
         if (!isModalOpened()) throw new RuntimeException("Delete modal is not opened");
         wait.until(ExpectedConditions.invisibilityOfElementLocated(SUCCESS_MESSAGE));
         driver.findElement(DELETE_MODAL_BUTTON).click();
-        return new ContactListViewPage(driver);
+        return new ContactListViewPage();
     }
 }

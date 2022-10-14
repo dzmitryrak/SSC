@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static com.codeborne.selenide.Selenide.$;
+
 @Log4j2
 public class SFLookUp {
     WebDriver driver;
@@ -16,24 +18,23 @@ public class SFLookUp {
     String lookupOption = "(//div[contains(@title, '%s')]//ancestor::li[not(contains(@class, 'invisible'))]) [1]";
     String DELETE_ACTION_LOCATOR = "//records-lwc-detail-panel//*[text()='%s']/ancestor::*[contains(@class,'uiInput')]//a[@class='deleteAction']";
 
-    public SFLookUp(WebDriver driver, String label) {
-        this.driver = driver;
+    public SFLookUp(String label) {
         this.label = label;
     }
 
     public void selectOption(String option) {
         log.debug("Selecting option '{}' from {} lookup", option, label);
         By LOOKUP_OPTION = By.xpath(String.format(lookupOption, option));
-        driver.findElement(By.xpath(String.format(inputLocator, label))).click();
-        WebElement element = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.presenceOfElementLocated(LOOKUP_OPTION));
-        driver.findElement(LOOKUP_OPTION).click();
+        $(By.xpath(String.format(inputLocator, label))).click();
+//        WebElement element = new WebDriverWait(driver, 10)
+//                .until(ExpectedConditions.presenceOfElementLocated(LOOKUP_OPTION));
+        $(LOOKUP_OPTION).click();
     }
 
     public void clear() {
         log.debug("Deleting lookup of {}", label);
-        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions
-                .presenceOfElementLocated(By.xpath(String.format(DELETE_ACTION_LOCATOR, label))));
-        driver.findElement(By.xpath(String.format(DELETE_ACTION_LOCATOR, label))).click();
+//        WebElement element = new WebDriverWait(driver, 5).until(ExpectedConditions
+//                .presenceOfElementLocated(By.xpath(String.format(DELETE_ACTION_LOCATOR, label))));
+        $(By.xpath(String.format(DELETE_ACTION_LOCATOR, label))).click();
     }
 }
