@@ -41,7 +41,7 @@ public class AccountModalPage extends BasePage {
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
             String value = entry.getValue();
-            sfHelper.fill(driver, fieldLabel, value);
+            sfHelper.fill(fieldLabel, value);
         }
         return this;
     }

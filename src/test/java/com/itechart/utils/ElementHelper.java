@@ -22,9 +22,9 @@ public class ElementHelper {
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
 
     //TODO amazing javadoc
-    public void fill(WebDriver driver, String elementLabel, String value) {
+    public void fill(String elementLabel, String value) {
         long startTime = System.currentTimeMillis();
-        waitForPageLoaded();
+      //  waitForPageLoaded();
         Configuration.timeout = 1000;
         String elementType;
         //Currency, Date, Date/time, Email, Number Percent Phone Text
@@ -86,8 +86,8 @@ public class ElementHelper {
         System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType,(endTime - startTime));
     }
 
-    public void clear(WebDriver driver, String elementLabel) {
-        fill(driver, elementLabel, "");
+    public void clear(String elementLabel) {
+        fill(elementLabel, "");
     }
 
     public void waitForPageLoaded() {

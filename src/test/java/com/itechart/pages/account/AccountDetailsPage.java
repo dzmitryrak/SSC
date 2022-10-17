@@ -31,7 +31,6 @@ public class AccountDetailsPage extends BasePage {
         return true;
     }
 
-
     @Step("Open Details tab")
     public AccountDetailsPage openDetails() {
         clickJS(DETAILS_TAB);
