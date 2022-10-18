@@ -32,15 +32,6 @@ public abstract class BasePage {
         return $(USERPROFILE_BUTTON_LOCATOR).isDisplayed();
     }
 
-    public void validateInput(String label, String expectedInput) {
-        String locator = "//div[contains(@class, 'active')]//span[text()='%s']/ancestor::records-record-layout-item//" +
-        "*[@data-output-element-id='output-field']";
-        WebElement input = $(By.xpath(String.format(locator, label)));
-        String actualInput = input.getText();
-        log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
-        Assert.assertTrue(input.getText().contains(expectedInput),
-                String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
-    }
 
     public void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {

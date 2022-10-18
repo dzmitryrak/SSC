@@ -40,9 +40,21 @@ public class AccountCRUDTest extends BaseTest {
                 .enterData(account)
                 .clickSaveButton()
                 .isPageOpened();
+        account.remove("Billing Street");
+        account.remove("Billing City");
+        account.remove("Billing State/Province");
+        account.remove("Billing Zip/Postal Code");
+        account.remove("Billing Country");
+        account.remove("Shipping Street");
+        account.remove("Shipping City");
+        account.remove("Shipping State/Province");
+        account.remove("Shipping State/Province");
+        account.remove("Shipping Zip/Postal Code");
+        account.remove("Shipping Country");
+
         accountDetailsPage
-                .openDetails();
-                //.validate(account); //TODO fix validation
+                .openDetails()
+                .validate(account);
     }
 
     @Test(description = "Edit new account created")
@@ -75,6 +87,7 @@ public class AccountCRUDTest extends BaseTest {
                 .enterData(account)
                 .clickSaveButton()
                 .isPageOpened();
+
         accountDetailsPage
                 .openDetails();
 /*                .validate(account) //TODO refactor edit and delete to work with hashmap
@@ -112,9 +125,20 @@ public class AccountCRUDTest extends BaseTest {
                 .enterData(account)
                 .clickSaveButton()
                 .isPageOpened();
+        account.remove("Billing Street");
+        account.remove("Billing City");
+        account.remove("Billing State/Province");
+        account.remove("Billing Zip/Postal Code");
+        account.remove("Billing Country");
+        account.remove("Shipping Street");
+        account.remove("Shipping City");
+        account.remove("Shipping State/Province");
+        account.remove("Shipping State/Province");
+        account.remove("Shipping Zip/Postal Code");
+        account.remove("Shipping Country");
         accountDetailsPage
-                .openDetails();
-                //.validate(account); //TODO fix to work with hashmap
+                .openDetails()
+                .validate(account);
         accountDetailsPage
                 .clickIconDropdownMenu()
                 .clickDeleteButton()

@@ -7,6 +7,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.testng.Assert;
+
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -34,7 +36,7 @@ public class ElementHelper {
                 $(By.xpath(String.format(textInput, elementLabel))).clear();
             } else {
                 $(By.xpath(String.format(textInput, elementLabel))).sendKeys(value);
-                $(byText(value)).shouldBe(visible);
+//                $(byText(value)).shouldBe(visible);
             }
             //PICKLIST
         } else if($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
@@ -61,6 +63,7 @@ public class ElementHelper {
              WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
              Selenide.executeJavaScript("arguments[0].click();", element);
 
+ //            $(value).shouldBe(visible);
              $(By.xpath(String.format(lookupOption, value))).should(exist);
 //             new WebDriverWait(driver, Duration.of(5, ChronoUnit.SECONDS))
 //                     .until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(lookupOption, value))));
@@ -84,6 +87,16 @@ public class ElementHelper {
         long endTime = System.currentTimeMillis();
 
         System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType,(endTime - startTime));
+    }
+
+    public void validate(String label, String expectedInput) {
+        String locator = "//div[contains(@class, 'active')]//span[text()='%s']/ancestor::records-record-layout-item//" +
+                "*[@data-output-element-id='output-field']";
+        WebElement input = $(By.xpath(String.format(locator, label)));
+        String actualInput = input.getText();
+      //  log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
+        Assert.assertTrue(input.getText().contains(expectedInput),
+                String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
     }
 
     public void clear(String elementLabel) {

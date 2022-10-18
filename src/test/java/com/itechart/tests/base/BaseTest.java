@@ -12,6 +12,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 
@@ -32,8 +33,8 @@ public abstract class BaseTest {
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
         Configuration.browser = "chrome";
-        Configuration.browserSize = "1920x1080";
-       //getWebDriver().manage().window().maximize();
+        open();
+       getWebDriver().manage().window().maximize();
 
         loginPage = new LoginPage();
         homePage = new HomePage();
