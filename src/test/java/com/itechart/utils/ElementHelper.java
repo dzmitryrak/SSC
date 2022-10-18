@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -22,7 +24,7 @@ public class ElementHelper {
     //TODO amazing javadoc
     public void fill(String elementLabel, String value) {
         long startTime = System.currentTimeMillis();
-      //  waitForPageLoaded();
+        waitForPageLoaded();
         Configuration.timeout = 1000;
         String elementType;
         //Currency, Date, Date/time, Email, Number Percent Phone Text
@@ -32,6 +34,7 @@ public class ElementHelper {
                 $(By.xpath(String.format(textInput, elementLabel))).clear();
             } else {
                 $(By.xpath(String.format(textInput, elementLabel))).sendKeys(value);
+                $(byText(value)).shouldBe(visible);
             }
             //PICKLIST
         } else if($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
