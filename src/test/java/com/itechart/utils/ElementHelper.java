@@ -22,7 +22,7 @@ public class ElementHelper {
     //TODO amazing javadoc
     public void fill(String elementLabel, String value) {
         long startTime = System.currentTimeMillis();
-      //  waitForPageLoaded();
+        waitForPageLoaded();
         Configuration.timeout = 1000;
         String elementType;
         //Currency, Date, Date/time, Email, Number Percent Phone Text
@@ -74,6 +74,7 @@ public class ElementHelper {
              //TODO add else if for checkbox
         } else {
              elementType = "ERROR! Cannot identify element";
+             throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
          }
 
         Configuration.timeout = 5000;

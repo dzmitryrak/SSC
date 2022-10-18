@@ -26,7 +26,7 @@ public class AccountModalPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(MODAL_HEADER_LOCATOR));
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible);
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
             log.warn("Account Modal is not open");
