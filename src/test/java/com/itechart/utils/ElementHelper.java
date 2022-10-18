@@ -1,5 +1,4 @@
 package com.itechart.utils;
-
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +7,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -57,7 +55,6 @@ public class ElementHelper {
             //TODO add code to clear lookup
              String lookupOption = BASE_DETAIL_PANEL + "(//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item) [1]";
 
-
              WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
              Selenide.executeJavaScript("arguments[0].click();", element);
 
@@ -76,12 +73,11 @@ public class ElementHelper {
              }
              //TODO add else if for checkbox
         } else {
-             elementType = "ERROR ERROR ALARMA!!! Cannot identify element";
+             elementType = "ERROR! Cannot identify element";
          }
 
         Configuration.timeout = 5000;
         long endTime = System.currentTimeMillis();
-
 
         System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType,(endTime - startTime));
     }

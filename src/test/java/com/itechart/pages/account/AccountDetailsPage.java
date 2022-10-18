@@ -27,7 +27,7 @@ public class AccountDetailsPage extends BasePage {
     @Step("Check that Account Details page was opened")
     @Override
     public boolean isPageOpened() {
-        $(DETAILS_TAB).should(exist);
+       $(DETAILS_TAB).shouldBe(visible);
         return true;
     }
 
