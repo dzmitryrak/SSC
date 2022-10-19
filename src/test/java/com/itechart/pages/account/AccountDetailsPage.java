@@ -19,9 +19,9 @@ public class AccountDetailsPage extends BasePage {
     private final By DETAILS_TAB = By.xpath("//a[@data-label='Details']");
     private final By EDIT_DETAILS_BUTTON_LOCATOR = By.xpath("//*[@name='Edit']");
     private final By ICON_DROPDOWN_MENU = By.xpath("//*[contains(@class, 'slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last overflow')]");
-    private final By DELETE_BUTTON = By.xpath("//*[@name ='Delete']");
-    private final By SUCCESS_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
-    private final By DELETE_MODAL_TITLE = By.xpath("//div[@class='modal-container slds-modal__container']//h2");
+    private final By DELETE_BUTTON = By.xpath("//*[@name='Delete']");
+    private final By SUCCESS_MESSAGE = By.xpath("//*[text() ='Are you sure you want to delete this account?']");
+    private final By DELETE_MODAL_TITLE = By.xpath("//*[text() ='Delete Account']");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
 
     public AccountDetailsPage() {
@@ -57,17 +57,9 @@ public class AccountDetailsPage extends BasePage {
             sfHelper.validate(fieldLabel, value);
         }
 
-
-//        validateInput("Account Name", data.get("Account Name"));
-//        validateInput("Type", data.get("Type"));
-//        validateInput("Description", data.get("Description"));
-//        validateInput("Industry", data.get("Industry"));
-//        validateInput("Website", data.get("Website"));
-//        validateInput("Phone", data.get("Phone"));
-//        validateInput("Employees", data.get("Employees"));
-//        validateInput("Account Owner", data.get("Account Owner"));
         return this;
     }
+
 
     @Step("Click on Dropdown icon menu")
     public AccountDetailsPage clickIconDropdownMenu() {
@@ -96,7 +88,7 @@ public class AccountDetailsPage extends BasePage {
     public boolean isModalOpened() {
         $(DELETE_MODAL_TITLE).should(exist);
         $(DELETE_MODAL_BUTTON).should(exist);
-        return $(DELETE_MODAL_TITLE).getText().contains("Delete");
+        return $(DELETE_MODAL_TITLE).getText().contains("Delete Account");
     }
 
     @Step("Confirm deletion of an account")

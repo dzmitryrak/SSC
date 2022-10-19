@@ -103,6 +103,7 @@ public class ElementHelper {
         fill(elementLabel, "");
     }
 
+
     public void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {

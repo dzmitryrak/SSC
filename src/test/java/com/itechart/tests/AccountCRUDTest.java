@@ -88,11 +88,58 @@ public class AccountCRUDTest extends BaseTest {
                 .clickSaveButton()
                 .isPageOpened();
 
+//        account.remove("Billing Street");
+//        account.remove("Billing City");
+//        account.remove("Billing State/Province");
+//        account.remove("Billing Zip/Postal Code");
+//        account.remove("Billing Country");
+//        account.remove("Shipping Street");
+//        account.remove("Shipping City");
+//        account.remove("Shipping State/Province");
+//        account.remove("Shipping State/Province");
+//        account.remove("Shipping Zip/Postal Code");
+//        account.remove("Shipping Country");
+
+        Map<String, String> updatedAccount = new HashMap<>() {{
+            put("Account Name", faker.name().name());
+            put("Type", "Prospect");
+            put("Website", faker.internet().url());
+            put("Phone", faker.phoneNumber().phoneNumber());
+            put("Description", faker.lorem().sentence());
+            put("Employees", faker.number().digit());
+            put("Billing Street", faker.address().streetAddress());
+            put("Billing City", faker.address().city());
+            put("Billing State/Province", faker.address().state());
+            put("Billing Zip/Postal Code", faker.address().zipCode());
+            put("Billing Country", faker.address().country());
+            put("Shipping Street", faker.address().streetAddress());
+            put("Shipping City", faker.address().city());
+            put("Shipping State/Province", faker.address().state());
+            put("Shipping Zip/Postal Code", faker.address().zipCode());
+            put("Shipping Country", faker.address().country());
+        }};
+
         accountDetailsPage
-                .openDetails();
-/*                .validate(account) //TODO refactor edit and delete to work with hashmap
-                .edit(account)
-                .validate(account);*/
+                .openDetails()
+                .validate(account) //TODO refactor edit and delete to work with hashmap
+                .clickIconDropdownMenu()
+                .clickEditDetailsButton()
+                .clearData(account)
+                .enterData(updatedAccount);
+
+        updatedAccount.remove("Billing Street");
+        updatedAccount.remove("Billing City");
+        updatedAccount.remove("Billing State/Province");
+        updatedAccount.remove("Billing Zip/Postal Code");
+        updatedAccount.remove("Billing Country");
+        updatedAccount.remove("Shipping Street");
+        updatedAccount.remove("Shipping City");
+        updatedAccount.remove("Shipping State/Province");
+        updatedAccount.remove("Shipping State/Province");
+        updatedAccount.remove("Shipping Zip/Postal Code");
+        updatedAccount.remove("Shipping Country");
+
+        accountDetailsPage.validate(updatedAccount);
     }
 
     @Test(description = "Delete new account created")
