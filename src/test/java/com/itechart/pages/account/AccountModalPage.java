@@ -50,7 +50,9 @@ public class AccountModalPage extends BasePage {
         public AccountModalPage clearData(Map<String, String> data) {
             log.info("Clearing Account Data: {}", data);
             for (Map.Entry<String, String> entry : data.entrySet()) {
-                sfHelper.fieldClear(entry.getKey(), entry.getValue());
+                String fieldLabel = entry.getKey();
+                String value = entry.getValue();
+                sfHelper.fieldClear(fieldLabel, value);
             }
             return this;
         }

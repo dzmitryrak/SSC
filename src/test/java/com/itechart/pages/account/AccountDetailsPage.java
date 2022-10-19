@@ -59,7 +59,6 @@ public class AccountDetailsPage extends BasePage {
         return this;
     }
 
-
     @Step("Click on Dropdown icon menu")
     public AccountDetailsPage clickIconDropdownMenu() {
         try {
