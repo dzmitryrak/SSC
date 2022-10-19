@@ -56,7 +56,6 @@ public class AccountDetailsPage extends BasePage {
             String value = entry.getValue();
             sfHelper.validate(fieldLabel, value);
         }
-
         return this;
     }
 

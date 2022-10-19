@@ -49,11 +49,8 @@ public class AccountModalPage extends BasePage {
     @Step("Clear data from fields")
         public AccountModalPage clearData(Map<String, String> data) {
             log.info("Clearing Account Data: {}", data);
-            $(byText(data.get("Account Name"))).shouldBe(visible);
-
             for (Map.Entry<String, String> entry : data.entrySet()) {
-//                String fieldLabel = entry.getKey();
-                sfHelper.clear(entry.getKey());
+                sfHelper.fieldClear(entry.getKey(), entry.getValue());
             }
             return this;
         }
