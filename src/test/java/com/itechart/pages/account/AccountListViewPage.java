@@ -31,10 +31,13 @@ public class AccountListViewPage extends BasePage {
 
     @Step("Click on New button")
     public AccountModalPage clickNewButton() {
+        //TODO come back NEW button
         /*wait.until(ExpectedConditions.presenceOfElementLocated(NEW_BUTTON_LOCATOR));
         driver.findElement(NEW_BUTTON_LOCATOR).click();*/
         open(baseUrl + "lightning/o/Account/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
-        return new AccountModalPage();
+        AccountModalPage accountModalPage = new AccountModalPage();
+        accountModalPage.isPageOpened();
+        return accountModalPage;
     }
 
     @Step("Check that Account was deleted successfully")

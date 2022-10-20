@@ -8,12 +8,13 @@ import com.itechart.pages.account.AccountListViewPage;
 import com.itechart.pages.account.AccountModalPage;
 import com.itechart.utils.PropertyReader;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 
 @Log4j2
 @Listeners(TestListener.class)
@@ -31,8 +32,10 @@ public abstract class BaseTest {
     public void setUp() {
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
+        Configuration.browser = "chrome";
+        open();
+       getWebDriver().manage().window().maximize();
 
-        getWebDriver().manage().window().maximize();
         loginPage = new LoginPage();
         homePage = new HomePage();
         accountDetailsPage = new AccountDetailsPage();

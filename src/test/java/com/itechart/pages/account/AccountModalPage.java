@@ -6,12 +6,12 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
@@ -26,7 +26,7 @@ public class AccountModalPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(MODAL_HEADER_LOCATOR));
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible);
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
             log.warn("Account Modal is not open");
@@ -41,33 +41,19 @@ public class AccountModalPage extends BasePage {
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
             String value = entry.getValue();
-            sfHelper.fill(driver, fieldLabel, value);
+            sfHelper.fill(fieldLabel, value);
         }
         return this;
     }
 
     @Step("Clear data from fields")
-    public AccountModalPage clearData() {
-        //TODO fix to work with hashmap
-       /* new LightDropDown( "Industry").clear();
-        new LightInput("Account Name").clear();
-        new LightDropDown( "Type").clear();
-        new LightInput("Website").clear();
-        new LightInput( "Phone").clear();
-        new LightInput("Employees").clear();
-        new LightInput( "Billing City").clear();
-        new LightInput( "Billing State/Province").clear();
-        new LightInput( "Billing Zip/Postal Code").clear();
-        new LightInput( "Billing Country").clear();
-        new LightInput( "Shipping City").clear();
-        new LightInput( "Shipping State/Province").clear();
-        new LightInput("Shipping Zip/Postal Code").clear();
-        new LightInput("Shipping Country").clear();
-        new TextArea("Billing Street").clear();
-        new TextArea("Shipping Street").clear();
-        new TextArea("Description").clear();*/
-        return this;
-    }
+        public AccountModalPage clearData(Map<String, String> data) {
+            log.info("Clearing Account Data: {}", data);
+            for (Map.Entry<String, String> entry : data.entrySet()) {
+                sfHelper.fieldClear2();
+            }
+            return this;
+        }
 
     @Step("Click on Save button")
     public AccountDetailsPage clickSaveButton() {

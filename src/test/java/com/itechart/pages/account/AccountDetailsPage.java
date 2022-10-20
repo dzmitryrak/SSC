@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 
+import java.util.Map;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -16,10 +18,10 @@ public class AccountDetailsPage extends BasePage {
 
     private final By DETAILS_TAB = By.xpath("//a[@data-label='Details']");
     private final By EDIT_DETAILS_BUTTON_LOCATOR = By.xpath("//*[@name='Edit']");
-    private final By ICON_DROPDOWN_MENU = By.xpath("//*[contains(@class, 'slds-button slds-button_icon-border-filled')]");
-    private final By DELETE_BUTTON = By.xpath("//*[@name ='Delete']");
-    private final By SUCCESS_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
-    private final By DELETE_MODAL_TITLE = By.xpath("//div[@class='modal-container slds-modal__container']//h2");
+    private final By ICON_DROPDOWN_MENU = By.xpath("//*[contains(@class, 'slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last overflow')]");
+    private final By DELETE_BUTTON = By.xpath("//*[@name='Delete']");
+    private final By SUCCESS_MESSAGE = By.xpath("//*[text() ='Are you sure you want to delete this account?']");
+    private final By DELETE_MODAL_TITLE = By.xpath("//*[text() ='Delete Account']");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
 
     public AccountDetailsPage() {
@@ -28,10 +30,9 @@ public class AccountDetailsPage extends BasePage {
     @Step("Check that Account Details page was opened")
     @Override
     public boolean isPageOpened() {
-        $(DETAILS_TAB).should(exist);
+       $(DETAILS_TAB).shouldBe(visible);
         return true;
     }
-
 
     @Step("Open Details tab")
     public AccountDetailsPage openDetails() {
@@ -46,17 +47,15 @@ public class AccountDetailsPage extends BasePage {
     }
 
     @Step("Validation of entered data")
-    public AccountDetailsPage validate(Account account) {
-        log.info("Validating Account Data: {}", account);
-        $(byText(account.getName())).shouldBe(visible);
-        validateInput("Account Name", account.getName());
-        validateInput("Type", account.getType());
-        validateInput("Description", account.getDescription());
-        validateInput("Industry", account.getIndustry());
-        validateInput("Website", account.getWebsite());
-        validateInput("Phone", account.getPhone());
-        validateInput("Employees", account.getNumberOfEmployees());
-        validateInput("Account Owner", account.getAccountOwner());
+    public AccountDetailsPage validate(Map<String, String> data) {
+        log.info("Validating Account Data: {}", data);
+        $(byText(data.get("Account Name"))).shouldBe(visible);
+
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String fieldLabel = entry.getKey();
+            String value = entry.getValue();
+            sfHelper.validate(fieldLabel, value);
+        }
         return this;
     }
 
@@ -87,7 +86,7 @@ public class AccountDetailsPage extends BasePage {
     public boolean isModalOpened() {
         $(DELETE_MODAL_TITLE).should(exist);
         $(DELETE_MODAL_BUTTON).should(exist);
-        return $(DELETE_MODAL_TITLE).getText().contains("Delete");
+        return $(DELETE_MODAL_TITLE).getText().contains("Delete Account");
     }
 
     @Step("Confirm deletion of an account")
