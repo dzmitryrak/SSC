@@ -99,6 +99,24 @@ public class ElementHelper {
                 String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
     }
 
+    public void fieldClear2() {
+        $(By.xpath(String.format(textArea, "Description"))).clear();
+        $(By.xpath(String.format(textInput, "Website"))).clear();
+        $(By.xpath(String.format(textInput, "Employees"))).clear();
+        $(By.xpath(String.format(textInput, "Shipping City"))).clear();
+        $(By.xpath(String.format(textInput, "Shipping Zip/Postal Code"))).clear();
+        $(By.xpath(String.format(textInput, "Billing Country"))).clear();
+        $(By.xpath(String.format(textInput, "Billing Zip/Postal Code"))).clear();
+        $(By.xpath(String.format(textInput, "Shipping State/Province"))).clear();
+        $(By.xpath(String.format(textInput, "Shipping Country"))).clear();
+        $(By.xpath(String.format(textInput, "Account Name"))).clear();
+        $(By.xpath(String.format(textArea, "Billing Street"))).clear();
+        $(By.xpath(String.format(textInput, "Billing City"))).clear();
+        $(By.xpath(String.format(textInput, "Phone"))).clear();
+        $(By.xpath(String.format(textArea, "Shipping Street"))).clear();
+        $(By.xpath(String.format(textInput, "Billing State/Province"))).clear();
+    }
+
     public void fieldClear(String elementLabel, String value) {
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
@@ -114,8 +132,7 @@ public class ElementHelper {
 
             //PICKLIST
         } else if($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
-            //TODO logging
-            //TODO Implement multiselect option with separator
+
             elementType = "PickList";
             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
             WebElement element = $(By.xpath(String.format(pickList, elementLabel)));

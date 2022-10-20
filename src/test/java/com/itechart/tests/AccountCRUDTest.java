@@ -124,8 +124,11 @@ public class AccountCRUDTest extends BaseTest {
                 .clickIconDropdownMenu()
                 .clickEditDetailsButton()
                 .clearData(account)
-                .enterData(updatedAccount);
+                .enterData(updatedAccount)
+                .clickSaveButton()
+                .isPageOpened();
 
+        updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");
         updatedAccount.remove("Billing City");
         updatedAccount.remove("Billing State/Province");
@@ -138,7 +141,9 @@ public class AccountCRUDTest extends BaseTest {
         updatedAccount.remove("Shipping Zip/Postal Code");
         updatedAccount.remove("Shipping Country");
 
-        accountDetailsPage.validate(updatedAccount);
+        accountDetailsPage
+                .openDetails()
+                .validate(updatedAccount);
     }
 
     @Test(description = "Delete new account created")
