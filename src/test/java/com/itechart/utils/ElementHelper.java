@@ -1,4 +1,5 @@
 package com.itechart.utils;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.apache.commons.lang3.StringUtils;
@@ -32,61 +33,61 @@ public class ElementHelper {
         String elementType;
 
         //Currency, Date, Date/time, Email, Number Percent Phone Text
-         if($$(By.xpath(String.format(textInput, elementLabel))).size() > 0) {
-             elementType = "Text";
-            if(StringUtils.isEmpty(value)) {
+        if ($$(By.xpath(String.format(textInput, elementLabel))).size() > 0) {
+            elementType = "Text";
+            if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(textInput, elementLabel))).clear();
             } else {
                 $(By.xpath(String.format(textInput, elementLabel))).sendKeys(value);
             }
 
             //PICKLIST
-        } else if($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
-             //TODO logging
-             //TODO Implement multiselect option with separator
-             elementType = "PickList";
-             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
-             WebElement element = $(By.xpath(String.format(pickList, elementLabel)));
-             Selenide.executeJavaScript("arguments[0].click();", element);
-             WebElement element1;
-             //TODO how about just passing  "--None--" to clear?
-             if(StringUtils.isEmpty(value)) {
-                  element1 = $(By.xpath(String.format(lookupOption, "--None--")));
-             } else {
-                  element1 = $(By.xpath(String.format(lookupOption, value)));
-             }
-             Selenide.executeJavaScript("arguments[0].click();", element1);
-         } else if($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
+        } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
+            //TODO logging
+            //TODO Implement multiselect option with separator
+            elementType = "PickList";
+            String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
+            WebElement element = $(By.xpath(String.format(pickList, elementLabel)));
+            Selenide.executeJavaScript("arguments[0].click();", element);
+            WebElement element1;
+            //TODO how about just passing  "--None--" to clear?
+            if (StringUtils.isEmpty(value)) {
+                element1 = $(By.xpath(String.format(lookupOption, "--None--")));
+            } else {
+                element1 = $(By.xpath(String.format(lookupOption, value)));
+            }
+            Selenide.executeJavaScript("arguments[0].click();", element1);
+        } else if ($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
 
             //Lookup Relationship
-             elementType = "Lookup Relationship";
+            elementType = "Lookup Relationship";
             //TODO add code to clear lookup
-             String lookupOption = BASE_DETAIL_PANEL + "(//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item) [1]";
+            String lookupOption = BASE_DETAIL_PANEL + "(//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item) [1]";
 
-             WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
-             Selenide.executeJavaScript("arguments[0].click();", element);
+            WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
+            Selenide.executeJavaScript("arguments[0].click();", element);
 
-             $(By.xpath(String.format(lookupOption, value))).should(exist);
-             WebElement element1 = $(By.xpath(String.format(lookupOption, value)));
-             Selenide.executeJavaScript("arguments[0].click();", element1);
-        } else if($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
-             //TextArea
-             elementType = "Text Area";
-             if(StringUtils.isEmpty(value)) {
-                 $(By.xpath(String.format(textArea, elementLabel))).clear();
-             } else {
-                 $(By.xpath(String.format(textArea, elementLabel))).sendKeys(value);
-             }
-             //TODO add else if for checkbox
+            $(By.xpath(String.format(lookupOption, value))).should(exist);
+            WebElement element1 = $(By.xpath(String.format(lookupOption, value)));
+            Selenide.executeJavaScript("arguments[0].click();", element1);
+        } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
+            //TextArea
+            elementType = "Text Area";
+            if (StringUtils.isEmpty(value)) {
+                $(By.xpath(String.format(textArea, elementLabel))).clear();
+            } else {
+                $(By.xpath(String.format(textArea, elementLabel))).sendKeys(value);
+            }
+            //TODO add else if for checkbox
         } else {
-             elementType = "ERROR! Cannot identify element";
-             throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
-         }
+            elementType = "ERROR! Cannot identify element";
+            throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
+        }
 
         Configuration.timeout = 5000;
         long endTime = System.currentTimeMillis();
 
-        System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType,(endTime - startTime));
+        System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType, (endTime - startTime));
     }
 
     public void validate(String label, String expectedInput) {
@@ -94,7 +95,7 @@ public class ElementHelper {
                 "*[@data-output-element-id='output-field']";
         WebElement input = $(By.xpath(String.format(locator, label)));
         String actualInput = input.getText();
-      // log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
+        // log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
         Assert.assertTrue(input.getText().contains(expectedInput),
                 String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
     }
@@ -120,60 +121,41 @@ public class ElementHelper {
     public void fieldClear(String elementLabel, String value) {
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
-        Configuration.timeout = 1000;
+        Configuration.timeout = 5000;
+        $(By.xpath(String.format(textArea, "Description"))).shouldBe(visible);
         String elementType;
 
         //Currency, Date, Date/time, Email, Number Percent Phone Text
-        if($$(By.xpath(String.format(textInput, elementLabel))).size() > 0) {
+        if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
+
+            //TextArea
+            elementType = "Text Area";
+            $(byText(value)).shouldBe(visible);
+            $(By.xpath(String.format(textArea, elementLabel))).clear();
+        } else if ($$(By.xpath(String.format(textInput, elementLabel))).size() > 0) {
             elementType = "Text";
-            if(StringUtils.isEmpty(value)) {
+            if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(textInput, elementLabel))).clear();
             }
-
+        } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
             //PICKLIST
-        } else if($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
-
             elementType = "PickList";
             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
             WebElement element = $(By.xpath(String.format(pickList, elementLabel)));
             Selenide.executeJavaScript("arguments[0].click();", element);
             WebElement element1;
             //TODO how about just passing  "--None--" to clear?
-            if(StringUtils.isEmpty(value)) {
-                element1 = $(By.xpath(String.format(lookupOption, "--None--")));
-            } else {
-                element1 = $(By.xpath(String.format(lookupOption, value)));
-            }
+
+            element1 = $(By.xpath(String.format(lookupOption, "--None--")));
+
             Selenide.executeJavaScript("arguments[0].click();", element1);
-        } else if($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
-
-            //Lookup Relationship
-            elementType = "Lookup Relationship";
-            //TODO add code to clear lookup
-            String lookupOption = BASE_DETAIL_PANEL + "(//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item) [1]";
-
-            WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
-            Selenide.executeJavaScript("arguments[0].click();", element);
-
-            $(By.xpath(String.format(lookupOption, value))).should(exist);
-            WebElement element1 = $(By.xpath(String.format(lookupOption, value)));
-            Selenide.executeJavaScript("arguments[0].click();", element1);
-        } else if($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
-            //TextArea
-            elementType = "Text Area";
-            if(StringUtils.isEmpty(value)) {
-                $(By.xpath(String.format(textArea, elementLabel))).clear();
-            }
-            //TODO add else if for checkbox
         } else {
             elementType = "ERROR! Cannot identify element";
             throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
         }
-
         Configuration.timeout = 5000;
         long endTime = System.currentTimeMillis();
-
-        System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType,(endTime - startTime));
+        System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType, (endTime - startTime));
     }
 
     public void waitForPageLoaded() {
