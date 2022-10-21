@@ -52,7 +52,7 @@ public class AccountModalPage extends BasePage {
             for (Map.Entry<String, String> entry : data.entrySet()) {
                 String fieldLabel = entry.getKey();
                 String value = entry.getValue();
-                sfHelper.fieldClear(fieldLabel, value);
+                sfHelper.fill(fieldLabel, "");
             }
             return this;
         }
