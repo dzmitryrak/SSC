@@ -57,6 +57,8 @@ public class AccountCRUDTest extends BaseTest {
                 .validate(account);
     }
 
+    //TODO fix of notifications in browser
+
     @Test(description = "Edit new account created")
     public void editNewAccountRecord() {
         Map<String, String> account = new HashMap<>() {{
