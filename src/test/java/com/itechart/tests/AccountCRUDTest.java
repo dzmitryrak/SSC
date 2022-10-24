@@ -58,6 +58,7 @@ public class AccountCRUDTest extends BaseTest {
     }
 
     //TODO fix of notifications in browser
+    //
 
     @Test(description = "Edit new account created")
     public void editNewAccountRecord() {
