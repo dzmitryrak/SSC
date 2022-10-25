@@ -18,7 +18,6 @@ public class PropertyReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public String getPropertyValueByKey(String key) {
