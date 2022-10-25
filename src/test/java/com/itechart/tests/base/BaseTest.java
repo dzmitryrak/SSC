@@ -1,13 +1,16 @@
 package com.itechart.tests.base;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.account.AccountListViewPage;
 import com.itechart.pages.account.AccountModalPage;
 import com.itechart.utils.PropertyReader;
+import com.sun.xml.bind.v2.TODO;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
@@ -33,8 +36,15 @@ public abstract class BaseTest {
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
         Configuration.browser = "chrome";
+        var options = new ChromeOptions();
+
+        //TODO похоже, отключение нотификаций в браузере не работает
+        // https://github.com/selenide/selenide/issues/903
+
+        options.addArguments("--disable-features=site-per-process");
+        options.addArguments("disable-infobars");
         open();
-       getWebDriver().manage().window().maximize();
+        getWebDriver().manage().window().maximize();
 
         loginPage = new LoginPage();
         homePage = new HomePage();

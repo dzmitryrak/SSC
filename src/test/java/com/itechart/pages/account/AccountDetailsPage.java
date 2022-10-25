@@ -43,7 +43,9 @@ public class AccountDetailsPage extends BasePage {
     @Step("Click Edit button")
     public AccountModalPage clickEditDetailsButton() {
         $(EDIT_DETAILS_BUTTON_LOCATOR).click();
-        return new AccountModalPage();
+        AccountModalPage accountModalPage = new AccountModalPage();
+        accountModalPage.isPageOpened();
+        return accountModalPage;
     }
 
     @Step("Validation of entered data")
