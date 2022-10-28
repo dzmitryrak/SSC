@@ -38,7 +38,7 @@
                         -Xmx256m
                     </argLine>
                     <suiteXmlFiles>
-                        <suiteXmlFile>bvt.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/bvt.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
                 <dependencies>
