@@ -35,12 +35,6 @@ public abstract class BaseTest {
         Configuration.timeout = 5000;
         Configuration.browser = "chrome";
         var options = new ChromeOptions();
-
-        //TODO похоже, отключение нотификаций в браузере не работает
-        // https://github.com/selenide/selenide/issues/903
-
-//        options.addArguments("--disable-features=site-per-process");
-//        options.addArguments("--disable-infobars");
         options.addArguments("--disable-notifications");
         Configuration.browserCapabilities = options;
         open();
