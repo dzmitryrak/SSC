@@ -14,6 +14,7 @@ public class AccountCRUDTest extends BaseTest {
     public void createNewAccountRecord() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
+            put("Parent Account", "Erica Larson");
             put("Type", "Prospect");
             put("Website", faker.internet().url());
             put("Phone", faker.phoneNumber().phoneNumber());
