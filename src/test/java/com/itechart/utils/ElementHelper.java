@@ -2,6 +2,7 @@ package com.itechart.utils;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,7 +11,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.testng.Assert;
 
-import static com.codeborne.selenide.Condition.exist;
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -60,14 +63,13 @@ public class ElementHelper {
             //Lookup Relationship
             elementType = "Lookup Relationship";
             //TODO add code to clear lookup
-            String lookupOption = BASE_DETAIL_PANEL + "(//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item) [1]";
+            String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
 
             WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
             Selenide.executeJavaScript("arguments[0].click();", element);
-
-            $(By.xpath(String.format(lookupOption, value))).should(exist);
-            WebElement element1 = $(By.xpath(String.format(lookupOption, value)));
-            Selenide.executeJavaScript("arguments[0].click();", element1);
+            element.sendKeys(value);
+            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+            Selenide.executeJavaScript("arguments[0].click();", lookUpOption);
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
             //TextArea
             elementType = "Text Area";
