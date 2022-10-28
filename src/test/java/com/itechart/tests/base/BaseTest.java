@@ -24,8 +24,8 @@ public abstract class BaseTest {
     protected NewObjectModal newObjectModal;
     protected AccountDetailsPage accountDetailsPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
-    protected final String USERNAME = propertyReader.getPropertyValueByKey("username");
-    protected final String PASSWORD = propertyReader.getPropertyValueByKey("password");
+    protected final String USERNAME = System.getProperty(propertyReader.getPropertyValueByKey("username"), System.getProperty("username"));
+    protected final String PASSWORD = System.getProperty(propertyReader.getPropertyValueByKey("password"), System.getProperty("password"));
 
     @BeforeMethod(description = "Open browser")
     public void setUp() {
