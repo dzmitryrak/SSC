@@ -34,6 +34,9 @@ public abstract class BaseTest {
         Configuration.browser = "chrome";
         var options = new ChromeOptions();
         options.addArguments("--disable-notifications");
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         Configuration.browserCapabilities = options;
         open();
         getWebDriver().manage().window().maximize();
