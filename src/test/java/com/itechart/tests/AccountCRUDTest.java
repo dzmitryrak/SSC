@@ -36,10 +36,11 @@ public class AccountCRUDTest extends BaseTest {
         homePage.isPageOpened();
         accountListViewPage.openUrl();
         accountListViewPage
-                .clickNewButton()
-                .enterData(account)
-                .clickSaveButton()
-                .isPageOpened();
+                .clickNewButton();
+
+        newObjectModal.enterData(account)
+                .save();
+        accountDetailsPage.isPageOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -105,10 +106,11 @@ public class AccountCRUDTest extends BaseTest {
         homePage.isPageOpened();
         accountListViewPage.openUrl();
         accountListViewPage
-                .clickNewButton()
+                .clickNewButton();
+        newObjectModal
                 .enterData(account)
-                .clickSaveButton()
-                .isPageOpened();
+                .save();
+        accountDetailsPage.isPageOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -125,11 +127,12 @@ public class AccountCRUDTest extends BaseTest {
                 .validate(account);
         accountDetailsPage
                 .clickIconDropdownMenu()
-                .clickEditDetailsButton()
+                .clickEditDetailsButton();
+        newObjectModal
                 .clearData(account)
                 .enterData(updatedAccount)
-                .clickSaveButton()
-                .isPageOpened();
+                .save();
+        accountDetailsPage.isPageOpened();
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");
@@ -175,10 +178,11 @@ public class AccountCRUDTest extends BaseTest {
         homePage.isPageOpened();
         accountListViewPage.openUrl();
         accountListViewPage
-                .clickNewButton()
+                .clickNewButton();
+        newObjectModal
                 .enterData(account)
-                .clickSaveButton()
-                .isPageOpened();
+                .save();
+        accountDetailsPage.isPageOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");

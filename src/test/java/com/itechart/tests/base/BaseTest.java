@@ -1,19 +1,15 @@
 package com.itechart.tests.base;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
+import com.itechart.pages.NewObjectModal;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.account.AccountListViewPage;
-import com.itechart.pages.account.AccountModalPage;
 import com.itechart.utils.PropertyReader;
-import com.sun.xml.bind.v2.TODO;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
+import org.testng.annotations.*;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -25,13 +21,13 @@ public abstract class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
     protected AccountListViewPage accountListViewPage;
-    protected AccountModalPage accountModalPage;
+    protected NewObjectModal newObjectModal;
     protected AccountDetailsPage accountDetailsPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final String USERNAME = propertyReader.getPropertyValueByKey("username");
     protected final String PASSWORD = propertyReader.getPropertyValueByKey("password");
 
-    @BeforeClass(description = "Open browser")
+    @BeforeMethod(description = "Open browser")
     public void setUp() {
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
@@ -50,10 +46,10 @@ public abstract class BaseTest {
         homePage = new HomePage();
         accountDetailsPage = new AccountDetailsPage();
         accountListViewPage = new AccountListViewPage();
-        accountModalPage = new AccountModalPage();
+        newObjectModal = new NewObjectModal();
     }
 
-    @AfterClass(alwaysRun = true, description = "Close browser")
+    @AfterMethod(alwaysRun = true, description = "Close browser")
     public void tearDown() {
         getWebDriver().quit();
     }
