@@ -32,7 +32,7 @@ jobs:
       env:
         USERNAME: ${{ secrets.username }}
         PASSWORD: ${{ secrets.password }}
-      run: mvn clean test -Dusername=USERNAME -Dpassword=PASSWORD
+      run: mvn clean test -Dusername=$USERNAME -Dpassword=$PASSWORD
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
