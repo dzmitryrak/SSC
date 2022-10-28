@@ -1,6 +1,5 @@
-package com.itechart.pages.account;
+package com.itechart.pages;
 
-import com.itechart.pages.BasePage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -8,14 +7,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 
+import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
-public class AccountModalPage extends BasePage {
+public class NewObjectModal extends BasePage {
     private final By SAVE_BUTTON_LOCATOR = By.xpath("//button[@name='SaveEdit']");
     private final By CANCEL_BUTTON_LOCATOR = By.cssSelector("[title='Cancel']");
     private final By CROSS_BUTTON_LOCATOR = By.xpath("//button[@title='Close this window']");
@@ -26,17 +25,18 @@ public class AccountModalPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         try {
-            $(MODAL_HEADER_LOCATOR).shouldBe(visible);
+            //TODO generic wait timeout
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
-            log.warn("Account Modal is not open");
+            log.warn("Modal is not opened");
             log.warn(e.getLocalizedMessage());
             Assert.fail();
             return false;
         }
     }
 
-    public AccountModalPage enterData(Map<String, String> data) {
+    public NewObjectModal enterData(Map<String, String> data) {
         log.info("Entering Account Data: {}", data);
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
@@ -47,36 +47,36 @@ public class AccountModalPage extends BasePage {
     }
 
     @Step("Clear data from fields")
-        public AccountModalPage clearData(Map<String, String> data) {
-            log.info("Clearing Account Data: {}", data);
-            for (Map.Entry<String, String> entry : data.entrySet()) {
-                String fieldLabel = entry.getKey();
-                String value = entry.getValue();
-                sfHelper.fill(fieldLabel, "");
-            }
-            return this;
+    public NewObjectModal clearData(Map<String, String> data) {
+        log.info("Clearing Account Data: {}", data);
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String fieldLabel = entry.getKey();
+            sfHelper.fill(fieldLabel, "");
         }
+        return this;
+    }
 
     @Step("Click on Save button")
-    public AccountDetailsPage clickSaveButton() {
+    public void save() {
         $(SAVE_BUTTON_LOCATOR).shouldBe(visible);
         $(SAVE_BUTTON_LOCATOR).click();
-        return new AccountDetailsPage();
+        //TODO return Detail page
     }
 
-    public AccountDetailsPage clickSaveAndNewButton() {
+    //TODO add all required methods
+    public NewObjectModal saveAndNew() {
         $(SAVE_AND_NEW_BUTTON_LOCATOR).click();
-        return new AccountDetailsPage();
+        return this;
     }
 
-    public AccountListViewPage clickCancelButton() {
+    public void clickCancelButton() {
         $(CANCEL_BUTTON_LOCATOR).click();
-        return new AccountListViewPage();
+        //TODO return List page
     }
 
-    public AccountListViewPage clickCrossButton() {
+    public void clickCrossButton() {
         $(CROSS_BUTTON_LOCATOR).click();
-        return new AccountListViewPage();
+        //TODO return List page
     }
 
     public boolean isEmptyRequiredFieldsValidationError() {

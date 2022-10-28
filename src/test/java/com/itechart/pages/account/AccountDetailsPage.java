@@ -1,7 +1,7 @@
 package com.itechart.pages.account;
 
-import com.itechart.models.Account;
 import com.itechart.pages.BasePage;
+import com.itechart.pages.NewObjectModal;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -41,9 +41,9 @@ public class AccountDetailsPage extends BasePage {
     }
 
     @Step("Click Edit button")
-    public AccountModalPage clickEditDetailsButton() {
+    public NewObjectModal clickEditDetailsButton() {
         $(EDIT_DETAILS_BUTTON_LOCATOR).click();
-        AccountModalPage accountModalPage = new AccountModalPage();
+        NewObjectModal accountModalPage = new NewObjectModal();
         accountModalPage.isPageOpened();
         return accountModalPage;
     }

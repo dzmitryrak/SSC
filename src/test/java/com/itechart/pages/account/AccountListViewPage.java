@@ -1,6 +1,7 @@
 package com.itechart.pages.account;
 
 import com.itechart.pages.BasePage;
+import com.itechart.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -30,12 +31,12 @@ public class AccountListViewPage extends BasePage {
     }
 
     @Step("Click on New button")
-    public AccountModalPage clickNewButton() {
+    public NewObjectModal clickNewButton() {
         //TODO come back NEW button
         /*wait.until(ExpectedConditions.presenceOfElementLocated(NEW_BUTTON_LOCATOR));
         driver.findElement(NEW_BUTTON_LOCATOR).click();*/
         open(baseUrl + "lightning/o/Account/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
-        AccountModalPage accountModalPage = new AccountModalPage();
+        NewObjectModal accountModalPage = new NewObjectModal();
         accountModalPage.isPageOpened();
         return accountModalPage;
     }
