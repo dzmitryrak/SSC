@@ -1,11 +1,14 @@
 package com.itechart.tests.base;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.NewObjectModal;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.account.AccountListViewPage;
+import com.itechart.pages.cases.CaseDetailsPage;
+import com.itechart.pages.cases.CaseListViewPage;
 import com.itechart.utils.PropertyReader;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -20,6 +23,8 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public abstract class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected CaseListViewPage caseListViewPage;
+    protected CaseDetailsPage caseDetailsPage;
     protected AccountListViewPage accountListViewPage;
     protected NewObjectModal newObjectModal;
     protected AccountDetailsPage accountDetailsPage;
@@ -43,10 +48,13 @@ public abstract class BaseTest {
         accountDetailsPage = new AccountDetailsPage();
         accountListViewPage = new AccountListViewPage();
         newObjectModal = new NewObjectModal();
+        caseListViewPage = new CaseListViewPage();
+        caseDetailsPage = new CaseDetailsPage();
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")
     public void tearDown() {
+        Selenide.closeWindow();
         getWebDriver().quit();
     }
 }
