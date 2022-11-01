@@ -1,18 +1,15 @@
 package com.itechart.pages.cases;
-
 import com.itechart.pages.BasePage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 @Log4j2
 public class CaseListViewPage extends BasePage {
     protected final By FIRST_CASE_RECORD = By.xpath("//*[contains(@class, 'slds-cell-edit cellContainer')]");
-    protected final By CASES_FILER = By.xpath("//*[text() ='Created Today CTI']");
-
+    protected final By CASES_FILTER = By.xpath("//*[text() ='Created Today CTI']");
 
     @Step("Open List View for Case")
     public CaseListViewPage openUrl() {
@@ -23,7 +20,7 @@ public class CaseListViewPage extends BasePage {
 
     public boolean isPageOpened() {
         log.info("Check that page is opened");
-        return $(CASES_FILER).isDisplayed();
+        return $(CASES_FILTER).isDisplayed();
     }
 
     @Step("Clicking on the first case")

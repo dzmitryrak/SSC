@@ -30,9 +30,9 @@ public class CaseDetailsPage extends BasePage {
 
         String expectedPhone = String.format("+34%s", phone);
         String actualEmail = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Email"))).getText();
-        String actualDetallesEmail = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Correo electrónico Web"))).getText();
+        String actualDetailsEmail = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Correo electrónico Web"))).getText();
         String actualPhone = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Teléfono"))).getText();
-        String actualDetallesPhone = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Teléfono del cliente"))).getText();
+        String actualDetailsPhone = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Teléfono del cliente"))).getText();
         String actualAmount = $(By.xpath(String.format(DETAILS_TAB_OPPORTUNITY, "Cantidad de capital"))).getValue();
         String actualPeriod = $(By.xpath(String.format(DETAILS_TAB_OPPORTUNITY, "Pago de frecuencia"))).getValue();
 
@@ -40,9 +40,9 @@ public class CaseDetailsPage extends BasePage {
         String newExpectedPeriod = period.replace("Anual", "Yearly");
 
         Assert.assertTrue(actualEmail.contains(email), String.format("Email input is not correct.Expected: '%s' Actual: '%s'", email, actualEmail));
-        Assert.assertTrue(actualDetallesEmail.contains(email), String.format("Correo electrónico Web is not correct.Expected: '%s' Actual: '%s'", email, actualDetallesEmail));
+        Assert.assertTrue(actualDetailsEmail.contains(email), String.format("Correo electrónico Web is not correct.Expected: '%s' Actual: '%s'", email, actualDetailsEmail));
         Assert.assertTrue(actualPhone.contains(phone), String.format("Phone number input is not correct.Expected: '%s' Actual: '%s'", expectedPhone, actualPhone));
-        Assert.assertTrue(actualDetallesPhone.contains(phone), String.format("Teléfono del cliente input is not correct.Expected: '%s' Actual: '%s'", expectedPhone, actualDetallesPhone));
+        Assert.assertTrue(actualDetailsPhone.contains(phone), String.format("Teléfono del cliente input is not correct.Expected: '%s' Actual: '%s'", expectedPhone, actualDetailsPhone));
         Assert.assertTrue(actualAmount.contains(newExpectedAmount), String.format("Cantidad de capital input is not correct. Expected: %s Actual: %s", newExpectedAmount, actualAmount));
         Assert.assertTrue(actualPeriod.contains(newExpectedPeriod), String.format("Pago de frecuencia input is not correct. Expected: %s Actual: %s", newExpectedPeriod, period));
         return this;
