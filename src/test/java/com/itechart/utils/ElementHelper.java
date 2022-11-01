@@ -22,9 +22,10 @@ import static com.codeborne.selenide.Selenide.$$;
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
     String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist//button";
-    String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input";
+    String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='text']";
     String lookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//input";
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
+    String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
 
     //TODO amazing javadoc
     public void fill(String elementLabel, String value) {
@@ -78,7 +79,19 @@ public class ElementHelper {
             } else {
                 $(By.xpath(String.format(textArea, elementLabel))).sendKeys(value);
             }
-            //TODO add else if for checkbox
+        } else if ($$(By.xpath(String.format(checkbox, elementLabel))).size() > 0) {
+            //Checkbox
+            elementType = "Checkbox";
+            SelenideElement ch = $(By.xpath(String.format(checkbox, elementLabel)));
+            if (value.equals("true")) {
+                if(!ch.isSelected()) {
+                    Selenide.executeJavaScript("arguments[0].click();", ch);
+                }
+            } else {
+                if(ch.isSelected()) {
+                    Selenide.executeJavaScript("arguments[0].click();", ch);
+                }
+            }
         } else {
             elementType = "ERROR! Cannot identify element";
             throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));

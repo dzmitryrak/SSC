@@ -21,6 +21,7 @@ public class ContactCRUDTest extends BaseTest {
             put("First Name", faker.name().name());
             put("Phone", "+375232323");
             put("Home Phone", "+238282");
+            put("BVT check", "true");
             //put("Account Name", "Emory Harber");
             put("Mobile", "+1238238");
             put("Title", "any title");
