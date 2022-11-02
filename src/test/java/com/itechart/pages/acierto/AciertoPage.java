@@ -8,9 +8,8 @@ import static com.codeborne.selenide.Selenide.$;
 public class AciertoPage extends BasePage {
 
     private final String ACIERTO_URL = "https://stg-funnel-life.acierto.com/seguros-vida/comparador/";
-    private static final String INSURANCE_DETAILS_LOCATOR = "//*[text()='%s']";
+    private static final String INFO_DETAILS_LOCATOR = "//*[text()='%s']";
     private static final String DATA_LOCATOR = "[data-gtm=%s]";
-    private static final String PERSON_GENDER_LOCATOR = "//p[text()='%s']";
 
     @Step("Open Acierto Main Page")
     public AciertoPage open() {
@@ -20,13 +19,13 @@ public class AciertoPage extends BasePage {
 
     @Step("Choose amount of insurance")
     public AciertoPage insuranceAmountClick(String amount){
-        $(By.xpath(String.format(INSURANCE_DETAILS_LOCATOR, amount))).click();
+        $(By.xpath(String.format(INFO_DETAILS_LOCATOR, amount))).click();
         return this;
     }
 
     @Step("Choose period of insurance")
     public AciertoPage insurancePeriodClick(String period) {
-        $(By.xpath(String.format(INSURANCE_DETAILS_LOCATOR, period))).click();
+        $(By.xpath(String.format(INFO_DETAILS_LOCATOR, period))).click();
         return this;
     }
 
@@ -48,7 +47,7 @@ public class AciertoPage extends BasePage {
 
     @Step("Set gender of the person")
     public AciertoPage setPersonsGender(String gender) {
-        $(By.xpath(String.format(PERSON_GENDER_LOCATOR, gender))).click();
+        $(By.xpath(String.format(INFO_DETAILS_LOCATOR, gender))).click();
         return this;
     }
 
