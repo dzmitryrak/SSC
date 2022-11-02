@@ -14,25 +14,26 @@ public class AciertoTest extends BaseTest {
     private final String INSURANCE_AMOUNT = "90.000€";
     private final String EMAIL = "acierto1@mailinator.com";
     private final String PHONE = "911000222";
-    private final String PERIOD = "Anual";
-    private final String PERIOD_LOCATOR = "//*[text()='%s']";
+    private final String INSURANCE_PERIOD = "Anual";
+    private final String PERSON_GENDER = "Hombre";
 
-    @Test
+    @Test(description = "Creation of the insurance record")
     public void acierto() {
-        Selenide.open("https://stg-funnel-life.acierto.com/seguros-vida/comparador/");
-        $(By.xpath(String.format("//*[text()='%s']", INSURANCE_AMOUNT))).click();
-        $(By.xpath(String.format(PERIOD_LOCATOR, PERIOD))).click();
-        clickJS(By.cssSelector("[data-gtm=continue]"));
-        $(By.cssSelector("[data-gtm=birth-date]")).sendKeys(DATE_OF_BIRTH);
-        $(By.xpath("//p[text()='Hombre']")).click();
-        $(By.cssSelector("[data-gtm=zip-code]")).sendKeys(ZIPCODE);
-        clickJS(By.cssSelector("[data-gtm=continue]"));
-        $(By.cssSelector("[data-gtm=email]")).sendKeys(EMAIL);
-        $(By.cssSelector("[data-gtm=phone]")).sendKeys(PHONE);
-        clickJS(By.cssSelector("[data-gtm=continue]"));
+
+        aciertoPage.open();
+        aciertoPage.insuranceAmountClick(INSURANCE_AMOUNT);
+        aciertoPage.insurancePeriodClick(INSURANCE_PERIOD);
+        aciertoPage.clickContinueButton();
+        aciertoPage.chooseDateOfBirth(DATE_OF_BIRTH);
+        aciertoPage.setPersonsGender(PERSON_GENDER);
+        aciertoPage.setZipCode(ZIPCODE);
+        aciertoPage.clickContinueButton();
+        aciertoPage.setEmail(EMAIL);
+        aciertoPage.setPhone(PHONE);
+        aciertoPage.clickContinueButton();
     }
 
-    @Test
+    @Test(description = "Creation of the insurance record and validation it in Salesforce")
     public void aciertoTestValidation() {
         Selenide.open("https://stg-funnel-life.acierto.com/seguros-vida/comparador/");
         $(By.xpath(String.format("//*[text()='%s']", INSURANCE_AMOUNT))).click();
@@ -45,7 +46,6 @@ public class AciertoTest extends BaseTest {
         $(By.cssSelector("[data-gtm=email]")).sendKeys(EMAIL);
         $(By.cssSelector("[data-gtm=phone]")).sendKeys(PHONE);
         clickJS(By.cssSelector("[data-gtm=continue]"));
-        Selenide.closeWindow();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
@@ -53,7 +53,7 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.isPageOpened();
         caseListViewPage.clickOnCase();
         caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, PERIOD);
+        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD);
     }
 
     public void clickJS(By locator) {

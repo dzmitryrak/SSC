@@ -7,6 +7,7 @@ import com.itechart.pages.LoginPage;
 import com.itechart.pages.NewObjectModal;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.account.AccountListViewPage;
+import com.itechart.pages.acierto.AciertoPage;
 import com.itechart.pages.cases.CaseDetailsPage;
 import com.itechart.pages.cases.CaseListViewPage;
 import com.itechart.utils.PropertyReader;
@@ -28,6 +29,7 @@ public abstract class BaseTest {
     protected AccountListViewPage accountListViewPage;
     protected NewObjectModal newObjectModal;
     protected AccountDetailsPage accountDetailsPage;
+    protected AciertoPage aciertoPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final String USERNAME = propertyReader.getPropertyValueByKey("username");
     protected final String PASSWORD = propertyReader.getPropertyValueByKey("password");
@@ -50,11 +52,11 @@ public abstract class BaseTest {
         newObjectModal = new NewObjectModal();
         caseListViewPage = new CaseListViewPage();
         caseDetailsPage = new CaseDetailsPage();
+        aciertoPage = new AciertoPage();
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")
     public void tearDown() {
-        Selenide.closeWindow();
         getWebDriver().quit();
     }
 }

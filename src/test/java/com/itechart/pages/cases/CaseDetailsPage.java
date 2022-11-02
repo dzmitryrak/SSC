@@ -12,8 +12,8 @@ import static com.codeborne.selenide.Selenide.$;
 @Log4j2
 public class CaseDetailsPage extends BasePage {
 
-    public static final String DETAILS_TAB_FIELD_LOCATOR = "//*[text()='%s']/../..//*[contains(@class, 'slds-form-element__control')]";
-    public static final String DETAILS_TAB_OPPORTUNITY = "//*[text()='%s']/../..//*[contains(@class, 'slds-input')]";
+    private static final String DETAILS_TAB_FIELD_LOCATOR = "//*[text()='%s']/../..//*[contains(@class, 'slds-form-element__control')]";
+    private static final String DETAILS_TAB_OPPORTUNITY = "//*[text()='%s']/../..//*[contains(@class, 'slds-input')]";
     protected final By DETAILS_TAB = By.xpath("//*[@title='Detalles']");
 
     @Step("Clicking on the first case")
