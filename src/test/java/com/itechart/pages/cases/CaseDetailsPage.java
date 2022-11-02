@@ -26,7 +26,6 @@ public class CaseDetailsPage extends BasePage {
 
     @Step("Validation of fields filled")
     public CaseDetailsPage validateInput(String email, String phone, String amount, String period) {
-        log.info("Validation of fields filled");
 
         String expectedPhone = String.format("+34%s", phone);
         String actualEmail = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Email"))).getText();
@@ -40,11 +39,17 @@ public class CaseDetailsPage extends BasePage {
         String newExpectedPeriod = period.replace("Anual", "Yearly");
 
         Assert.assertTrue(actualEmail.contains(email), String.format("Email input is not correct.Expected: '%s' Actual: '%s'", email, actualEmail));
+        log.debug("Validating Expected email: {} and actual email: {}", email, actualEmail);
         Assert.assertTrue(actualDetailsEmail.contains(email), String.format("Correo electrónico Web is not correct.Expected: '%s' Actual: '%s'", email, actualDetailsEmail));
+        log.debug("Validating Expected Detailed email: {} and actual email: {}", email, actualDetailsEmail);
         Assert.assertTrue(actualPhone.contains(phone), String.format("Phone number input is not correct.Expected: '%s' Actual: '%s'", expectedPhone, actualPhone));
+        log.debug("Validating Phone number input: {} and actual email: {}", expectedPhone, actualPhone);
         Assert.assertTrue(actualDetailsPhone.contains(phone), String.format("Teléfono del cliente input is not correct.Expected: '%s' Actual: '%s'", expectedPhone, actualDetailsPhone));
+        log.debug("Validating Detailed Phone number input: {} and actual email: {}", expectedPhone, actualDetailsPhone);
         Assert.assertTrue(actualAmount.contains(newExpectedAmount), String.format("Cantidad de capital input is not correct. Expected: %s Actual: %s", newExpectedAmount, actualAmount));
+        log.debug("Validating Insurance Amount input: {} and actual email: {}", newExpectedAmount, actualAmount);
         Assert.assertTrue(actualPeriod.contains(newExpectedPeriod), String.format("Pago de frecuencia input is not correct. Expected: %s Actual: %s", newExpectedPeriod, period));
+        log.debug("Validating Insurance Period input: {} and actual email: {}", newExpectedPeriod, period);
         return this;
     }
 }
