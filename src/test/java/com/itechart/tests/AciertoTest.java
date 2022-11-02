@@ -35,17 +35,17 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record and validation it in Salesforce")
     public void aciertoTestValidation() {
-        Selenide.open("https://stg-funnel-life.acierto.com/seguros-vida/comparador/");
-        $(By.xpath(String.format("//*[text()='%s']", INSURANCE_AMOUNT))).click();
-        $(By.xpath("//*[text()='Anual']")).click();
-        clickJS(By.cssSelector("[data-gtm=continue]"));
-        $(By.cssSelector("[data-gtm=birth-date]")).sendKeys(DATE_OF_BIRTH);
-        $(By.xpath("//p[text()='Hombre']")).click();
-        $(By.cssSelector("[data-gtm=zip-code]")).sendKeys(ZIPCODE);
-        clickJS(By.cssSelector("[data-gtm=continue]"));
-        $(By.cssSelector("[data-gtm=email]")).sendKeys(EMAIL);
-        $(By.cssSelector("[data-gtm=phone]")).sendKeys(PHONE);
-        clickJS(By.cssSelector("[data-gtm=continue]"));
+        aciertoPage.open();
+        aciertoPage.insuranceAmountClick(INSURANCE_AMOUNT);
+        aciertoPage.insurancePeriodClick(INSURANCE_PERIOD);
+        aciertoPage.clickContinueButton();
+        aciertoPage.chooseDateOfBirth(DATE_OF_BIRTH);
+        aciertoPage.setPersonsGender(PERSON_GENDER);
+        aciertoPage.setZipCode(ZIPCODE);
+        aciertoPage.clickContinueButton();
+        aciertoPage.setEmail(EMAIL);
+        aciertoPage.setPhone(PHONE);
+        aciertoPage.clickContinueButton();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
