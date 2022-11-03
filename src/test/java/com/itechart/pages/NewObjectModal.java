@@ -26,7 +26,7 @@ public class NewObjectModal extends BasePage {
     public boolean isPageOpened() {
         try {
             //TODO generic wait timeout
-            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(15));
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
             log.warn("Modal is not opened");
