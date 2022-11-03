@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 @Log4j2
 public class CaseListViewPage extends BasePage {
-    protected final By FIRST_CASE_RECORD = By.xpath("//*[contains(@class, 'slds-cell-edit cellContainer')]");
+    protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th)[%s]";
     protected final By CASES_FILTER = By.xpath("//*[text() ='Created Today CTI']");
 
     @Step("Open List View for Case")
@@ -24,9 +24,9 @@ public class CaseListViewPage extends BasePage {
     }
 
     @Step("Clicking on the first case")
-    public CaseListViewPage clickOnCase() {
-        log.info("Clicking on the first case");
-        $(FIRST_CASE_RECORD).click();
+    public CaseListViewPage openCase(int index) {
+        log.info(String.format("Clicking on the case record with the index %s", index));
+        $(By.xpath(String.format(CASE_RECORD_LOCATOR, index))).click();
         return this;
     }
 }
