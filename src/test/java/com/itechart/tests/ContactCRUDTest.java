@@ -13,6 +13,7 @@ public class ContactCRUDTest extends BaseTest {
 
     Faker faker = new Faker();
 
+    //TODO add CRUD
     @Test(description = "Create Read Update Delete Contact record")
     public void createNewContactRecord() {
         Map<String, String> contact = new HashMap<>() {{

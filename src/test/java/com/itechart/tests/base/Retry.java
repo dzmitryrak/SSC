@@ -3,6 +3,7 @@ package com.itechart.tests.base;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+//TODO add usage into bvt.xml or delete
 public class Retry implements IRetryAnalyzer {
 
     private int attempt = 1;
