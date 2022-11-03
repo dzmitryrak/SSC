@@ -42,6 +42,7 @@ public abstract class BasePage {
     }
 
     public void clickJS(By locator) {
+        //TODO add wait for locator
         Selenide.executeJavaScript("arguments[0].click();", $(locator));
     }
 }
