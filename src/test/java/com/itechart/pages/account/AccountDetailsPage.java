@@ -30,6 +30,7 @@ public class AccountDetailsPage extends BasePage {
     @Step("Check that Account Details page was opened")
     @Override
     public boolean isPageOpened() {
+        waitForPageLoaded();
        $(DETAILS_TAB).shouldBe(visible);
         return true;
     }
