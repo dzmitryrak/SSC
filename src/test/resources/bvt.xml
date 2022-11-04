@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="2" name="Regression test suite" parallel="tests">
+    <listeners>
+        <listener class-name="com.itechart.tests.base.TestListener"/>
+    </listeners>
     <test name="CRUD for Account">
         <classes>
             <class name="com.itechart.tests.AccountCRUDTest"/>

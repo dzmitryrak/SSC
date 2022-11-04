@@ -84,11 +84,11 @@ public class ElementHelper {
             elementType = "Checkbox";
             SelenideElement ch = $(By.xpath(String.format(checkbox, elementLabel)));
             if (value.equals("true")) {
-                if(!ch.isSelected()) {
+                if (!ch.isSelected()) {
                     Selenide.executeJavaScript("arguments[0].click();", ch);
                 }
             } else {
-                if(ch.isSelected()) {
+                if (ch.isSelected()) {
                     Selenide.executeJavaScript("arguments[0].click();", ch);
                 }
             }

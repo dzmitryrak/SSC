@@ -14,7 +14,6 @@ import org.testng.annotations.*;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-
 @Log4j2
 @Listeners(TestListener.class)
 public abstract class BaseTest {
