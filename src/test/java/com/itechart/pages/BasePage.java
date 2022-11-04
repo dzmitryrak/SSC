@@ -4,6 +4,8 @@ import com.codeborne.selenide.Selenide;
 import com.itechart.utils.ElementHelper;
 import com.itechart.utils.PropertyReader;
 import static com.codeborne.selenide.Selenide.*;
+
+import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -41,7 +43,9 @@ public abstract class BasePage {
         };
     }
 
+    @Step("Click on the element")
     public void clickJS(By locator) {
+        log.info(String.format("Clicking on %s button", locator));
         Selenide.executeJavaScript("arguments[0].click();", $(locator));
     }
 }

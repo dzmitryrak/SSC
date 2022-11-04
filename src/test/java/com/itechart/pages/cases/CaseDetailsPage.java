@@ -16,7 +16,7 @@ public class CaseDetailsPage extends BasePage {
     private static final String DETAILS_TAB_OPPORTUNITY = "//*[text()='%s']/../..//*[contains(@class, 'slds-input')]";
     protected final By DETAILS_TAB = By.xpath("//*[@title='Detalles']");
 
-    @Step("Clicking on the first case")
+    @Step("Clicking on Details tab")
     public CaseDetailsPage clickOnDetailsTab() {
         log.info("Clicking on the first case");
         $(DETAILS_TAB).shouldBe(Condition.visible);
@@ -28,28 +28,29 @@ public class CaseDetailsPage extends BasePage {
     public CaseDetailsPage validateInput(String email, String phone, String amount, String period) {
 
         String expectedPhone = String.format("+34%s", phone);
-        String actualEmail = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Email"))).getText();
-        String actualDetailsEmail = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Correo electrónico Web"))).getText();
-        String actualPhone = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Teléfono"))).getText();
-        String actualDetailsPhone = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, "Teléfono del cliente"))).getText();
-        String actualAmount = $(By.xpath(String.format(DETAILS_TAB_OPPORTUNITY, "Cantidad de capital"))).getValue();
-        String actualPeriod = $(By.xpath(String.format(DETAILS_TAB_OPPORTUNITY, "Pago de frecuencia"))).getValue();
-
         String newExpectedAmount = amount.replace("€", "");
         String newExpectedPeriod = period.replace("Anual", "Yearly");
 
-        Assert.assertTrue(actualEmail.contains(email), String.format("Email input is not correct.Expected: '%s' Actual: '%s'", email, actualEmail));
-        log.debug("Validating Expected email: {} and actual email: {}", email, actualEmail);
-        Assert.assertTrue(actualDetailsEmail.contains(email), String.format("Correo electrónico Web is not correct.Expected: '%s' Actual: '%s'", email, actualDetailsEmail));
-        log.debug("Validating Expected Detailed email: {} and actual email: {}", email, actualDetailsEmail);
-        Assert.assertTrue(actualPhone.contains(phone), String.format("Phone number input is not correct.Expected: '%s' Actual: '%s'", expectedPhone, actualPhone));
-        log.debug("Validating Phone number input: {} and actual email: {}", expectedPhone, actualPhone);
-        Assert.assertTrue(actualDetailsPhone.contains(phone), String.format("Teléfono del cliente input is not correct.Expected: '%s' Actual: '%s'", expectedPhone, actualDetailsPhone));
-        log.debug("Validating Detailed Phone number input: {} and actual email: {}", expectedPhone, actualDetailsPhone);
-        Assert.assertTrue(actualAmount.contains(newExpectedAmount), String.format("Cantidad de capital input is not correct. Expected: %s Actual: %s", newExpectedAmount, actualAmount));
-        log.debug("Validating Insurance Amount input: {} and actual email: {}", newExpectedAmount, actualAmount);
-        Assert.assertTrue(actualPeriod.contains(newExpectedPeriod), String.format("Pago de frecuencia input is not correct. Expected: %s Actual: %s", newExpectedPeriod, period));
-        log.debug("Validating Insurance Period input: {} and actual email: {}", newExpectedPeriod, period);
+        validateInputField("Email", email);
+        validateInputField("Correo electrónico Web", email);
+        validateInputField("Teléfono", expectedPhone);
+        validateInputField("Teléfono del cliente", phone);
+        validateInputOpportunity("Cantidad de capital", newExpectedAmount);
+        validateInputOpportunity("Pago de frecuencia", newExpectedPeriod);
+        return this;
+    }
+
+    public CaseDetailsPage validateInputField(String locator, String expectedInput) {
+        String actualInput = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, locator))).getText();
+        Assert.assertTrue(actualInput.contains(expectedInput), String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
+        log.debug(String.format("Validating %s input.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
+        return this;
+    }
+
+    public CaseDetailsPage validateInputOpportunity(String locator, String expectedInput) {
+        String actualInput = $(By.xpath(String.format(DETAILS_TAB_OPPORTUNITY, locator))).getValue();
+        Assert.assertTrue(actualInput.contains(expectedInput), String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
+        log.debug(String.format("Validating %s input.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
         return this;
     }
 }

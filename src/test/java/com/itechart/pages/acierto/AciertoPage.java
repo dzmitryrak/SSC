@@ -20,69 +20,43 @@ public class AciertoPage extends BasePage {
         return this;
     }
 
-    @Step("Choose amount of insurance")
-    public AciertoPage insuranceAmountClick(String amount){
-        log.info(String.format("Choosing %s as amount of insurance and clicking on it", amount));
-        $(By.xpath(String.format(INFO_DETAILS_LOCATOR, amount))).click();
-        return this;
-    }
-
-    @Step("Choose period of insurance")
-    public AciertoPage insurancePeriodClick(String period) {
-        log.info(String.format("Choosing %s as period of insurance and clicking on it", period));
-        $(By.xpath(String.format(INFO_DETAILS_LOCATOR, period))).click();
+    @Step("Choose insurance details")
+    public AciertoPage insuranceDetailsClick(String locator){
+        log.info(String.format("Choosing %s as data for filling for and clicking on it", locator));
+        $(By.xpath(String.format(INFO_DETAILS_LOCATOR, locator))).click();
         return this;
     }
 
     @Step("Click continue button")
     public AciertoPage clickContinueButton() {
         log.info("Clicking on continue button");
-        try {
             Selenide.executeJavaScript("arguments[0].click();", $((String.format(DATA_LOCATOR, "continue"))));
-        } catch (Exception e) {
-            log.info(String.format(DATA_LOCATOR, "continue")+ "is not found");
-        }
         return this;
     }
 
-    @Step("Click on the element")
-    public void clickJS(By locator) {
-        log.info(String.format("Clicking on %s button", locator));
-        Selenide.executeJavaScript("arguments[0].click();", $(locator));
-    }
 
-    @Step("Set date of birth")
-    public AciertoPage chooseDateOfBirth(String dateOfBirth) {
-        log.info(String.format("Setting date of birth of the person as %s", dateOfBirth));
-        $((String.format(DATA_LOCATOR, "birth-date"))).setValue(dateOfBirth);
+    @Step("Filling the field with data")
+    public AciertoPage setPersonData(String locator, String data) {
+        log.info(String.format("Filling %s field with data %s", locator, data));
+        $((String.format(DATA_LOCATOR, locator))).setValue(data);
         return this;
     }
 
-    @Step("Set gender of the person")
-    public AciertoPage setPersonsGender(String gender) {
-        log.info(String.format("Setting gender of the person as %s", gender));
-        $(By.xpath(String.format(INFO_DETAILS_LOCATOR, gender))).click();
-        return this;
-    }
+    @Step("Setting person's data for creation the record")
+    public AciertoPage setPersonRecord(String amount, String period, String dateOfBirth,String gender,
+                                       String zipcode, String email, String phone) {
+        open();
+        insuranceDetailsClick(amount);
+        insuranceDetailsClick(period);
+        clickContinueButton();
+        setPersonData("birth-date",dateOfBirth);
+        insuranceDetailsClick(gender);
+        setPersonData("zip-code", zipcode);
+        clickContinueButton();
+        setPersonData("email", email);
+        setPersonData("phone", phone);
+        clickContinueButton();
 
-    @Step("Set zipcode")
-    public AciertoPage setZipCode(String zipcode) {
-        log.info(String.format("Setting zipcode as %s", zipcode));
-        $((String.format(DATA_LOCATOR, "zip-code"))).setValue(zipcode);
-        return this;
-    }
-
-    @Step("Set email")
-    public AciertoPage setEmail(String email) {
-        log.info(String.format("Setting email as %s", email));
-        $((String.format(DATA_LOCATOR, "email"))).setValue(email);
-        return this;
-    }
-
-    @Step("Set phone")
-    public AciertoPage setPhone(String phone) {
-        log.info(String.format("Setting phone as %s", phone));
-        $((String.format(DATA_LOCATOR, "phone"))).setValue(phone);
         return this;
     }
 }

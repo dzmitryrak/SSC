@@ -14,7 +14,7 @@ public class CaseListViewPage extends BasePage {
     @Step("Open List View for Case")
     public CaseListViewPage openUrl() {
         log.info("Opening List View for Case");
-        open("/lightning/o/Case/list?filterName=00B7Y000004PiHfUAK");
+        open("/lightning/o/Case/list?filterName=00B7Y000004PyxjUAC");
         return this;
     }
 
