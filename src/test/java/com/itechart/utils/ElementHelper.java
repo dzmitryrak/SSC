@@ -3,6 +3,7 @@ package com.itechart.utils;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,8 +18,8 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-
 //TODO rework for Selenide
+@Log4j2
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
     String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist//button";
@@ -84,11 +85,11 @@ public class ElementHelper {
             elementType = "Checkbox";
             SelenideElement ch = $(By.xpath(String.format(checkbox, elementLabel)));
             if (value.equals("true")) {
-                if(!ch.isSelected()) {
+                if (!ch.isSelected()) {
                     Selenide.executeJavaScript("arguments[0].click();", ch);
                 }
             } else {
-                if(ch.isSelected()) {
+                if (ch.isSelected()) {
                     Selenide.executeJavaScript("arguments[0].click();", ch);
                 }
             }
@@ -108,7 +109,7 @@ public class ElementHelper {
                 "*[@data-output-element-id='output-field']";
         WebElement input = $(By.xpath(String.format(locator, label)));
         String actualInput = input.getText();
-        // log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
+         log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
         Assert.assertTrue(input.getText().contains(expectedInput),
                 String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
     }

@@ -11,8 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class LoginPage extends BasePage {
-    private final static String LOGIN_URL = "https://login.salesforce.com/";
-
+    private final String LOGIN_URL = propertyReader.getPropertyValueByKey("base.url");
     private static final By USERNAME_LOCATOR = By.id("username");
     private static final By PASSWORD_LOCATOR = By.id("password");
     private static final By LOGIN_BUTTON_LOCATOR = By.id("Login");

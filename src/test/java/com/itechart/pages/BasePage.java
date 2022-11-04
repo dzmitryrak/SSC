@@ -4,6 +4,8 @@ import com.codeborne.selenide.Selenide;
 import com.itechart.utils.ElementHelper;
 import com.itechart.utils.PropertyReader;
 import static com.codeborne.selenide.Selenide.*;
+
+import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +13,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 @Log4j2
 public abstract class BasePage {
@@ -31,7 +32,6 @@ public abstract class BasePage {
         return $(USERPROFILE_BUTTON_LOCATOR).isDisplayed();
     }
 
-
     public void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
@@ -40,8 +40,9 @@ public abstract class BasePage {
         };
     }
 
+    @Step("Click on the element")
     public void clickJS(By locator) {
-        //TODO add wait for locator
+        log.info("Clicking on {} button", locator);
         Selenide.executeJavaScript("arguments[0].click();", $(locator));
     }
 }

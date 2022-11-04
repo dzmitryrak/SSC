@@ -8,9 +8,11 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 
+import java.time.Duration;
 import java.util.Map;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
@@ -49,7 +51,7 @@ public class AccountDetailsPage extends BasePage {
     @Step("Check that Account Details page was opened")
     @Override
     public boolean isPageOpened() {
-       $(DETAILS_TAB).shouldBe(visible);
+        $(DETAILS_TAB).shouldBe(visible, Duration.ofSeconds(20));
         return true;
     }
 
@@ -113,8 +115,8 @@ public class AccountDetailsPage extends BasePage {
     }
 
     public boolean isModalOpened() {
-        $(DELETE_MODAL_TITLE).should(exist);
-        $(DELETE_MODAL_BUTTON).should(exist);
+        $(DELETE_MODAL_TITLE).shouldBe(visible);
+        $(DELETE_MODAL_BUTTON).shouldBe(visible);
         return $(DELETE_MODAL_TITLE).getText().contains("Delete Account");
     }
 
