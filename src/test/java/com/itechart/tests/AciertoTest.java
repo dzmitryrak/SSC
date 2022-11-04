@@ -16,6 +16,12 @@ public class AciertoTest extends BaseTest {
     @Test(description = "Creation of the insurance record")
     public void acierto() {
         aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
+        aciertoPage.imInterestedButtonClick(1);
+        aciertoPage.isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick();
+        aciertoPage.isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick();
+        aciertoPage.isLifeInsurancePageIsOpened();
     }
 
     @Test(description = "Creation of the insurance record and validation it in Salesforce")

@@ -23,7 +23,7 @@ public class CaseListViewPage extends BasePage {
         return $(CASES_FILTER).isDisplayed();
     }
 
-    @Step("Clicking on the first case")
+    @Step("Clicking on the case with the index")
     public CaseListViewPage openCase(int index) {
         log.info("Clicking on the case record with the index {}", index);
         $(By.xpath(String.format(CASE_RECORD_LOCATOR, index))).click();
