@@ -2,13 +2,11 @@ package com.itechart.tests.base;
 
 import com.itechart.utils.AllureUtils;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import java.util.concurrent.TimeUnit;
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import java.util.concurrent.TimeUnit;
 
 @Log4j2
 public class TestListener implements ITestListener {
@@ -28,8 +26,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         //TODO Api request to set failed status of test case
-
-        AllureUtils.takeScreenshot(getWebDriver());
+        AllureUtils.takeScreenshot();
         log.info("-------------- FAILED TEST {} Duration: {} ----------------", iTestResult.getName(),
                 getExecutionTime(iTestResult));
     }
@@ -37,6 +34,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
         //TODO Api request to set skipped status of test case
+        AllureUtils.takeScreenshot();
         log.info("--------- SKIPPING TEST {} ---------", iTestResult.getName());
     }
 

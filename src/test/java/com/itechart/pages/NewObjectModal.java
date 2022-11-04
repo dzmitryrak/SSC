@@ -20,13 +20,13 @@ public class NewObjectModal extends BasePage {
     private final By CROSS_BUTTON_LOCATOR = By.xpath("//button[@title='Close this window']");
     private final By SAVE_AND_NEW_BUTTON_LOCATOR = By.cssSelector("[title='Save & New']");
     private final By EMPTY_REQUIRED_FIELD_LOCATOR = By.xpath("//li[contains(text(),'These required fields must be completed')]");
-    private final By MODAL_HEADER_LOCATOR = By.xpath("//div[@class='slds-modal__header']");
+    private final By MODAL_HEADER_LOCATOR = By.xpath("//*[contains(@class,'slds-modal__header') and not(contains(@class,'empty'))]");
 
     @Override
     public boolean isPageOpened() {
         try {
             //TODO generic wait timeout
-            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(15));
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
             log.warn("Modal is not opened");
@@ -70,7 +70,7 @@ public class NewObjectModal extends BasePage {
     }
 
     public void clickCancelButton() {
-        $(CANCEL_BUTTON_LOCATOR).click();
+        clickJS(CANCEL_BUTTON_LOCATOR);
         //TODO return List page
     }
 
