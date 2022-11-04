@@ -43,14 +43,14 @@ public class CaseDetailsPage extends BasePage {
     public CaseDetailsPage validateInputField(String locator, String expectedInput) {
         String actualInput = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, locator))).getText();
         Assert.assertTrue(actualInput.contains(expectedInput), String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
-        log.debug(String.format("Validating %s input.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
+        log.debug("Validating {} input.Expected: '{}' Actual: '{}'", locator, expectedInput, actualInput);
         return this;
     }
 
     public CaseDetailsPage validateInputOpportunity(String locator, String expectedInput) {
         String actualInput = $(By.xpath(String.format(DETAILS_TAB_OPPORTUNITY, locator))).getValue();
         Assert.assertTrue(actualInput.contains(expectedInput), String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
-        log.debug(String.format("Validating %s input.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
+        log.debug("Validating {} input.Expected: '{}' Actual: {}", locator, expectedInput, actualInput);
         return this;
     }
 }

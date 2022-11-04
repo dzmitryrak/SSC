@@ -43,7 +43,7 @@ public abstract class BasePage {
 
     @Step("Click on the element")
     public void clickJS(By locator) {
-        log.info(String.format("Clicking on %s button", locator));
+        log.info("Clicking on {} button", locator);
         Selenide.executeJavaScript("arguments[0].click();", $(locator));
     }
 }
