@@ -53,7 +53,7 @@ public class AciertoPage extends BasePage {
     }
 
     @Step("Check that the Page with options for insurance services is opened")
-    public boolean isLifeInsurancePageIsOpened() {
+    public boolean isLifeInsurancePageOpened() {
         log.info("The page with options for insurance services is opened");
         $(LIFE_INSURANCE_LABEL).shouldBe(visible, Duration.ofSeconds(35));
         return $(LIFE_INSURANCE_LABEL).isDisplayed();
@@ -107,7 +107,7 @@ public class AciertoPage extends BasePage {
         setPersonData("email", email);
         setPersonData("phone", phone);
         clickContinueButton();
-        isLifeInsurancePageIsOpened();
+        isLifeInsurancePageOpened();
         return this;
     }
 }
