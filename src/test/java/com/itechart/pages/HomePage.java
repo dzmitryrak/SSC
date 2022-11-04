@@ -17,6 +17,7 @@ public class HomePage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
+        //TODO method to check if user is logged in
         return $(LOGO_LOCATOR).isDisplayed();
     }
 }

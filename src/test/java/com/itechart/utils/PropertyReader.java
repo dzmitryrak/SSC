@@ -13,6 +13,7 @@ public class PropertyReader {
 
     public PropertyReader(String filepath) {
         try {
+            log.info("Reading property from file: {}", filepath);
             FileInputStream fileInputStream = new FileInputStream(filepath);
             properties.load(fileInputStream);
         } catch (IOException e) {
@@ -21,10 +22,11 @@ public class PropertyReader {
     }
 
     public String getPropertyValueByKey(String key) {
+        log.info("Reading property by key: {}", key);
         if (properties.getProperty(key) != null) {
             return properties.getProperty(key);
         } else {
-            log.error("Cannot find properly by key: {}", key);
+            log.error("Cannot find property by key: {}", key);
             throw new RuntimeException();
         }
     }

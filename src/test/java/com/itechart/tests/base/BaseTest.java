@@ -30,8 +30,8 @@ public abstract class BaseTest {
     protected AccountDetailsPage accountDetailsPage;
     protected AciertoPage aciertoPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
-    protected final String USERNAME = System.getProperty(propertyReader.getPropertyValueByKey("username"), System.getProperty("username"));
-    protected final String PASSWORD = System.getProperty(propertyReader.getPropertyValueByKey("password"), System.getProperty("password"));
+    protected final String USERNAME = System.getProperty("username", propertyReader.getPropertyValueByKey("username"));
+    protected final String PASSWORD = System.getProperty("password", propertyReader.getPropertyValueByKey("password"));
 
     @BeforeMethod(description = "Open browser")
     public void setUp() {
@@ -40,7 +40,9 @@ public abstract class BaseTest {
         Configuration.browser = "chrome";
         var options = new ChromeOptions();
         options.addArguments("--disable-notifications");
-        options.addArguments("--headless");
+        if(propertyReader.getPropertyValueByKey("headless").equals("true")) {
+            options.addArguments("--headless");
+        }
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         Configuration.browserCapabilities = options;
