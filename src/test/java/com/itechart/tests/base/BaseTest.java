@@ -18,7 +18,6 @@ import org.testng.annotations.*;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-
 @Log4j2
 @Listeners(TestListener.class)
 public abstract class BaseTest {
@@ -31,8 +30,8 @@ public abstract class BaseTest {
     protected AccountDetailsPage accountDetailsPage;
     protected AciertoPage aciertoPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
-    protected final String USERNAME = propertyReader.getPropertyValueByKey("username");
-    protected final String PASSWORD = propertyReader.getPropertyValueByKey("password");
+    protected final String USERNAME = System.getProperty(propertyReader.getPropertyValueByKey("username"), System.getProperty("username"));
+    protected final String PASSWORD = System.getProperty(propertyReader.getPropertyValueByKey("password"), System.getProperty("password"));
 
     @BeforeMethod(description = "Open browser")
     public void setUp() {
@@ -41,6 +40,9 @@ public abstract class BaseTest {
         Configuration.browser = "chrome";
         var options = new ChromeOptions();
         options.addArguments("--disable-notifications");
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         Configuration.browserCapabilities = options;
         open();
         getWebDriver().manage().window().maximize();

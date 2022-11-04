@@ -151,7 +151,7 @@ public class AccountCRUDTest extends BaseTest {
     }
 
     @Test(description = "Delete new account created")
-    public void deleteNewAccountRecord() {
+    public void deleteAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
             put("Type", "Prospect");
