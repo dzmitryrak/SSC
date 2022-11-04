@@ -114,8 +114,8 @@ public class AccountDetailsPage extends BasePage {
     }
 
     public boolean isModalOpened() {
-        $(DELETE_MODAL_TITLE).should(visible);
-        $(DELETE_MODAL_BUTTON).should(visible);
+        $(DELETE_MODAL_TITLE).shouldBe(visible);
+        $(DELETE_MODAL_BUTTON).shouldBe(visible);
         return $(DELETE_MODAL_TITLE).getText().contains("Delete Account");
     }
 
