@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.open;
 @Log4j2
 public class CaseListViewPage extends BasePage {
     protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th)[%s]";
-    protected final By CASES_FILTER = By.xpath("//*[text() ='Created Today CTI']");
+    protected final By CASES_FILTER = By.xpath("//*[text() ='Cases Opened Today']");
 
     @Step("Open List View for Case")
     public CaseListViewPage openUrl() {

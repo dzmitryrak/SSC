@@ -34,7 +34,6 @@ public abstract class BasePage {
         return $(USERPROFILE_BUTTON_LOCATOR).isDisplayed();
     }
 
-
     public void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
