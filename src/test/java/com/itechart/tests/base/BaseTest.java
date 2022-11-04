@@ -1,7 +1,6 @@
 package com.itechart.tests.base;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.ListView;
 import com.itechart.pages.LoginPage;
@@ -9,7 +8,6 @@ import com.itechart.pages.NewObjectModal;
 import com.itechart.pages.account.AccountDetailsPage;
 import com.itechart.pages.acierto.AciertoPage;
 import com.itechart.pages.cases.CaseDetailsPage;
-import com.itechart.pages.cases.CaseListViewPage;
 import com.itechart.utils.PropertyReader;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -23,15 +21,14 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public abstract class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
-    protected CaseListViewPage caseListViewPage;
     protected CaseDetailsPage caseDetailsPage;
     protected ListView listView;
     protected NewObjectModal newObjectModal;
     protected AccountDetailsPage accountDetailsPage;
     protected AciertoPage aciertoPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
-    protected final String USERNAME = System.getProperty(propertyReader.getPropertyValueByKey("username"), System.getProperty("username"));
-    protected final String PASSWORD = System.getProperty(propertyReader.getPropertyValueByKey("password"), System.getProperty("password"));
+    protected final String USERNAME = System.getProperty("username", propertyReader.getPropertyValueByKey("username"));
+    protected final String PASSWORD = System.getProperty("password", propertyReader.getPropertyValueByKey("password"));
 
     @BeforeMethod(description = "Open browser")
     public void setUp() {
@@ -52,7 +49,6 @@ public abstract class BaseTest {
         accountDetailsPage = new AccountDetailsPage();
         listView = new ListView();
         newObjectModal = new NewObjectModal();
-        caseListViewPage = new CaseListViewPage();
         caseDetailsPage = new CaseDetailsPage();
         aciertoPage = new AciertoPage();
     }

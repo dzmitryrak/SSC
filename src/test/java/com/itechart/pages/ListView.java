@@ -3,7 +3,6 @@ package com.itechart.pages;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
@@ -12,6 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 @Log4j2
 public class ListView extends BasePage {
+    protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th)[%s]";
     private final By BREADCRUMB_LOCATOR = By.cssSelector(".slds-var-p-right_x-small");
     //TODO make sure that active layer is selected everywhere
     private final By NEW_BUTTON_LOCATOR = By.xpath("//div[contains(@class, 'oneContent active')]//a[@title='New']");
@@ -24,6 +24,7 @@ public class ListView extends BasePage {
     @Step("Opening List View")
     public ListView openUrl(String listViewName) {
         open(String.format("lightning/o/%s/list", listViewName));
+        isOpened();
         return this;
     }
 
@@ -34,6 +35,13 @@ public class ListView extends BasePage {
         NewObjectModal accountModalPage = new NewObjectModal();
         accountModalPage.isPageOpened();
         return accountModalPage;
+    }
+
+    //TODO create wrapper for tableview
+    @Step("Opening object from the list")
+    public void openObjectFromList(int index) {
+        log.info("Clicking on the record with the index {}", index);
+        $(By.xpath(String.format(CASE_RECORD_LOCATOR, index))).click();
     }
 
     @Step("Check that object was deleted successfully")

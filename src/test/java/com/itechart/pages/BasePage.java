@@ -18,12 +18,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public abstract class BasePage {
     protected WebDriverWait wait;
     protected String baseUrl;
-    protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final By USERPROFILE_BUTTON_LOCATOR = By.xpath("//*[contains(@class, 'slds-global-actions__item')]//ancestor::button[contains(@class, 'branding-userProfile-button')]");
     protected ElementHelper sfHelper;
 
     public BasePage() {
-        baseUrl = propertyReader.getPropertyValueByKey("base.url");
         sfHelper = new ElementHelper();
     }
 
