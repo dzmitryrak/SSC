@@ -30,8 +30,8 @@ public abstract class BaseTest {
     protected AccountDetailsPage accountDetailsPage;
     protected AciertoPage aciertoPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
-    protected final String USERNAME = System.getenv().getOrDefault("username", propertyReader.getPropertyValueByKey("username"));
-    protected final String PASSWORD = System.getenv().getOrDefault("password", propertyReader.getPropertyValueByKey("password"));
+    protected final String USERNAME = System.getenv().getOrDefault(System.getProperty("username"), propertyReader.getPropertyValueByKey("username"));
+    protected final String PASSWORD = System.getenv().getOrDefault(System.getProperty("password"), propertyReader.getPropertyValueByKey("password"));
 
     @BeforeMethod(description = "Open browser")
     public void setUp() {
