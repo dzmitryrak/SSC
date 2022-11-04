@@ -15,7 +15,6 @@ import org.testng.Assert;
 
 @Log4j2
 public abstract class BasePage {
-    protected WebDriver driver;
     protected WebDriverWait wait;
     protected String baseUrl;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
@@ -28,7 +27,7 @@ public abstract class BasePage {
     }
 
     public boolean isPageOpened() {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(USERPROFILE_BUTTON_LOCATOR));
+        wait.until(ExpectedConditions.presenceOfElementLocated(USERPROFILE_BUTTON_LOCATOR));
         return $(USERPROFILE_BUTTON_LOCATOR).isDisplayed();
     }
 

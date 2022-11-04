@@ -2,10 +2,10 @@ package com.itechart.tests.base;
 
 import com.codeborne.selenide.Configuration;
 import com.itechart.pages.HomePage;
+import com.itechart.pages.ListView;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.NewObjectModal;
 import com.itechart.pages.account.AccountDetailsPage;
-import com.itechart.pages.account.AccountListViewPage;
 import com.itechart.utils.PropertyReader;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -20,7 +20,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public abstract class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
-    protected AccountListViewPage accountListViewPage;
+    protected ListView listView;
     protected NewObjectModal newObjectModal;
     protected AccountDetailsPage accountDetailsPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
@@ -34,7 +34,7 @@ public abstract class BaseTest {
         Configuration.browser = "chrome";
         var options = new ChromeOptions();
         options.addArguments("--disable-notifications");
-        options.addArguments("--headless");
+        //options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         Configuration.browserCapabilities = options;
@@ -44,7 +44,7 @@ public abstract class BaseTest {
         loginPage = new LoginPage();
         homePage = new HomePage();
         accountDetailsPage = new AccountDetailsPage();
-        accountListViewPage = new AccountListViewPage();
+        listView = new ListView();
         newObjectModal = new NewObjectModal();
     }
 

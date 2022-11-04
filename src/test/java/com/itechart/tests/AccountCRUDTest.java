@@ -35,11 +35,10 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-
-        newObjectModal.enterData(account)
+        listView
+                .openUrl("Account")
+                .clickNew()
+                .enterData(account)
                 .save();
         accountDetailsPage.isPageOpened();
         account.remove("Billing Street");
@@ -102,10 +101,9 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-        newObjectModal
+        listView
+                .openUrl("Account")
+                .clickNew()
                 .enterData(account)
                 .save();
         accountDetailsPage.isPageOpened();
@@ -174,10 +172,9 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-        newObjectModal
+        listView
+                .openUrl("Account")
+                .clickNew()
                 .enterData(account)
                 .save();
         accountDetailsPage.isPageOpened();

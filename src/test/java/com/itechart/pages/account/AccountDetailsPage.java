@@ -1,6 +1,7 @@
 package com.itechart.pages.account;
 
 import com.itechart.pages.BasePage;
+import com.itechart.pages.ListView;
 import com.itechart.pages.NewObjectModal;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -118,11 +119,11 @@ public class AccountDetailsPage extends BasePage {
     }
 
     @Step("Confirm deletion of an account")
-    public AccountListViewPage delete() {
+    public ListView delete() {
         if (!isModalOpened()) throw new RuntimeException("Delete modal is not opened");
         $(SUCCESS_MESSAGE).should(exist);
         $(DELETE_MODAL_BUTTON).click();
-        return new AccountListViewPage();
+        return new ListView();
     }
 
     @Step("Click Follow button")
@@ -224,11 +225,11 @@ public class AccountDetailsPage extends BasePage {
     }
 
     @Step("Click View Account Hierarchy button")
-    public AccountListViewPage clickAccountHierarchyButton() {
+    public ListView clickAccountHierarchyButton() {
         log.info("Clicking View Account Hierarchy button");
         clickJS(VIEW_ACCOUNT_HIERARCHY_BUTTON);
-        AccountListViewPage accountListViewPage = new AccountListViewPage();
-        accountListViewPage.isPageOpened();
+        ListView accountListViewPage = new ListView();
+        accountListViewPage.isOpened();
         return accountListViewPage;
     }
 

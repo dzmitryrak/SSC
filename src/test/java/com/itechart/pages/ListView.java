@@ -1,9 +1,7 @@
-package com.itechart.pages.account;
+package com.itechart.pages;
 
-import com.itechart.pages.BasePage;
-import com.itechart.pages.NewObjectModal;
-import lombok.extern.log4j.Log4j2;
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -13,44 +11,41 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 @Log4j2
-public class AccountListViewPage extends BasePage {
+public class ListView extends BasePage {
     private final By BREADCRUMB_LOCATOR = By.cssSelector(".slds-var-p-right_x-small");
-    private final By NEW_BUTTON_LOCATOR = By.xpath("(//div[@title ='New']) [1]");
+    //TODO make sure that active layer is selected everywhere
+    private final By NEW_BUTTON_LOCATOR = By.xpath("//div[contains(@class, 'oneContent active')]//a[@title='New']");
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
 
-    @Override
-    public boolean isPageOpened() {
+    public void isOpened() {
         $(BREADCRUMB_LOCATOR).shouldBe(visible);
-        return $(BREADCRUMB_LOCATOR).getText().contains("Accounts");
     }
 
-    @Step("Open List View for Account")
-    public AccountListViewPage openUrl() {
-        open("lightning/o/Account/list");
+    @Step("Opening List View")
+    public ListView openUrl(String listViewName) {
+        open(String.format("lightning/o/%s/list", listViewName));
         return this;
     }
 
     @Step("Click on New button")
-    public NewObjectModal clickNewButton() {
-        //TODO come back NEW button
-        /*wait.until(ExpectedConditions.presenceOfElementLocated(NEW_BUTTON_LOCATOR));
-        driver.findElement(NEW_BUTTON_LOCATOR).click();*/
-        open(baseUrl + "lightning/o/Account/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
+    public NewObjectModal clickNew() {
+        $(NEW_BUTTON_LOCATOR).click();
+        //open(baseUrl + "lightning/o/Account/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
         NewObjectModal accountModalPage = new NewObjectModal();
         accountModalPage.isPageOpened();
         return accountModalPage;
     }
 
-    @Step("Check that Account was deleted successfully")
+    @Step("Check that object was deleted successfully")
     public boolean isSuccessDeleteMessageDisplayed() {
         boolean isSuccessMessageDisplayed;
         try {
             $(SUCCESS_DELETE_MESSAGE).should(exist);
             isSuccessMessageDisplayed = $(SUCCESS_DELETE_MESSAGE).isDisplayed();
-        } catch (StaleElementReferenceException e) {
+        } catch (Exception e) {
             log.warn("Account record successfully deleted message is not found");
             log.warn(e.getLocalizedMessage());
-            isSuccessMessageDisplayed = $(SUCCESS_DELETE_MESSAGE).isDisplayed();
+            isSuccessMessageDisplayed = false;
         }
         return isSuccessMessageDisplayed;
     }
