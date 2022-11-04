@@ -34,8 +34,8 @@ public class LoginPage extends BasePage {
     @Step("Login by user: {username}")
     public HomePage login(String username, String password) {
         log.info("Logging into Salesforce with username: {} and password: {}", username, password);
-        $(USERNAME_LOCATOR).sendKeys(username);
-        $(PASSWORD_LOCATOR).sendKeys(password);
+        $(USERNAME_LOCATOR).setValue(username);
+        $(PASSWORD_LOCATOR).setValue(password);
         $(LOGIN_BUTTON_LOCATOR).click();
         return new HomePage();
     }

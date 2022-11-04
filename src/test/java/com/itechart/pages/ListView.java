@@ -31,10 +31,9 @@ public class ListView extends BasePage {
     @Step("Click on New button")
     public NewObjectModal clickNew() {
         $(NEW_BUTTON_LOCATOR).click();
-        //open(baseUrl + "lightning/o/Account/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
-        NewObjectModal accountModalPage = new NewObjectModal();
-        accountModalPage.isPageOpened();
-        return accountModalPage;
+        NewObjectModal newObjectModal = new NewObjectModal();
+        newObjectModal.isPageOpened();
+        return newObjectModal;
     }
 
     //TODO create wrapper for tableview
