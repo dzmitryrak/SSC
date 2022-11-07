@@ -53,14 +53,14 @@ public class ContactCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        //TODO replace by generic list view and details pages
+        //TODO replace by generic list view
         open("https://tms41-dev-ed.lightning.force.com/lightning/o/Contact/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
-        //TODO replace by generic list view and details pages
+        //TODO replace by generic list view
         newObjectModal.isPageOpened();
         newObjectModal
                 .enterData(contact)
                 .save();
-        //TODO replace by generic list view and details pages
-        accountDetailsPage.isPageOpened();
+        //TODO replace by generic list view
+        detailsPage.isPageOpened();
     }
 }
