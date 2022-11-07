@@ -1,6 +1,7 @@
 package com.itechart.pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.itechart.pages.account.AccountListViewPage;
 import io.qameta.allure.Step;
@@ -12,8 +13,7 @@ import org.testng.Assert;
 import java.time.Duration;
 import java.util.Map;
 
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 @Log4j2
@@ -44,7 +44,8 @@ public class DetailsPage extends BasePage {
     private final By SUCCESS_MESSAGE = By.xpath("//*[text() ='Are you sure you want to delete this account?']");
     private final By DELETE_MODAL_TITLE = By.xpath("//*[text() ='Delete Account']");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
-    private final By FORMS = By.cssSelector(".slds-form-element_readonly");
+    private final By DETAILS_FIELDS = By.cssSelector(".slds-form-element_readonly");
+    private final By ALERT_MESSAGE = By.xpath("//*[@role = 'alertdialog']");
 
     public DetailsPage() { }
 
@@ -60,7 +61,7 @@ public class DetailsPage extends BasePage {
     public DetailsPage openDetails() {
         log.info("Clicking on the first case");
 
-        $(DETAILS_TAB).shouldBe(Condition.visible);
+        $(DETAILS_TAB).shouldBe(Condition.visible, Duration.ofSeconds(10));
         clickJS(DETAILS_TAB);
         waitForPageLoaded();
 
@@ -89,7 +90,7 @@ public class DetailsPage extends BasePage {
     public DetailsPage validate(Map<String, String> data) {
         log.info("Validating Details Data: {}", data);
 
-        waitTillDetailsFieldsAreLoaded();
+        prepareForValidation();
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
@@ -314,8 +315,15 @@ public class DetailsPage extends BasePage {
     }
 
     private void waitTillDetailsFieldsAreLoaded() {
-        for (SelenideElement field : $$(FORMS)) {
-            field.should(visible);
+        for (SelenideElement field : $$(DETAILS_FIELDS)) {
+            field.shouldBe(visible);
         }
+    }
+
+    private void prepareForValidation() {
+        Selenide.refresh();
+        openDetails();
+        $(ALERT_MESSAGE).shouldBe(not(visible));
+        waitTillDetailsFieldsAreLoaded();
     }
 }
