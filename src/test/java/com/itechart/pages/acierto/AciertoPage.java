@@ -55,7 +55,7 @@ public class AciertoPage extends BasePage {
     @Step("Check that the Page with options for insurance services is opened")
     public boolean isLifeInsurancePageOpened() {
         log.info("The page with options for insurance services is opened");
-        $(LIFE_INSURANCE_LABEL).shouldBe(visible, Duration.ofSeconds(35));
+        $(LIFE_INSURANCE_LABEL).shouldBe(visible, Duration.ofSeconds(30));
         return $(LIFE_INSURANCE_LABEL).isDisplayed();
     }
 

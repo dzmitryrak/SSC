@@ -1,5 +1,6 @@
 package com.itechart.tests;
 
+import com.codeborne.selenide.Selenide;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -44,10 +45,22 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openUrl();
         caseListViewPage.isPageOpened();
         caseListViewPage.openCase(1);
+        caseDetailsPage.isDetailsCasePageOpened();
         caseDetailsPage.clickOnDetailsTab();
         caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[0]);
         caseDetailsPage.clickOnAccountDetailsTab();
         caseDetailsPage.isPersonaDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
+    }
+
+    @Test(description = "Creation of the insurance record and validation it in Salesforce")
+    public void test() {
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+       Selenide.open("https://ocpholdinggmbh--staging.sandbox.lightning.force.com/lightning/r/Case/5007Y00000MgpOEQAZ/view");
+        caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.validateTenantID(TENANTID);
+
     }
 }

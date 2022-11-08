@@ -18,13 +18,21 @@ public class CaseDetailsPage extends BasePage {
     private static final String DETAILS_TAB_FIELD_LOCATOR = "//*[text()='%s']/../..//*[contains(@class, 'slds-form-element__control')]";
     private static final String DETAILS_TAB_OPPORTUNITY = "//*[text()='%s']/../..//*[contains(@class, 'slds-input')]";
     protected final By DETAILS_TAB = By.xpath("//*[@title='Detalles']");
-    private static final By ACCOUNT_DETAILS_TAB_LOCATOR = By.xpath("//a[contains(@class, 'slds-card__header-link slds-truncate slds-show--inline-block uiOutputURL')]");
-    private static final By PERSONAL_ACCOUNT_LOCATOR = By.xpath("//*[text()='Cuenta personal']");
+    private static final By ACCOUNT_DETAILS_TAB_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
+    private static final By PERSONAL_ACCOUNT_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
+    private static final By CONTACT_EMAIL_LOCATOR = By.xpath("(//p[@title='Correo electrónico del contacto'])[2]");
+
+
+    @Step("Check that case page is opened")
+    public boolean isDetailsCasePageOpened() {
+        log.info("Check that Details Case page is opened");
+        return $(CONTACT_EMAIL_LOCATOR).isDisplayed();
+    }
 
     @Step("Clicking on Details tab")
     public CaseDetailsPage clickOnDetailsTab() {
-        log.info("Clicking on the first case");
-        $(DETAILS_TAB).shouldBe(Condition.visible);
+        log.info("Clicking on Details tab to open it");
+        $(DETAILS_TAB).shouldBe(Condition.exist, Duration.ofSeconds(10));
         $(DETAILS_TAB).click();
         return this;
     }
@@ -49,7 +57,8 @@ public class CaseDetailsPage extends BasePage {
     @Step("Clicking on Details tab")
     public CaseDetailsPage clickOnAccountDetailsTab() {
         log.info("Clicking on Account Details Tab");
-        $(ACCOUNT_DETAILS_TAB_LOCATOR).click();
+        clickJS(ACCOUNT_DETAILS_TAB_LOCATOR);
+        waitForPageLoaded();
         return this;
     }
 
@@ -62,6 +71,7 @@ public class CaseDetailsPage extends BasePage {
 
     @Step("Validation of fields filled")
     public CaseDetailsPage validateTenantID(String value) {
+        log.info("Validate TenantID field value: {}",value);
         validateInputField("TenantID", value);
         return this;
     }
