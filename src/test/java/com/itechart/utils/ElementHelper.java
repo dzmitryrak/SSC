@@ -30,6 +30,7 @@ public class ElementHelper {
 
     //TODO amazing javadoc
     public void fill(String elementLabel, String value) {
+        log.info("Filling '{}' field with '{}' value", elementLabel, value);
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
         Configuration.timeout = 1000;
@@ -37,30 +38,38 @@ public class ElementHelper {
 
         //Currency, Date, Date/time, Email, Number Percent Phone Text
         if ($$(By.xpath(String.format(textInput, elementLabel))).size() > 0) {
+            log.info("The count of 'Text' fields is: {}", $$(By.xpath(String.format(textInput, elementLabel))).size());
             elementType = "Text";
+            log.info("Is the value empty?: {}", StringUtils.isEmpty(value));
             if (StringUtils.isEmpty(value)) {
+                log.info("Clearing value");
                 $(By.xpath(String.format(textInput, elementLabel))).clear();
             } else {
+                log.info("Setting value: {}", value);
                 $(By.xpath(String.format(textInput, elementLabel))).sendKeys(value);
             }
 
             //PICKLIST
         } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
-            //TODO logging
+            log.info("The count of 'PickList' fields is: {}", $$(By.xpath(String.format(pickList, elementLabel))).size());
             //TODO Implement multiselect option with separator
             elementType = "PickList";
             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
             WebElement element = $(By.xpath(String.format(pickList, elementLabel)));
+            log.info("Clicking on '{}' picklist", elementLabel);
             Selenide.executeJavaScript("arguments[0].click();", element);
             WebElement element1;
-            //TODO how about just passing  "--None--" to clear?
+            log.info("Is the value empty?: {}", StringUtils.isEmpty(value));
             if (StringUtils.isEmpty(value)) {
+                log.info("Setting value: '--None--'");
                 element1 = $(By.xpath(String.format(lookupOption, "--None--")));
             } else {
+                log.info("Selecting {} option to {} picklist", value, elementLabel);
                 element1 = $(By.xpath(String.format(lookupOption, value)));
             }
             Selenide.executeJavaScript("arguments[0].click();", element1);
         } else if ($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
+            log.info("The count of 'Lookup' fields is: {}", $$(By.xpath(String.format(lookUpField, elementLabel))).size());
 
             //Lookup Relationship
             elementType = "Lookup Relationship";
@@ -69,21 +78,32 @@ public class ElementHelper {
 
             WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
             Selenide.executeJavaScript("arguments[0].click();", element);
+            log.info("Filling {} lookup with {} value", elementLabel, value);
             element.sendKeys(value);
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+            log.info("Selecting {} option in {} lookup", lookUpOption, elementLabel);
             Selenide.executeJavaScript("arguments[0].click();", lookUpOption);
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
+            log.info("The count of 'Text Area' fields is: {}", $$(By.xpath(String.format(textArea, elementLabel))).size());
+
             //TextArea
             elementType = "Text Area";
+            log.info("Is the value empty?: {}", StringUtils.isEmpty(value));
             if (StringUtils.isEmpty(value)) {
+                log.info("Clearing value");
                 $(By.xpath(String.format(textArea, elementLabel))).clear();
             } else {
+                log.info("Setting value: {}", value);
                 $(By.xpath(String.format(textArea, elementLabel))).sendKeys(value);
             }
         } else if ($$(By.xpath(String.format(checkbox, elementLabel))).size() > 0) {
+            log.info("The count of 'Checkbox' fields is: {}", $$(By.xpath(String.format(checkbox, elementLabel))).size());
+
             //Checkbox
             elementType = "Checkbox";
             SelenideElement ch = $(By.xpath(String.format(checkbox, elementLabel)));
+            log.info("Checkbox current value: {}", ch.isSelected());
+            log.info("Checkbox new value: {}", value);
             if (value.equals("true")) {
                 if (!ch.isSelected()) {
                     Selenide.executeJavaScript("arguments[0].click();", ch);
@@ -95,16 +115,18 @@ public class ElementHelper {
             }
         } else {
             elementType = "ERROR! Cannot identify element";
+            log.warn(elementType);
             throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
         }
 
         Configuration.timeout = 5000;
         long endTime = System.currentTimeMillis();
 
-        System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType, (endTime - startTime));
+        log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms'", elementLabel, elementType, (endTime - startTime));
     }
 
     public void validate(String label, String expectedInput) {
+        log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
         String locator = "//div[contains(@class, 'active')]//span[text()='%s']/ancestor::records-record-layout-item//" +
                 "*[@data-output-element-id='output-field']";
         WebElement input = $(By.xpath(String.format(locator, label)));
@@ -115,6 +137,7 @@ public class ElementHelper {
     }
 
     public void waitForPageLoaded() {
+        log.info("Waiting for page to be opened");
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
