@@ -1,10 +1,7 @@
 package com.itechart.tests;
 
-import com.codeborne.selenide.Selenide;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
-
-import java.lang.reflect.Array;
 
 public class AciertoTest extends BaseTest {
 
@@ -30,7 +27,7 @@ public class AciertoTest extends BaseTest {
         aciertoPage.isLifeInsurancePageOpened();
     }
 
-    @Test(description = "Creation of the insurance record and validation it in Salesforce")
+    @Test(description = "Creation of the insurance record with provider AsisaVida and validation it in Salesforce")
     public void aciertoTestAsisaVidaValidation() {
         aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
         aciertoPage.imInterestedButtonClick(1);
@@ -53,14 +50,164 @@ public class AciertoTest extends BaseTest {
         caseDetailsPage.validateTenantID(TENANTID);
     }
 
-    @Test(description = "Creation of the insurance record and validation it in Salesforce")
-    public void test() {
+    @Test(description = "Creation of the insurance record with provider 'Axa Vida Protec' and validation it in Salesforce")
+    public void aciertoTestAxaVidaProtecValidation() {
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
+        aciertoPage.imInterestedButtonClick(2);
+        aciertoPage.isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick();
+        aciertoPage.isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick();
+        aciertoPage.isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-       Selenide.open("https://ocpholdinggmbh--staging.sandbox.lightning.force.com/lightning/r/Case/5007Y00000MgpOEQAZ/view");
+        caseListViewPage.openUrl();
+        caseListViewPage.isPageOpened();
+        caseListViewPage.openCase(2);
+        caseDetailsPage.isDetailsCasePageOpened();
+        caseDetailsPage.clickOnDetailsTab();
+        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[1]);
         caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.isPersonaDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
+    }
 
+    @Test(description = "Creation of the insurance record with provider 'Santalucía Vida' and validation it in Salesforce")
+    public void aciertoTestSantaluciaVidaValidation() {
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
+        aciertoPage.imInterestedButtonClick(3);
+        aciertoPage.isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick();
+        aciertoPage.isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick();
+        aciertoPage.isLifeInsurancePageOpened();
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        caseListViewPage.openUrl();
+        caseListViewPage.isPageOpened();
+        caseListViewPage.openCase(3);
+        caseDetailsPage.isDetailsCasePageOpened();
+        caseDetailsPage.clickOnDetailsTab();
+        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[2]);
+        caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.isPersonaDetailTabPageOpened();
+        caseDetailsPage.validateTenantID(TENANTID);
+    }
+
+    @Test(description = "Creation of the insurance record with provider 'FIATC Vida' and validation it in Salesforce")
+    public void aciertoTestFiatcVidaValidation() {
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
+        aciertoPage.imInterestedButtonClick(4);
+        aciertoPage.isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick();
+        aciertoPage.isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick();
+        aciertoPage.isLifeInsurancePageOpened();
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        caseListViewPage.openUrl();
+        caseListViewPage.isPageOpened();
+        caseListViewPage.openCase(3);
+        caseDetailsPage.isDetailsCasePageOpened();
+        caseDetailsPage.clickOnDetailsTab();
+        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[3]);
+        caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.isPersonaDetailTabPageOpened();
+        caseDetailsPage.validateTenantID(TENANTID);
+    }
+
+    @Test(description = "Creation of the insurance record with provider 'Credit Andorra Life' and validation it in Salesforce")
+    public void aciertoTestCreditAndorraLifeValidation() {
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
+        aciertoPage.imInterestedButtonClick(5);
+        aciertoPage.isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick();
+        aciertoPage.isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick();
+        aciertoPage.isLifeInsurancePageOpened();
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        caseListViewPage.openUrl();
+        caseListViewPage.isPageOpened();
+        caseListViewPage.openCase(3);
+        caseDetailsPage.isDetailsCasePageOpened();
+        caseDetailsPage.clickOnDetailsTab();
+        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[4]);
+        caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.isPersonaDetailTabPageOpened();
+        caseDetailsPage.validateTenantID(TENANTID);
+    }
+
+    @Test(description = "Creation of the insurance record with provider 'Zurich Vida' and validation it in Salesforce")
+    public void aciertoTestZurichVidaValidation() {
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
+        aciertoPage.imInterestedButtonClick(6);
+        aciertoPage.isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick();
+        aciertoPage.isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick();
+        aciertoPage.isLifeInsurancePageOpened();
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        caseListViewPage.openUrl();
+        caseListViewPage.isPageOpened();
+        caseListViewPage.openCase(3);
+        caseDetailsPage.isDetailsCasePageOpened();
+        caseDetailsPage.clickOnDetailsTab();
+        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[5]);
+        caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.isPersonaDetailTabPageOpened();
+        caseDetailsPage.validateTenantID(TENANTID);
+    }
+
+    @Test(description = "Creation of the insurance record with provider 'Previs Vida' and validation it in Salesforce")
+    public void aciertoTestPrevisVidaValidation() {
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
+        aciertoPage.imInterestedButtonClick(7);
+        aciertoPage.isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick();
+        aciertoPage.isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick();
+        aciertoPage.isLifeInsurancePageOpened();
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        caseListViewPage.openUrl();
+        caseListViewPage.isPageOpened();
+        caseListViewPage.openCase(3);
+        caseDetailsPage.isDetailsCasePageOpened();
+        caseDetailsPage.clickOnDetailsTab();
+        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[6]);
+        caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.isPersonaDetailTabPageOpened();
+        caseDetailsPage.validateTenantID(TENANTID);
+    }
+
+    @Test(description = "Creation of the insurance record with provider 'Allianz Vida Riesgo' and validation it in Salesforce")
+    public void aciertoTestAllianzVidaRiesgoValidation() {
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
+        aciertoPage.imInterestedButtonClick(8);
+        aciertoPage.isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick();
+        aciertoPage.isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick();
+        aciertoPage.isLifeInsurancePageOpened();
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        caseListViewPage.openUrl();
+        caseListViewPage.isPageOpened();
+        caseListViewPage.openCase(3);
+        caseDetailsPage.isDetailsCasePageOpened();
+        caseDetailsPage.clickOnDetailsTab();
+        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[7]);
+        caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.isPersonaDetailTabPageOpened();
+        caseDetailsPage.validateTenantID(TENANTID);
     }
 }
