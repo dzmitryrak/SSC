@@ -1,5 +1,6 @@
 package com.itechart.tests;
 
+import com.itechart.constants.DetailsTabs;
 import com.itechart.pages.DetailsPage;
 import com.itechart.tests.base.BaseTest;
 import io.qameta.allure.Step;
@@ -29,7 +30,7 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openUrl();
         caseListViewPage.isPageOpened();
         caseListViewPage.openCase(1);
-        detailsPage.openDetails();
+        detailsPage.clickTab(DetailsTabs.Details);
         validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD);
     }
 

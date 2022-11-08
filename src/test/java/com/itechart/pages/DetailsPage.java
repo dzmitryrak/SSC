@@ -3,6 +3,7 @@ package com.itechart.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.itechart.constants.DetailsTabs;
 import com.itechart.pages.account.AccountListViewPage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -20,7 +21,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class DetailsPage extends BasePage {
     private final String DETAILS_TAB_FIELD_LOCATOR = "//*[text()='%s']/../..//*[contains(@class, 'slds-form-element__control')]";
     private final String DETAILS_TAB_OPPORTUNITY = "//*[text()='%s']/../..//*[contains(@class, 'slds-input')]";
-    private final By DETAILS_TAB = By.xpath("//a[@data-label='Details']");
     private String COMMON_TAB = "//a[@data-label='%s']";
     private final By CHANGE_OWNER_BUTTON = By.xpath("//*[@name='ChangeOwnerOne']");
     private final By CHECK_FOR_NEW_DATA_BUTTON = By.xpath("//*[@name='XClean']");
@@ -35,44 +35,36 @@ public class DetailsPage extends BasePage {
     private final By NEW_CASE_BUTTON = By.xpath("//button[@name='Global.NewCase']");
     private final By NEW_NOTE_BUTTON = By.xpath("//button[@name='Global.NewNote']");
     private final By NEW_OPPORTUNITY_BUTTON = By.xpath("//a[@name='Global.NewOpportunity']");
-    private final By VIEW_ACCOUNT_HIERARCHY_BUTTON = By.xpath("//a[@name='AccountHierarchy']");
+    private final By VIEW_HIERARCHY_BUTTON = By.xpath("//a[contains(@name, 'Hierarchy')]");
     private final By VIEW_WEBSITE_BUTTON = By.xpath("//a[@name='WebsiteHighlightAction']");
     private final By MARK_STATUS_AS_COMPLETE_BUTTON = By.xpath("//span[text()='Mark Status as Complete']//ancestor::button");
     private final By EDIT_DETAILS_BUTTON_LOCATOR = By.xpath("//*[@name='Edit']");
     private final By ICON_DROPDOWN_MENU = By.xpath("//*[contains(@class, 'slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last overflow')]//button");
     private final By DELETE_BUTTON = By.xpath("//*[@name='Delete']");
-    private final By SUCCESS_MESSAGE = By.xpath("//*[text() ='Are you sure you want to delete this account?']");
-    private final By DELETE_MODAL_TITLE = By.xpath("//*[text() ='Delete Account']");
+    private final By SUCCESS_MESSAGE = By.xpath("//*[contains(text(), 'Are you sure you want to delete this ')]");
+    private final By DELETE_MODAL_TITLE = By.xpath("//*[starts-with(text(), 'Delete ')]");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
     private final By DETAILS_FIELDS = By.cssSelector(".slds-form-element_readonly");
     private final By ALERT_MESSAGE = By.xpath("//*[@role = 'alertdialog']");
 
     public DetailsPage() { }
 
-    @Step("Check that Account Details page was opened")
+    @Step("Check that Details page was opened")
     @Override
     public boolean isPageOpened() {
-        $(DETAILS_TAB).shouldBe(visible, Duration.ofSeconds(20));
+        $(By.xpath(String.format(COMMON_TAB, DetailsTabs.Details))).shouldBe(visible, Duration.ofSeconds(20));
 
         return true;
-    }
-
-    @Step("Open Details tab")
-    public DetailsPage openDetails() {
-        log.info("Clicking on the first case");
-
-        $(DETAILS_TAB).shouldBe(Condition.visible, Duration.ofSeconds(10));
-        clickJS(DETAILS_TAB);
-        waitForPageLoaded();
-
-        return this;
     }
 
     @Step("Open {tabName} tab")
     public DetailsPage clickTab(String tabName) {
         log.info("Opening {} tab", tabName);
 
-        clickJS(By.xpath(String.format(COMMON_TAB, tabName)));
+        String tabLocator = String.format(COMMON_TAB, tabName);
+        $(By.xpath(tabLocator)).shouldBe(Condition.visible, Duration.ofSeconds(10));
+        clickJS(By.xpath(tabLocator));
+        waitForPageLoaded();
 
         return this;
     }
@@ -152,10 +144,10 @@ public class DetailsPage extends BasePage {
         $(DELETE_MODAL_TITLE).shouldBe(visible);
         $(DELETE_MODAL_BUTTON).shouldBe(visible);
 
-        return $(DELETE_MODAL_TITLE).getText().contains("Delete Account");
+        return $(DELETE_MODAL_TITLE).getText().startsWith("Delete ");
     }
 
-    @Step("Confirm deletion of an account")
+    @Step("Confirm deletion")
     public AccountListViewPage delete() {
         if (!isModalOpened()) {
             throw new RuntimeException("Delete modal is not opened");
@@ -287,11 +279,11 @@ public class DetailsPage extends BasePage {
         return newObjectModal;
     }
 
-    @Step("Click View Account Hierarchy button")
-    public AccountListViewPage clickAccountHierarchyButton() {
+    @Step("Click View Hierarchy button")
+    public AccountListViewPage clickHierarchyButton() {
         log.info("Clicking View Account Hierarchy button");
 
-        clickJS(VIEW_ACCOUNT_HIERARCHY_BUTTON);
+        clickJS(VIEW_HIERARCHY_BUTTON);
         AccountListViewPage accountListViewPage = new AccountListViewPage();
         accountListViewPage.isPageOpened();
 
@@ -314,16 +306,18 @@ public class DetailsPage extends BasePage {
         }
     }
 
+    private void prepareForValidation() {
+        log.info("Preparing for validation");
+
+        Selenide.refresh();
+        clickTab(DetailsTabs.Details);
+        $(ALERT_MESSAGE).shouldBe(not(visible));
+        waitTillDetailsFieldsAreLoaded();
+    }
+
     private void waitTillDetailsFieldsAreLoaded() {
         for (SelenideElement field : $$(DETAILS_FIELDS)) {
             field.shouldBe(visible);
         }
-    }
-
-    private void prepareForValidation() {
-        Selenide.refresh();
-        openDetails();
-        $(ALERT_MESSAGE).shouldBe(not(visible));
-        waitTillDetailsFieldsAreLoaded();
     }
 }

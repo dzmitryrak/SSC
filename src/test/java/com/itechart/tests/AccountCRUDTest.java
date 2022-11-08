@@ -1,6 +1,7 @@
 package com.itechart.tests;
 
 import com.github.javafaker.Faker;
+import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
 import java.util.HashMap;
@@ -55,7 +56,7 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Country");
 
         detailsPage
-                .openDetails()
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
     }
 
@@ -121,7 +122,7 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
         detailsPage
-                .openDetails()
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
         detailsPage
                 .clickIconDropdownMenu()
@@ -146,7 +147,7 @@ public class AccountCRUDTest extends BaseTest {
         updatedAccount.remove("Shipping Country");
 
         detailsPage
-                .openDetails()
+                .clickTab(DetailsTabs.Details)
                 .validate(updatedAccount);
     }
 
@@ -193,7 +194,7 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
         detailsPage
-                .openDetails()
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
         detailsPage
                 .clickIconDropdownMenu()
