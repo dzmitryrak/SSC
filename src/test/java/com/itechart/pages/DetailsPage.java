@@ -1,15 +1,12 @@
 package com.itechart.pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import com.itechart.constants.DetailsTabs;
 import com.itechart.pages.account.AccountListViewPage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.Map;
@@ -19,8 +16,6 @@ import static com.codeborne.selenide.Selenide.*;
 
 @Log4j2
 public class DetailsPage extends BasePage {
-    private final String DETAILS_TAB_FIELD_LOCATOR = "//*[text()='%s']/../..//*[contains(@class, 'slds-form-element__control')]";
-    private final String DETAILS_TAB_OPPORTUNITY = "//*[text()='%s']/../..//*[contains(@class, 'slds-input')]";
     private String COMMON_TAB = "//a[@data-label='%s']";
     private final By CHANGE_OWNER_BUTTON = By.xpath("//*[@name='ChangeOwnerOne']");
     private final By CHECK_FOR_NEW_DATA_BUTTON = By.xpath("//*[@name='XClean']");
@@ -44,8 +39,6 @@ public class DetailsPage extends BasePage {
     private final By SUCCESS_MESSAGE = By.xpath("//*[contains(text(), 'Are you sure you want to delete this ')]");
     private final By DELETE_MODAL_TITLE = By.xpath("//*[starts-with(text(), 'Delete ')]");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
-    private final By DETAILS_FIELDS = By.cssSelector(".slds-form-element_readonly");
-    private final By ALERT_MESSAGE = By.xpath("//*[@role = 'alertdialog']");
 
     public DetailsPage() { }
 
@@ -61,9 +54,9 @@ public class DetailsPage extends BasePage {
     public DetailsPage clickTab(String tabName) {
         log.info("Opening {} tab", tabName);
 
-        String tabLocator = String.format(COMMON_TAB, tabName);
-        $(By.xpath(tabLocator)).shouldBe(Condition.visible, Duration.ofSeconds(10));
-        clickJS(By.xpath(tabLocator));
+        By tabLocator = By.xpath(String.format(COMMON_TAB, tabName));
+        $(tabLocator).shouldBe(Condition.visible, Duration.ofSeconds(10));
+        clickJS(tabLocator);
         waitForPageLoaded();
 
         return this;
@@ -82,7 +75,7 @@ public class DetailsPage extends BasePage {
     public DetailsPage validate(Map<String, String> data) {
         log.info("Validating Details Data: {}", data);
 
-        prepareForValidation();
+        waitChangesToApplyIfAny();
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
@@ -93,27 +86,6 @@ public class DetailsPage extends BasePage {
 
         return this;
     }
-
-    public DetailsPage validateInputField(String locator, String expectedInput) {
-        String actualInput = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, locator))).getText();
-        Assert.assertTrue(actualInput.contains(expectedInput),
-            String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
-
-        log.debug("Validating {} input.Expected: '{}' Actual: '{}'", locator, expectedInput, actualInput);
-
-        return this;
-    }
-
-    public DetailsPage validateInputOpportunity(String locator, String expectedInput) {
-        String actualInput = $(By.xpath(String.format(DETAILS_TAB_OPPORTUNITY, locator))).getValue();
-        Assert.assertTrue(actualInput.contains(expectedInput),
-                String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
-
-        log.debug("Validating {} input.Expected: '{}' Actual: {}", locator, expectedInput, actualInput);
-
-        return this;
-    }
-
 
     @Step("Click on Dropdown icon menu")
     public DetailsPage clickIconDropdownMenu() {
@@ -140,18 +112,9 @@ public class DetailsPage extends BasePage {
         return this;
     }
 
-    public boolean isModalOpened() {
-        $(DELETE_MODAL_TITLE).shouldBe(visible);
-        $(DELETE_MODAL_BUTTON).shouldBe(visible);
-
-        return $(DELETE_MODAL_TITLE).getText().startsWith("Delete ");
-    }
-
     @Step("Confirm deletion")
     public AccountListViewPage delete() {
-        if (!isModalOpened()) {
-            throw new RuntimeException("Delete modal is not opened");
-        }
+        waitTillModalOpened();
 
         $(SUCCESS_MESSAGE).should(exist);
         $(DELETE_MODAL_BUTTON).click();
@@ -306,18 +269,12 @@ public class DetailsPage extends BasePage {
         }
     }
 
-    private void prepareForValidation() {
-        log.info("Preparing for validation");
-
-        Selenide.refresh();
-        clickTab(DetailsTabs.Details);
-        $(ALERT_MESSAGE).shouldBe(not(visible));
-        waitTillDetailsFieldsAreLoaded();
+    private void waitChangesToApplyIfAny() {
+        $("body").should(have(attribute("style", "overflow: visible;")));
     }
 
-    private void waitTillDetailsFieldsAreLoaded() {
-        for (SelenideElement field : $$(DETAILS_FIELDS)) {
-            field.shouldBe(visible);
-        }
+    private void waitTillModalOpened() {
+        $(DELETE_MODAL_TITLE).shouldBe(visible);
+        $(DELETE_MODAL_BUTTON).shouldBe(visible);
     }
 }

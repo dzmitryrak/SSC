@@ -1,10 +1,11 @@
 package com.itechart.tests;
 
 import com.itechart.constants.DetailsTabs;
-import com.itechart.pages.DetailsPage;
 import com.itechart.tests.base.BaseTest;
-import io.qameta.allure.Step;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AciertoTest extends BaseTest {
 
@@ -31,23 +32,16 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.isPageOpened();
         caseListViewPage.openCase(1);
         detailsPage.clickTab(DetailsTabs.Details);
-        validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD);
-    }
 
-    @Step("Validation of fields filled")
-    private DetailsPage validateInput(String email, String phone, String amount, String period) {
+        Map<String, String> account = new HashMap<>() {{
+            put("Email", EMAIL);
+            put("Correo electrónico Web", EMAIL);
+            put("Teléfono", String.format("+34%s", PHONE));
+            put("Teléfono del cliente", String.format("+34%s", PHONE));
+            put("Cantidad de capital", INSURANCE_AMOUNT.replace("€", ""));
+            put("Pago de frecuencia", INSURANCE_PERIOD.replace("Annual", "Yearly"));
+        }};
 
-        String expectedPhone = String.format("+34%s", phone);
-        String newExpectedAmount = amount.replace("€", "");
-        String newExpectedPeriod = period.replace("Annual", "Yearly");
-
-        detailsPage.validateInputField("Email", email);
-        detailsPage.validateInputField("Correo electrónico Web", email);
-        detailsPage.validateInputField("Teléfono", expectedPhone);
-        detailsPage.validateInputField("Teléfono del cliente", phone);
-        detailsPage.validateInputOpportunity("Cantidad de capital", newExpectedAmount);
-        detailsPage.validateInputOpportunity("Pago de frecuencia", newExpectedPeriod);
-
-        return detailsPage;
+        detailsPage.validate(account);
     }
 }
