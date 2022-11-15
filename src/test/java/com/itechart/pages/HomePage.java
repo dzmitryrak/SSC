@@ -11,7 +11,7 @@ public class HomePage extends BasePage {
     private final By LOGO_LOCATOR = By.xpath("//*[contains(@class, 'slds-page-header')]//ancestor::lightning-primitive-icon/*[@data-key='home']");
 
     public HomePage open() {
-        Selenide.open(baseUrl);
+        Selenide.open("/");
         return this;
     }
 

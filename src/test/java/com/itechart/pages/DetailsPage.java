@@ -41,11 +41,9 @@ public class DetailsPage extends BasePage {
     private final String COMMON_TAB = "//a[@data-label='%s']";
 
     @Step("Check that Details page was opened")
-    @Override
-    public boolean isPageOpened() {
+    public DetailsPage waitTillOpened() {
         $(By.xpath(String.format(COMMON_TAB, DetailsTabs.Details))).shouldBe(visible, Duration.ofSeconds(20));
-
-        return true;
+        return this;
     }
 
     @Step("Open {tabName} tab")
@@ -90,6 +88,7 @@ public class DetailsPage extends BasePage {
         try {
             clickJS(ICON_DROPDOWN_MENU);
         } catch (StaleElementReferenceException e) {
+            //TODO bad error handling. Need to re-throw exception or do smth
             log.warn("Cannot find Icon Dropdown menu icon");
             log.warn(e.getLocalizedMessage());
         }
@@ -246,7 +245,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(VIEW_HIERARCHY_BUTTON);
         ListView listView = new ListView();
-        listView.isPageOpened();
+        listView.isOpened();
 
         return listView;
     }

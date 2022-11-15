@@ -52,10 +52,10 @@ public class ContactCRUDTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView
-                .openUrl("Contact")
+                .open("Contact")
                 .clickNew()
                 .enterData(contact)
-                .save();
-        detailsPage.isPageOpened();
+                .save()
+                .waitTillOpened();
     }
 }

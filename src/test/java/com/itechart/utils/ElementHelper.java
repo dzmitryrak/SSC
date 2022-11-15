@@ -51,7 +51,6 @@ public class ElementHelper {
             elementType = "PickList";
             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
             WebElement element = $(By.xpath(String.format(pickList, elementLabel)));
-            log.info("Clicking on '{}' picklist", elementLabel);
             Selenide.executeJavaScript("arguments[0].click();", element);
             WebElement element1;
             if (StringUtils.isEmpty(value)) {
@@ -119,7 +118,6 @@ public class ElementHelper {
     }
 
     public void waitForPageLoaded() {
-        log.info("Waiting for page to be opened");
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
