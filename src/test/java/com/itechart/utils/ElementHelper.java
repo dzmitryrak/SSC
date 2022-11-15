@@ -110,8 +110,7 @@ public class ElementHelper {
 
     public void validate(String label, String expectedInput) {
         log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
-        String locator = "//div[contains(@class, 'active')]//span[text()='%s']/ancestor::records-record-layout-item//" +
-                "*[@data-output-element-id='output-field']";
+        String locator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]//*[contains(@class, 'slds-form-element__control')]";
         WebElement input = $(By.xpath(String.format(locator, label)));
         String actualInput = input.getText();
          log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
