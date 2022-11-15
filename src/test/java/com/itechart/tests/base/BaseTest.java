@@ -54,6 +54,12 @@ public abstract class BaseTest {
 
     @AfterMethod(alwaysRun = true, description = "Close browser")
     public void tearDown() {
-        getWebDriver().quit();
+        try {
+            getWebDriver().quit();
+        } catch (IllegalStateException ex) {
+            log.warn("Unable to close WebDriver. Make sure that driver is initialized");
+            log.warn(ex.getMessage());
+            log.debug(ex.getStackTrace());
+        }
     }
 }
