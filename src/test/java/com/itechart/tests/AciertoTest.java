@@ -2,7 +2,7 @@ package com.itechart.tests;
 
 import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;

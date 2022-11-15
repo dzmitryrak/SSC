@@ -7,8 +7,6 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.codeborne.selenide.Selenide.open;
-
 public class ContactCRUDTest extends BaseTest {
 
     Faker faker = new Faker();
@@ -58,7 +56,6 @@ public class ContactCRUDTest extends BaseTest {
                 .clickNew()
                 .enterData(contact)
                 .save();
-        //TODO replace by generic list view
         detailsPage.isPageOpened();
     }
 }

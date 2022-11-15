@@ -2,7 +2,6 @@ package com.itechart.pages;
 
 import com.codeborne.selenide.Condition;
 import com.itechart.constants.DetailsTabs;
-import com.itechart.pages.account.AccountListViewPage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -12,11 +11,11 @@ import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.switchTo;
 
 @Log4j2
 public class DetailsPage extends BasePage {
-    private String COMMON_TAB = "//a[@data-label='%s']";
     private final By CHANGE_OWNER_BUTTON = By.xpath("//*[@name='ChangeOwnerOne']");
     private final By CHECK_FOR_NEW_DATA_BUTTON = By.xpath("//*[@name='XClean']");
     private final By CLONE_BUTTON = By.xpath("//*[@name='Clone']");
@@ -39,8 +38,7 @@ public class DetailsPage extends BasePage {
     private final By SUCCESS_MESSAGE = By.xpath("//*[contains(text(), 'Are you sure you want to delete this ')]");
     private final By DELETE_MODAL_TITLE = By.xpath("//*[starts-with(text(), 'Delete ')]");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
-
-    public DetailsPage() { }
+    private final String COMMON_TAB = "//a[@data-label='%s']";
 
     @Step("Check that Details page was opened")
     @Override
@@ -113,13 +111,13 @@ public class DetailsPage extends BasePage {
     }
 
     @Step("Confirm deletion")
-    public AccountListViewPage delete() {
+    public ListView delete() {
         waitTillModalOpened();
 
         $(SUCCESS_MESSAGE).should(exist);
         $(DELETE_MODAL_BUTTON).click();
 
-        return new AccountListViewPage();
+        return new ListView();
     }
 
     @Step("Click Follow button")
@@ -243,14 +241,14 @@ public class DetailsPage extends BasePage {
     }
 
     @Step("Click View Hierarchy button")
-    public AccountListViewPage clickHierarchyButton() {
+    public ListView clickHierarchyButton() {
         log.info("Clicking View Account Hierarchy button");
 
         clickJS(VIEW_HIERARCHY_BUTTON);
-        AccountListViewPage accountListViewPage = new AccountListViewPage();
-        accountListViewPage.isPageOpened();
+        ListView listView = new ListView();
+        listView.isPageOpened();
 
-        return accountListViewPage;
+        return listView;
     }
 
     @Step("Click View Website button")
@@ -258,8 +256,8 @@ public class DetailsPage extends BasePage {
         log.info("Clicking View Website button");
 
         String websiteUrl =
-            $(By.xpath("//p[@title='Website']//ancestor::div[@records-highlightsdetailsitem_highlightsdetailsitem]//descendant::a"))
-                .getText();
+                $(By.xpath("//p[@title='Website']//ancestor::div[@records-highlightsdetailsitem_highlightsdetailsitem]//descendant::a"))
+                        .getText();
 
         clickJS(VIEW_WEBSITE_BUTTON);
         waitForPageLoaded();

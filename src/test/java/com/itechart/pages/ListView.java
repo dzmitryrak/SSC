@@ -6,13 +6,12 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 @Log4j2
 public class ListView extends BasePage {
     protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th)[%s]";
-    private final By BREADCRUMB_LOCATOR = By.cssSelector(".slds-var-p-right_x-small");
+    private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
     //TODO make sure that active layer is selected everywhere
     private final By NEW_BUTTON_LOCATOR = By.xpath("//div[contains(@class, 'oneContent active')]//a[@title='New']");
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
@@ -50,7 +49,7 @@ public class ListView extends BasePage {
             $(SUCCESS_DELETE_MESSAGE).should(exist);
             isSuccessMessageDisplayed = $(SUCCESS_DELETE_MESSAGE).isDisplayed();
         } catch (Exception e) {
-            log.warn("Account record successfully deleted message is not found");
+            log.warn("Record successfully deleted message is not found");
             log.warn(e.getLocalizedMessage());
             isSuccessMessageDisplayed = false;
         }
