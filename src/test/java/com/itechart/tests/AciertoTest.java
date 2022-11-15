@@ -1,7 +1,11 @@
 package com.itechart.tests;
 
+import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AciertoTest extends BaseTest {
 
@@ -22,7 +26,17 @@ public class AciertoTest extends BaseTest {
         listView
                 .openUrl("Case")
                 .openObjectFromList(1);
-        caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD);
+        detailsPage.clickTab(DetailsTabs.Details);
+
+        Map<String, String> account = new HashMap<>() {{
+            put("Email", EMAIL);
+            put("Correo electrónico Web", EMAIL);
+            put("Teléfono", String.format("+34%s", PHONE));
+            put("Teléfono del cliente", String.format("+34%s", PHONE));
+            put("Cantidad de capital", INSURANCE_AMOUNT.replace("€", ""));
+            put("Pago de frecuencia", INSURANCE_PERIOD.replace("Annual", "Yearly"));
+        }};
+
+        detailsPage.validate(account);
     }
 }

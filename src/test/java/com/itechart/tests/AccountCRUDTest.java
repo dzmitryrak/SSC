@@ -1,6 +1,7 @@
 package com.itechart.tests;
 
 import com.github.javafaker.Faker;
+import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class AccountCRUDTest extends BaseTest {
                 .clickNew()
                 .enterData(account)
                 .save();
-        accountDetailsPage.isPageOpened();
+        detailsPage.isPageOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -53,8 +54,8 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
 
-        accountDetailsPage
-                .openDetails()
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
     }
 
@@ -106,7 +107,7 @@ public class AccountCRUDTest extends BaseTest {
                 .clickNew()
                 .enterData(account)
                 .save();
-        accountDetailsPage.isPageOpened();
+        detailsPage.isPageOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -118,17 +119,17 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping State/Province");
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
-        accountDetailsPage
-                .openDetails()
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
-        accountDetailsPage
+        detailsPage
                 .clickIconDropdownMenu()
                 .clickEditDetailsButton();
         newObjectModal
                 .clearData(account)
                 .enterData(updatedAccount)
                 .save();
-        accountDetailsPage.isPageOpened();
+        detailsPage.isPageOpened();
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");
@@ -143,8 +144,8 @@ public class AccountCRUDTest extends BaseTest {
         updatedAccount.remove("Shipping Zip/Postal Code");
         updatedAccount.remove("Shipping Country");
 
-        accountDetailsPage
-                .openDetails()
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(updatedAccount);
     }
 
@@ -177,7 +178,7 @@ public class AccountCRUDTest extends BaseTest {
                 .clickNew()
                 .enterData(account)
                 .save();
-        accountDetailsPage.isPageOpened();
+        detailsPage.isPageOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -189,10 +190,10 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping State/Province");
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
-        accountDetailsPage
-                .openDetails()
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
-        accountDetailsPage
+        detailsPage
                 .clickIconDropdownMenu()
                 .clickDeleteButton()
                 .delete()

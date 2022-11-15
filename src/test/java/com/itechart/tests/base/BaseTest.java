@@ -1,12 +1,14 @@
 package com.itechart.tests.base;
 
 import com.codeborne.selenide.Configuration;
+import com.itechart.pages.DetailsPage;
 import com.itechart.pages.HomePage;
 import com.itechart.pages.ListView;
 import com.itechart.pages.LoginPage;
 import com.itechart.pages.NewObjectModal;
-import com.itechart.pages.account.AccountDetailsPage;
+import com.itechart.pages.account.AccountListViewPage;
 import com.itechart.pages.acierto.AciertoPage;
+import com.itechart.pages.cases.CaseListViewPage;
 import com.itechart.pages.cases.CaseDetailsPage;
 import com.itechart.utils.PropertyReader;
 import lombok.extern.log4j.Log4j2;
@@ -21,10 +23,12 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public abstract class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected CaseListViewPage caseListViewPage;
+    protected DetailsPage detailsPage;
+    protected AccountListViewPage accountListViewPage;
     protected CaseDetailsPage caseDetailsPage;
     protected ListView listView;
     protected NewObjectModal newObjectModal;
-    protected AccountDetailsPage accountDetailsPage;
     protected AciertoPage aciertoPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final String USERNAME = System.getProperty("username", propertyReader.getPropertyValueByKey("username"));
@@ -35,23 +39,29 @@ public abstract class BaseTest {
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
         Configuration.browser = "chrome";
+
         var options = new ChromeOptions();
         options.addArguments("--disable-notifications");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
         if(propertyReader.getPropertyValueByKey("headless").equals("true")) {
             options.addArguments("--headless");
         }
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
+
         Configuration.browserCapabilities = options;
         open();
         getWebDriver().manage().window().maximize();
 
         loginPage = new LoginPage();
         homePage = new HomePage();
+        detailsPage = new DetailsPage();
+        accountListViewPage = new AccountListViewPage();
         accountDetailsPage = new AccountDetailsPage();
         listView = new ListView();
         newObjectModal = new NewObjectModal();
         caseDetailsPage = new CaseDetailsPage();
+        caseListViewPage = new CaseListViewPage();
         aciertoPage = new AciertoPage();
     }
 

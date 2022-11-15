@@ -58,7 +58,7 @@ public class ContactCRUDTest extends BaseTest {
                 .clickNew()
                 .enterData(contact)
                 .save();
-        //TODO replace by generic list view and details pages
-        accountDetailsPage.isPageOpened();
+        //TODO replace by generic list view
+        detailsPage.isPageOpened();
     }
 }

@@ -30,6 +30,7 @@ public class ElementHelper {
 
     //TODO amazing javadoc
     public void fill(String elementLabel, String value) {
+        log.info("Filling '{}' field with '{}' value", elementLabel, value);
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
         Configuration.timeout = 1000;
@@ -46,15 +47,15 @@ public class ElementHelper {
 
             //PICKLIST
         } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
-            //TODO logging
             //TODO Implement multiselect option with separator
             elementType = "PickList";
             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
             WebElement element = $(By.xpath(String.format(pickList, elementLabel)));
+            log.info("Clicking on '{}' picklist", elementLabel);
             Selenide.executeJavaScript("arguments[0].click();", element);
             WebElement element1;
-            //TODO how about just passing  "--None--" to clear?
             if (StringUtils.isEmpty(value)) {
+                log.info("Setting value: '--None--'");
                 element1 = $(By.xpath(String.format(lookupOption, "--None--")));
             } else {
                 element1 = $(By.xpath(String.format(lookupOption, value)));
@@ -73,6 +74,7 @@ public class ElementHelper {
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
             Selenide.executeJavaScript("arguments[0].click();", lookUpOption);
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
+
             //TextArea
             elementType = "Text Area";
             if (StringUtils.isEmpty(value)) {
@@ -81,9 +83,11 @@ public class ElementHelper {
                 $(By.xpath(String.format(textArea, elementLabel))).sendKeys(value);
             }
         } else if ($$(By.xpath(String.format(checkbox, elementLabel))).size() > 0) {
+
             //Checkbox
             elementType = "Checkbox";
             SelenideElement ch = $(By.xpath(String.format(checkbox, elementLabel)));
+            log.info("Checkbox initial value: {}", ch.isSelected());
             if (value.equals("true")) {
                 if (!ch.isSelected()) {
                     Selenide.executeJavaScript("arguments[0].click();", ch);
@@ -101,12 +105,12 @@ public class ElementHelper {
         Configuration.timeout = 5000;
         long endTime = System.currentTimeMillis();
 
-        System.out.printf("Label: '%s' Element Type: '%s' Time Elapsed: '%sms'%n", elementLabel, elementType, (endTime - startTime));
+        log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms'", elementLabel, elementType, (endTime - startTime));
     }
 
     public void validate(String label, String expectedInput) {
-        String locator = "//div[contains(@class, 'active')]//span[text()='%s']/ancestor::records-record-layout-item//" +
-                "*[@data-output-element-id='output-field']";
+        log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
+        String locator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]//*[contains(@class, 'slds-form-element__control')]";
         WebElement input = $(By.xpath(String.format(locator, label)));
         String actualInput = input.getText();
          log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
@@ -115,6 +119,7 @@ public class ElementHelper {
     }
 
     public void waitForPageLoaded() {
+        log.info("Waiting for page to be opened");
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
