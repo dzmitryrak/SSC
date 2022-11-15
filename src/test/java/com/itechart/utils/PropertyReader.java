@@ -10,12 +10,14 @@ import java.util.Properties;
 public class PropertyReader {
 
     private final Properties properties = new Properties();
+    String propertyFile;
 
     public PropertyReader(String filepath) {
         try {
             log.info("Reading property from file: {}", filepath);
             FileInputStream fileInputStream = new FileInputStream(filepath);
             properties.load(fileInputStream);
+            propertyFile = filepath;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,8 +28,9 @@ public class PropertyReader {
         if (properties.getProperty(key) != null) {
             return properties.getProperty(key);
         } else {
-            log.error("Cannot find property by key: {}", key);
-            throw new RuntimeException();
+            String errorMessage = String.format("Cannot find property by key: %s. Make sure that it exists inside %s", key, propertyFile);
+            log.error(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 }
