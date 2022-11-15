@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,11 +37,10 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-
-        newObjectModal.enterData(account)
+        listView
+                .openUrl("Account")
+                .clickNew()
+                .enterData(account)
                 .save();
         detailsPage.isPageOpened();
         account.remove("Billing Street");
@@ -103,10 +103,9 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-        newObjectModal
+        listView
+                .openUrl("Account")
+                .clickNew()
                 .enterData(account)
                 .save();
         detailsPage.isPageOpened();
@@ -175,10 +174,9 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-        newObjectModal
+        listView
+                .openUrl("Account")
+                .clickNew()
                 .enterData(account)
                 .save();
         detailsPage.isPageOpened();

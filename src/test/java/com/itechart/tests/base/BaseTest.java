@@ -1,17 +1,14 @@
 package com.itechart.tests.base;
 
 import com.codeborne.selenide.Configuration;
-import com.itechart.pages.DetailsPage;
-import com.itechart.pages.HomePage;
-import com.itechart.pages.LoginPage;
-import com.itechart.pages.NewObjectModal;
-import com.itechart.pages.account.AccountListViewPage;
+import com.itechart.pages.*;
 import com.itechart.pages.acierto.AciertoPage;
-import com.itechart.pages.cases.CaseListViewPage;
 import com.itechart.utils.PropertyReader;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -21,9 +18,8 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public abstract class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
-    protected CaseListViewPage caseListViewPage;
     protected DetailsPage detailsPage;
-    protected AccountListViewPage accountListViewPage;
+    protected ListView listView;
     protected NewObjectModal newObjectModal;
     protected AciertoPage aciertoPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
@@ -40,8 +36,7 @@ public abstract class BaseTest {
         options.addArguments("--disable-notifications");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-
-        if(propertyReader.getPropertyValueByKey("headless").equals("true")) {
+        if (propertyReader.getPropertyValueByKey("headless").equals("true")) {
             options.addArguments("--headless");
         }
 
@@ -52,9 +47,8 @@ public abstract class BaseTest {
         loginPage = new LoginPage();
         homePage = new HomePage();
         detailsPage = new DetailsPage();
-        accountListViewPage = new AccountListViewPage();
+        listView = new ListView();
         newObjectModal = new NewObjectModal();
-        caseListViewPage = new CaseListViewPage();
         aciertoPage = new AciertoPage();
     }
 

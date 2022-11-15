@@ -113,7 +113,7 @@ public class ElementHelper {
         String locator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]//*[contains(@class, 'slds-form-element__control')]";
         WebElement input = $(By.xpath(String.format(locator, label)));
         String actualInput = input.getText();
-         log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
+        log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
         Assert.assertTrue(input.getText().contains(expectedInput),
                 String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
     }
