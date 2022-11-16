@@ -51,7 +51,7 @@ public class ElementHelper {
                 elementType = "Picklist (Multi-Select)";
                 SelenideElement moveToChosen = $(By.xpath(String.format(pickList + "[@title='Move selection to Chosen']", elementLabel)));
                 String lookupOption = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]";
-                var options = StringUtils.split(value, "|");
+                var options = StringUtils.split(value, ";");
                 for (String option : options) {
                     log.info("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
                     SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
