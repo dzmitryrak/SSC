@@ -46,6 +46,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Languages", "test");
             put("Level", "Primary");
             put("Description", "test");
+            put("Multiselect", "Yes;Maybe");
         }};
 
         loginPage.open();
