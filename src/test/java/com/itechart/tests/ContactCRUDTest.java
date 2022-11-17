@@ -1,6 +1,7 @@
 package com.itechart.tests;
 
 import com.github.javafaker.Faker;
+import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -55,7 +56,23 @@ public class ContactCRUDTest extends BaseTest {
                 .open("Contact")
                 .clickNew()
                 .enterData(contact)
-                .save()
-                .waitTillOpened();
+                .save();
+        contact.remove("First Name");
+        contact.remove("Last Name");
+        contact.remove("Salutation");
+        contact.remove("Mailing Street");
+        contact.remove("Other Street");
+        contact.remove("Mailing City");
+        contact.remove("Mailing State/Province");
+        contact.remove("Other City");
+        contact.remove("Other State/Province");
+        contact.remove("Mailing Zip/Postal Code");
+        contact.remove("Mailing Country");
+        contact.remove("Other Zip/Postal Code");
+        contact.remove("Other Country");
+
+        //TODO fix validation method to support checkboxes and uncomment after
+/*        detailsPage.clickTab(DetailsTabs.Details)
+                .validate(contact);*/
     }
 }

@@ -35,7 +35,7 @@ public abstract class BasePage {
         };
     }
 
-    @Step("Click to the element")
+    @Step("Click on the element")
     public void clickJS(By locator) {
         log.debug("JS click to element using locator {}", locator);
         Selenide.executeJavaScript("arguments[0].click();", $(locator));

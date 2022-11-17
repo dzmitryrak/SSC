@@ -41,8 +41,7 @@ public class AccountCRUDTest extends BaseTest {
                 .open("Account")
                 .clickNew()
                 .enterData(account)
-                .save()
-                .waitTillOpened();
+                .save();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -129,8 +128,7 @@ public class AccountCRUDTest extends BaseTest {
         newObjectModal
                 .clearData(account)
                 .enterData(updatedAccount)
-                .save()
-                .waitTillOpened();
+                .save();
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");

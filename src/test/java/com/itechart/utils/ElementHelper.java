@@ -111,6 +111,7 @@ public class ElementHelper {
         log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
         String locator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]//*[contains(@class, 'slds-form-element__control')]";
         WebElement input = $(By.xpath(String.format(locator, label)));
+        //TODO throw custom exception with simple text
         String actualInput = input.getText();
         log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
         Assert.assertTrue(input.getText().contains(expectedInput),
