@@ -3,6 +3,9 @@ package com.itechart.utils;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ex.ElementNotFound;
+import com.github.javafaker.Faker;
+import com.itechart.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -13,6 +16,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -25,6 +30,7 @@ public class ElementHelper {
     String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist//button";
     String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='text']";
     String lookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//input";
+    String clearLookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//button[@title='Clear Selection']";
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
     String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
 
@@ -65,14 +71,14 @@ public class ElementHelper {
 
             //Lookup Relationship
             elementType = "Lookup Relationship";
-            //TODO add code to clear lookup
-            String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
+            if (StringUtils.isEmpty(value)) {
+                $(String.format(clearLookUpField, lookUpField)).click();
+            } else {
+                SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
+                Selenide.executeJavaScript("arguments[0].click();", element);
+                if(!searchForLookupValue(element, value)) createNewRecordThroughLookup();
+            }
 
-            WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
-            Selenide.executeJavaScript("arguments[0].click();", element);
-            element.sendKeys(value);
-            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
-            Selenide.executeJavaScript("arguments[0].click();", lookUpOption);
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
 
             //TextArea
@@ -125,5 +131,50 @@ public class ElementHelper {
                 return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
             }
         };
+    }
+
+    public boolean searchForLookupValue(SelenideElement lookup, String value) {
+        log.info("Searching for lookup value: {}", value);
+        boolean isOptionFound = false;
+        try {
+            String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
+            lookup.sendKeys(value);
+            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+            isOptionFound = lookUpOption.isDisplayed();
+            Selenide.executeJavaScript("arguments[0].click();", lookUpOption);
+        } catch (ElementNotFound e) {
+            log.warn("Cannot find look up option: {}", value);
+            log.warn(e.getLocalizedMessage());
+        }
+        return isOptionFound;
+    }
+
+    public void createNewRecordThroughLookup() {
+        log.info("Creating new record");
+        Faker faker = new Faker();
+        Map<String, String> data = new HashMap<>() {{
+            put("Account Name", faker.name().name());
+            put("Parent Account", "Erica Larson");
+            put("Type", "Prospect");
+            put("Website", faker.internet().url());
+            put("Phone", faker.phoneNumber().phoneNumber());
+            put("Description", faker.lorem().sentence());
+            put("Employees", faker.number().digit());
+            put("Billing Street", faker.address().streetAddress());
+            put("Billing City", faker.address().city());
+            put("Billing State/Province", faker.address().state());
+            put("Billing Zip/Postal Code", faker.address().zipCode());
+            put("Billing Country", faker.address().country());
+            put("Shipping Street", faker.address().streetAddress());
+            put("Shipping City", faker.address().city());
+            put("Shipping State/Province", faker.address().state());
+            put("Shipping Zip/Postal Code", faker.address().zipCode());
+            put("Shipping Country", faker.address().country());
+        }};
+        NewObjectModal newObjectModal = new NewObjectModal();
+        newObjectModal.isPageOpened();
+        newObjectModal
+                .enterData(data)
+                .save();
     }
 }
