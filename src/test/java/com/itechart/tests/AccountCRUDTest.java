@@ -38,11 +38,10 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView
-                .openUrl("Account")
+                .open("Account")
                 .clickNew()
                 .enterData(account)
                 .save();
-        detailsPage.isPageOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -104,11 +103,11 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView
-                .openUrl("Account")
+                .open("Account")
                 .clickNew()
                 .enterData(account)
-                .save();
-        detailsPage.isPageOpened();
+                .save()
+                .waitTillOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -130,7 +129,6 @@ public class AccountCRUDTest extends BaseTest {
                 .clearData(account)
                 .enterData(updatedAccount)
                 .save();
-        detailsPage.isPageOpened();
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");
@@ -175,11 +173,11 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView
-                .openUrl("Account")
+                .open("Account")
                 .clickNew()
                 .enterData(account)
-                .save();
-        detailsPage.isPageOpened();
+                .save()
+                .waitTillOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");

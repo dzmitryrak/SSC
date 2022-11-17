@@ -22,6 +22,7 @@ public class NewObjectModal extends BasePage {
     private final By EMPTY_REQUIRED_FIELD_LOCATOR = By.xpath("//li[contains(text(),'These required fields must be completed')]");
     private final By MODAL_HEADER_LOCATOR = By.xpath("//*[contains(@class,'slds-modal__header') and not(contains(@class,'empty'))]");
 
+    //TODO geneic isOpened or waitTillOpened logic
     @Override
     public boolean isPageOpened() {
         try {
@@ -57,10 +58,12 @@ public class NewObjectModal extends BasePage {
     }
 
     @Step("Click on Save button")
-    public void save() {
+    public DetailsPage save() {
         $(SAVE_BUTTON_LOCATOR).shouldBe(visible);
         $(SAVE_BUTTON_LOCATOR).click();
-        //TODO return Detail page
+        DetailsPage detailsPage = new DetailsPage();
+        detailsPage.waitTillOpened();
+        return detailsPage;
     }
 
     //TODO add all required methods
