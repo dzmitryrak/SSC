@@ -62,7 +62,7 @@ public class DetailsPage extends BasePage {
     public NewObjectModal clickEditDetailsButton() {
         $(EDIT_DETAILS_BUTTON_LOCATOR).click();
         NewObjectModal accountModalPage = new NewObjectModal();
-        accountModalPage.isPageOpened();
+        accountModalPage.waitTillOpened();
 
         return accountModalPage;
     }
@@ -135,7 +135,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(NEW_CONTACT_BUTTON);
         NewObjectModal contactModal = new NewObjectModal();
-        contactModal.isPageOpened();
+        contactModal.waitTillOpened();
 
         return contactModal;
     }
@@ -146,7 +146,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(NEW_CASE_BUTTON);
         NewObjectModal caseModal = new NewObjectModal();
-        caseModal.isPageOpened();
+        caseModal.waitTillOpened();
 
         return caseModal;
     }
@@ -157,7 +157,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(NEW_NOTE_BUTTON);
         NewObjectModal noteModal = new NewObjectModal();
-        noteModal.isPageOpened();
+        noteModal.waitTillOpened();
 
         return noteModal;
     }
@@ -168,7 +168,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(NEW_OPPORTUNITY_BUTTON);
         NewObjectModal opportunityModal = new NewObjectModal();
-        opportunityModal.isPageOpened();
+        opportunityModal.waitTillOpened();
 
         return opportunityModal;
     }
@@ -179,7 +179,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(CLONE_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -190,7 +190,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(SUBMIT_FOR_APPROVAL_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -201,7 +201,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(SHARE_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -212,7 +212,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(CHANGE_OWNER_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -223,7 +223,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(CHECK_FOR_NEW_DATA_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -234,7 +234,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(CONVERT_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }

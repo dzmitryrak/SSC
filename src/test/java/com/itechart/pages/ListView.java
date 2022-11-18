@@ -33,7 +33,7 @@ public class ListView extends BasePage {
     public NewObjectModal clickNew() {
         $(NEW_BUTTON_LOCATOR).click();
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
         return newObjectModal;
     }
 
