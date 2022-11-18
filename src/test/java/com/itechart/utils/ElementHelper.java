@@ -52,7 +52,7 @@ public class ElementHelper {
             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
             WebElement element = $(By.xpath(String.format(pickListButton, elementLabel)));
             log.info("Clicking on '{}' picklist", elementLabel);
-            Selenide.executeJavaScript("arguments[0].click();", element);
+            jsClick(element);
             WebElement element1;
             if (StringUtils.isEmpty(value)) {
                 log.info("Setting value: '--None--'");
@@ -60,7 +60,7 @@ public class ElementHelper {
             } else {
                 element1 = $(By.xpath(String.format(lookupOption, value)));
             }
-            Selenide.executeJavaScript("arguments[0].click();", element1);
+            jsClick(element1);
         } else if ($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
 
             //Lookup Relationship
@@ -69,10 +69,10 @@ public class ElementHelper {
             String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
 
             WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
-            Selenide.executeJavaScript("arguments[0].click();", element);
+            jsClick(element);
             element.sendKeys(value);
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
-            Selenide.executeJavaScript("arguments[0].click();", lookUpOption);
+            jsClick(lookUpOption);
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
 
             //TextArea
@@ -90,11 +90,11 @@ public class ElementHelper {
             log.info("Checkbox initial value: {}", ch.isSelected());
             if (value.equals("true")) {
                 if (!ch.isSelected()) {
-                    Selenide.executeJavaScript("arguments[0].click();", ch);
+                    jsClick(ch);
                 }
             } else {
                 if (ch.isSelected()) {
-                    Selenide.executeJavaScript("arguments[0].click();", ch);
+                    jsClick(ch);
                 }
             }
         } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
@@ -108,8 +108,9 @@ public class ElementHelper {
                 log.info("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
                 SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
                 Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
-                element.shouldBe(visible).click();
-                Selenide.executeJavaScript("arguments[0].click();", moveToChosen);
+                element.shouldBe(visible);
+                jsClick(element);
+                jsClick(moveToChosen);
             }
         } else {
             elementType = "ERROR! Cannot identify element";
@@ -125,7 +126,7 @@ public class ElementHelper {
     public void validate(String label, String expectedInput) {
         log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
         String locator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]//*[contains(@class, 'slds-form-element__control')]";
-        WebElement input = $(By.xpath(String.format(locator, label)));
+        SelenideElement input = $(By.xpath(String.format(locator, label)));
         //TODO throw custom exception with simple text
         String actualInput = input.getText();
         log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
@@ -133,11 +134,15 @@ public class ElementHelper {
                 String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
     }
 
-    public void waitForPageLoaded() {
+    private void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
             }
         };
+    }
+
+    private void jsClick(WebElement el) {
+        Selenide.executeJavaScript("arguments[0].click();", el);
     }
 }

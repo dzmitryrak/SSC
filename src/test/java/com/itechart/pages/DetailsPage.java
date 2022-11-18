@@ -69,9 +69,7 @@ public class DetailsPage extends BasePage {
 
     @Step("Validation of entered data")
     public DetailsPage validate(Map<String, String> data) {
-        log.info("Validating Details Data: {}", data);
-
-        waitChangesToApplyIfAny();
+        log.info("Validating Details Data. Expected: {}", data);
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
@@ -264,10 +262,6 @@ public class DetailsPage extends BasePage {
         if (!switchTo().window(1).getTitle().equals(websiteUrl)) {
             throw new RuntimeException("Website is not opened");
         }
-    }
-
-    private void waitChangesToApplyIfAny() {
-        $("body").should(have(attribute("style", "overflow: visible;")));
     }
 
     private void waitTillModalOpened() {

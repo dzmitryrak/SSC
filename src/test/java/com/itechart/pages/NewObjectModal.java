@@ -24,7 +24,8 @@ public class NewObjectModal extends BasePage {
         try {
             //TODO generic wait timeout
             $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
-        } catch (Exception e) {
+        } catch (Throwable e) {
+            log.warn("Failed to open New Object modal. Trying once again");
             refresh();
             $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
         }
@@ -52,12 +53,15 @@ public class NewObjectModal extends BasePage {
     }
 
     @Step("Click on Save button")
-    public DetailsPage save() {
+    public NewObjectModal save() {
         $(SAVE_BUTTON_LOCATOR).shouldBe(visible);
         $(SAVE_BUTTON_LOCATOR).click();
-        DetailsPage detailsPage = new DetailsPage();
-        detailsPage.waitTillOpened();
-        return detailsPage;
+        return this;
+    }
+
+    public DetailsPage waitTillModalClosed() {
+        $(MODAL_HEADER_LOCATOR).shouldNotBe(visible);
+        return new DetailsPage();
     }
 
     //TODO add all required methods
