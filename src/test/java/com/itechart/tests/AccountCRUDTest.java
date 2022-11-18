@@ -21,6 +21,7 @@ public class AccountCRUDTest extends BaseTest {
             put("Website", faker.internet().url());
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Description", faker.lorem().sentence());
+            put("Multiselect", "No;Probably;one more option");
             put("Employees", faker.number().digit());
             put("Billing Street", faker.address().streetAddress());
             put("Billing City", faker.address().city());

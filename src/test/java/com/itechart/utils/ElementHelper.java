@@ -22,7 +22,8 @@ import static com.codeborne.selenide.Selenide.$$;
 @Log4j2
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
-    String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist//button";
+    String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist";
+    String pickListButton = pickList + "//button[@lightning-basecombobox_basecombobox]";
     String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='text']";
     String lookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//input";
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
@@ -46,11 +47,11 @@ public class ElementHelper {
             }
 
             //PICKLIST
-        } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
-            //TODO Implement multiselect option with separator
+        } else if ($$(By.xpath(String.format(pickListButton, elementLabel))).size() > 0) {
             elementType = "PickList";
             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
-            WebElement element = $(By.xpath(String.format(pickList, elementLabel)));
+            WebElement element = $(By.xpath(String.format(pickListButton, elementLabel)));
+            log.info("Clicking on '{}' picklist", elementLabel);
             Selenide.executeJavaScript("arguments[0].click();", element);
             WebElement element1;
             if (StringUtils.isEmpty(value)) {
@@ -95,6 +96,20 @@ public class ElementHelper {
                 if (ch.isSelected()) {
                     Selenide.executeJavaScript("arguments[0].click();", ch);
                 }
+            }
+        } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
+
+            //Multi-Select
+            elementType = "Picklist (Multi-Select)";
+            SelenideElement moveToChosen = $(By.xpath(String.format(pickList + "//button[@title='Move selection to Chosen']", elementLabel)));
+            String lookupOption = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]";
+            var options = StringUtils.split(value, ";");
+            for (String option : options) {
+                log.info("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
+                SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
+                Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
+                element.shouldBe(visible).click();
+                Selenide.executeJavaScript("arguments[0].click();", moveToChosen);
             }
         } else {
             elementType = "ERROR! Cannot identify element";
