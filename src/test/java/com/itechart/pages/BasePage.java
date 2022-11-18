@@ -16,7 +16,6 @@ import static com.codeborne.selenide.Selenide.$;
 public abstract class BasePage {
     protected final By USERPROFILE_BUTTON_LOCATOR = By.xpath("//*[contains(@class, 'slds-global-actions__item')]//ancestor::button[contains(@class, 'branding-userProfile-button')]");
     protected WebDriverWait wait;
-    protected String baseUrl;
     protected ElementHelper sfHelper;
 
     public BasePage() {
@@ -38,7 +37,7 @@ public abstract class BasePage {
 
     @Step("Click on the element")
     public void clickJS(By locator) {
-        log.info("Clicking on {} button", locator);
+        log.debug("JS click to element using locator {}", locator);
         Selenide.executeJavaScript("arguments[0].click();", $(locator));
     }
 }
