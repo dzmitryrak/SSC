@@ -108,8 +108,8 @@ public class ElementHelper {
                 log.info("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
                 SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
                 Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
-                element.shouldBe(visible);
-                jsClick(element);
+                //TODO possible clickIntercepted due to the duplicates
+                element.shouldBe(visible).click();
                 jsClick(moveToChosen);
             }
         } else {

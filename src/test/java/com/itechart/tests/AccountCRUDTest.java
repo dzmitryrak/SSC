@@ -12,8 +12,8 @@ public class AccountCRUDTest extends BaseTest {
 
     Faker faker = new Faker();
 
-    @Test(description = "Create Read Update Delete Account record")
-    public void createNewAccountRecord() {
+    @Test(description = "Create Account")
+    public void createAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
             put("Parent Account", "Erica Larson");
@@ -63,7 +63,7 @@ public class AccountCRUDTest extends BaseTest {
     }
 
     @Test(description = "Edit new account created")
-    public void editNewAccountRecord() {
+    public void editAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
             put("Type", "Prospect");
