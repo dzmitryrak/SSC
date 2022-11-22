@@ -57,7 +57,9 @@ public class ContactCRUDTest extends BaseTest {
                 .open("Contact")
                 .clickNew()
                 .enterData(contact)
-                .save();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();;
         contact.remove("First Name");
         contact.remove("Last Name");
         contact.remove("Salutation");

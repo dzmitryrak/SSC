@@ -62,16 +62,14 @@ public class DetailsPage extends BasePage {
     public NewObjectModal clickEditDetailsButton() {
         $(EDIT_DETAILS_BUTTON_LOCATOR).click();
         NewObjectModal accountModalPage = new NewObjectModal();
-        accountModalPage.isPageOpened();
+        accountModalPage.waitTillOpened();
 
         return accountModalPage;
     }
 
     @Step("Validation of entered data")
     public DetailsPage validate(Map<String, String> data) {
-        log.info("Validating Details Data: {}", data);
-
-        waitChangesToApplyIfAny();
+        log.info("Validating Details Data. Expected: {}", data);
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
@@ -135,7 +133,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(NEW_CONTACT_BUTTON);
         NewObjectModal contactModal = new NewObjectModal();
-        contactModal.isPageOpened();
+        contactModal.waitTillOpened();
 
         return contactModal;
     }
@@ -146,7 +144,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(NEW_CASE_BUTTON);
         NewObjectModal caseModal = new NewObjectModal();
-        caseModal.isPageOpened();
+        caseModal.waitTillOpened();
 
         return caseModal;
     }
@@ -157,7 +155,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(NEW_NOTE_BUTTON);
         NewObjectModal noteModal = new NewObjectModal();
-        noteModal.isPageOpened();
+        noteModal.waitTillOpened();
 
         return noteModal;
     }
@@ -168,7 +166,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(NEW_OPPORTUNITY_BUTTON);
         NewObjectModal opportunityModal = new NewObjectModal();
-        opportunityModal.isPageOpened();
+        opportunityModal.waitTillOpened();
 
         return opportunityModal;
     }
@@ -179,7 +177,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(CLONE_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -190,7 +188,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(SUBMIT_FOR_APPROVAL_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -201,7 +199,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(SHARE_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -212,7 +210,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(CHANGE_OWNER_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -223,7 +221,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(CHECK_FOR_NEW_DATA_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -234,7 +232,7 @@ public class DetailsPage extends BasePage {
 
         clickJS(CONVERT_BUTTON);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
 
         return newObjectModal;
     }
@@ -264,10 +262,6 @@ public class DetailsPage extends BasePage {
         if (!switchTo().window(1).getTitle().equals(websiteUrl)) {
             throw new RuntimeException("Website is not opened");
         }
-    }
-
-    private void waitChangesToApplyIfAny() {
-        $("body").should(have(attribute("style", "overflow: visible;")));
     }
 
     private void waitTillModalOpened() {
