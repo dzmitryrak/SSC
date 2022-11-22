@@ -16,12 +16,12 @@ public class AciertoPage extends BasePage {
     private final String ACIERTO_URL = "https://stg-funnel-life.acierto.com/seguros-vida/comparador/";
     private static final String INFO_DETAILS_LOCATOR = "//*[text()='%s']";
     private static final String DATA_LOCATOR = "[data-gtm=%s]";
-    private static final String IM_INTERESTED_BUTTON = "(//button[contains(@class, 'it-btn it-btn--block it-btn--button-44 it-btn--primary large-card__button')])[%s]";
+    private static final String IM_INTERESTED_BUTTON = "(//button//span[text()='Me interesa'])[%s]";
     private static final By LIFE_INSURANCE_LABEL = By.xpath("//*[text() ='Seguro de vida']");
-    private static final By FINAL_MODAL_LOCATOR = By.xpath("//*[contains(@class, 'funnel-call-to-me-modal__user-number text-center mb-5')]");
-    private static final By CALL_ME_ON_THIS_PHONE_BUTTON = By.xpath("//button[contains(@class, 'it-btn it-btn--button-48 it-btn--primary md_mx-auto')]");
+    private static final By FINAL_MODAL_LOCATOR = By.xpath("//*[contains(@class, 'funnel-call-to-me-modal__user-number')]");
+    private static final By CALL_ME_ON_THIS_PHONE_BUTTON = By.xpath("(//button[contains(@data-gtm, 'call-me')])[2]");
     private static final By THANKS_YOU_MODAL = By.xpath("//*[contains(@class, 'message-modal__text-title')]");
-    private static final By CLOSE_BUTTON = By.xpath("//*[contains(@class, 'it-btn it-btn--button-48 it-btn--primary')]");
+    private static final By CLOSE_BUTTON = By.xpath("//button//span[text()='Cerrar']");
 
     @Step("Open Acierto Main Page")
     public AciertoPage open() {
@@ -62,14 +62,12 @@ public class AciertoPage extends BasePage {
     @Step("Click on the button [I'm Interested]")
     public AciertoPage imInterestedButtonClick(int index) {
         log.info("Click on I'm interested button with {} index", index);
-        $(By.xpath(String.format(IM_INTERESTED_BUTTON, index))).shouldBe(visible, Duration.ofSeconds(25));
-        $(By.xpath(String.format(IM_INTERESTED_BUTTON, index))).click();
+        $(By.xpath(String.format(IM_INTERESTED_BUTTON, index))).shouldBe(visible, Duration.ofSeconds(25)).click();
         return this;
     }
 
     @Step
     public boolean isFinalModalDisplayed() {
-        log.info("Final modal is opened");
         return $(FINAL_MODAL_LOCATOR).isDisplayed();
     }
 
