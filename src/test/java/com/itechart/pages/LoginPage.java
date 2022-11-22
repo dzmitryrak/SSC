@@ -1,17 +1,15 @@
 package com.itechart.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class LoginPage extends BasePage {
-    private final String LOGIN_URL = propertyReader.getPropertyValueByKey("base.url");
     private static final By USERNAME_LOCATOR = By.id("username");
     private static final By PASSWORD_LOCATOR = By.id("password");
     private static final By LOGIN_BUTTON_LOCATOR = By.id("Login");
@@ -19,16 +17,15 @@ public class LoginPage extends BasePage {
     private static final By LOGO_LOCATOR = By.id("logo");
     private static final By USERNAME_LABEL_LOCATOR = By.cssSelector(".usernamelabel");
 
-    @Step("Check that page was opened")
-    @Override
-    public boolean isPageOpened() {
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(LOGO_LOCATOR));
-        return $(LOGO_LOCATOR).isDisplayed();
+    public LoginPage waitTillOpened() {
+        $(LOGO_LOCATOR).shouldBe(Condition.visible);
+        return this;
     }
 
     @Step("Open Login Page")
     public LoginPage open() {
-        Selenide.open(LOGIN_URL);
+        Selenide.open("/");
+        waitTillOpened();
         return this;
     }
 

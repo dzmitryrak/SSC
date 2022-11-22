@@ -1,8 +1,10 @@
 package com.itechart.tests;
 
 import com.github.javafaker.Faker;
+import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +12,8 @@ public class AccountCRUDTest extends BaseTest {
 
     Faker faker = new Faker();
 
-    @Test(description = "Create Read Update Delete Account record")
-    public void createNewAccountRecord() {
+    @Test(description = "Create Account")
+    public void createAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
             put("Parent Account", "Erica Larson");
@@ -19,6 +21,7 @@ public class AccountCRUDTest extends BaseTest {
             put("Website", faker.internet().url());
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Description", faker.lorem().sentence());
+            put("Multiselect", "No;Probably;one more option");
             put("Employees", faker.number().digit());
             put("Billing Street", faker.address().streetAddress());
             put("Billing City", faker.address().city());
@@ -35,13 +38,13 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-
-        newObjectModal.enterData(account)
-                .save();
-        accountDetailsPage.isPageOpened();
+        listView
+                .open("Account")
+                .clickNew()
+                .enterData(account)
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -54,13 +57,13 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
 
-        accountDetailsPage
-                .openDetails()
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
     }
 
     @Test(description = "Edit new account created")
-    public void editNewAccountRecord() {
+    public void editAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
             put("Type", "Prospect");
@@ -102,13 +105,13 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-        newObjectModal
+        listView
+                .open("Account")
+                .clickNew()
                 .enterData(account)
-                .save();
-        accountDetailsPage.isPageOpened();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -120,17 +123,18 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping State/Province");
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
-        accountDetailsPage
-                .openDetails()
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
-        accountDetailsPage
+        detailsPage
                 .clickIconDropdownMenu()
                 .clickEditDetailsButton();
         newObjectModal
                 .clearData(account)
                 .enterData(updatedAccount)
-                .save();
-        accountDetailsPage.isPageOpened();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();;
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");
@@ -145,8 +149,8 @@ public class AccountCRUDTest extends BaseTest {
         updatedAccount.remove("Shipping Zip/Postal Code");
         updatedAccount.remove("Shipping Country");
 
-        accountDetailsPage
-                .openDetails()
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(updatedAccount);
     }
 
@@ -174,13 +178,13 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        accountListViewPage.openUrl();
-        accountListViewPage
-                .clickNewButton();
-        newObjectModal
+        listView
+                .open("Account")
+                .clickNew()
                 .enterData(account)
-                .save();
-        accountDetailsPage.isPageOpened();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -192,10 +196,10 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping State/Province");
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
-        accountDetailsPage
-                .openDetails()
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(account);
-        accountDetailsPage
+        detailsPage
                 .clickIconDropdownMenu()
                 .clickDeleteButton()
                 .delete()

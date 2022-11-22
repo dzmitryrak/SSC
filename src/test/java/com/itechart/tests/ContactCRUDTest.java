@@ -1,13 +1,12 @@
 package com.itechart.tests;
 
 import com.github.javafaker.Faker;
+import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.codeborne.selenide.Selenide.open;
 
 public class ContactCRUDTest extends BaseTest {
 
@@ -48,19 +47,35 @@ public class ContactCRUDTest extends BaseTest {
             put("Languages", "test");
             put("Level", "Primary");
             put("Description", "test");
+            put("Multiselect", "Yes;Maybe");
         }};
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        //TODO replace by generic list view and details pages
-        open("https://tms41-dev-ed.lightning.force.com/lightning/o/Contact/new?count=1&nooverride=1&useRecordTypeCheck=1&navigationLocation=LIST_VIEW&uid=166452908349622516");
-        //TODO replace by generic list view and details pages
-        newObjectModal.isPageOpened();
-        newObjectModal
+        listView
+                .open("Contact")
+                .clickNew()
                 .enterData(contact)
-                .save();
-        //TODO replace by generic list view and details pages
-        accountDetailsPage.isPageOpened();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();;
+        contact.remove("First Name");
+        contact.remove("Last Name");
+        contact.remove("Salutation");
+        contact.remove("Mailing Street");
+        contact.remove("Other Street");
+        contact.remove("Mailing City");
+        contact.remove("Mailing State/Province");
+        contact.remove("Other City");
+        contact.remove("Other State/Province");
+        contact.remove("Mailing Zip/Postal Code");
+        contact.remove("Mailing Country");
+        contact.remove("Other Zip/Postal Code");
+        contact.remove("Other Country");
+
+        //TODO fix validation method to support checkboxes and uncomment after
+/*        detailsPage.clickTab(DetailsTabs.Details)
+                .validate(contact);*/
     }
 }

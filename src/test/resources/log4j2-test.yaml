@@ -19,14 +19,12 @@ Configuration:
         Pattern: ${DefaultPattern}
   Loggers:
     logger:
-      -
-        name: consoleLogger
+      - name: consoleLogger
         level: INFO
         additivity: true
         AppenderRef:
           ref: consoleAppender
-      -
-        name: fileLogger
+      - name: fileLogger
         level: INFO
         additivity: false
         AppenderRef:
