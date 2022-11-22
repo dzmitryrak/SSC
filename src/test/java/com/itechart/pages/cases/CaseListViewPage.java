@@ -25,7 +25,7 @@ public class CaseListViewPage extends BasePage {
 
     @Step("Clicking on the case with the index")
     public CaseListViewPage openCase(int index) {
-        log.info("Clicking on the case record with the index {}", index);
+        log.info("Clicking on the case record with {} index", index);
         $(By.xpath(String.format(CASE_RECORD_LOCATOR, index))).click();
         return this;
     }

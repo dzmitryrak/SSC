@@ -16,8 +16,8 @@ public class AciertoPage extends BasePage {
     private final String ACIERTO_URL = "https://stg-funnel-life.acierto.com/seguros-vida/comparador/";
     private static final String INFO_DETAILS_LOCATOR = "//*[text()='%s']";
     private static final String DATA_LOCATOR = "[data-gtm=%s]";
-    private static final By LIFE_INSURANCE_LABEL = By.xpath("//*[text() ='Seguro de vida']");
     private static final String IM_INTERESTED_BUTTON = "(//button[contains(@class, 'it-btn it-btn--block it-btn--button-44 it-btn--primary large-card__button')])[%s]";
+    private static final By LIFE_INSURANCE_LABEL = By.xpath("//*[text() ='Seguro de vida']");
     private static final By FINAL_MODAL_LOCATOR = By.xpath("//*[contains(@class, 'funnel-call-to-me-modal__user-number text-center mb-5')]");
     private static final By CALL_ME_ON_THIS_PHONE_BUTTON = By.xpath("//button[contains(@class, 'it-btn it-btn--button-48 it-btn--primary md_mx-auto')]");
     private static final By THANKS_YOU_MODAL = By.xpath("//*[contains(@class, 'message-modal__text-title')]");
@@ -59,7 +59,7 @@ public class AciertoPage extends BasePage {
         return $(LIFE_INSURANCE_LABEL).isDisplayed();
     }
 
-    @Step
+    @Step("Click on the button [I'm Interested]")
     public AciertoPage imInterestedButtonClick(int index) {
         log.info("Click on I'm interested button with {} index", index);
         $(By.xpath(String.format(IM_INTERESTED_BUTTON, index))).shouldBe(visible, Duration.ofSeconds(25));
@@ -96,6 +96,7 @@ public class AciertoPage extends BasePage {
     @Step("Setting person's data for creation the record")
     public AciertoPage setPersonRecord(String amount, String period, String dateOfBirth,String gender,
                                        String zipcode, String email, String phone) {
+        log.info("Creation of an insurance record");
         open();
         insuranceDetailsClick(amount);
         insuranceDetailsClick(period);

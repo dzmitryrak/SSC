@@ -32,7 +32,7 @@ public class CaseDetailsPage extends BasePage {
     @Step("Clicking on Details tab")
     public CaseDetailsPage clickOnDetailsTab() {
         log.info("Clicking on Details tab to open it");
-        $(DETAILS_TAB).shouldBe(Condition.exist, Duration.ofSeconds(10));
+        $(DETAILS_TAB).shouldBe(visible, Duration.ofSeconds(10));
         $(DETAILS_TAB).click();
         return this;
     }

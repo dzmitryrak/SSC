@@ -18,24 +18,24 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record")
     public void acierto() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(1);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(1)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
     }
 
     @Test(description = "Creation of the insurance record with provider AsisaVida and validation it in Salesforce")
     public void aciertoTestAsisaVidaValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(1);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(1)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
@@ -52,15 +52,15 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record with provider 'Axa Vida Protec' and validation it in Salesforce")
     public void aciertoTestAxaVidaProtecValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(2);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
-        loginPage.open();
-        loginPage.login(USERNAME, PASSWORD);
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                    .imInterestedButtonClick(2)
+                    .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
+        loginPage.open()
+                .login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         caseListViewPage.openUrl();
         caseListViewPage.isPageOpened();
@@ -75,13 +75,13 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record with provider 'Santalucía Vida' and validation it in Salesforce")
     public void aciertoTestSantaluciaVidaValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(3);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(3)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
@@ -98,13 +98,13 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record with provider 'FIATC Vida' and validation it in Salesforce")
     public void aciertoTestFiatcVidaValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(4);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(4)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
@@ -121,13 +121,13 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record with provider 'Credit Andorra Life' and validation it in Salesforce")
     public void aciertoTestCreditAndorraLifeValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(5);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(5)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
@@ -144,13 +144,13 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record with provider 'Zurich Vida' and validation it in Salesforce")
     public void aciertoTestZurichVidaValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(6);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(6)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
@@ -167,13 +167,13 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record with provider 'Previs Vida' and validation it in Salesforce")
     public void aciertoTestPrevisVidaValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(7);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(7)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
@@ -190,13 +190,13 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record with provider 'Allianz Vida Riesgo' and validation it in Salesforce")
     public void aciertoTestAllianzVidaRiesgoValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE);
-        aciertoPage.imInterestedButtonClick(8);
-        aciertoPage.isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick();
-        aciertoPage.isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick();
-        aciertoPage.isLifeInsurancePageOpened();
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(8)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
