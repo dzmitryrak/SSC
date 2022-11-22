@@ -124,7 +124,9 @@ public class ElementHelper {
 
     public void validate(String label, String expectedInput) {
         log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
-        String locator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]//*[contains(@class, 'test-id__field-value')]";
+        String locator = "//div[contains(@class,'windowViewMode-maximized')]" +
+                "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
+                "//*[contains(@class, 'test-id__field-value')]";
         //TODO throw custom exception with simple text
         SelenideElement input = $(By.xpath(String.format(locator, label)));
         input.shouldHave(text(expectedInput));
