@@ -12,6 +12,8 @@
     <test name="Create for Contact">
         <classes>
             <class name="com.itechart.tests.ContactCRUDTest"/>
+            <!-- TODO move to separate thread once CRUS is ready -->
+            <class name="com.itechart.tests.LeadTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>

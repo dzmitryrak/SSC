@@ -10,10 +10,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.testng.Assert;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -49,20 +49,19 @@ public class ElementHelper {
             //PICKLIST
         } else if ($$(By.xpath(String.format(pickListButton, elementLabel))).size() > 0) {
             elementType = "PickList";
-            String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
-            WebElement element = $(By.xpath(String.format(pickListButton, elementLabel)));
+            String picklistOption = BASE_DETAIL_PANEL + "//label[text()='%s']/ancestor::lightning-picklist//*[@title='%s']";
+            SelenideElement picklist = $(By.xpath(String.format(pickListButton, elementLabel)));
             log.info("Clicking on '{}' picklist", elementLabel);
-            jsClick(element);
+            jsClick(picklist);
             WebElement element1;
             if (StringUtils.isEmpty(value)) {
                 log.info("Setting value: '--None--'");
-                element1 = $(By.xpath(String.format(lookupOption, "--None--")));
+                element1 = $(By.xpath(String.format(picklistOption, elementLabel, "--None--")));
             } else {
-                element1 = $(By.xpath(String.format(lookupOption, value)));
+                element1 = $(By.xpath(String.format(picklistOption, elementLabel, value)));
             }
             jsClick(element1);
         } else if ($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
-
             //Lookup Relationship
             elementType = "Lookup Relationship";
             //TODO add code to clear lookup
@@ -125,13 +124,12 @@ public class ElementHelper {
 
     public void validate(String label, String expectedInput) {
         log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
-        String locator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]//*[contains(@class, 'slds-form-element__control')]";
-        SelenideElement input = $(By.xpath(String.format(locator, label)));
+        String locator = "//div[contains(@class,'windowViewMode-maximized')]" +
+                "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
+                "//*[contains(@class, 'test-id__field-value')]";
         //TODO throw custom exception with simple text
-        String actualInput = input.getText();
-        log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
-        Assert.assertTrue(input.getText().contains(expectedInput),
-                String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
+        SelenideElement input = $(By.xpath(String.format(locator, label)));
+        input.shouldHave(text(expectedInput));
     }
 
     private void waitForPageLoaded() {
