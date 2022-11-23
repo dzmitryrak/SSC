@@ -4,7 +4,6 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
-import com.github.javafaker.Faker;
 import com.itechart.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +15,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.testng.Assert;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -76,7 +74,7 @@ public class ElementHelper {
             } else {
                 SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
                 Selenide.executeJavaScript("arguments[0].click();", element);
-                if(!searchForLookupValue(element, value)) createNewRecordThroughLookup();
+                if(!searchForLookupValue(element, value)) throw new RuntimeException(String.format("%s option is not found", value));
             }
 
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
@@ -149,28 +147,12 @@ public class ElementHelper {
         return isOptionFound;
     }
 
-    public void createNewRecordThroughLookup() {
-        log.info("Creating new record");
-        Faker faker = new Faker();
-        Map<String, String> data = new HashMap<>() {{
-            put("Account Name", faker.name().name());
-            put("Parent Account", "Erica Larson");
-            put("Type", "Prospect");
-            put("Website", faker.internet().url());
-            put("Phone", faker.phoneNumber().phoneNumber());
-            put("Description", faker.lorem().sentence());
-            put("Employees", faker.number().digit());
-            put("Billing Street", faker.address().streetAddress());
-            put("Billing City", faker.address().city());
-            put("Billing State/Province", faker.address().state());
-            put("Billing Zip/Postal Code", faker.address().zipCode());
-            put("Billing Country", faker.address().country());
-            put("Shipping Street", faker.address().streetAddress());
-            put("Shipping City", faker.address().city());
-            put("Shipping State/Province", faker.address().state());
-            put("Shipping Zip/Postal Code", faker.address().zipCode());
-            put("Shipping Country", faker.address().country());
-        }};
+    public void createNewRecordThroughLookup(String elementLabel, Map<String, String> data) {
+        log.info("Creating new parent record through lookup: {}", data);
+        SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
+        Selenide.executeJavaScript("arguments[0].click();", element);
+        SelenideElement createOption = $(By.xpath("//lightning-base-combobox-item[@data-value='actionCreateNew']"));
+        Selenide.executeJavaScript("arguments[0].click();", createOption);
         NewObjectModal newObjectModal = new NewObjectModal();
         newObjectModal.isPageOpened();
         newObjectModal

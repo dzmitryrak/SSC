@@ -82,4 +82,11 @@ public class NewObjectModal extends BasePage {
     public boolean isEmptyRequiredFieldsValidationError() {
         return $(EMPTY_REQUIRED_FIELD_LOCATOR).isDisplayed();
     }
+
+    @Step("Create new parent entity")
+    public NewObjectModal createParentEntity(String elementLabel, Map<String, String> data) {
+        log.info("Creating new entity: {}", data);
+        sfHelper.createNewRecordThroughLookup(elementLabel, data);
+        return this;
+    }
 }
