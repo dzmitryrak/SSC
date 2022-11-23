@@ -24,7 +24,7 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView
-                .openUrl("Case")
+                .open("Case")
                 .openObjectFromList(1);
         detailsPage.clickTab(DetailsTabs.Details);
 

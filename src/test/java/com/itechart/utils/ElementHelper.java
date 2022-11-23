@@ -25,7 +25,8 @@ import static com.codeborne.selenide.Selenide.$$;
 @Log4j2
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
-    String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist//button";
+    String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist";
+    String pickListButton = pickList + "//button[@lightning-basecombobox_basecombobox]";
     String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='text']";
     String lookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//input";
     String clearLookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//button[@title='Clear Selection']";
@@ -50,13 +51,12 @@ public class ElementHelper {
             }
 
             //PICKLIST
-        } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
-            //TODO Implement multiselect option with separator
+        } else if ($$(By.xpath(String.format(pickListButton, elementLabel))).size() > 0) {
             elementType = "PickList";
             String lookupOption = BASE_DETAIL_PANEL + "//*[contains(text(), '%s')]/ancestor::lightning-base-combobox-item";
-            WebElement element = $(By.xpath(String.format(pickList, elementLabel)));
+            WebElement element = $(By.xpath(String.format(pickListButton, elementLabel)));
             log.info("Clicking on '{}' picklist", elementLabel);
-            Selenide.executeJavaScript("arguments[0].click();", element);
+            jsClick(element);
             WebElement element1;
             if (StringUtils.isEmpty(value)) {
                 log.info("Setting value: '--None--'");
@@ -64,7 +64,7 @@ public class ElementHelper {
             } else {
                 element1 = $(By.xpath(String.format(lookupOption, value)));
             }
-            Selenide.executeJavaScript("arguments[0].click();", element1);
+            jsClick(element1);
         } else if ($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
 
             //Lookup Relationship
@@ -73,7 +73,7 @@ public class ElementHelper {
                 $(String.format(clearLookUpField, lookUpField)).click();
             } else {
                 SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
-                Selenide.executeJavaScript("arguments[0].click();", element);
+                jsClick(element);
                 if(!searchForLookupValue(element, value)) throw new RuntimeException(String.format("%s option is not found", value));
             }
 
@@ -94,12 +94,27 @@ public class ElementHelper {
             log.info("Checkbox initial value: {}", ch.isSelected());
             if (value.equals("true")) {
                 if (!ch.isSelected()) {
-                    Selenide.executeJavaScript("arguments[0].click();", ch);
+                    jsClick(ch);
                 }
             } else {
                 if (ch.isSelected()) {
-                    Selenide.executeJavaScript("arguments[0].click();", ch);
+                    jsClick(ch);
                 }
+            }
+        } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
+
+            //Multi-Select
+            elementType = "Picklist (Multi-Select)";
+            SelenideElement moveToChosen = $(By.xpath(String.format(pickList + "//button[@title='Move selection to Chosen']", elementLabel)));
+            String lookupOption = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]";
+            var options = StringUtils.split(value, ";");
+            for (String option : options) {
+                log.info("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
+                SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
+                Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
+                //TODO possible clickIntercepted due to the duplicates
+                element.shouldBe(visible).click();
+                jsClick(moveToChosen);
             }
         } else {
             elementType = "ERROR! Cannot identify element";
@@ -115,20 +130,23 @@ public class ElementHelper {
     public void validate(String label, String expectedInput) {
         log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
         String locator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]//*[contains(@class, 'slds-form-element__control')]";
-        WebElement input = $(By.xpath(String.format(locator, label)));
+        SelenideElement input = $(By.xpath(String.format(locator, label)));
+        //TODO throw custom exception with simple text
         String actualInput = input.getText();
         log.debug("Validating Expected input: {} and actual input: {}", expectedInput, actualInput);
         Assert.assertTrue(input.getText().contains(expectedInput),
                 String.format("%s input is not correct. Expected: '%s' Actual: '%s'", label, expectedInput, actualInput));
     }
 
-    public void waitForPageLoaded() {
-        log.info("Waiting for page to be opened");
+    private void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
             }
         };
+    }
+    private void jsClick(WebElement el) {
+        Selenide.executeJavaScript("arguments[0].click();", el);
     }
 
     public boolean searchForLookupValue(SelenideElement lookup, String value) {

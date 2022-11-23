@@ -1,5 +1,6 @@
 package com.itechart.pages;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -21,8 +22,9 @@ public class ListView extends BasePage {
     }
 
     @Step("Opening List View")
-    public ListView openUrl(String listViewName) {
-        open(String.format("lightning/o/%s/list", listViewName));
+    public ListView open(String listViewName) {
+        log.info("Opening '{}' List View", listViewName);
+        Selenide.open(String.format("lightning/o/%s/list", listViewName));
         isOpened();
         return this;
     }
@@ -31,7 +33,7 @@ public class ListView extends BasePage {
     public NewObjectModal clickNew() {
         $(NEW_BUTTON_LOCATOR).click();
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
+        newObjectModal.waitTillOpened();
         return newObjectModal;
     }
 

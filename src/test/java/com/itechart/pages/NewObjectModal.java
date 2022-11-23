@@ -3,15 +3,13 @@ package com.itechart.pages;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.refresh;
 
 @Log4j2
 public class NewObjectModal extends BasePage {
@@ -22,18 +20,16 @@ public class NewObjectModal extends BasePage {
     private final By EMPTY_REQUIRED_FIELD_LOCATOR = By.xpath("//li[contains(text(),'These required fields must be completed')]");
     private final By MODAL_HEADER_LOCATOR = By.xpath("//*[contains(@class,'slds-modal__header') and not(contains(@class,'empty'))]");
 
-    @Override
-    public boolean isPageOpened() {
+    public NewObjectModal waitTillOpened() {
         try {
             //TODO generic wait timeout
-            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(15));
-            return true;
-        } catch (TimeoutException | NoSuchElementException e) {
-            log.warn("Modal is not opened");
-            log.warn(e.getLocalizedMessage());
-            Assert.fail();
-            return false;
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
+        } catch (Throwable e) {
+            log.warn("Failed to open New Object modal. Trying once again");
+            refresh();
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
         }
+        return this;
     }
 
     public NewObjectModal enterData(Map<String, String> data) {
@@ -57,10 +53,15 @@ public class NewObjectModal extends BasePage {
     }
 
     @Step("Click on Save button")
-    public void save() {
+    public NewObjectModal save() {
         $(SAVE_BUTTON_LOCATOR).shouldBe(visible);
         $(SAVE_BUTTON_LOCATOR).click();
-        //TODO return Detail page
+        return this;
+    }
+
+    public DetailsPage waitTillModalClosed() {
+        $(MODAL_HEADER_LOCATOR).shouldNotBe(visible);
+        return new DetailsPage();
     }
 
     //TODO add all required methods

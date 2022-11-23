@@ -12,8 +12,8 @@ public class AccountCRUDTest extends BaseTest {
 
     Faker faker = new Faker();
 
-    @Test(description = "Create Read Update Delete Account record")
-    public void createNewAccountRecord() {
+    @Test(description = "Create Account")
+    public void createAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
             put("Parent Account", "Erica Larson");
@@ -21,6 +21,7 @@ public class AccountCRUDTest extends BaseTest {
             put("Website", faker.internet().url());
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Description", faker.lorem().sentence());
+            put("Multiselect", "No;Probably;one more option");
             put("Employees", faker.number().digit());
             put("Billing Street", faker.address().streetAddress());
             put("Billing City", faker.address().city());
@@ -38,11 +39,12 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView
-                .openUrl("Account")
+                .open("Account")
                 .clickNew()
                 .enterData(account)
-                .save();
-        detailsPage.isPageOpened();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -61,7 +63,7 @@ public class AccountCRUDTest extends BaseTest {
     }
 
     @Test(description = "Edit new account created")
-    public void editNewAccountRecord() {
+    public void editAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
             put("Type", "Prospect");
@@ -104,11 +106,12 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView
-                .openUrl("Account")
+                .open("Account")
                 .clickNew()
                 .enterData(account)
-                .save();
-        detailsPage.isPageOpened();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
@@ -129,8 +132,9 @@ public class AccountCRUDTest extends BaseTest {
         newObjectModal
                 .clearData(account)
                 .enterData(updatedAccount)
-                .save();
-        detailsPage.isPageOpened();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();;
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");
@@ -175,11 +179,12 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView
-                .openUrl("Account")
+                .open("Account")
                 .clickNew()
                 .enterData(account)
-                .save();
-        detailsPage.isPageOpened();
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();
         account.remove("Billing Street");
         account.remove("Billing City");
         account.remove("Billing State/Province");
