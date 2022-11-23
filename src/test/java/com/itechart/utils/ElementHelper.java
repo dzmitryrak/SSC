@@ -157,7 +157,7 @@ public class ElementHelper {
             lookup.sendKeys(value);
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
             isOptionFound = lookUpOption.isDisplayed();
-            Selenide.executeJavaScript("arguments[0].click();", lookUpOption);
+            jsClick(lookUpOption);
         } catch (ElementNotFound e) {
             log.warn("Cannot find look up option: {}", value);
             log.warn(e.getLocalizedMessage());
@@ -168,9 +168,9 @@ public class ElementHelper {
     public void createNewRecordThroughLookup(String elementLabel, Map<String, String> data) {
         log.info("Creating new parent record through lookup: {}", data);
         SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
-        Selenide.executeJavaScript("arguments[0].click();", element);
+        jsClick(element);
         SelenideElement createOption = $(By.xpath("//lightning-base-combobox-item[@data-value='actionCreateNew']"));
-        Selenide.executeJavaScript("arguments[0].click();", createOption);
+        jsClick(createOption);
         NewObjectModal newObjectModal = new NewObjectModal();
         newObjectModal.isPageOpened();
         newObjectModal
