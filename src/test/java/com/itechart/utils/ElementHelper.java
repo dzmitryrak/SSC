@@ -44,6 +44,8 @@ public class ElementHelper {
         //Currency, Date, Date/time, Email, Number Percent Phone Text
         if ($$(By.xpath(String.format(textInput, elementLabel))).size() > 0) {
             elementType = "Text";
+            Selenide.executeJavaScript("arguments[0].scrollIntoView();",
+                    $(By.xpath(String.format(textInput, elementLabel))));
             if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(textInput, elementLabel))).clear();
             } else {
