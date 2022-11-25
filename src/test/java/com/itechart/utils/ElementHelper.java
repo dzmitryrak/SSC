@@ -3,6 +3,8 @@ package com.itechart.utils;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ex.ElementNotFound;
+import com.itechart.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -12,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.time.Duration;
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -26,6 +29,7 @@ public class ElementHelper {
     String pickListButton = pickList + "//button[@lightning-basecombobox_basecombobox]";
     String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='text']";
     String lookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//input";
+    String clearLookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//button[@title='Clear Selection']";
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
     String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
 
@@ -64,14 +68,14 @@ public class ElementHelper {
         } else if ($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
             //Lookup Relationship
             elementType = "Lookup Relationship";
-            //TODO add code to clear lookup
-            String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
+            if (StringUtils.isEmpty(value)) {
+                $(String.format(clearLookUpField, lookUpField)).click();
+            } else {
+                SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
+                jsClick(element);
+                if(!searchForLookupValue(element, value)) throw new RuntimeException(String.format("%s option is not found", value));
+            }
 
-            WebElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
-            jsClick(element);
-            element.sendKeys(value);
-            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
-            jsClick(lookUpOption);
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
 
             //TextArea
@@ -139,8 +143,38 @@ public class ElementHelper {
             }
         };
     }
-
     private void jsClick(WebElement el) {
         Selenide.executeJavaScript("arguments[0].click();", el);
+    }
+
+    public boolean searchForLookupValue(SelenideElement lookup, String value) {
+        log.info("Searching for lookup value: {}", value);
+        boolean isOptionFound = false;
+        try {
+            String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
+            lookup.sendKeys(value);
+            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+            isOptionFound = lookUpOption.isDisplayed();
+            jsClick(lookUpOption);
+        } catch (ElementNotFound e) {
+            log.warn("Cannot find look up option: {}", value);
+            log.warn(e.getLocalizedMessage());
+        }
+        return isOptionFound;
+    }
+
+    public void createNewRecordThroughLookup(String elementLabel, Map<String, String> data) {
+        log.info("Creating new parent record through lookup: {}", data);
+        SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
+        jsClick(element);
+        SelenideElement createOption = $(By.xpath("//lightning-base-combobox-item[@data-value='actionCreateNew']"));
+        jsClick(createOption);
+        NewObjectModal newObjectModal = new NewObjectModal();
+        newObjectModal.isPageOpened();
+        newObjectModal
+                .enterData(data)
+                .save()
+                .waitTillModalClosed();
+
     }
 }
