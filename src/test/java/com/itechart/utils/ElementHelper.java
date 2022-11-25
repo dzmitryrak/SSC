@@ -175,6 +175,8 @@ public class ElementHelper {
         newObjectModal.isPageOpened();
         newObjectModal
                 .enterData(data)
-                .save();
+                .save()
+                .waitTillModalClosed();
+
     }
 }
