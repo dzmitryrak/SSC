@@ -60,7 +60,7 @@ public class NewObjectModal extends BasePage {
     }
 
     public DetailsPage waitTillModalClosed() {
-        $(MODAL_HEADER_LOCATOR).shouldNotBe(visible, Duration.ofSeconds(3));
+        $(MODAL_HEADER_LOCATOR).shouldNotBe(visible);
         return new DetailsPage();
     }
 

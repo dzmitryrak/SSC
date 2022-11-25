@@ -1,6 +1,5 @@
 package com.itechart.utils;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
@@ -20,6 +19,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 //TODO rework for Selenide
 @Log4j2
@@ -38,7 +38,7 @@ public class ElementHelper {
         log.info("Filling '{}' field with '{}' value", elementLabel, value);
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
-        Configuration.timeout = 1000;
+        getWebDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         String elementType;
 
         //Currency, Date, Date/time, Email, Number Percent Phone Text
@@ -120,7 +120,7 @@ public class ElementHelper {
             throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
         }
 
-        Configuration.timeout = 5000;
+        getWebDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         long endTime = System.currentTimeMillis();
 
         log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms'", elementLabel, elementType, (endTime - startTime));
