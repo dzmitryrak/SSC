@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Logo](readme-assets/logo.png)
-
 **Ready-to-use core for salesforce based test automation projects**
 
 ![Maven Central](https://img.shields.io/maven-central/v/com.itechart/SSC.svg)
