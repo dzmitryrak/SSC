@@ -4,7 +4,7 @@
 
 **Ready-to-use core for salesforce based test automation projects**
 
-![Maven Central](https://img.shields.io/maven-central/v/com.itechart/SSC.svg)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.dzmitryrak/SSC.svg)
 ![Build Status](https://github.com/dzmitryrak/SSC/actions/workflows/bvt.yml/badge.svg)
 [![Apache-2.0 License](https://img.shields.io/badge/License-Apache--2.0-informational.svg)](https://choosealicense.com/licenses/apache-2.0/)
 
@@ -12,7 +12,7 @@
 
 ## What is SSC?
 
-SSC – generic core for speeding up your own test automation framework development with [Selenide](https://selenide.org/) under the hood.
+SSC – generic core for speeding up your own Salesforce test automation framework development with [Selenide](https://selenide.org/) under the hood.
 
 ## Usage
 
