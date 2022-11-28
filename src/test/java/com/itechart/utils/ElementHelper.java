@@ -38,12 +38,14 @@ public class ElementHelper {
         log.info("Filling '{}' field with '{}' value", elementLabel, value);
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
-        Configuration.timeout = 1000;
+        Configuration.pollingInterval = 20;
         String elementType;
 
         //Currency, Date, Date/time, Email, Number Percent Phone Text
         if ($$(By.xpath(String.format(textInput, elementLabel))).size() > 0) {
             elementType = "Text";
+            Selenide.executeJavaScript("arguments[0].scrollIntoView();",
+                    $(By.xpath(String.format(textInput, elementLabel))));
             if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(textInput, elementLabel))).clear();
             } else {
@@ -120,7 +122,7 @@ public class ElementHelper {
             throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
         }
 
-        Configuration.timeout = 5000;
+        Configuration.pollingInterval = 200;
         long endTime = System.currentTimeMillis();
 
         log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms'", elementLabel, elementType, (endTime - startTime));
@@ -128,7 +130,7 @@ public class ElementHelper {
 
     public void validate(String label, String expectedInput) {
         log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
-        String locator = "//div[contains(@class,'windowViewMode-maximized')]" +
+        String locator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
                 "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
         //TODO throw custom exception with simple text
