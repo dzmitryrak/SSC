@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -38,11 +39,19 @@ public class CaseDetailsPage extends BasePage {
     }
 
     @Step("Validation of fields filled")
-    public CaseDetailsPage validateInput(String email, String phone, String amount, String period, String company) {
+    public CaseDetailsPage validateInput(Map<String, String> data) {
 
-        String expectedPhone = String.format("+34%s", phone);
-        String newExpectedAmount = amount.replace("€", "");
-        String newExpectedPeriod = period.replace("Anual", "Yearly");
+
+
+
+        validateInputField("Email", "Email");
+
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String fieldLabel = entry.getKey();
+            String value = entry.getValue();
+
+            sfHelper.validate(fieldLabel, value);
+        }
 
         validateInputField("Email", email);
         validateInputField("Correo electrónico Web", email);

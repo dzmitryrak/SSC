@@ -29,6 +29,14 @@ public class ListView extends BasePage {
         return this;
     }
 
+    @Step("Opening List View using overloaded method")
+    public ListView open(String listViewName, String filter) {
+        log.info("Opening '{}' List View", listViewName);
+        Selenide.open(String.format("lightning/o/%s/list%s", listViewName));
+        isOpened();
+        return this;
+    }
+
     @Step("Click on New button")
     public NewObjectModal clickNew() {
         $(NEW_BUTTON_LOCATOR).click();

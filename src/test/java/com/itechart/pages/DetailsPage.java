@@ -2,6 +2,7 @@ package com.itechart.pages;
 
 import com.codeborne.selenide.Condition;
 import com.itechart.constants.DetailsTabs;
+import com.itechart.pages.cases.CaseDetailsPage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -39,6 +40,8 @@ public class DetailsPage extends BasePage {
     private final By DELETE_MODAL_TITLE = By.xpath("//*[starts-with(text(), 'Delete ')]");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
     private final String COMMON_TAB = "//a[@data-label='%s']";
+    private static final By CONTACT_EMAIL_LOCATOR = By.xpath("(//p[@title='Correo electrónico del contacto'])[2]");
+    protected final By DETAILS_TAB = By.xpath("//*[@title='Detalles']");
 
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
@@ -267,5 +270,19 @@ public class DetailsPage extends BasePage {
     private void waitTillModalOpened() {
         $(DELETE_MODAL_TITLE).shouldBe(visible);
         $(DELETE_MODAL_BUTTON).shouldBe(visible);
+    }
+
+    @Step("Check that case page is opened")
+    public boolean isDetailsPageOpened() {
+        log.info("Check that Details page is opened");
+        return $(CONTACT_EMAIL_LOCATOR).isDisplayed();
+    }
+
+    @Step("Clicking on Details tab")
+    public DetailsPage clickOnDetailsTab() {
+        log.info("Clicking on Details tab to open it");
+        $(DETAILS_TAB).shouldBe(visible, Duration.ofSeconds(10));
+        $(DETAILS_TAB).click();
+        return this;
     }
 }

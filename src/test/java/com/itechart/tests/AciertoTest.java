@@ -3,6 +3,9 @@ package com.itechart.tests;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AciertoTest extends BaseTest {
 
     private final String ZIPCODE = "22007";
@@ -10,6 +13,7 @@ public class AciertoTest extends BaseTest {
     private final String INSURANCE_AMOUNT = "90.000€";
     private final String EMAIL = "acierto1@mailinator.com";
     private final String PHONE = "911000222";
+    private final String FILTER_LINK = "?filterName=00B7Y000004PyxjUAC";
     private final String INSURANCE_PERIOD = "Anual";
     private final String PERSON_GENDER = "Hombre";
     private final String TENANTID = "ES";
@@ -39,6 +43,47 @@ public class AciertoTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
+        listView.open("Case", FILTER_LINK)
+                .openObjectFromList(1);
+        detailsPage.isDetailsPageOpened();
+        detailsPage.clickOnDetailsTab();
+
+        Map<String, String> userdata = new HashMap<>() {{
+            put("Email", EMAIL);
+            put("Correo electrónico Web", EMAIL);
+            put("Teléfono", PHONE);
+            put("Teléfono del cliente", String.format("+34%s",PHONE));
+            put("Cantidad de capital", "90.000");
+            put("Pago de frecuencia", "Yearly");
+            put("Nombre del producto", companiesArray[0]);
+        }};
+
+
+        caseListViewPage.openUrl();
+       caseListViewPage.isPageOpened();
+        caseListViewPage.openCase(1);
+        caseDetailsPage.isDetailsCasePageOpened();
+        caseDetailsPage.clickOnDetailsTab();
+        caseDetailsPage.validateInput(userdata);
+        caseDetailsPage.clickOnAccountDetailsTab();
+        caseDetailsPage.isPersonaDetailTabPageOpened();
+        caseDetailsPage.validateTenantID(TENANTID);
+    }
+
+
+    /*
+    @Test(description = "Creation of the insurance record with provider AsisaVida and validation it in Salesforce")
+    public void aciertoTestAsisaVidaValidation() {
+        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+                .imInterestedButtonClick(1)
+                .isFinalModalDisplayed();
+        aciertoPage.callMeOnThisPhoneButtonClick()
+                .isGratitudeModalDisplayed();
+        aciertoPage.closeButtonClick()
+                .isLifeInsurancePageOpened();
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
         caseListViewPage.openUrl();
         caseListViewPage.isPageOpened();
         caseListViewPage.openCase(1);
@@ -49,6 +94,8 @@ public class AciertoTest extends BaseTest {
         caseDetailsPage.isPersonaDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
+     */
+
 
     @Test(description = "Creation of the insurance record with provider 'Axa Vida Protec' and validation it in Salesforce")
     public void aciertoTestAxaVidaProtecValidation() {
