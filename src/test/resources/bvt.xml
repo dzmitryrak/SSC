@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="2" name="Regression test suite" parallel="tests">
+<suite thread-count="3" name="Regression test suite" parallel="tests">
     <listeners>
         <listener class-name="com.itechart.tests.base.TestListener"/>
     </listeners>
@@ -12,7 +12,10 @@
     <test name="Create for Contact">
         <classes>
             <class name="com.itechart.tests.ContactCRUDTest"/>
-            <!-- TODO move to separate thread once CRUS is ready -->
+        </classes>
+    </test> <!-- Test -->
+    <test name="Create for Lead">
+        <classes>
             <class name="com.itechart.tests.LeadTest"/>
         </classes>
     </test> <!-- Test -->
