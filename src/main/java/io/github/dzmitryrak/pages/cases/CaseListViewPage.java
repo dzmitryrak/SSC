@@ -1,5 +1,5 @@
-package com.itechart.pages.cases;
-import com.itechart.pages.BasePage;
+package io.github.dzmitryrak.pages.cases;
+import io.github.dzmitryrak.pages.BasePage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;

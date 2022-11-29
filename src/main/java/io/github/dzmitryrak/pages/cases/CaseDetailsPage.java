@@ -1,7 +1,6 @@
-package com.itechart.pages.cases;
+package io.github.dzmitryrak.pages.cases;
 
-import com.codeborne.selenide.Condition;
-import com.itechart.pages.BasePage;
+import io.github.dzmitryrak.pages.BasePage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;

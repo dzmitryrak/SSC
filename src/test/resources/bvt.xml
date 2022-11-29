@@ -2,18 +2,18 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="2" name="Regression test suite" parallel="tests">
     <listeners>
-        <listener class-name="com.itechart.tests.base.TestListener"/>
+        <listener class-name="io.github.dzmitryrak.testbase.TestListener"/>
     </listeners>
     <test name="CRUD for Account">
         <classes>
-            <class name="com.itechart.tests.AccountCRUDTest"/>
+            <class name="io.github.dzmitryrak.AccountCRUDTest"/>
         </classes>
     </test> <!-- Test -->
     <test name="Create for Contact">
         <classes>
-            <class name="com.itechart.tests.ContactCRUDTest"/>
+            <class name="io.github.dzmitryrak.ContactCRUDTest"/>
             <!-- TODO move to separate thread once CRUS is ready -->
-            <class name="com.itechart.tests.LeadTest"/>
+            <class name="io.github.dzmitryrak.LeadTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>

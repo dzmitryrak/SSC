@@ -1,11 +1,9 @@
-package com.itechart.tests.base;
+package io.github.dzmitryrak.testbase;
 
 import com.codeborne.selenide.Configuration;
-import com.itechart.pages.*;
-import com.itechart.pages.acierto.AciertoPage;
-import com.itechart.pages.cases.CaseDetailsPage;
-import com.itechart.pages.cases.CaseListViewPage;
-import com.itechart.utils.PropertyReader;
+import io.github.dzmitryrak.pages.*;
+import io.github.dzmitryrak.pages.cases.*;
+import io.github.dzmitryrak.utils.PropertyReader;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
@@ -23,7 +21,6 @@ public abstract class BaseTest {
     protected DetailsPage detailsPage;
     protected ListView listView;
     protected NewObjectModal newObjectModal;
-    protected AciertoPage aciertoPage;
     protected CaseDetailsPage caseDetailsPage;
     protected CaseListViewPage caseListViewPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
@@ -53,7 +50,6 @@ public abstract class BaseTest {
         detailsPage = new DetailsPage();
         listView = new ListView();
         newObjectModal = new NewObjectModal();
-        aciertoPage = new AciertoPage();
         caseDetailsPage = new CaseDetailsPage();
         caseListViewPage = new CaseListViewPage();
     }

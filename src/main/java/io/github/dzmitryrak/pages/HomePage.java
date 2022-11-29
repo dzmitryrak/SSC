@@ -1,4 +1,4 @@
-package com.itechart.pages;
+package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Selenide;
 import lombok.extern.log4j.Log4j2;

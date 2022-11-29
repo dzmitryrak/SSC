@@ -1,4 +1,4 @@
-package com.itechart.pages;
+package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;

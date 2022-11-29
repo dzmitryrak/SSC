@@ -1,6 +1,6 @@
-package com.itechart.tests.base;
+package io.github.dzmitryrak.testbase;
 
-import com.itechart.utils.AllureUtils;
+import io.github.dzmitryrak.utils.AllureUtils;
 import lombok.extern.log4j.Log4j2;
 import org.testng.ITestContext;
 import org.testng.ITestListener;

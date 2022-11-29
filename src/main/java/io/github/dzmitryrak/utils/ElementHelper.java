@@ -1,10 +1,10 @@
-package com.itechart.utils;
+package io.github.dzmitryrak.utils;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
-import com.itechart.pages.NewObjectModal;
+import io.github.dzmitryrak.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -16,8 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import java.time.Duration;
 import java.util.Map;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -153,7 +152,7 @@ public class ElementHelper {
         log.info("Searching for lookup value: {}", value);
         boolean isOptionFound = false;
         try {
-            String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
+            String optionLocator = "//lightning-io.github.dzmitryrak.base-combobox-formatted-text[contains(@title, '%s')]";
             lookup.sendKeys(value);
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
             isOptionFound = lookUpOption.isDisplayed();
@@ -169,7 +168,7 @@ public class ElementHelper {
         log.info("Creating new parent record through lookup: {}", data);
         SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
         jsClick(element);
-        SelenideElement createOption = $(By.xpath("//lightning-base-combobox-item[@data-value='actionCreateNew']"));
+        SelenideElement createOption = $(By.xpath("//lightning-io.github.dzmitryrak.base-combobox-item[@data-value='actionCreateNew']"));
         jsClick(createOption);
         NewObjectModal newObjectModal = new NewObjectModal();
         newObjectModal.isPageOpened();

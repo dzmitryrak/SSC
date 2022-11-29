@@ -1,7 +1,7 @@
-package com.itechart.pages;
+package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Condition;
-import com.itechart.constants.DetailsTabs;
+import io.github.dzmitryrak.constants.DetailsTabs;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
