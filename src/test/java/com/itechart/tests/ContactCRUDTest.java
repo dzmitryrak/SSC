@@ -12,7 +12,6 @@ public class ContactCRUDTest extends BaseTest {
 
     Faker faker = new Faker();
 
-    //TODO add CRUD
     @Test(description = "Create Contact")
     public void createContact() {
         Map<String, String> contact = new HashMap<>() {{
@@ -74,9 +73,8 @@ public class ContactCRUDTest extends BaseTest {
         contact.remove("Other Zip/Postal Code");
         contact.remove("Other Country");
 
-        //TODO fix validation method to support checkboxes and uncomment after
-/*        detailsPage.clickTab(DetailsTabs.Details)
-                .validate(contact);*/
+        detailsPage.clickTab(DetailsTabs.Details)
+                .validate(contact);
     }
 
     @Test(description = "Edit Contact")
@@ -87,7 +85,7 @@ public class ContactCRUDTest extends BaseTest {
             put("First Name", faker.name().name());
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Home Phone", faker.phoneNumber().phoneNumber());
-            put("BVT check", "true");
+            put("BVT check", "false");
             put("Account Name", "Emory Harber");
             put("Mobile", faker.phoneNumber().phoneNumber());
             put("Title", "any title");
@@ -175,9 +173,8 @@ public class ContactCRUDTest extends BaseTest {
         contact.remove("Other Zip/Postal Code");
         contact.remove("Other Country");
         detailsPage
-                .clickTab(DetailsTabs.Details);
-        //TODO uncomment after fix of checkbox
-                //.validate(contact);
+                .clickTab(DetailsTabs.Details)
+                .validate(contact);
         detailsPage
                 .clickIconDropdownMenu()
                 .editObject();
@@ -202,10 +199,9 @@ public class ContactCRUDTest extends BaseTest {
         updatedContact.remove("Other Zip/Postal Code");
         updatedContact.remove("Other Country");
 
-        //TODO uncomment after fix of checkbox
         detailsPage
-                .clickTab(DetailsTabs.Details);
-                //.validate(updatedContact);
+                .clickTab(DetailsTabs.Details)
+                .validate(updatedContact);
     }
 
     @Test(description = "Delete Contact")
@@ -269,9 +265,8 @@ public class ContactCRUDTest extends BaseTest {
         contact.remove("Other Zip/Postal Code");
         contact.remove("Other Country");
         detailsPage
-                .clickTab(DetailsTabs.Details);
-        //TODO uncomment after fix of checkbox
-                //.validate(contact);
+                .clickTab(DetailsTabs.Details)
+                .validate(contact);
         detailsPage
                 .clickIconDropdownMenu()
                 .clickDeleteButton()
