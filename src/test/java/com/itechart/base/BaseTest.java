@@ -1,10 +1,9 @@
-package com.itechart.tests.base;
+package com.itechart.base;
 
 import com.codeborne.selenide.Configuration;
 import com.itechart.pages.*;
-import com.itechart.pages.acierto.AciertoPage;
-import com.itechart.pages.cases.CaseDetailsPage;
-import com.itechart.pages.cases.CaseListViewPage;
+import io.github.dzmitryrak.pages.*;
+import io.github.dzmitryrak.pages.cases.*;
 import com.itechart.utils.PropertyReader;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;

@@ -1,4 +1,4 @@
-package com.itechart.tests.base;
+package com.itechart.base;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;

@@ -1,6 +1,6 @@
-package com.itechart.pages.acierto;
+package com.itechart.pages;
+
 import com.codeborne.selenide.Selenide;
-import com.itechart.pages.BasePage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;

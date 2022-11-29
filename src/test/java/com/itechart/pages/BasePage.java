@@ -1,14 +1,12 @@
 package com.itechart.pages;
 
 import com.codeborne.selenide.Selenide;
-import com.itechart.utils.ElementHelper;
+import io.github.dzmitryrak.utils.ElementHelper;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.codeborne.selenide.Selenide.$;
 

@@ -1,6 +1,6 @@
 package com.itechart.tests;
 
-import com.itechart.tests.base.BaseTest;
+import com.itechart.base.BaseTest;
 import org.testng.annotations.Test;
 
 public class AciertoTest extends BaseTest {
