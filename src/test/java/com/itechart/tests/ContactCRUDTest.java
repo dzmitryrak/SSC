@@ -73,7 +73,8 @@ public class ContactCRUDTest extends BaseTest {
         contact.remove("Other Zip/Postal Code");
         contact.remove("Other Country");
 
-        detailsPage.clickTab(DetailsTabs.Details)
+        detailsPage
+                .clickTab(DetailsTabs.Details)
                 .validate(contact);
     }
 
