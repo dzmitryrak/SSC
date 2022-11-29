@@ -205,4 +205,24 @@ public class AccountCRUDTest extends BaseTest {
                 .delete()
                 .isSuccessDeleteMessageDisplayed();
     }
+
+    @Test(description = "Create account with several fields specified")
+    public void createAccountSomeFields() {
+
+        String accountName = faker.name().name();
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        listView
+                .open("Account")
+                .clickNew()
+                .enterData("Account Name", accountName)
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();
+
+        detailsPage
+                .clickTab(DetailsTabs.Details)
+                .validate("Account Name", accountName);
+    }
 }

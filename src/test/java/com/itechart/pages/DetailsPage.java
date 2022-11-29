@@ -81,6 +81,19 @@ public class DetailsPage extends BasePage {
         return this;
     }
 
+    /**
+     * Method allows to validate any field at Details page. Usually used for comprehensive validation
+     *
+     * @param label
+     * @param value
+     * @return
+     */
+    @Step("Validation of the field {label}")
+    public DetailsPage validate(String label, String value) {
+        sfHelper.validate(label, value);
+        return this;
+    }
+
     @Step("Click on Dropdown icon menu")
     public DetailsPage clickIconDropdownMenu() {
         try {

@@ -32,13 +32,27 @@ public class NewObjectModal extends BasePage {
         return this;
     }
 
+    @Step("Filling the form")
     public NewObjectModal enterData(Map<String, String> data) {
-        log.info("Entering Account Data: {}", data);
+        log.info("Filling in the form: {}", data);
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
             String value = entry.getValue();
             sfHelper.fill(fieldLabel, value);
         }
+        return this;
+    }
+
+    /**
+     * This method allows to fill in any field. Usually used to provide comprehensive validation of the form
+     *
+     * @param field
+     * @param value
+     * @return
+     */
+    @Step("Filling the field {field} using value {value}")
+    public NewObjectModal enterData(String field, String value) {
+        sfHelper.fill(field, value);
         return this;
     }
 
