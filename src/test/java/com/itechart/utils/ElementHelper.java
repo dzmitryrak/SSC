@@ -70,12 +70,13 @@ public class ElementHelper {
         } else if ($$(By.xpath(String.format(lookUpField, elementLabel))).size() > 0) {
             //Lookup Relationship
             elementType = "Lookup Relationship";
+            SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
+            Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
             if (StringUtils.isEmpty(value)) {
-                $(String.format(clearLookUpField, lookUpField)).click();
+                $(By.xpath(String.format(clearLookUpField, elementLabel))).click();
             } else {
-                SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
                 jsClick(element);
-                if(!searchForLookupValue(element, value)) throw new RuntimeException(String.format("%s option is not found", value));
+                if(!searchForLookupValue(element, value)) throw new RuntimeException(String.format("'%s' option is not found inside Lookup '%s'", value, elementLabel));
             }
 
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {

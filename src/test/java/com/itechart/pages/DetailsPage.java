@@ -59,12 +59,12 @@ public class DetailsPage extends BasePage {
     }
 
     @Step("Click Edit button")
-    public NewObjectModal clickEditDetailsButton() {
+    public NewObjectModal editObject() {
         $(EDIT_DETAILS_BUTTON_LOCATOR).click();
-        NewObjectModal accountModalPage = new NewObjectModal();
-        accountModalPage.waitTillOpened();
+        NewObjectModal editModal = new NewObjectModal();
+        editModal.waitTillOpened();
 
-        return accountModalPage;
+        return editModal;
     }
 
     @Step("Validation of entered data")
@@ -109,6 +109,7 @@ public class DetailsPage extends BasePage {
 
     @Step("Confirm deletion")
     public ListView delete() {
+        log.info("Deleting record");
         waitTillModalOpened();
 
         $(SUCCESS_MESSAGE).should(exist);

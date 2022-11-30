@@ -62,7 +62,7 @@ public class AccountCRUDTest extends BaseTest {
                 .validate(account);
     }
 
-    @Test(description = "Edit new account created")
+    @Test(description = "Edit Account")
     public void editAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
@@ -128,9 +128,9 @@ public class AccountCRUDTest extends BaseTest {
                 .validate(account);
         detailsPage
                 .clickIconDropdownMenu()
-                .clickEditDetailsButton();
+                .editObject();
         newObjectModal
-                .clearData(account)
+                .clearData(updatedAccount)
                 .enterData(updatedAccount)
                 .save()
                 .waitTillModalClosed()
@@ -154,7 +154,7 @@ public class AccountCRUDTest extends BaseTest {
                 .validate(updatedAccount);
     }
 
-    @Test(description = "Delete new account created")
+    @Test(description = "Delete Account")
     public void deleteAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
