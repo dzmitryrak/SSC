@@ -57,7 +57,8 @@ public class LeadTest extends BaseTest {
         lead.remove("Street");
         lead.remove("City");
         lead.put("Annual Revenue", "$200,000,000");
-        detailsPage.clickTab(DetailsTabs.Details);
-        detailsPage.validate(lead);
+        detailsPage
+                .clickTab(DetailsTabs.Details)
+                .validate(lead);
     }
 }

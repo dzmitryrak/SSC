@@ -16,8 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import java.time.Duration;
 import java.util.Map;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -35,7 +34,6 @@ public class ElementHelper {
 
     //TODO amazing javadoc
     public void fill(String elementLabel, String value) {
-        log.info("Filling '{}' field with '{}' value", elementLabel, value);
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
         Configuration.pollingInterval = 20;
@@ -57,11 +55,11 @@ public class ElementHelper {
             elementType = "PickList";
             String picklistOption = BASE_DETAIL_PANEL + "//label[text()='%s']/ancestor::lightning-picklist//*[@title='%s']";
             SelenideElement picklist = $(By.xpath(String.format(pickListButton, elementLabel)));
-            log.info("Clicking on '{}' picklist", elementLabel);
+            log.debug("Clicking on '{}' picklist", elementLabel);
             jsClick(picklist);
             WebElement element1;
             if (StringUtils.isEmpty(value)) {
-                log.info("Setting value: '--None--'");
+                log.debug("Setting value: '--None--'");
                 element1 = $(By.xpath(String.format(picklistOption, elementLabel, "--None--")));
             } else {
                 element1 = $(By.xpath(String.format(picklistOption, elementLabel, value)));
@@ -93,7 +91,7 @@ public class ElementHelper {
             //Checkbox
             elementType = "Checkbox";
             SelenideElement ch = $(By.xpath(String.format(checkbox, elementLabel)));
-            log.info("Checkbox initial value: {}", ch.isSelected());
+            log.debug("Checkbox initial value: {}", ch.isSelected());
             if (value.equals("true")) {
                 if (!ch.isSelected()) {
                     jsClick(ch);
@@ -111,7 +109,7 @@ public class ElementHelper {
             String lookupOption = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]";
             var options = StringUtils.split(value, ";");
             for (String option : options) {
-                log.info("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
+                log.debug("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
                 SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
                 Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
                 //TODO possible clickIntercepted due to the duplicates
@@ -126,17 +124,28 @@ public class ElementHelper {
         Configuration.pollingInterval = 200;
         long endTime = System.currentTimeMillis();
 
-        log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms'", elementLabel, elementType, (endTime - startTime));
+        log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms' Value: '{}'", elementLabel, elementType, (endTime - startTime), value);
     }
 
-    public void validate(String label, String expectedInput) {
-        log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
-        String locator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
+    public void validate(String label, String expectedText) {
+        log.info("Validation that '{}' field contains value '{}'", label, expectedText);
+
+        String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
                 "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
-        //TODO throw custom exception with simple text
-        SelenideElement input = $(By.xpath(String.format(locator, label)));
-        input.shouldHave(text(expectedInput));
+        String checkboxLocator = genericLocator + "//input";
+        if($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
+            SelenideElement checkbox = $(By.xpath(String.format(checkboxLocator, label)));
+            if(expectedText.equals("true")) {
+                checkbox.shouldBe(checked);
+            } else {
+                checkbox.shouldNotBe(checked);
+            }
+        } else {
+            //TODO throw custom exception with simple text
+            SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
+            input.shouldHave(text(expectedText));
+        }
     }
 
     private void waitForPageLoaded() {
