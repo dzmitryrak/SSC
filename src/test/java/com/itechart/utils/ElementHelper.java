@@ -74,7 +74,7 @@ public class ElementHelper {
                 $(By.xpath(String.format(clearLookUpField, elementLabel))).click();
             } else {
                 jsClick(element);
-                if(!searchForLookupValue(element, value)) throw new RuntimeException(String.format("'%s' option is not found inside Lookup '%s'", value, elementLabel));
+                if(!searchForLookupValue(element, value)) throw new ElementNotFoundException(String.format("'%s' option is not found inside Lookup '%s'", value, elementLabel));
             }
 
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
@@ -118,7 +118,7 @@ public class ElementHelper {
             }
         } else {
             elementType = "ERROR! Cannot identify element";
-            throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
+            throw new ElementNotFoundException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
         }
 
         Configuration.pollingInterval = 200;
@@ -170,7 +170,7 @@ public class ElementHelper {
             jsClick(lookUpOption);
         } catch (ElementNotFound e) {
             log.warn("Cannot find look up option: {}", value);
-            log.warn(e.getLocalizedMessage());
+            throw  new ElementNotFoundException(e.getLocalizedMessage(), e);
         }
         return isOptionFound;
     }
