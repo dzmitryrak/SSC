@@ -53,13 +53,13 @@ public class CaseDetailsPage extends BasePage {
             sfHelper.validate(fieldLabel, value);
         }
 
-        validateInputField("Email", email);
-        validateInputField("Correo electrónico Web", email);
-        validateInputField("Teléfono", expectedPhone);
-        validateInputField("Teléfono del cliente", phone);
-        validateInputOpportunity("Cantidad de capital", newExpectedAmount);
-        validateInputOpportunity("Pago de frecuencia", newExpectedPeriod);
-        validateInputOpportunity("Nombre del producto", company);
+//        validateInputField("Email", email);
+//        validateInputField("Correo electrónico Web", email);
+//        validateInputField("Teléfono", expectedPhone);
+//        validateInputField("Teléfono del cliente", phone);
+//        validateInputOpportunity("Cantidad de capital", newExpectedAmount);
+//        validateInputOpportunity("Pago de frecuencia", newExpectedPeriod);
+//        validateInputOpportunity("Nombre del producto", company);
         return this;
     }
 
@@ -72,7 +72,7 @@ public class CaseDetailsPage extends BasePage {
     }
 
     @Step("Check that personal detail page is opened")
-    public boolean isPersonaDetailTabPageOpened() {
+    public boolean isDetailTabPageOpened() {
         log.info("The personal detail page is opened is opened");
         $(PERSONAL_ACCOUNT_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
         return $(PERSONAL_ACCOUNT_LOCATOR).isDisplayed();

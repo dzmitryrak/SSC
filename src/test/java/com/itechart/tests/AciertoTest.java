@@ -1,5 +1,6 @@
 package com.itechart.tests;
 
+import com.itechart.constants.DetailsTabs;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -46,7 +47,7 @@ public class AciertoTest extends BaseTest {
         listView.open("Case", FILTER_LINK)
                 .openObjectFromList(1);
         detailsPage.isDetailsPageOpened();
-        detailsPage.clickOnDetailsTab();
+        detailsPage.clickTab(DetailsTabs.Detalles);
 
         Map<String, String> userdata = new HashMap<>() {{
             put("Email", EMAIL);
@@ -58,6 +59,24 @@ public class AciertoTest extends BaseTest {
             put("Nombre del producto", companiesArray[0]);
         }};
 
+        detailsPage.validate(userdata);
+        detailsPage.clickOnDetailsTab();
+        detailsPage.isDetailTabPageOpened();
+
+        userdata.remove("Email");
+        userdata.remove("Correo electrónico Web");
+        userdata.remove("Teléfono");
+        userdata.remove("Teléfono del cliente");
+        userdata.remove("Cantidad de capital");
+        userdata.remove("Pago de frecuencia");
+        userdata.remove("Nombre del producto");
+        userdata.put("TenantID", "ES");
+        detailsPage.validate(userdata);
+
+
+
+
+
 
         caseListViewPage.openUrl();
        caseListViewPage.isPageOpened();
@@ -66,7 +85,7 @@ public class AciertoTest extends BaseTest {
         caseDetailsPage.clickOnDetailsTab();
         caseDetailsPage.validateInput(userdata);
         caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+    //    caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
 
@@ -91,7 +110,7 @@ public class AciertoTest extends BaseTest {
         caseDetailsPage.clickOnDetailsTab();
         caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[0]);
         caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+        caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
      */
@@ -114,9 +133,9 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openCase(2);
         caseDetailsPage.isDetailsCasePageOpened();
         caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[1]);
-        caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+//        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[1]);
+//        caseDetailsPage.clickOnAccountDetailsTab();
+//        caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
 
@@ -137,9 +156,9 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openCase(3);
         caseDetailsPage.isDetailsCasePageOpened();
         caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[2]);
-        caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+//        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[2]);
+//        caseDetailsPage.clickOnAccountDetailsTab();
+//        caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
 
@@ -160,9 +179,9 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openCase(3);
         caseDetailsPage.isDetailsCasePageOpened();
         caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[3]);
-        caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+//        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[3]);
+//        caseDetailsPage.clickOnAccountDetailsTab();
+//        caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
 
@@ -183,9 +202,9 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openCase(3);
         caseDetailsPage.isDetailsCasePageOpened();
         caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[4]);
-        caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+//        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[4]);
+//        caseDetailsPage.clickOnAccountDetailsTab();
+//        caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
 
@@ -206,9 +225,9 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openCase(3);
         caseDetailsPage.isDetailsCasePageOpened();
         caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[5]);
-        caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+//        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[5]);
+//        caseDetailsPage.clickOnAccountDetailsTab();
+//        caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
 
@@ -229,9 +248,9 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openCase(3);
         caseDetailsPage.isDetailsCasePageOpened();
         caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[6]);
-        caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+//        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[6]);
+//        caseDetailsPage.clickOnAccountDetailsTab();
+//        caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
 
@@ -252,9 +271,9 @@ public class AciertoTest extends BaseTest {
         caseListViewPage.openCase(3);
         caseDetailsPage.isDetailsCasePageOpened();
         caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[7]);
-        caseDetailsPage.clickOnAccountDetailsTab();
-        caseDetailsPage.isPersonaDetailTabPageOpened();
+//        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[7]);
+//        caseDetailsPage.clickOnAccountDetailsTab();
+//        caseDetailsPage.isPersonalDetailTabPageOpened();
         caseDetailsPage.validateTenantID(TENANTID);
     }
 }

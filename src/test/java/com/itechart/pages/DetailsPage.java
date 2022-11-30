@@ -40,8 +40,10 @@ public class DetailsPage extends BasePage {
     private final By DELETE_MODAL_TITLE = By.xpath("//*[starts-with(text(), 'Delete ')]");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
     private final String COMMON_TAB = "//a[@data-label='%s']";
-    private static final By CONTACT_EMAIL_LOCATOR = By.xpath("(//p[@title='Correo electrónico del contacto'])[2]");
+    private final By CONTACT_EMAIL_LOCATOR = By.xpath("(//p[@title='Correo electrónico del contacto'])[2]");
     protected final By DETAILS_TAB = By.xpath("//*[@title='Detalles']");
+    private final By DETAILS_TAB_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
+    private final By PERSONAL_ACCOUNT_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
 
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
@@ -280,9 +282,16 @@ public class DetailsPage extends BasePage {
 
     @Step("Clicking on Details tab")
     public DetailsPage clickOnDetailsTab() {
-        log.info("Clicking on Details tab to open it");
-        $(DETAILS_TAB).shouldBe(visible, Duration.ofSeconds(10));
-        $(DETAILS_TAB).click();
+        log.info("Clicking on Account Details Tab");
+        clickJS(DETAILS_TAB_LOCATOR);
+        waitForPageLoaded();
         return this;
+    }
+
+    @Step("Check that personal detail page is opened")
+    public boolean isDetailTabPageOpened() {
+        log.info("The personal detail page is opened is opened");
+        $(PERSONAL_ACCOUNT_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
+        return $(PERSONAL_ACCOUNT_LOCATOR).isDisplayed();
     }
 }
