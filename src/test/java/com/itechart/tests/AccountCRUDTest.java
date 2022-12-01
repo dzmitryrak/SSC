@@ -205,4 +205,34 @@ public class AccountCRUDTest extends BaseTest {
                 .delete()
                 .isSuccessDeleteMessageDisplayed();
     }
+
+    @Test(description = "Create account with several fields specified")
+    public void createAccountSomeFields() {
+
+        String accountName = faker.name().name();
+        Map<String, String> relatedAccount = new HashMap<>() {{
+            put("Account Name", faker.name().name());
+            put("Type", "Prospect");
+            put("Website", faker.internet().url());
+            put("Phone", faker.phoneNumber().phoneNumber());
+        }};
+
+        loginPage.open();
+        loginPage.login(USERNAME, PASSWORD);
+        homePage.isPageOpened();
+        listView
+                .open("Account")
+                .clickNew()
+                .enterData("Account Name", accountName)
+                //TODO fix issue with related object creation and uncomment
+                //.createRelatedObject("Parent Account", relatedAccount)
+                .save()
+                .waitTillModalClosed()
+                .waitTillOpened();
+
+        detailsPage
+                .clickTab(DetailsTabs.Details)
+                .validate("Account Name", accountName);
+                //.validate("Parent Account", relatedAccount.get("Account Name"));
+    }
 }
