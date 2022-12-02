@@ -73,7 +73,6 @@ public class ElementHelper {
             if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(clearLookUpField, elementLabel))).click();
             } else {
-                jsClick(element);
                 if(!searchForLookupValue(element, value)) throw new RuntimeException(String.format("'%s' option is not found inside Lookup '%s'", value, elementLabel));
             }
 
@@ -164,7 +163,7 @@ public class ElementHelper {
         boolean isOptionFound = false;
         try {
             String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
-            lookup.sendKeys(value);
+            lookup.shouldBe(visible).sendKeys(value);
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
             isOptionFound = lookUpOption.isDisplayed();
             jsClick(lookUpOption);
