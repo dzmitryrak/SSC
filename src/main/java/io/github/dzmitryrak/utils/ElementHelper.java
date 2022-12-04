@@ -21,6 +21,9 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 //TODO rework for Selenide
+/**
+ * Class processing the logic of interaction with any Salesforce element
+ */
 @Log4j2
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
@@ -32,7 +35,10 @@ public class ElementHelper {
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
     String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
 
-    //TODO amazing javadoc
+    /**
+     * Simple interface for filling any Salesforce element.
+     * The method will get the type of given element by itself.
+     */
     public void fill(String elementLabel, String value) {
         log.info("Filling '{}' field with '{}' value", elementLabel, value);
         long startTime = System.currentTimeMillis();
@@ -127,6 +133,10 @@ public class ElementHelper {
         log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms'", elementLabel, elementType, (endTime - startTime));
     }
 
+    /**
+     * Simple interface for validating any Salesforce element value.
+     * The method will get the type of given element by itself.
+     */
     public void validate(String label, String expectedInput) {
         log.info("Validating '{}' field with '{}' expected value", label, expectedInput);
         String locator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
@@ -144,6 +154,7 @@ public class ElementHelper {
             }
         };
     }
+
     private void jsClick(WebElement el) {
         Selenide.executeJavaScript("arguments[0].click();", el);
     }

@@ -11,6 +11,9 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
+/**
+ * @deprecated
+ */
 @Log4j2
 public class CaseDetailsPage extends BasePage {
 

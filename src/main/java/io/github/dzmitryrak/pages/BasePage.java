@@ -10,6 +10,9 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import static com.codeborne.selenide.Selenide.$;
 
+/**
+ * Class containing basic pages logic.
+ */
 @Log4j2
 public abstract class BasePage {
     protected final By USERPROFILE_BUTTON_LOCATOR = By.xpath("//*[contains(@class, 'slds-global-actions__item')]//ancestor::button[contains(@class, 'branding-userProfile-button')]");
@@ -23,6 +26,9 @@ public abstract class BasePage {
         return $(USERPROFILE_BUTTON_LOCATOR).isDisplayed();
     }
 
+    /**
+     * Wait for "document.readyState" to be "complete".
+     */
     public void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
@@ -31,6 +37,9 @@ public abstract class BasePage {
         };
     }
 
+    /**
+     * Perform a js click on element.
+     */
     @Step("Click on the element")
     public void clickJS(By locator) {
         log.debug("JS click to element using locator {}", locator);

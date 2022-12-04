@@ -8,6 +8,9 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
+/**
+ * Class representing Salesforce login page.
+ */
 @Log4j2
 public class LoginPage extends BasePage {
     private static final By USERNAME_LOCATOR = By.id("username");
