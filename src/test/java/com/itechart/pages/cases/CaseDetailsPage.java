@@ -24,6 +24,8 @@ public class CaseDetailsPage extends BasePage {
     private static final By CONTACT_EMAIL_LOCATOR = By.xpath("(//p[@title='Correo electrónico del contacto'])[2]");
 
 
+
+
     @Step("Check that case page is opened")
     public boolean isDetailsCasePageOpened() {
         log.info("Check that Details Case page is opened");
@@ -39,27 +41,15 @@ public class CaseDetailsPage extends BasePage {
     }
 
     @Step("Validation of fields filled")
-    public CaseDetailsPage validateInput(Map<String, String> data) {
+    public CaseDetailsPage validateInput(String email, String phone, String amount, String period, String company) {
+        validateInputField("Email", email);
+        validateInputField("Correo electrónico Web", email);
+        validateInputField("Teléfono", phone);
+        validateInputField("Teléfono del cliente", phone);
+        validateInputOpportunity("Cantidad de capital", amount);
+        validateInputOpportunity("Pago de frecuencia", period);
+        validateInputOpportunity("Nombre del producto", company);
 
-
-
-
-        validateInputField("Email", "Email");
-
-        for (Map.Entry<String, String> entry : data.entrySet()) {
-            String fieldLabel = entry.getKey();
-            String value = entry.getValue();
-
-            sfHelper.validate(fieldLabel, value);
-        }
-
-//        validateInputField("Email", email);
-//        validateInputField("Correo electrónico Web", email);
-//        validateInputField("Teléfono", expectedPhone);
-//        validateInputField("Teléfono del cliente", phone);
-//        validateInputOpportunity("Cantidad de capital", newExpectedAmount);
-//        validateInputOpportunity("Pago de frecuencia", newExpectedPeriod);
-//        validateInputOpportunity("Nombre del producto", company);
         return this;
     }
 

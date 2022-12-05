@@ -14,12 +14,16 @@ public class AciertoTest extends BaseTest {
     private final String INSURANCE_AMOUNT = "90.000€";
     private final String EMAIL = "acierto1@mailinator.com";
     private final String PHONE = "911000222";
+    private final String EXPECTED_PHONE = String.format("+34%s", PHONE);
     private final String FILTER_LINK = "?filterName=00B7Y000004PyxjUAC";
     private final String INSURANCE_PERIOD = "Anual";
     private final String PERSON_GENDER = "Hombre";
     private final String TENANTID = "ES";
-    private String[] companiesArray = new String[] {"Asisa Vida", "Axa Vida Protec", "Santalucía Vida",
+    private final String[] companiesArray = new String[]{"Asisa Vida", "Axa Vida Protec", "Santalucía Vida",
             "FIATC Vida", "Credit Andorra Life", "Zurich Vida", "Previs Vida", "Allianz Vida Riesgo"};
+    private final String[] sortingLocatorValues = new String[] {"Clasificados en orden descendente", "Clasificados en orden ascendente"};
+    private final String[] columnTitles = new String[] {"Número del caso", "Nombre del contacto", "Asunto", "Estado",
+            "Prioridad","Fecha/Hora de apertura", "Alias del propietario del caso", "Correo electrónico Web" };
 
     @Test(description = "Creation of the insurance record")
     public void acierto() {
@@ -34,59 +38,35 @@ public class AciertoTest extends BaseTest {
 
     @Test(description = "Creation of the insurance record with provider AsisaVida and validation it in Salesforce")
     public void aciertoTestAsisaVidaValidation() {
-        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
-                .imInterestedButtonClick(1)
-                .isFinalModalDisplayed();
-        aciertoPage.callMeOnThisPhoneButtonClick()
-                .isGratitudeModalDisplayed();
-        aciertoPage.closeButtonClick()
-                .isLifeInsurancePageOpened();
+//        aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
+//                .imInterestedButtonClick(1)
+//                .isFinalModalDisplayed();
+//        aciertoPage.callMeOnThisPhoneButtonClick()
+//                .isGratitudeModalDisplayed();
+//        aciertoPage.closeButtonClick()
+//                .isLifeInsurancePageOpened();
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
-        listView.open("Case", FILTER_LINK)
-                .openObjectFromList(1);
+        listView.open("Case");
+        listView.filterSwitcherClick();
+        listView.filterValueChoose(2);
+        listView.columnSortingCheck(columnTitles[0], sortingLocatorValues[0]);
+        listView.openObjectFromList(1);
         detailsPage.isDetailsPageOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
-
-        Map<String, String> userdata = new HashMap<>() {{
-            put("Email", EMAIL);
-            put("Correo electrónico Web", EMAIL);
-            put("Teléfono", PHONE);
-            put("Teléfono del cliente", String.format("+34%s",PHONE));
-            put("Cantidad de capital", "90.000");
-            put("Pago de frecuencia", "Yearly");
-            put("Nombre del producto", companiesArray[0]);
-        }};
-
+        Map<String, String> userdata = new HashMap<>() {
+            {
+                put("Correo electrónico Web", EMAIL);
+                put("Teléfono del cliente", EXPECTED_PHONE);
+            }
+        };
         detailsPage.validate(userdata);
-        detailsPage.clickOnDetailsTab();
+
+        detailsPage.clickDetailsTab();
         detailsPage.isDetailTabPageOpened();
 
-        userdata.remove("Email");
-        userdata.remove("Correo electrónico Web");
-        userdata.remove("Teléfono");
-        userdata.remove("Teléfono del cliente");
-        userdata.remove("Cantidad de capital");
-        userdata.remove("Pago de frecuencia");
-        userdata.remove("Nombre del producto");
-        userdata.put("TenantID", "ES");
-        detailsPage.validate(userdata);
 
-
-
-
-
-
-        caseListViewPage.openUrl();
-       caseListViewPage.isPageOpened();
-        caseListViewPage.openCase(1);
-        caseDetailsPage.isDetailsCasePageOpened();
-        caseDetailsPage.clickOnDetailsTab();
-        caseDetailsPage.validateInput(userdata);
-        caseDetailsPage.clickOnAccountDetailsTab();
-    //    caseDetailsPage.isPersonalDetailTabPageOpened();
-        caseDetailsPage.validateTenantID(TENANTID);
     }
 
 
@@ -119,8 +99,8 @@ public class AciertoTest extends BaseTest {
     @Test(description = "Creation of the insurance record with provider 'Axa Vida Protec' and validation it in Salesforce")
     public void aciertoTestAxaVidaProtecValidation() {
         aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
-                    .imInterestedButtonClick(2)
-                    .isFinalModalDisplayed();
+                .imInterestedButtonClick(2)
+                .isFinalModalDisplayed();
         aciertoPage.callMeOnThisPhoneButtonClick()
                 .isGratitudeModalDisplayed();
         aciertoPage.closeButtonClick()

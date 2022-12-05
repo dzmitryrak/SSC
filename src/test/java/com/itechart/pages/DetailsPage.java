@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.Map;
@@ -44,6 +45,9 @@ public class DetailsPage extends BasePage {
     protected final By DETAILS_TAB = By.xpath("//*[@title='Detalles']");
     private final By DETAILS_TAB_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
     private final By PERSONAL_ACCOUNT_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
+    private final String DETAILS_TAB_FIELD_LOCATOR = "//*[text()='%s']/../..//*[contains(@class, 'slds-form-element__control')]";
+    private final String DETAILS_TAB_OPPORTUNITY = "//*[text()='%s']/../..//*[contains(@class, 'slds-input')]";
+    private final By ACCOUNT_DETAILS_TAB_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
 
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
@@ -83,6 +87,55 @@ public class DetailsPage extends BasePage {
             sfHelper.validate(fieldLabel, value);
         }
 
+        return this;
+    }
+
+    @Step("Clicking on Details tab")
+    public DetailsPage clickDetailsTab() {
+        log.info("Clicking on Account Details Tab");
+        clickJS(ACCOUNT_DETAILS_TAB_LOCATOR);
+        waitForPageLoaded();
+        return this;
+    }
+
+    @Step("Validation of fields filled")
+    public DetailsPage validateTenantID(String value) {
+        log.info("Validate TenantID field value: {}",value);
+        validateInputField("TenantID", value);
+        return this;
+    }
+
+    @Step("Validation of fields filled")
+    public DetailsPage validateInput(String email, String phone, String amount, String period, String company) {
+        validateInputField("Email", email);
+        validateInputField("Correo electrónico Web", email);
+        validateInputField("Teléfono", phone);
+        validateInputField("Teléfono del cliente", phone);
+        validateInputOpportunity("Cantidad de capital", amount);
+        validateInputOpportunity("Pago de frecuencia", period);
+        validateInputOpportunity("Nombre del producto", company);
+        return this;
+    }
+
+    public DetailsPage validateInputField(String locator, String expectedInput) {
+        String actualInput = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, locator))).getText();
+        Assert.assertTrue(actualInput.contains(expectedInput), String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
+        log.debug("Validating {} input.Expected: '{}' Actual: '{}'", locator, expectedInput, actualInput);
+        return this;
+    }
+
+    public DetailsPage validateInputOpportunity(String locator, String expectedInput) {
+        String actualInput = $(By.xpath(String.format(DETAILS_TAB_OPPORTUNITY, locator))).getValue();
+        Assert.assertTrue(actualInput.contains(expectedInput), String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
+        log.debug("Validating {} input.Expected: '{}' Actual: {}", locator, expectedInput, actualInput);
+        return this;
+    }
+
+    @Step("Clicking on Details tab")
+    public DetailsPage clickOnAccountDetailsTab() {
+        log.info("Clicking on Account Details Tab");
+        clickJS(ACCOUNT_DETAILS_TAB_LOCATOR);
+        waitForPageLoaded();
         return this;
     }
 
