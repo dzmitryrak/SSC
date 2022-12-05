@@ -78,8 +78,9 @@ public class ListView extends BasePage {
 
     @Step("Check sorting of the column")
     public ListView columnSortingCheck(String columnTitle, String expectedSortingValue) {
-        String actSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, columnTitle))).getValue();
-        if (!actSortingValue.equals(expectedSortingValue)) {
+        String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, columnTitle))).getText();
+        System.out.println(String.format("actual Sorting Values is %s",actualSortingValue));
+        if (!actualSortingValue.equals(expectedSortingValue)) {
             $(By.xpath(String.format(COLUMN_LOCATOR, columnTitle))).click();
         }
         return this;
