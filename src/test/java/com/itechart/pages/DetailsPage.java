@@ -2,12 +2,10 @@ package com.itechart.pages;
 
 import com.codeborne.selenide.Condition;
 import com.itechart.constants.DetailsTabs;
-import com.itechart.pages.cases.CaseDetailsPage;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.Map;

@@ -12,18 +12,18 @@ public class AciertoTest extends BaseTest {
     private final String ZIPCODE = "22007";
     private final String DATE_OF_BIRTH = "11/10/1967";
     private final String INSURANCE_AMOUNT = "90.000€";
-    String NEW_INSURANCE_AMOUNT = INSURANCE_AMOUNT.replace("€", "");
     private final String EMAIL = "acierto1@mailinator.com";
     private final String PHONE = "911000222";
     private final String EXPECTED_PHONE = String.format("+34%s", PHONE);
     private final String INSURANCE_PERIOD = "Anual";
-    String NEW_INSURANCE_PERIOD = INSURANCE_PERIOD.replace("Anual", "Yearly");
     private final String PERSON_GENDER = "Hombre";
     private final String[] companiesArray = new String[]{"Asisa Vida", "Axa Vida Protec", "Santalucía Vida",
             "FIATC Vida", "Credit Andorra Life", "Zurich Vida", "Previs Vida", "Allianz Vida Riesgo"};
-    private final String[] sortingLocatorValues = new String[] {"descending", "ascending"};
-    private final String[] columnTitles = new String[] {"Número del caso", "Nombre del contacto", "Asunto", "Estado",
-            "Prioridad","Fecha/Hora de apertura", "Alias del propietario del caso", "Correo electrónico Web" };
+    private final String[] sortingLocatorValues = new String[]{"descending", "ascending"};
+    private final String[] columnTitles = new String[]{"Número del caso", "Nombre del contacto", "Asunto", "Estado",
+            "Prioridad", "Fecha/Hora de apertura", "Alias del propietario del caso", "Correo electrónico Web"};
+    String NEW_INSURANCE_AMOUNT = INSURANCE_AMOUNT.replace("€", "");
+    String NEW_INSURANCE_PERIOD = INSURANCE_PERIOD.replace("Anual", "Yearly");
 
     @Test(description = "Creation of the insurance record")
     public void acierto() {
