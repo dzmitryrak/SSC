@@ -19,7 +19,7 @@ public class AciertoTest extends BaseTest {
     private final String PERSON_GENDER = "Hombre";
     private final String[] companiesArray = new String[]{"Asisa Vida", "Axa Vida Protec", "Santalucía Vida",
             "FIATC Vida", "Credit Andorra Life", "Zurich Vida", "Previs Vida", "Allianz Vida Riesgo"};
-    private final String[] sortingLocatorValues = new String[] {"Clasificados en orden descendente", "Clasificados en orden ascendente"};
+    private final String[] sortingLocatorValues = new String[] {"descending", "ascending"};
     private final String[] columnTitles = new String[] {"Número del caso", "Nombre del contacto", "Asunto", "Estado",
             "Prioridad","Fecha/Hora de apertura", "Alias del propietario del caso", "Correo electrónico Web" };
 
@@ -49,9 +49,9 @@ public class AciertoTest extends BaseTest {
         listView.open("Case");
         listView.filterSwitcherClick();
         listView.filterValueChoose(2);
-        listView.columnSortingCheck(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[1]);
         listView.openObjectFromList(1);
-        detailsPage.isDetailsPageOpened();
+        detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
         Map<String, String> userdata = new HashMap<>() {
             {

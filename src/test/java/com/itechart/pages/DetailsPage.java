@@ -42,7 +42,6 @@ public class DetailsPage extends BasePage {
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
     private final String COMMON_TAB = "//a[@data-label='%s']";
     private final By CONTACT_EMAIL_LOCATOR = By.xpath("(//p[@title='Correo electrónico del contacto'])[2]");
-    protected final By DETAILS_TAB = By.xpath("//*[@title='Detalles']");
     private final By DETAILS_TAB_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
     private final By PERSONAL_ACCOUNT_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
     private final String DETAILS_TAB_FIELD_LOCATOR = "//*[text()='%s']/../..//*[contains(@class, 'slds-form-element__control')]";
@@ -51,7 +50,7 @@ public class DetailsPage extends BasePage {
 
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
-        $(By.xpath(String.format(COMMON_TAB, DetailsTabs.Details))).shouldBe(visible, Duration.ofSeconds(20));
+        $(By.xpath(String.format(COMMON_TAB, DetailsTabs.Detalles))).shouldBe(visible, Duration.ofSeconds(20));
         return this;
     }
 
