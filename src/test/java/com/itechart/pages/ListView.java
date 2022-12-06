@@ -5,6 +5,8 @@ import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -18,7 +20,7 @@ public class ListView extends BasePage {
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String FILTER_SWITCHER_VALUE = "(//*[contains(@class,'slds-dropdown__item has-icon--left')])[%s]//a";
-    private final String COLUMN_LOCATOR = "(//*[@title='%s']//span)[1]";
+    private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
     private final String SORTING_COLUMN_LOCATOR = "//*[@title='%s']//*[@class='slds-assistive-text'][@aria-live]";
 
     public void isOpened() {
@@ -78,10 +80,12 @@ public class ListView extends BasePage {
 
     @Step("Check sorting of the column")
     public ListView columnSortingCheck(String columnTitle, String expectedSortingValue) {
+        $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, columnTitle))).shouldBe(visible, Duration.ofSeconds(5));
         String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, columnTitle))).getText();
-        System.out.println(String.format("actual Sorting Values is %s",actualSortingValue));
+        log.info("Actual sorting value is {}", actualSortingValue);
         if (!actualSortingValue.equals(expectedSortingValue)) {
             $(By.xpath(String.format(COLUMN_LOCATOR, columnTitle))).click();
+            log.info("Click on the column titled {} to sort it", columnTitle);
         }
         return this;
     }

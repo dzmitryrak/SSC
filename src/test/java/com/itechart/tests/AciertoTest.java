@@ -15,10 +15,8 @@ public class AciertoTest extends BaseTest {
     private final String EMAIL = "acierto1@mailinator.com";
     private final String PHONE = "911000222";
     private final String EXPECTED_PHONE = String.format("+34%s", PHONE);
-    private final String FILTER_LINK = "?filterName=00B7Y000004PyxjUAC";
     private final String INSURANCE_PERIOD = "Anual";
     private final String PERSON_GENDER = "Hombre";
-    private final String TENANTID = "ES";
     private final String[] companiesArray = new String[]{"Asisa Vida", "Axa Vida Protec", "Santalucía Vida",
             "FIATC Vida", "Credit Andorra Life", "Zurich Vida", "Previs Vida", "Allianz Vida Riesgo"};
     private final String[] sortingLocatorValues = new String[] {"Clasificados en orden descendente", "Clasificados en orden ascendente"};
@@ -63,12 +61,7 @@ public class AciertoTest extends BaseTest {
         };
         detailsPage.validate(userdata);
 
-        detailsPage.clickDetailsTab();
-        detailsPage.isDetailTabPageOpened();
-
-
     }
-
 
     /*
     @Test(description = "Creation of the insurance record with provider AsisaVida and validation it in Salesforce")
@@ -95,7 +88,6 @@ public class AciertoTest extends BaseTest {
     }
      */
 
-
     @Test(description = "Creation of the insurance record with provider 'Axa Vida Protec' and validation it in Salesforce")
     public void aciertoTestAxaVidaProtecValidation() {
         aciertoPage.setPersonRecord(INSURANCE_AMOUNT, INSURANCE_PERIOD, DATE_OF_BIRTH, PERSON_GENDER, ZIPCODE, EMAIL, PHONE)
@@ -116,7 +108,6 @@ public class AciertoTest extends BaseTest {
 //        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[1]);
 //        caseDetailsPage.clickOnAccountDetailsTab();
 //        caseDetailsPage.isPersonalDetailTabPageOpened();
-        caseDetailsPage.validateTenantID(TENANTID);
     }
 
     @Test(description = "Creation of the insurance record with provider 'Santalucía Vida' and validation it in Salesforce")
@@ -139,7 +130,6 @@ public class AciertoTest extends BaseTest {
 //        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[2]);
 //        caseDetailsPage.clickOnAccountDetailsTab();
 //        caseDetailsPage.isPersonalDetailTabPageOpened();
-        caseDetailsPage.validateTenantID(TENANTID);
     }
 
     @Test(description = "Creation of the insurance record with provider 'FIATC Vida' and validation it in Salesforce")
@@ -162,7 +152,6 @@ public class AciertoTest extends BaseTest {
 //        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[3]);
 //        caseDetailsPage.clickOnAccountDetailsTab();
 //        caseDetailsPage.isPersonalDetailTabPageOpened();
-        caseDetailsPage.validateTenantID(TENANTID);
     }
 
     @Test(description = "Creation of the insurance record with provider 'Credit Andorra Life' and validation it in Salesforce")
@@ -185,7 +174,6 @@ public class AciertoTest extends BaseTest {
 //        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[4]);
 //        caseDetailsPage.clickOnAccountDetailsTab();
 //        caseDetailsPage.isPersonalDetailTabPageOpened();
-        caseDetailsPage.validateTenantID(TENANTID);
     }
 
     @Test(description = "Creation of the insurance record with provider 'Zurich Vida' and validation it in Salesforce")
@@ -208,7 +196,6 @@ public class AciertoTest extends BaseTest {
 //        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[5]);
 //        caseDetailsPage.clickOnAccountDetailsTab();
 //        caseDetailsPage.isPersonalDetailTabPageOpened();
-        caseDetailsPage.validateTenantID(TENANTID);
     }
 
     @Test(description = "Creation of the insurance record with provider 'Previs Vida' and validation it in Salesforce")
@@ -231,7 +218,6 @@ public class AciertoTest extends BaseTest {
 //        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[6]);
 //        caseDetailsPage.clickOnAccountDetailsTab();
 //        caseDetailsPage.isPersonalDetailTabPageOpened();
-        caseDetailsPage.validateTenantID(TENANTID);
     }
 
     @Test(description = "Creation of the insurance record with provider 'Allianz Vida Riesgo' and validation it in Salesforce")
@@ -254,6 +240,5 @@ public class AciertoTest extends BaseTest {
 //        caseDetailsPage.validateInput(EMAIL, PHONE, INSURANCE_AMOUNT, INSURANCE_PERIOD, companiesArray[7]);
 //        caseDetailsPage.clickOnAccountDetailsTab();
 //        caseDetailsPage.isPersonalDetailTabPageOpened();
-        caseDetailsPage.validateTenantID(TENANTID);
     }
 }

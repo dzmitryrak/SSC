@@ -68,13 +68,6 @@ public class CaseDetailsPage extends BasePage {
         return $(PERSONAL_ACCOUNT_LOCATOR).isDisplayed();
     }
 
-    @Step("Validation of fields filled")
-    public CaseDetailsPage validateTenantID(String value) {
-        log.info("Validate TenantID field value: {}",value);
-        validateInputField("TenantID", value);
-        return this;
-    }
-
     public CaseDetailsPage validateInputField(String locator, String expectedInput) {
         String actualInput = $(By.xpath(String.format(DETAILS_TAB_FIELD_LOCATOR, locator))).getText();
         Assert.assertTrue(actualInput.contains(expectedInput), String.format("%s input is not correct.Expected: '%s' Actual: '%s'", locator, expectedInput, actualInput));
