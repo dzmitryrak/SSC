@@ -84,7 +84,7 @@ public class ListView extends BasePage {
         //GET attribute class
         String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, columnTitle))).getAttribute("class");
         log.info("Actual sorting value is {}", actualSortingValue);
-        if (actualSortingValue.contains(expectedSortingValue)) {
+        if (!actualSortingValue.contains(expectedSortingValue)) {
             $(By.xpath(String.format(COLUMN_LOCATOR, columnTitle))).click();
             log.info("Click on the column titled {} to sort it", columnTitle);
         }

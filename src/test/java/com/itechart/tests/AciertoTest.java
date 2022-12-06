@@ -49,7 +49,7 @@ public class AciertoTest extends BaseTest {
         listView.open("Case");
         listView.filterSwitcherClick();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[1]);
+        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
