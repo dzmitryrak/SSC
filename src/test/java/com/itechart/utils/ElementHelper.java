@@ -72,10 +72,7 @@ public class ElementHelper {
             if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(clearLookUpField, elementLabel))).click();
             } else {
-                if(!searchForLookupValue(element, value)) {
-                    screenshot("LookUp Search Failure " + System.currentTimeMillis());
-                    throw new RuntimeException(String.format("'%s' option is not found inside Lookup '%s'", value, elementLabel));
-                }
+                searchForLookupValue(element, value);
             }
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
 
@@ -159,20 +156,22 @@ public class ElementHelper {
         Selenide.executeJavaScript("arguments[0].click();", el);
     }
 
-    public boolean searchForLookupValue(SelenideElement lookup, String value) {
+    public void searchForLookupValue(SelenideElement lookup, String value) {
         log.info("Searching for lookup value: {}", value);
-        boolean isOptionFound = false;
-        try {
             String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
-            lookup.shouldBe(visible).sendKeys(value);
-            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
-            jsClick(lookUpOption);
-            isOptionFound = true;
-        } catch (ElementNotFound e) {
-            log.warn("Cannot find look up option: {}", value);
-            log.warn(e.getLocalizedMessage());
-        }
-        return isOptionFound;
+            try {
+                lookup.shouldBe(visible).sendKeys(value);
+                SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+                screenshot("LookUp Search State " + System.currentTimeMillis());
+                lookUpOption.click();
+            } catch (Throwable exception) {
+                log.warn("Failed to find lookup value. Trying once again: {}", value);
+                lookup.shouldBe(visible).clear();
+                lookup.shouldBe(visible).sendKeys(value);
+                SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+                screenshot("LookUp Search State 2nd attempt " + System.currentTimeMillis());
+                lookUpOption.click();
+            }
     }
 
     public void createNewRecordThroughLookup(String elementLabel, Map<String, String> data) {
