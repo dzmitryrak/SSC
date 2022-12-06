@@ -82,7 +82,6 @@ public class DetailsPage extends BasePage {
 
             sfHelper.validate(fieldLabel, value);
         }
-
         return this;
     }
 
