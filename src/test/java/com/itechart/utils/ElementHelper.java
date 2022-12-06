@@ -17,8 +17,7 @@ import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 //TODO rework for Selenide
 @Log4j2
@@ -73,9 +72,11 @@ public class ElementHelper {
             if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(clearLookUpField, elementLabel))).click();
             } else {
-                if(!searchForLookupValue(element, value)) throw new RuntimeException(String.format("'%s' option is not found inside Lookup '%s'", value, elementLabel));
+                if(!searchForLookupValue(element, value)) {
+                    screenshot("LookUp Search Failure " + System.currentTimeMillis());
+                    throw new RuntimeException(String.format("'%s' option is not found inside Lookup '%s'", value, elementLabel));
+                }
             }
-
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
 
             //TextArea
@@ -165,8 +166,8 @@ public class ElementHelper {
             String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
             lookup.shouldBe(visible).sendKeys(value);
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
-            isOptionFound = lookUpOption.isDisplayed();
             jsClick(lookUpOption);
+            isOptionFound = true;
         } catch (ElementNotFound e) {
             log.warn("Cannot find look up option: {}", value);
             log.warn(e.getLocalizedMessage());
