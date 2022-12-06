@@ -9,14 +9,14 @@
             <class name="com.itechart.tests.AccountCRUDTest"/>
         </classes>
     </test> <!-- Test -->
-    <test name="Create for Contact">
+    <test name="CRUD for Contact">
         <classes>
             <class name="com.itechart.tests.ContactCRUDTest"/>
         </classes>
     </test> <!-- Test -->
-    <test name="Create for Lead">
+    <test name="CRUD for Lead">
         <classes>
-            <class name="com.itechart.tests.LeadTest"/>
+            <class name="com.itechart.tests.LeadCRUDTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>
