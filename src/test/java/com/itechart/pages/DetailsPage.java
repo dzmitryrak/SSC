@@ -39,9 +39,6 @@ public class DetailsPage extends BasePage {
     private final By DELETE_MODAL_TITLE = By.xpath("//*[starts-with(text(), 'Delete ')]");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
     private final String COMMON_TAB = "//a[@data-label='%s']";
-    private final By CONTACT_EMAIL_LOCATOR = By.xpath("(//p[@title='Correo electrónico del contacto'])[2]");
-    private final By DETAILS_TAB_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
-    private final By ACCOUNT_DETAILS_TAB_LOCATOR = By.xpath("//*[contains(@class, 'slds-media__body slds-text-heading--small')]//a");
 
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
@@ -71,7 +68,7 @@ public class DetailsPage extends BasePage {
     }
 
     @Step("Validation of entered data")
-    public DetailsPage validate(Map<String, String> data) {
+    public DetailsPage  validate(Map<String, String> data) {
         log.info("Validating Details Data. Expected: {}", data);
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
@@ -80,14 +77,6 @@ public class DetailsPage extends BasePage {
 
             sfHelper.validate(fieldLabel, value);
         }
-        return this;
-    }
-
-    @Step("Clicking on Details tab")
-    public DetailsPage clickDetailsTab() {
-        log.info("Clicking on Account Details Tab");
-        clickJS(ACCOUNT_DETAILS_TAB_LOCATOR);
-        waitForPageLoaded();
         return this;
     }
 
@@ -277,19 +266,5 @@ public class DetailsPage extends BasePage {
     private void waitTillModalOpened() {
         $(DELETE_MODAL_TITLE).shouldBe(visible);
         $(DELETE_MODAL_BUTTON).shouldBe(visible);
-    }
-
-    @Step("Check that case page is opened")
-    public boolean isDetailsPageOpened() {
-        log.info("Check that Details page is opened");
-        return $(CONTACT_EMAIL_LOCATOR).isDisplayed();
-    }
-
-    @Step("Clicking on Details tab")
-    public DetailsPage clickOnDetailsTab() {
-        log.info("Clicking on Account Details Tab");
-        clickJS(DETAILS_TAB_LOCATOR);
-        waitForPageLoaded();
-        return this;
     }
 }

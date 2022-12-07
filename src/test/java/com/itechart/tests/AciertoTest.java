@@ -1,6 +1,7 @@
 package com.itechart.tests;
 
 import com.itechart.constants.DetailsTabs;
+import com.itechart.enums.SortOrder;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -19,9 +20,9 @@ public class AciertoTest extends BaseTest {
     private final String PERSON_GENDER = "Hombre";
     private final String[] companiesArray = new String[]{"Asisa Vida", "Axa Vida Protec", "Santalucía Vida",
             "FIATC Vida", "Credit Andorra Life", "Zurich Vida", "Previs Vida", "Allianz Vida Riesgo"};
-    private final String[] sortingLocatorValues = new String[]{"descending", "ascending"};
-    private final String[] columnTitles = new String[]{"Número del caso", "Nombre del contacto", "Asunto", "Estado",
-            "Prioridad", "Fecha/Hora de apertura", "Alias del propietario del caso", "Correo electrónico Web"};
+    private String columnTitle = "Número del caso";
+
+
     String NEW_INSURANCE_AMOUNT = INSURANCE_AMOUNT.replace("€", "");
     String NEW_INSURANCE_PERIOD = INSURANCE_PERIOD.replace("Anual", "Yearly");
 
@@ -49,9 +50,9 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView.open("Case");
-        listView.filterSwitcherClick();
+        listView.clickSwitcher();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
@@ -83,9 +84,9 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView.open("Case");
-        listView.filterSwitcherClick();
+        listView.clickSwitcher();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
@@ -117,9 +118,9 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView.open("Case");
-        listView.filterSwitcherClick();
+        listView.clickSwitcher();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
@@ -151,9 +152,9 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView.open("Case");
-        listView.filterSwitcherClick();
+        listView.clickSwitcher();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
@@ -185,9 +186,9 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView.open("Case");
-        listView.filterSwitcherClick();
+        listView.clickSwitcher();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
@@ -219,9 +220,9 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView.open("Case");
-        listView.filterSwitcherClick();
+        listView.clickSwitcher();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
@@ -253,9 +254,9 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView.open("Case");
-        listView.filterSwitcherClick();
+        listView.clickSwitcher();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);
@@ -287,9 +288,9 @@ public class AciertoTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         homePage.isPageOpened();
         listView.open("Case");
-        listView.filterSwitcherClick();
+        listView.clickSwitcher();
         listView.filterValueChoose(2);
-        listView.sortColumnAscDesc(columnTitles[0], sortingLocatorValues[0]);
+        listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
         detailsPage.waitTillOpened();
         detailsPage.clickTab(DetailsTabs.Detalles);

@@ -64,7 +64,7 @@ public class ListView extends BasePage {
     }
 
     @Step("Click on filter switcher icon")
-    public ListView filterSwitcherClick() {
+    public ListView clickSwitcher() {
         log.info("Click on filter switcher icon");
         $(FILTER_SWITCHER_BUTTON).click();
         return this;
@@ -77,16 +77,16 @@ public class ListView extends BasePage {
         return this;
     }
 
-    @Step("Check sorting of the column")
-    public ListView sortColumnAscDesc(String columnTitle, String expectedSortingValue) {
-        $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, columnTitle))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5));
+    @Step("Check sorting of the column titled {} with order {}")
+    public ListView sortBy(String column, String ascDesc) {
+        log.info("Sorting the column titled {} in order", column, ascDesc);
+        $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5));
 
-        //GET attribute class
-        String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, columnTitle))).getAttribute("class");
-        log.info("Actual sorting value is {}", actualSortingValue);
-        if (!actualSortingValue.contains(expectedSortingValue)) {
-            $(By.xpath(String.format(COLUMN_LOCATOR, columnTitle))).click();
-            log.info("Click on the column titled {} to sort it", columnTitle);
+        String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).getAttribute("class");
+        log.debug("Actual sorting value is {}", actualSortingValue);
+        if(!actualSortingValue.contains(ascDesc)) {
+            $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
+            log.info("Click on the column titled {} to sort it", column);
         }
         return this;
     }
