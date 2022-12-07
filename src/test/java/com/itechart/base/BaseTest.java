@@ -3,8 +3,8 @@ package com.itechart.base;
 import com.codeborne.selenide.Configuration;
 import com.itechart.pages.*;
 import io.github.dzmitryrak.pages.*;
-import io.github.dzmitryrak.pages.cases.*;
 import com.itechart.utils.PropertyReader;
+import io.github.dzmitryrak.pages.DetailsPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
@@ -23,8 +23,6 @@ public abstract class BaseTest {
     protected ListView listView;
     protected NewObjectModal newObjectModal;
     protected AciertoPage aciertoPage;
-    protected CaseDetailsPage caseDetailsPage;
-    protected CaseListViewPage caseListViewPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final String USERNAME = System.getProperty("username", propertyReader.getPropertyValueByKey("username"));
     protected final String PASSWORD = System.getProperty("password", propertyReader.getPropertyValueByKey("password"));
@@ -53,8 +51,6 @@ public abstract class BaseTest {
         listView = new ListView();
         newObjectModal = new NewObjectModal();
         aciertoPage = new AciertoPage();
-        caseDetailsPage = new CaseDetailsPage();
-        caseListViewPage = new CaseListViewPage();
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")
