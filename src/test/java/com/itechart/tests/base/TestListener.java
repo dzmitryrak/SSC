@@ -1,6 +1,5 @@
 package com.itechart.tests.base;
 
-import com.itechart.utils.AllureUtils;
 import lombok.extern.log4j.Log4j2;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -26,7 +25,6 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         //TODO Api request to set failed status of test case
-        AllureUtils.takeScreenshot();
         log.info("-------------- FAILED TEST {} Duration: {} ----------------", iTestResult.getName(),
                 getExecutionTime(iTestResult));
     }
@@ -34,7 +32,6 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
         //TODO Api request to set skipped status of test case
-        AllureUtils.takeScreenshot();
         log.info("--------- SKIPPING TEST {} ---------", iTestResult.getName());
     }
 
