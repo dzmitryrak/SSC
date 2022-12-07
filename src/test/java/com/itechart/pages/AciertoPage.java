@@ -9,6 +9,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 @Log4j2
 public class AciertoPage extends BasePage {
@@ -53,10 +54,10 @@ public class AciertoPage extends BasePage {
     }
 
     @Step("Check that the Page with options for insurance services is opened")
-    public boolean isLifeInsurancePageOpened() {
+    public void isLifeInsurancePageOpened() {
         log.info("The page with options for insurance services is opened");
         $(LIFE_INSURANCE_LABEL).shouldBe(visible, Duration.ofSeconds(30));
-        return $(LIFE_INSURANCE_LABEL).isDisplayed();
+        closeWebDriver();
     }
 
     @Step("Click on the button [I'm Interested]")
