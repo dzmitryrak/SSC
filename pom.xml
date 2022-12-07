@@ -113,5 +113,10 @@
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.dzmitryrak</groupId>
+            <artifactId>ssc</artifactId>
+            <version>0.1.0</version>
+        </dependency>
     </dependencies>
 </project>
