@@ -18,7 +18,7 @@ public class ListView extends BasePage {
     private final By NEW_BUTTON_LOCATOR = By.xpath("//div[contains(@class, 'oneContent active')]//a[@title='New']");
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
-    private final String FILTER_SWITCHER_VALUE = "(//*[contains(@class,'slds-dropdown__item has-icon--left')])[%s]//a";
+    private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
     private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
     private final String SORTING_COLUMN_LOCATOR = "//th[@title='%s']";
 
@@ -71,13 +71,13 @@ public class ListView extends BasePage {
     }
 
     @Step("Click on the filter value")
-    public ListView filterValueChoose(int index) {
-        log.info("Click on the filter value with the index {}", index);
-        $(By.xpath(String.format(FILTER_SWITCHER_VALUE, index))).click();
+    public ListView selectFilter(String filterValue) {
+        log.info("Click on the filter value {}", filterValue);
+        $(By.xpath(String.format(SELECT_FILTER_LOCATOR, filterValue))).click();
         return this;
     }
 
-    @Step("Check sorting of the column titled {} with order {}")
+    @Step("Check sorting of the column titled {column} with order {ascDesc}")
     public ListView sortBy(String column, String ascDesc) {
         log.info("Sorting the column titled {} in order", column, ascDesc);
         $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5));

@@ -1,10 +1,8 @@
 package com.itechart.tests;
 
-import com.itechart.constants.DetailsTabs;
 import com.itechart.enums.SortOrder;
 import com.itechart.tests.base.BaseTest;
 import org.testng.annotations.Test;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +16,11 @@ public class AciertoTest extends BaseTest {
     private final String EXPECTED_PHONE = String.format("+34%s", PHONE);
     private final String INSURANCE_PERIOD = "Anual";
     private final String PERSON_GENDER = "Hombre";
+    private String tabName = "Detalles";
+    private String selectFilterValue = "Cases Created Today";
     private final String[] companiesArray = new String[]{"Asisa Vida", "Axa Vida Protec", "Santalucía Vida",
             "FIATC Vida", "Credit Andorra Life", "Zurich Vida", "Previs Vida", "Allianz Vida Riesgo"};
     private String columnTitle = "Número del caso";
-
-
     String NEW_INSURANCE_AMOUNT = INSURANCE_AMOUNT.replace("€", "");
     String NEW_INSURANCE_PERIOD = INSURANCE_PERIOD.replace("Anual", "Yearly");
 
@@ -51,11 +49,11 @@ public class AciertoTest extends BaseTest {
         homePage.isPageOpened();
         listView.open("Case");
         listView.clickSwitcher();
-        listView.filterValueChoose(2);
+        listView.selectFilter(selectFilterValue);
         listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
-        detailsPage.waitTillOpened();
-        detailsPage.clickTab(DetailsTabs.Detalles);
+        detailsPage.waitTillOpened(tabName);
+        detailsPage.clickTab(tabName);
         Map<String, String> userdata = new HashMap<>() {
             {
                 put("Correo electrónico Web", EMAIL);
@@ -85,11 +83,11 @@ public class AciertoTest extends BaseTest {
         homePage.isPageOpened();
         listView.open("Case");
         listView.clickSwitcher();
-        listView.filterValueChoose(2);
+        listView.selectFilter(selectFilterValue);
         listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
-        detailsPage.waitTillOpened();
-        detailsPage.clickTab(DetailsTabs.Detalles);
+        detailsPage.waitTillOpened(tabName);
+        detailsPage.clickTab(tabName);
         Map<String, String> userdata = new HashMap<>() {
             {
                 put("Correo electrónico Web", EMAIL);
@@ -119,11 +117,11 @@ public class AciertoTest extends BaseTest {
         homePage.isPageOpened();
         listView.open("Case");
         listView.clickSwitcher();
-        listView.filterValueChoose(2);
+        listView.selectFilter(selectFilterValue);
         listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
-        detailsPage.waitTillOpened();
-        detailsPage.clickTab(DetailsTabs.Detalles);
+        detailsPage.waitTillOpened(tabName);
+        detailsPage.clickTab(tabName);
         Map<String, String> userdata = new HashMap<>() {
             {
                 put("Correo electrónico Web", EMAIL);
@@ -153,11 +151,11 @@ public class AciertoTest extends BaseTest {
         homePage.isPageOpened();
         listView.open("Case");
         listView.clickSwitcher();
-        listView.filterValueChoose(2);
+        listView.selectFilter(selectFilterValue);
         listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
-        detailsPage.waitTillOpened();
-        detailsPage.clickTab(DetailsTabs.Detalles);
+        detailsPage.waitTillOpened(tabName);
+        detailsPage.clickTab(tabName);
         Map<String, String> userdata = new HashMap<>() {
             {
                 put("Correo electrónico Web", EMAIL);
@@ -187,11 +185,11 @@ public class AciertoTest extends BaseTest {
         homePage.isPageOpened();
         listView.open("Case");
         listView.clickSwitcher();
-        listView.filterValueChoose(2);
+        listView.selectFilter(selectFilterValue);
         listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
-        detailsPage.waitTillOpened();
-        detailsPage.clickTab(DetailsTabs.Detalles);
+        detailsPage.waitTillOpened(tabName);
+        detailsPage.clickTab(tabName);
         Map<String, String> userdata = new HashMap<>() {
             {
                 put("Correo electrónico Web", EMAIL);
@@ -221,11 +219,11 @@ public class AciertoTest extends BaseTest {
         homePage.isPageOpened();
         listView.open("Case");
         listView.clickSwitcher();
-        listView.filterValueChoose(2);
+        listView.selectFilter(selectFilterValue);
         listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
-        detailsPage.waitTillOpened();
-        detailsPage.clickTab(DetailsTabs.Detalles);
+        detailsPage.waitTillOpened(tabName);
+        detailsPage.clickTab(tabName);
         Map<String, String> userdata = new HashMap<>() {
             {
                 put("Correo electrónico Web", EMAIL);
@@ -255,11 +253,11 @@ public class AciertoTest extends BaseTest {
         homePage.isPageOpened();
         listView.open("Case");
         listView.clickSwitcher();
-        listView.filterValueChoose(2);
+        listView.selectFilter(selectFilterValue);
         listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
-        detailsPage.waitTillOpened();
-        detailsPage.clickTab(DetailsTabs.Detalles);
+        detailsPage.waitTillOpened(tabName);
+        detailsPage.clickTab(tabName);
         Map<String, String> userdata = new HashMap<>() {
             {
                 put("Correo electrónico Web", EMAIL);
@@ -289,11 +287,11 @@ public class AciertoTest extends BaseTest {
         homePage.isPageOpened();
         listView.open("Case");
         listView.clickSwitcher();
-        listView.filterValueChoose(2);
+        listView.selectFilter(selectFilterValue);
         listView.sortBy(columnTitle, SortOrder.DESC.getText());
         listView.openObjectFromList(1);
-        detailsPage.waitTillOpened();
-        detailsPage.clickTab(DetailsTabs.Detalles);
+        detailsPage.waitTillOpened(tabName);
+        detailsPage.clickTab(tabName);
         Map<String, String> userdata = new HashMap<>() {
             {
                 put("Correo electrónico Web", EMAIL);

@@ -42,7 +42,13 @@ public class DetailsPage extends BasePage {
 
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
-        $(By.xpath(String.format(COMMON_TAB, DetailsTabs.Detalles))).shouldBe(visible, Duration.ofSeconds(20));
+        $(By.xpath(String.format(COMMON_TAB, DetailsTabs.Details))).shouldBe(visible, Duration.ofSeconds(20));
+        return this;
+    }
+
+    @Step("Check that Details page was opened")
+    public DetailsPage waitTillOpened(String tabTitle) {
+        $(By.xpath(String.format(COMMON_TAB, tabTitle))).shouldBe(visible, Duration.ofSeconds(20));
         return this;
     }
 
