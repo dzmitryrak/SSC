@@ -14,7 +14,7 @@ public class ListView extends BasePage {
     protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th)[%s]";
     private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
     //TODO make sure that active layer is selected everywhere
-    private final By NEW_BUTTON_LOCATOR = By.xpath("//*[contains(@class,'windowViewMode') and contains(@class,'active')]//a[@title='New']");
+    private final By NEW_BUTTON_LOCATOR = By.xpath(ACTIVE_TAB_LOCATOR + "//a[@title='New']");
     private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
 
     public void isOpened() {
