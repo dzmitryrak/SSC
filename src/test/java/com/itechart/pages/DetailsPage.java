@@ -33,12 +33,12 @@ public class DetailsPage extends BasePage {
     private final By VIEW_WEBSITE_BUTTON = By.xpath("//a[@name='WebsiteHighlightAction']");
     private final By MARK_STATUS_AS_COMPLETE_BUTTON = By.xpath("//span[text()='Mark Status as Complete']//ancestor::button");
     private final By EDIT_DETAILS_BUTTON_LOCATOR = By.xpath("//*[@name='Edit']");
-    private final By ICON_DROPDOWN_MENU = By.xpath("//*[contains(@class, 'slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last overflow')]//button");
+    private final By MORE_ACTIONS = By.xpath(ACTIVE_TAB_LOCATOR + "//lightning-button-menu[contains(@class, 'menu-button-item')]");
     private final By DELETE_BUTTON = By.xpath("//*[@name='Delete']");
     private final By SUCCESS_MESSAGE = By.xpath("//*[contains(text(), 'Are you sure you want to delete this ')]");
     private final By DELETE_MODAL_TITLE = By.xpath("//*[starts-with(text(), 'Delete ')]");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
-    private final String COMMON_TAB = "//a[@data-label='%s']";
+    private final String COMMON_TAB =  ACTIVE_TAB_LOCATOR + "//a[@data-label='%s']";
 
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
@@ -97,7 +97,7 @@ public class DetailsPage extends BasePage {
     @Step("Click on Dropdown icon menu")
     public DetailsPage clickIconDropdownMenu() {
         try {
-            clickJS(ICON_DROPDOWN_MENU);
+            clickJS(MORE_ACTIONS);
         } catch (StaleElementReferenceException e) {
             //TODO bad error handling. Need to re-throw exception or do smth
             log.warn("Cannot find Icon Dropdown menu icon");
