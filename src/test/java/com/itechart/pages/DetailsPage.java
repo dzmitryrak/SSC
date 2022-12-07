@@ -46,6 +46,12 @@ public class DetailsPage extends BasePage {
         return this;
     }
 
+    @Step("Check that Details page was opened")
+    public DetailsPage waitTillOpened(String tabTitle) {
+        $(By.xpath(String.format(COMMON_TAB, tabTitle))).shouldBe(visible, Duration.ofSeconds(20));
+        return this;
+    }
+
     @Step("Open {tabName} tab")
     public DetailsPage clickTab(String tabName) {
         log.info("Opening {} tab", tabName);
@@ -68,7 +74,7 @@ public class DetailsPage extends BasePage {
     }
 
     @Step("Validation of entered data")
-    public DetailsPage validate(Map<String, String> data) {
+    public DetailsPage  validate(Map<String, String> data) {
         log.info("Validating Details Data. Expected: {}", data);
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
@@ -77,7 +83,6 @@ public class DetailsPage extends BasePage {
 
             sfHelper.validate(fieldLabel, value);
         }
-
         return this;
     }
 
