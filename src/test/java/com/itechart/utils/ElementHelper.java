@@ -122,7 +122,6 @@ public class ElementHelper {
                     jsClick(moveToChosen);
                 }
             }
-
         } else {
             elementType = "ERROR! Cannot identify element";
             throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
