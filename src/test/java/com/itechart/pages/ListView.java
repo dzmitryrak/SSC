@@ -29,7 +29,7 @@ public class ListView extends BasePage {
     @Step("Opening List View")
     public ListView open(String listViewName) {
         log.info("Opening '{}' List View", listViewName);
-        Selenide.open(String.format("/lightning/o/%s/list", listViewName));
+        Selenide.open(String.format("lightning/o/%s/list", listViewName));
         isOpened();
         return this;
     }
