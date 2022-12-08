@@ -71,6 +71,7 @@ public class AccountCRUDTest extends BaseTest {
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Description", faker.lorem().sentence());
             put("Employees", faker.number().digit());
+            put("Multiselect", "No;Probably;one more option");
             put("Billing Street", faker.address().streetAddress());
             put("Billing City", faker.address().city());
             put("Billing State/Province", faker.address().state());
@@ -90,6 +91,7 @@ public class AccountCRUDTest extends BaseTest {
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Description", faker.lorem().sentence());
             put("Employees", faker.number().digit());
+            put("Multiselect", "Yes;Probably;one more option");
             put("Billing Street", faker.address().streetAddress());
             put("Billing City", faker.address().city());
             put("Billing State/Province", faker.address().state());
