@@ -1,6 +1,7 @@
 package io.github.dzmitryrak;
 
 import com.github.javafaker.Faker;
+import io.github.dzmitryrak.constants.DetailsTabs;
 import io.github.dzmitryrak.testbase.BaseTest;
 import org.testng.annotations.Test;
 

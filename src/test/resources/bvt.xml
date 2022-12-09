@@ -11,12 +11,12 @@
     </test> <!-- Test -->
     <test name="CRUD for Contact">
         <classes>
-            <class name="io.github.dzmitryrak.tests.ContactCRUDTest"/>
+            <class name="io.github.dzmitryrak.ContactCRUDTest"/>
         </classes>
     </test> <!-- Test -->
     <test name="CRUD for Lead">
         <classes>
-            <class name="io.github.dzmitryrak.tests.LeadCRUDTest"/>
+            <class name="io.github.dzmitryrak.LeadCRUDTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>
