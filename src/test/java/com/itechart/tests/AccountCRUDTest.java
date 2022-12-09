@@ -129,9 +129,9 @@ public class AccountCRUDTest extends BaseTest {
                 .clickTab(DetailsTabs.Details)
                 .validate(account);
         detailsPage
-                .clickIconDropdownMenu()
-                .editObject();
-        newObjectModal
+                .actions()
+                .moreActions()
+                .edit()
                 .clearData(updatedAccount)
                 .enterData(updatedAccount)
                 .save()
@@ -202,10 +202,9 @@ public class AccountCRUDTest extends BaseTest {
                 .clickTab(DetailsTabs.Details)
                 .validate(account);
         detailsPage
-                .clickIconDropdownMenu()
-                .clickDeleteButton()
-                .delete()
-                .isSuccessDeleteMessageDisplayed();
+                .actions()
+                .moreActions()
+                .delete();
     }
 
     @Test(description = "Create account with several fields specified")
