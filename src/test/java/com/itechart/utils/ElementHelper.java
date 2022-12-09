@@ -3,7 +3,6 @@ package com.itechart.utils;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.ex.ElementNotFound;
 import com.itechart.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -103,15 +102,25 @@ public class ElementHelper {
             //Multi-Select
             elementType = "Picklist (Multi-Select)";
             SelenideElement moveToChosen = $(By.xpath(String.format(pickList + "//button[@title='Move selection to Chosen']", elementLabel)));
+            SelenideElement moveToAvailable = $(By.xpath(String.format(pickList + "//button[@title='Move selection to Available']", elementLabel)));
             String lookupOption = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]";
-            var options = StringUtils.split(value, ";");
-            for (String option : options) {
-                log.debug("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
-                SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
-                Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
-                //TODO possible clickIntercepted due to the duplicates
-                element.shouldBe(visible).click();
-                jsClick(moveToChosen);
+            if (StringUtils.isEmpty(value)) {
+                var chosenOptions = $$(By.xpath(String.format(pickList + "//*[text()='Chosen']//following-sibling::*[@class='slds-dueling-list__options']//li", elementLabel)));
+                for (var option : chosenOptions) {
+                    Selenide.executeJavaScript("arguments[0].scrollIntoView();", option);
+                    option.click();
+                    jsClick(moveToAvailable);
+                }
+            } else {
+                var options = StringUtils.split(value, ";");
+                for (String option : options) {
+                    log.debug("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
+                    SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
+                    Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
+                    //TODO possible clickIntercepted due to the duplicates
+                    element.shouldBe(visible).click();
+                    jsClick(moveToChosen);
+                }
             }
         } else {
             elementType = "ERROR! Cannot identify element";

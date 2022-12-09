@@ -86,6 +86,7 @@ public class ContactCRUDTest extends BaseTest {
             put("First Name", faker.name().name());
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Home Phone", faker.phoneNumber().phoneNumber());
+            put("Multiselect", "Yes;Maybe");
             put("BVT check", "false");
             put("Account Name", "Emory Harber");
             put("Mobile", faker.phoneNumber().phoneNumber());
@@ -124,6 +125,7 @@ public class ContactCRUDTest extends BaseTest {
             put("BVT check", "false");
             put("Account Name", "Desire Barton");
             put("Mobile", faker.phoneNumber().phoneNumber());
+            put("Multiselect", "Maybe");
             put("Title", "any title");
             put("Other Phone", faker.phoneNumber().phoneNumber());
             put("Department", "test");
