@@ -2,8 +2,12 @@ package io.github.dzmitryrak.testbase;
 
 import com.codeborne.selenide.Configuration;
 import io.github.dzmitryrak.pages.*;
-import io.github.dzmitryrak.pages.cases.*;
 import io.github.dzmitryrak.utils.PropertyReader;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import com.itechart.pages.*;
+import com.itechart.pages.acierto.AciertoPage;
+import com.itechart.utils.PropertyReader;
+import io.qameta.allure.selenide.AllureSelenide;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
@@ -21,14 +25,17 @@ public abstract class BaseTest {
     protected DetailsPage detailsPage;
     protected ListView listView;
     protected NewObjectModal newObjectModal;
-    protected CaseDetailsPage caseDetailsPage;
-    protected CaseListViewPage caseListViewPage;
+    protected AciertoPage aciertoPage;
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final String USERNAME = System.getProperty("username", propertyReader.getPropertyValueByKey("username"));
     protected final String PASSWORD = System.getProperty("password", propertyReader.getPropertyValueByKey("password"));
 
     @BeforeMethod(description = "Open browser")
     public void setUp() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true)
+                .includeSelenideSteps(false)
+                .savePageSource(false));
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
         Configuration.browser = "chrome";
@@ -50,8 +57,7 @@ public abstract class BaseTest {
         detailsPage = new DetailsPage();
         listView = new ListView();
         newObjectModal = new NewObjectModal();
-        caseDetailsPage = new CaseDetailsPage();
-        caseListViewPage = new CaseListViewPage();
+        aciertoPage = new AciertoPage();
     }
 
     @AfterMethod(alwaysRun = true, description = "Close browser")

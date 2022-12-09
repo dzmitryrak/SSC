@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="2" name="Regression test suite" parallel="tests">
+<suite thread-count="3" name="Regression test suite" parallel="tests">
     <listeners>
         <listener class-name="io.github.dzmitryrak.testbase.TestListener"/>
     </listeners>
@@ -9,11 +9,14 @@
             <class name="io.github.dzmitryrak.AccountCRUDTest"/>
         </classes>
     </test> <!-- Test -->
-    <test name="Create for Contact">
+    <test name="CRUD for Contact">
         <classes>
-            <class name="io.github.dzmitryrak.ContactCRUDTest"/>
-            <!-- TODO move to separate thread once CRUS is ready -->
-            <class name="io.github.dzmitryrak.LeadTest"/>
+            <class name="io.github.dzmitryrak.tests.ContactCRUDTest"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="CRUD for Lead">
+        <classes>
+            <class name="io.github.dzmitryrak.tests.LeadCRUDTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>

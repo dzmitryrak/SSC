@@ -15,6 +15,8 @@ import static com.codeborne.selenide.Selenide.$;
  */
 @Log4j2
 public abstract class BasePage {
+
+    protected final String ACTIVE_TAB_LOCATOR = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";
     protected final By USERPROFILE_BUTTON_LOCATOR = By.xpath("//*[contains(@class, 'slds-global-actions__item')]//ancestor::button[contains(@class, 'branding-userProfile-button')]");
     protected ElementHelper sfHelper;
 
