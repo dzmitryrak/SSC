@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.itechart</groupId>
-    <artifactId>aciertotf</artifactId>
+    <artifactId>aciertotests</artifactId>
     <version>0.1</version>
 
     <properties>
@@ -26,37 +26,6 @@
         <allure-maven.version>2.12.0</allure-maven.version>
         <ssc.version>0.1.0</ssc.version>
     </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspect.version}/aspectjweaver-${aspect.version}.jar
-                        -Xmx256m
-                    </argLine>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/bvt.xml</suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspect.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>${allure-maven.version}</version>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -113,11 +82,6 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.dzmitryrak</groupId>
-            <artifactId>ssc</artifactId>
-            <version>${ssc.version}</version>
         </dependency>
     </dependencies>
 </project>

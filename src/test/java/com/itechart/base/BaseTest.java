@@ -4,7 +4,6 @@ import com.codeborne.selenide.Configuration;
 import com.itechart.pages.*;
 import io.github.dzmitryrak.pages.*;
 import com.itechart.utils.PropertyReader;
-import io.github.dzmitryrak.pages.DetailsPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
