@@ -1,7 +1,7 @@
 package com.itechart.tests;
 
 import com.itechart.base.BaseTest;
-import com.itechart.enums.SortOrder;
+import io.github.dzmitryrak.enums.SortOrder;
 import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
