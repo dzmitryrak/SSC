@@ -1,4 +1,4 @@
-package io.github.dzmitryrak.testbase;
+package io.github.dzmitryrak.tests.base;
 
 import com.codeborne.selenide.Configuration;
 import io.github.dzmitryrak.pages.*;

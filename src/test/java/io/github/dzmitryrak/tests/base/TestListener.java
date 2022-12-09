@@ -1,4 +1,4 @@
-package io.github.dzmitryrak.testbase;
+package io.github.dzmitryrak.tests.base;
 
 import io.github.dzmitryrak.utils.AllureUtils;
 import lombok.extern.log4j.Log4j2;

@@ -1,4 +1,4 @@
-package io.github.dzmitryrak.testbase;
+package io.github.dzmitryrak.tests.base;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
