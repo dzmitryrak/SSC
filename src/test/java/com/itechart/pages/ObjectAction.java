@@ -59,11 +59,19 @@ public class ObjectAction extends BasePage {
         $(SUCCESS_DELETE_MESSAGE).shouldBe(visible);
     }
 
+    /**
+     * Allows to click any action inside 'More Actions' ribbon or outside it at the details page
+     * @param actionName
+     */
     @Step("Click {actionName} action")
     public void action(String actionName) {
         $(By.xpath(String.format(RIBBON_ACTION_LOCATOR, actionName, actionName))).click();
     }
 
+    /**
+     * Clicks 'More Actions' ribbon
+     * @return
+     */
     @Step("Open additional actions")
     public ObjectAction moreActions() {
         clickJS(MORE_ACTIONS);
