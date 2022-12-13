@@ -1,4 +1,4 @@
-package com.itechart.enums;
+package io.github.dzmitryrak.enums;
 
 public enum SortOrder {
     DESC("descending"),

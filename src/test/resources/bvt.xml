@@ -2,21 +2,21 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="3" name="Regression test suite" parallel="tests">
     <listeners>
-        <listener class-name="com.itechart.tests.base.TestListener"/>
+        <listener class-name="io.github.dzmitryrak.tests.base.TestListener"/>
     </listeners>
     <test name="CRUD for Account">
         <classes>
-            <class name="com.itechart.tests.AccountCRUDTest"/>
+            <class name="io.github.dzmitryrak.tests.AccountCRUDTest"/>
         </classes>
     </test> <!-- Test -->
     <test name="CRUD for Contact">
         <classes>
-            <class name="com.itechart.tests.ContactCRUDTest"/>
+            <class name="io.github.dzmitryrak.tests.ContactCRUDTest"/>
         </classes>
     </test> <!-- Test -->
     <test name="CRUD for Lead">
         <classes>
-            <class name="com.itechart.tests.LeadCRUDTest"/>
+            <class name="io.github.dzmitryrak.tests.LeadCRUDTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>

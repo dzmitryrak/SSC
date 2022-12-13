@@ -1,7 +1,7 @@
-package com.itechart.pages;
+package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Condition;
-import com.itechart.constants.DetailsTabs;
+import io.github.dzmitryrak.constants.DetailsTabs;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -12,6 +12,9 @@ import java.util.Map;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 
+/**
+ * Class representing Salesforce details page.
+ */
 @Log4j2
 public class DetailsPage extends BasePage {
    private final String COMMON_TAB = ACTIVE_TAB_LOCATOR + "//a[@data-label='%s']";

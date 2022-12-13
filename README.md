@@ -4,8 +4,8 @@
 
 **Ready-to-use core for salesforce based test automation projects**
 
-![Maven Central](https://img.shields.io/maven-central/v/io.github.dzmitryrak/SSC.svg)
-![Build Status](https://github.com/dzmitryrak/SSC/actions/workflows/bvt.yml/badge.svg)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.dzmitryrak/ssc.svg)](https://central.sonatype.dev/artifact/io.github.dzmitryrak/ssc/0.1.0/overview)
+[![Build Status](https://github.com/dzmitryrak/SSC/actions/workflows/bvt.yml/badge.svg)](https://github.com/dzmitryrak/SSC/actions/workflows/bvt.yml)
 [![Apache-2.0 License](https://img.shields.io/badge/License-Apache--2.0-informational.svg)](https://choosealicense.com/licenses/apache-2.0/)
 
 </div>
