@@ -1,7 +1,7 @@
-package com.itechart.pages;
+package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Condition;
-import com.itechart.constants.DetailsTabs;
+import io.github.dzmitryrak.constants.DetailsTabs;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -14,6 +14,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
 
+/**
+ * Class representing Salesforce details page.
+ */
 @Log4j2
 public class DetailsPage extends BasePage {
     private final By CHANGE_OWNER_BUTTON = By.xpath("//*[@name='ChangeOwnerOne']");

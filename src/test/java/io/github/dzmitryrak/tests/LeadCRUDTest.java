@@ -1,8 +1,8 @@
-package com.itechart.tests;
+package io.github.dzmitryrak.tests;
 
 import com.github.javafaker.Faker;
-import com.itechart.constants.DetailsTabs;
-import com.itechart.tests.base.BaseTest;
+import io.github.dzmitryrak.constants.DetailsTabs;
+import io.github.dzmitryrak.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;

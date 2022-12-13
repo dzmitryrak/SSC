@@ -1,9 +1,9 @@
-package com.itechart.utils;
+package io.github.dzmitryrak.utils;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.itechart.pages.NewObjectModal;
+import io.github.dzmitryrak.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -19,6 +19,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 //TODO rework for Selenide
+/**
+ * Class processing the logic of interaction with any Salesforce element
+ */
 @Log4j2
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
@@ -30,7 +33,10 @@ public class ElementHelper {
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
     String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
 
-    //TODO amazing javadoc
+    /**
+     * Simple interface for filling any Salesforce element.
+     * The method will get the type of given element by itself.
+     */
     public void fill(String elementLabel, String value) {
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
@@ -133,6 +139,10 @@ public class ElementHelper {
         log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms' Value: '{}'", elementLabel, elementType, (endTime - startTime), value);
     }
 
+    /**
+     * Simple interface for validating any Salesforce element value.
+     * The method will get the type of given element by itself.
+     */
     public void validate(String label, String expectedText) {
         log.info("Validation that '{}' field contains value '{}'", label, expectedText);
 
@@ -161,6 +171,7 @@ public class ElementHelper {
             }
         };
     }
+
     private void jsClick(WebElement el) {
         Selenide.executeJavaScript("arguments[0].click();", el);
     }

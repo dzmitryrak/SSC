@@ -1,4 +1,4 @@
-package com.itechart.utils;
+package io.github.dzmitryrak.utils;
 
 import lombok.extern.log4j.Log4j2;
 
