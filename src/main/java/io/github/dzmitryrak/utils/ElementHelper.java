@@ -140,13 +140,20 @@ public class ElementHelper {
     }
 
     /**
-     * Simple interface for validating any Salesforce element value.
-     * The method will get the type of given element by itself.
+     * Allows to validate field value inside the panel
+     *
+     * @param panel - Name of the panel
+     * @param label - Label of the element
+     * @param expectedText - Expected text
      */
-    public void validate(String label, String expectedText) {
+    public void validate(String panel, String label, String expectedText) {
         log.info("Validation that '{}' field contains value '{}'", label, expectedText);
-
+        String panelLocator = "";
+        if(StringUtils.isNotEmpty(panel)) {
+            panelLocator = String.format("//a[contains(text(), '%s')]/ancestor::article", panel);
+        }
         String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
+                panelLocator +
                 "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
         String checkboxLocator = genericLocator + "//input";
@@ -160,8 +167,20 @@ public class ElementHelper {
         } else {
             //TODO throw custom exception with simple text
             SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
-            input.shouldHave(text(expectedText));
+            if(StringUtils.isNotEmpty(expectedText)) {
+                input.shouldHave(text(expectedText));
+            } else {
+                input.shouldHave(exactTextCaseSensitive(expectedText));
+            }
         }
+    }
+
+    /**
+     * Simple interface for validating any Salesforce element value.
+     * The method will get the type of given element by itself.
+     */
+    public void validate(String label, String expectedText) {
+        validate("", label, expectedText);
     }
 
     private void waitForPageLoaded() {

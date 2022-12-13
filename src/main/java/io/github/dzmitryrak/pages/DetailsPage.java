@@ -63,6 +63,7 @@ public class DetailsPage extends BasePage {
         $(tabLocator).shouldBe(Condition.visible, Duration.ofSeconds(10));
         clickJS(tabLocator);
         waitForPageLoaded();
+        waitTillOpened(tabName);
 
         return this;
     }
@@ -289,5 +290,9 @@ public class DetailsPage extends BasePage {
     private void waitTillModalOpened() {
         $(DELETE_MODAL_TITLE).shouldBe(visible);
         $(DELETE_MODAL_BUTTON).shouldBe(visible);
+    }
+
+    public Panel panels() {
+        return new Panel();
     }
 }
