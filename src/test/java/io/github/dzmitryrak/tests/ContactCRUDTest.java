@@ -1,7 +1,6 @@
 package io.github.dzmitryrak.tests;
 
 import com.github.javafaker.Faker;
-import io.github.dzmitryrak.constants.DetailsTabs;
 import io.github.dzmitryrak.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -54,7 +53,8 @@ public class ContactCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Contact")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(contact)
                 .save()
                 .waitTillModalClosed()
@@ -74,7 +74,7 @@ public class ContactCRUDTest extends BaseTest {
         contact.remove("Other Country");
 
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(contact);
     }
 
@@ -157,7 +157,8 @@ public class ContactCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Contact")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(contact)
                 .save()
                 .waitTillModalClosed()
@@ -176,7 +177,7 @@ public class ContactCRUDTest extends BaseTest {
         contact.remove("Other Zip/Postal Code");
         contact.remove("Other Country");
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(contact);
         detailsPage
                 .actions()
@@ -203,7 +204,7 @@ public class ContactCRUDTest extends BaseTest {
         updatedContact.remove("Other Country");
 
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(updatedContact);
     }
 
@@ -249,7 +250,8 @@ public class ContactCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Contact")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(contact)
                 .save()
                 .waitTillModalClosed()
@@ -268,7 +270,7 @@ public class ContactCRUDTest extends BaseTest {
         contact.remove("Other Zip/Postal Code");
         contact.remove("Other Country");
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(contact);
         detailsPage
                 .actions()

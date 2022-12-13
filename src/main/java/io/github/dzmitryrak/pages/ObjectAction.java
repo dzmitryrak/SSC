@@ -48,6 +48,7 @@ public class ObjectAction extends BasePage {
     public void delete() {
         action("Delete");
 
+        //TODO absolutely not working with other languages
         final By CONFIRMATION_MESSAGE = By.xpath("//*[contains(text(), 'Are you sure you want to delete this ')]");
         final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
         final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
