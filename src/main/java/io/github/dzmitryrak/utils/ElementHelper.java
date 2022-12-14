@@ -1,10 +1,9 @@
-package com.itechart.utils;
+package io.github.dzmitryrak.utils;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.ex.ElementNotFound;
-import com.itechart.pages.NewObjectModal;
+import io.github.dzmitryrak.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -17,10 +16,12 @@ import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 //TODO rework for Selenide
+/**
+ * Class processing the logic of interaction with any Salesforce element
+ */
 @Log4j2
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
@@ -32,7 +33,10 @@ public class ElementHelper {
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
     String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
 
-    //TODO amazing javadoc
+    /**
+     * Simple interface for filling any Salesforce element.
+     * The method will get the type of given element by itself.
+     */
     public void fill(String elementLabel, String value) {
         long startTime = System.currentTimeMillis();
         waitForPageLoaded();
@@ -73,8 +77,7 @@ public class ElementHelper {
             if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(clearLookUpField, elementLabel))).click();
             } else {
-                jsClick(element);
-                if(!searchForLookupValue(element, value)) throw new ElementNotFoundException(String.format("'%s' option is not found inside Lookup '%s'", value, elementLabel));
+                searchForLookupValue(element, value);
             }
 
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
@@ -106,15 +109,25 @@ public class ElementHelper {
             //Multi-Select
             elementType = "Picklist (Multi-Select)";
             SelenideElement moveToChosen = $(By.xpath(String.format(pickList + "//button[@title='Move selection to Chosen']", elementLabel)));
+            SelenideElement moveToAvailable = $(By.xpath(String.format(pickList + "//button[@title='Move selection to Available']", elementLabel)));
             String lookupOption = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]";
-            var options = StringUtils.split(value, ";");
-            for (String option : options) {
-                log.debug("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
-                SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
-                Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
-                //TODO possible clickIntercepted due to the duplicates
-                element.shouldBe(visible).click();
-                jsClick(moveToChosen);
+            if (StringUtils.isEmpty(value)) {
+                var chosenOptions = $$(By.xpath(String.format(pickList + "//*[text()='Chosen']//following-sibling::*[@class='slds-dueling-list__options']//li", elementLabel)));
+                for (var option : chosenOptions) {
+                    Selenide.executeJavaScript("arguments[0].scrollIntoView();", option);
+                    option.click();
+                    jsClick(moveToAvailable);
+                }
+            } else {
+                var options = StringUtils.split(value, ";");
+                for (String option : options) {
+                    log.debug("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
+                    SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
+                    Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
+                    //TODO possible clickIntercepted due to the duplicates
+                    element.shouldBe(visible).click();
+                    jsClick(moveToChosen);
+                }
             }
         } else {
             elementType = "ERROR! Cannot identify element";
@@ -127,6 +140,10 @@ public class ElementHelper {
         log.info("Label: '{}' Element Type: '{}' Time Elapsed: '{}ms' Value: '{}'", elementLabel, elementType, (endTime - startTime), value);
     }
 
+    /**
+     * Simple interface for validating any Salesforce element value.
+     * The method will get the type of given element by itself.
+     */
     public void validate(String label, String expectedText) {
         log.info("Validation that '{}' field contains value '{}'", label, expectedText);
 
@@ -155,24 +172,27 @@ public class ElementHelper {
             }
         };
     }
+
     private void jsClick(WebElement el) {
         Selenide.executeJavaScript("arguments[0].click();", el);
     }
 
-    public boolean searchForLookupValue(SelenideElement lookup, String value) {
+    public void searchForLookupValue(SelenideElement lookup, String value) {
         log.info("Searching for lookup value: {}", value);
-        boolean isOptionFound = false;
-        try {
             String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
-            lookup.sendKeys(value);
-            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
-            isOptionFound = lookUpOption.isDisplayed();
-            jsClick(lookUpOption);
-        } catch (ElementNotFound e) {
-            log.warn("Cannot find look up option: {}", value);
-            throw  new ElementNotFoundException(e.getLocalizedMessage(), e);
-        }
-        return isOptionFound;
+            try {
+                lookup.shouldBe(visible).sendKeys(value);
+                SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+                screenshot("LookUp Search State " + System.currentTimeMillis());
+                lookUpOption.click();
+            } catch (Throwable exception) {
+                log.warn("Failed to find lookup value. Trying once again: {}", value);
+                lookup.shouldBe(visible).clear();
+                lookup.shouldBe(visible).sendKeys(value);
+                SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+                screenshot("LookUp Search State 2nd attempt " + System.currentTimeMillis());
+                lookUpOption.click();
+            }
     }
 
     public void createNewRecordThroughLookup(String elementLabel, Map<String, String> data) {

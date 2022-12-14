@@ -1,6 +1,6 @@
-package com.itechart.tests.base;
+package io.github.dzmitryrak.tests.base;
 
-import com.itechart.utils.AllureUtils;
+import io.github.dzmitryrak.utils.AllureUtils;
 import lombok.extern.log4j.Log4j2;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -26,7 +26,6 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         //TODO Api request to set failed status of test case
-        AllureUtils.takeScreenshot();
         log.info("-------------- FAILED TEST {} Duration: {} ----------------", iTestResult.getName(),
                 getExecutionTime(iTestResult));
     }

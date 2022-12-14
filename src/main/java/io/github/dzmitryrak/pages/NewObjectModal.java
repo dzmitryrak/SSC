@@ -1,4 +1,4 @@
-package com.itechart.pages;
+package io.github.dzmitryrak.pages;
 
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +11,9 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.refresh;
 
+/**
+ * Class representing new object creation popup.
+ */
 @Log4j2
 public class NewObjectModal extends BasePage {
     private final By SAVE_BUTTON_LOCATOR = By.xpath("//button[@name='SaveEdit']");
@@ -20,6 +23,9 @@ public class NewObjectModal extends BasePage {
     private final By EMPTY_REQUIRED_FIELD_LOCATOR = By.xpath("//li[contains(text(),'These required fields must be completed')]");
     private final By MODAL_HEADER_LOCATOR = By.xpath("//*[contains(@class,'slds-modal__header') and not(contains(@class,'empty'))]");
 
+    /**
+     * Wait until modal window header is displayed.
+     */
     public NewObjectModal waitTillOpened() {
         try {
             //TODO generic wait timeout
@@ -32,8 +38,12 @@ public class NewObjectModal extends BasePage {
         return this;
     }
 
+    /**
+     * Fill data into object creation window fields.
+     */
+    @Step("Filling the form")
     public NewObjectModal enterData(Map<String, String> data) {
-        log.info("Entering Account Data: {}", data);
+        log.info("Filling in the form: {}", data);
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String fieldLabel = entry.getKey();
             String value = entry.getValue();
@@ -42,6 +52,22 @@ public class NewObjectModal extends BasePage {
         return this;
     }
 
+    /**
+     * This method allows to fill in any field. Usually used to provide comprehensive validation of the form
+     *
+     * @param field
+     * @param value
+     * @return
+     */
+    @Step("Filling the field {field} using value {value}")
+    public NewObjectModal enterData(String field, String value) {
+        sfHelper.fill(field, value);
+        return this;
+    }
+
+    /**
+     * Clear data from object creation window fields.
+     */
     @Step("Clear data from fields")
     public NewObjectModal clearData(Map<String, String> data) {
         log.info("Clearing Account Data: {}", data.keySet());
@@ -59,12 +85,18 @@ public class NewObjectModal extends BasePage {
         return this;
     }
 
+    /**
+     * Wait till modal window is closed.
+     */
     public DetailsPage waitTillModalClosed() {
         $(MODAL_HEADER_LOCATOR).shouldNotBe(visible);
         return new DetailsPage();
     }
 
     //TODO add all required methods
+    /**
+     * Save object and add a new one.
+     */
     public NewObjectModal saveAndNew() {
         $(SAVE_AND_NEW_BUTTON_LOCATOR).click();
         return this;

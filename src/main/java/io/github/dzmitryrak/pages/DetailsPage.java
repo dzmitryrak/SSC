@@ -1,7 +1,7 @@
-package com.itechart.pages;
+package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Condition;
-import com.itechart.constants.DetailsTabs;
+import io.github.dzmitryrak.constants.DetailsTabs;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -14,6 +14,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
 
+/**
+ * Class representing Salesforce details page.
+ */
 @Log4j2
 public class DetailsPage extends BasePage {
     private final By CHANGE_OWNER_BUTTON = By.xpath("//*[@name='ChangeOwnerOne']");
@@ -33,16 +36,22 @@ public class DetailsPage extends BasePage {
     private final By VIEW_WEBSITE_BUTTON = By.xpath("//a[@name='WebsiteHighlightAction']");
     private final By MARK_STATUS_AS_COMPLETE_BUTTON = By.xpath("//span[text()='Mark Status as Complete']//ancestor::button");
     private final By EDIT_DETAILS_BUTTON_LOCATOR = By.xpath("//*[@name='Edit']");
-    private final By ICON_DROPDOWN_MENU = By.xpath("//*[contains(@class, 'slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last overflow')]//button");
+    private final By MORE_ACTIONS = By.xpath(ACTIVE_TAB_LOCATOR + "//lightning-button-menu[contains(@class, 'menu-button-item')]");
     private final By DELETE_BUTTON = By.xpath("//*[@name='Delete']");
     private final By SUCCESS_MESSAGE = By.xpath("//*[contains(text(), 'Are you sure you want to delete this ')]");
     private final By DELETE_MODAL_TITLE = By.xpath("//*[starts-with(text(), 'Delete ')]");
     private final By DELETE_MODAL_BUTTON = By.xpath("//div[@class='modal-container slds-modal__container']//button[@title= 'Delete']");
-    private final String COMMON_TAB = "//a[@data-label='%s']";
+    private final String COMMON_TAB =  ACTIVE_TAB_LOCATOR + "//a[@data-label='%s']";
 
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
         $(By.xpath(String.format(COMMON_TAB, DetailsTabs.Details))).shouldBe(visible, Duration.ofSeconds(20));
+        return this;
+    }
+
+    @Step("Check that Details page was opened")
+    public DetailsPage waitTillOpened(String tabTitle) {
+        $(By.xpath(String.format(COMMON_TAB, tabTitle))).shouldBe(visible, Duration.ofSeconds(20));
         return this;
     }
 
@@ -68,7 +77,7 @@ public class DetailsPage extends BasePage {
     }
 
     @Step("Validation of entered data")
-    public DetailsPage validate(Map<String, String> data) {
+    public DetailsPage  validate(Map<String, String> data) {
         log.info("Validating Details Data. Expected: {}", data);
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
@@ -77,14 +86,26 @@ public class DetailsPage extends BasePage {
 
             sfHelper.validate(fieldLabel, value);
         }
+        return this;
+    }
 
+    /**
+     * Method allows to validate any field at Details page. Usually used for comprehensive validation
+     *
+     * @param label
+     * @param value
+     * @return
+     */
+    @Step("Validation of the field {label}")
+    public DetailsPage validate(String label, String value) {
+        sfHelper.validate(label, value);
         return this;
     }
 
     @Step("Click on Dropdown icon menu")
     public DetailsPage clickIconDropdownMenu() {
         try {
-            clickJS(ICON_DROPDOWN_MENU);
+            clickJS(MORE_ACTIONS);
         } catch (StaleElementReferenceException e) {
             //TODO bad error handling. Need to re-throw exception or do smth
             log.warn("Cannot find Icon Dropdown menu icon");

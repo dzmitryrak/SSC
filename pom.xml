@@ -4,58 +4,174 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>SSC</artifactId>
-    <version>0.1</version>
+    <groupId>io.github.dzmitryrak</groupId>
+    <artifactId>ssc</artifactId>
+    <version>0.1.1</version>
+    <packaging>jar</packaging>
+
+    <profiles>
+        <profile>
+            <id>ssc-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <argLine>
+                                -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspect.version}/aspectjweaver-${aspect.version}.jar
+                                -Xmx256m
+                            </argLine>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/resources/bvt.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.aspectj</groupId>
+                                <artifactId>aspectjweaver</artifactId>
+                                <version>${aspect.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>io.qameta.allure</groupId>
+                        <artifactId>allure-maven</artifactId>
+                        <version>${allure-maven.version}</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>ssc-deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${nexus-staging-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <ascDirectory>${project.build.directory}</ascDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <selenide.version>6.9.0</selenide.version>
+        <selenide.version>6.10.1</selenide.version>
         <testng.version>7.6.1</testng.version>
         <webdrivermanager.version>5.3.0</webdrivermanager.version>
         <faker.version>1.0.2</faker.version>
         <log4j-core.version>2.19.0</log4j-core.version>
-        <jackson-dataformat-yaml.version>2.13.4</jackson-dataformat-yaml.version>
+        <jackson-dataformat-yaml.version>2.14.0</jackson-dataformat-yaml.version>
         <aspect.version>1.9.6</aspect.version>
-        <rest-assured.version>5.2.0</rest-assured.version>
+        <rest-assured.version>5.3.0</rest-assured.version>
         <lombok.version>1.18.24</lombok.version>
-        <allure-testng.version>2.19.0</allure-testng.version>
-        <gson.version>2.9.0</gson.version>
+        <allure-testng.version>2.20.1</allure-testng.version>
+        <gson.version>2.10</gson.version>
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-        <allure-maven.version>2.10.0</allure-maven.version>
+        <allure-maven.version>2.12.0</allure-maven.version>
+        <allure-selenide.version>2.20.1</allure-selenide.version>
+        <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspect.version}/aspectjweaver-${aspect.version}.jar
-                        -Xmx256m
-                    </argLine>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/bvt.xml</suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspect.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>${allure-maven.version}</version>
-            </plugin>
-        </plugins>
-    </build>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Ready-to-use core for salesforce based test automation projects</description>
+    <url>https://github.com/dzmitryrak/SSC</url>
+    <inceptionYear>2022</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>dzmitryrak</id>
+            <name>Dmitry Rak</name>
+        </developer>
+        <developer>
+            <id>vikalatosh</id>
+            <name>Viktoryia Latosh</name>
+        </developer>
+        <developer>
+            <id>DzmitryViachaslavau</id>
+            <name>Dzmitry Viachaslavau</name>
+        </developer>
+        <developer>
+            <id>VadimTrofimenkov</id>
+            <name>Vadim Trofimenkov</name>
+        </developer>
+        <developer>
+            <id>daverbk</id>
+            <name>David Rabko</name>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/dzmitryrak/SSC.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:dzmitryrak/SSC.git</developerConnection>
+        <url>https://github.com/dzmitryrak/SSC/tree/main</url>
+    </scm>
 
     <dependencies>
         <dependency>
@@ -63,29 +179,11 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdrivermanager.version}</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>${faker.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -98,21 +196,59 @@
             <version>${jackson-dataformat-yaml.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+        <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure-selenide.version}</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>${rest-assured.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>${faker.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/dzmitryrak/SSC/issues</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
 </project>
