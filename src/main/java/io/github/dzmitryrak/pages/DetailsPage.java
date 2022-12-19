@@ -39,6 +39,7 @@ public class DetailsPage extends BasePage {
         $(tabLocator).shouldBe(Condition.visible, Duration.ofSeconds(10));
         clickJS(tabLocator);
         waitForPageLoaded();
+        waitTillOpened(tabName);
 
         return this;
     }
@@ -71,5 +72,9 @@ public class DetailsPage extends BasePage {
 
     public ObjectAction actions() {
         return new ObjectAction();
+    }
+
+    public Panel panels() {
+        return new Panel();
     }
 }
