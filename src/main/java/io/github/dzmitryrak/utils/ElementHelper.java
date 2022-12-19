@@ -186,6 +186,7 @@ public class ElementHelper {
                 lookUpOption.click();
             } catch (Throwable exception) {
                 log.warn("Failed to find lookup value. Trying once again: {}", value);
+                //TODO it actually does not clear. Need to do JS clean or CTRL-A DELETE
                 lookup.shouldBe(visible).clear();
                 lookup.shouldBe(visible).sendKeys(value);
                 SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));

@@ -19,13 +19,12 @@ public class ListView extends BasePage {
     private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
     //TODO make sure that active layer is selected everywhere
     private final By NEW_BUTTON_LOCATOR = By.xpath(ACTIVE_TAB_LOCATOR + "//a[@title='New']");
-    private final By SUCCESS_DELETE_MESSAGE = By.xpath("//*[contains(@class, 'slds-theme--success')]");
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
     private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
     private final String SORTING_COLUMN_LOCATOR = "//th[@title='%s']";
 
-    public void isOpened() {
+    public void waitTillOpened() {
         $(BREADCRUMB_LOCATOR).shouldBe(visible);
     }
 
@@ -33,7 +32,7 @@ public class ListView extends BasePage {
     public ListView open(String listViewName) {
         log.info("Opening '{}' List View", listViewName);
         Selenide.open(String.format("lightning/o/%s/list", listViewName));
-        isOpened();
+        waitTillOpened();
         return this;
     }
 
@@ -50,20 +49,6 @@ public class ListView extends BasePage {
     public void openObjectFromList(int index) {
         log.info("Clicking on the record with the index {}", index);
         $(By.xpath(String.format(CASE_RECORD_LOCATOR, index))).click();
-    }
-
-    @Step("Check that object was deleted successfully")
-    public boolean isSuccessDeleteMessageDisplayed() {
-        boolean isSuccessMessageDisplayed;
-        try {
-            $(SUCCESS_DELETE_MESSAGE).should(exist);
-            isSuccessMessageDisplayed = $(SUCCESS_DELETE_MESSAGE).isDisplayed();
-        } catch (Exception e) {
-            log.warn("Record successfully deleted message is not found");
-            log.warn(e.getLocalizedMessage());
-            isSuccessMessageDisplayed = false;
-        }
-        return isSuccessMessageDisplayed;
     }
 
     @Step("Click on filter switcher icon")

@@ -137,9 +137,9 @@ public class LeadCRUDTest extends BaseTest {
                 .clickTab(DetailsTabs.Details)
                 .validate(lead);
         detailsPage
-                .clickIconDropdownMenu()
-                .editObject();
-        newObjectModal
+                .actions()
+                .moreActions()
+                .edit()
                 .clearData(updatedLead)
                 .enterData(updatedLead)
                 .save()
@@ -208,9 +208,8 @@ public class LeadCRUDTest extends BaseTest {
                 .clickTab(DetailsTabs.Details)
                 .validate(lead);
         detailsPage
-                .clickIconDropdownMenu()
-                .clickDeleteButton()
-                .delete()
-                .isSuccessDeleteMessageDisplayed();
+                .actions()
+                .moreActions()
+                .delete();
     }
 }

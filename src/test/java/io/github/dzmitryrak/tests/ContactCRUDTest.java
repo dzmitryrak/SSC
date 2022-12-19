@@ -179,9 +179,9 @@ public class ContactCRUDTest extends BaseTest {
                 .clickTab(DetailsTabs.Details)
                 .validate(contact);
         detailsPage
-                .clickIconDropdownMenu()
-                .editObject();
-        newObjectModal
+                .actions()
+                .moreActions()
+                .edit()
                 .clearData(updatedContact)
                 .enterData(updatedContact)
                 .save()
@@ -271,9 +271,8 @@ public class ContactCRUDTest extends BaseTest {
                 .clickTab(DetailsTabs.Details)
                 .validate(contact);
         detailsPage
-                .clickIconDropdownMenu()
-                .clickDeleteButton()
-                .delete()
-                .isSuccessDeleteMessageDisplayed();
+                .actions()
+                .moreActions()
+                .delete();
     }
 }
