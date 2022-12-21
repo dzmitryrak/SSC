@@ -130,8 +130,7 @@ public class ElementHelper {
                 }
             }
         } else {
-            elementType = "ERROR! Cannot identify element";
-            throw new SalesforceElementNotFoundException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
+            throw new SalesforceElementNotFoundException(String.format("Unable to identify type of element. Label: '%s'", elementLabel));
         }
 
         Configuration.pollingInterval = 200;
