@@ -60,7 +60,7 @@ public class ObjectAction extends BasePage {
     }
 
     /**
-     * Allows to click any action inside 'More Actions' ribbon or outside it at the details page
+     * Click any action inside 'More Actions' ribbon or outside it at the details page
      * @param actionName
      */
     @Step("Click {actionName} action")
@@ -69,8 +69,8 @@ public class ObjectAction extends BasePage {
     }
 
     /**
-     * Clicks 'More Actions' ribbon
-     * @return
+     * Click 'More Actions' ribbon
+     * @return current instance of ObjectAction
      */
     @Step("Open additional actions")
     public ObjectAction moreActions() {
