@@ -1,6 +1,7 @@
 package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Selenide;
+import io.github.dzmitryrak.enums.SortOrder;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -97,13 +98,13 @@ public class ListView extends BasePage {
      * @return current instance of ListView
      */
     @Step("Check sorting of the column titled {column} with order {ascDesc}")
-    public ListView sortBy(String column, String ascDesc) {
+    public ListView sortBy(String column, SortOrder ascDesc) {
         log.info("Sorting the column titled {} in order", column, ascDesc);
         $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5));
 
         String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).getAttribute("class");
         log.debug("Actual sorting value is {}", actualSortingValue);
-        if(!actualSortingValue.contains(ascDesc)) {
+        if(!actualSortingValue.contains(ascDesc.getText())) {
             $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
             log.info("Click on the column titled {} to sort it", column);
         }
