@@ -77,7 +77,6 @@ public class ElementHelper {
             elementType = "Lookup Relationship";
             SelenideElement element = $(By.xpath(String.format(lookUpField, elementLabel)));
             scrollToElement(element);
-//            Selenide.executeJavaScript("arguments[0].scrollIntoView();", element);
             if (StringUtils.isEmpty(value)) {
                 $(By.xpath(String.format(clearLookUpField, elementLabel))).click();
             } else {
