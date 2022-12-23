@@ -145,7 +145,7 @@ public class LeadCRUDTest extends BaseTest {
                 .enterData(updatedLead)
                 .save()
                 .waitTillModalClosed()
-                .waitTillOpened();;
+                .waitTillOpened();
 
         updatedLead.remove("Salutation");
         updatedLead.remove("First Name");

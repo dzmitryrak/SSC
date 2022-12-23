@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
-
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -62,6 +61,7 @@ public class ObjectAction extends BasePage {
 
     /**
      * Click any action inside 'More Actions' ribbon or outside it at the details page
+     *
      * @param actionName
      */
     @Step("Click {actionName} action")
@@ -71,6 +71,7 @@ public class ObjectAction extends BasePage {
 
     /**
      * Click 'More Actions' ribbon
+     *
      * @return current instance of ObjectAction
      */
     @Step("Open additional actions")

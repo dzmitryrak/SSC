@@ -99,6 +99,7 @@ public class NewObjectModal extends BasePage {
     }
 
     //TODO add all required methods
+
     /**
      * Save object and add a new one.
      */

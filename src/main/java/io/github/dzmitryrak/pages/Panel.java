@@ -13,7 +13,7 @@ public class Panel extends BasePage {
     /**
      * Validate any field on Details page. Usually used for comprehensive validation.
      *
-     * @param field field label
+     * @param field         field label
      * @param expectedValue
      * @return current instance of Panel
      */

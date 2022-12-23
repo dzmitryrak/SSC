@@ -19,6 +19,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 //TODO rework for Selenide
+
 /**
  * Class processing the logic of interaction with any Salesforce element
  */
@@ -149,14 +150,14 @@ public class ElementHelper {
     /**
      * Validate field value inside the panel.
      *
-     * @param panel Name of the panel
-     * @param label Label of the element
+     * @param panel        Name of the panel
+     * @param label        Label of the element
      * @param expectedText Expected text
      */
     public void validate(String panel, String label, String expectedText) {
         log.info("Validation that '{}' field contains value '{}'", label, expectedText);
         String panelLocator = "";
-        if(StringUtils.isNotEmpty(panel)) {
+        if (StringUtils.isNotEmpty(panel)) {
             panelLocator = String.format("//a[contains(text(), '%s')]/ancestor::article", panel);
         }
         String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
@@ -164,9 +165,9 @@ public class ElementHelper {
                 "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
         String checkboxLocator = genericLocator + "//input";
-        if($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
+        if ($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
             SelenideElement checkbox = $(By.xpath(String.format(checkboxLocator, label)));
-            if(expectedText.equals("true")) {
+            if (expectedText.equals("true")) {
                 checkbox.shouldBe(checked);
             } else {
                 checkbox.shouldNotBe(checked);
@@ -174,7 +175,7 @@ public class ElementHelper {
         } else {
             //TODO throw custom exception with simple text
             SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
-            if(StringUtils.isNotEmpty(expectedText)) {
+            if (StringUtils.isNotEmpty(expectedText)) {
                 input.shouldHave(text(expectedText));
             } else {
                 input.shouldHave(exactTextCaseSensitive(expectedText));

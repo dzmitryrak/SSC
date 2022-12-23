@@ -8,12 +8,12 @@ import org.openqa.selenium.By;
 import java.time.Duration;
 import java.util.Map;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class DetailsPage extends BasePage {
-   private final String COMMON_TAB = ACTIVE_TAB_LOCATOR + "//a[@data-label='%s']";
+    private final String COMMON_TAB = ACTIVE_TAB_LOCATOR + "//a[@data-label='%s']";
 
     /**
      * Wait until Details tab is displayed.
