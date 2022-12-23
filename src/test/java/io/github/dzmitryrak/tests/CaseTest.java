@@ -4,6 +4,7 @@ import io.github.dzmitryrak.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.testng.Assert.assertEquals;
 
 public class CaseTest extends BaseTest {
 
@@ -27,7 +28,22 @@ public class CaseTest extends BaseTest {
                 .validate("Status", "New")
                 .validate("Priority", "Low")
                 .validate("Description", "");
+    }
 
+    @Test(description = "Check that values of cells could be interacted")
+    public void tableValidation() {
+        loginPage.open().login(USERNAME, PASSWORD);
+        listView
+                .open("Case")
+                .table()
+                .clickCell("Case Number", 1);
+        detailsPage.waitTillOpened();
+        String subject =
+                listView
+                .open("Case")
+                .table()
+                .getTextFromCell("Subject", 1);
+        assertEquals(subject, "Seeking guidance on electrical wiring installation for GC5060");
 
     }
 }

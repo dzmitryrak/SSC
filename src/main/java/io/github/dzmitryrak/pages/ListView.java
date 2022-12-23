@@ -13,12 +13,9 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class ListView extends BasePage {
-    protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th)[%s]";
-    private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
+  private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
-    private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
-    private final String SORTING_COLUMN_LOCATOR = "//th[@title='%s']";
 
     /**
      * Wait until breadcrumb is displayed.
@@ -43,16 +40,9 @@ public class ListView extends BasePage {
         return this;
     }
 
-    //TODO create wrapper for tableview
-    /**
-     * Open object.
-     *
-     * @param index 1-based row index
-     */
-    @Step("Opening object from the list")
-    public void openObjectFromList(int index) {
-        log.info("Clicking on the record with the index {}", index);
-        $(By.xpath(String.format(CASE_RECORD_LOCATOR, index))).click();
+    public Table table() {
+        waitForPageLoaded();
+        return new Table();
     }
 
     /**
@@ -77,27 +67,6 @@ public class ListView extends BasePage {
     public ListView selectFilter(String filterValue) {
         log.info("Click on the filter value {}", filterValue);
         $(By.xpath(String.format(SELECT_FILTER_LOCATOR, filterValue))).click();
-        return this;
-    }
-
-    /**
-     * Sort table column.
-     *
-     * @param column column to sort
-     * @param ascDesc sorting type
-     * @return current instance of ListView
-     */
-    @Step("Check sorting of the column titled {column} with order {ascDesc}")
-    public ListView sortBy(String column, SortOrder ascDesc) {
-        log.info("Sorting the column titled {} in order", column, ascDesc);
-        $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5));
-
-        String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).getAttribute("class");
-        log.debug("Actual sorting value is {}", actualSortingValue);
-        if(!actualSortingValue.contains(ascDesc.getText())) {
-            $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
-            log.info("Click on the column titled {} to sort it", column);
-        }
         return this;
     }
 
