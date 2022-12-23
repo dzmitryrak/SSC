@@ -1,6 +1,5 @@
 package io.github.dzmitryrak.tests;
 
-import io.github.dzmitryrak.constants.DetailsTabs;
 import io.github.dzmitryrak.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -22,8 +21,7 @@ public class CaseTest extends BaseTest {
                 .validate("Priority", "Low")
                 .validate("Description", "");
         detailsPage
-                .clickTab(DetailsTabs.Details)
-                .waitTillOpened(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate("Subject", "Seeking guidance on electrical wiring installation for GC5060")
                 .validate("Case Number", "00001002")
                 .validate("Status", "New")

@@ -35,7 +35,7 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-    - name: Running BVT test
+    - name: Running BVT
       env:
         USERNAME: ${{ secrets.username }}
         PASSWORD: ${{ secrets.password }}
