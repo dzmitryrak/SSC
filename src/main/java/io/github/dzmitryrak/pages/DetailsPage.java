@@ -1,7 +1,6 @@
 package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Condition;
-import io.github.dzmitryrak.constants.DetailsTabs;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -21,7 +20,7 @@ public class DetailsPage extends BasePage {
      */
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
-        $(By.xpath(String.format(COMMON_TAB, DetailsTabs.Details))).shouldBe(visible, Duration.ofSeconds(20));
+        $(By.xpath(String.format(COMMON_TAB, "Details"))).shouldBe(visible, Duration.ofSeconds(20));
         return this;
     }
 
@@ -31,19 +30,7 @@ public class DetailsPage extends BasePage {
      * @param tabName
      * @return current instance of DetailsPage
      */
-    @Step("Check that Details page was opened")
-    public DetailsPage waitTillOpened(String tabName) {
-        $(By.xpath(String.format(COMMON_TAB, tabName))).shouldBe(visible, Duration.ofSeconds(20));
-        return this;
-    }
-
-    /**
-     * Click specified tab.
-     *
-     * @param tabName
-     * @return current instance of DetailsPage
-     */
-    @Step("Open {tabName} tab")
+    @Step("Open '{tabName}' tab")
     public DetailsPage clickTab(String tabName) {
         log.info("Opening {} tab", tabName);
 
@@ -51,8 +38,7 @@ public class DetailsPage extends BasePage {
         $(tabLocator).shouldBe(Condition.visible, Duration.ofSeconds(10));
         clickJS(tabLocator);
         waitForPageLoaded();
-        waitTillOpened(tabName);
-
+        $(tabLocator).shouldBe(visible, Duration.ofSeconds(10));
         return this;
     }
 

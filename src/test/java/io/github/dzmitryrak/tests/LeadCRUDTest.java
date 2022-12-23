@@ -1,7 +1,6 @@
 package io.github.dzmitryrak.tests;
 
 import com.github.javafaker.Faker;
-import io.github.dzmitryrak.constants.DetailsTabs;
 import io.github.dzmitryrak.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -45,7 +44,8 @@ public class LeadCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Lead")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(lead)
                 .save()
                 .waitTillModalClosed()
@@ -58,7 +58,7 @@ public class LeadCRUDTest extends BaseTest {
         lead.remove("City");
         lead.put("Annual Revenue", "$200,000,000");
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(lead);
     }
 
@@ -121,7 +121,8 @@ public class LeadCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Lead")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(lead)
                 .save()
                 .waitTillModalClosed()
@@ -134,7 +135,7 @@ public class LeadCRUDTest extends BaseTest {
         lead.remove("City");
         lead.put("Annual Revenue", "$200,000,000");
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(lead);
         detailsPage
                 .actions()
@@ -155,7 +156,7 @@ public class LeadCRUDTest extends BaseTest {
         updatedLead.put("Annual Revenue", "$200,000,000");
 
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(updatedLead);
     }
 
@@ -192,7 +193,8 @@ public class LeadCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Lead")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(lead)
                 .save()
                 .waitTillModalClosed()
@@ -205,7 +207,7 @@ public class LeadCRUDTest extends BaseTest {
         lead.remove("City");
         lead.put("Annual Revenue", "$200,000,000");
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(lead);
         detailsPage
                 .actions()

@@ -44,7 +44,7 @@ SSC – generic core for speeding up your own Salesforce test automation framewo
   ###### Validate object data
 
     detailsPage
-        .clickTab(DetailsTabs.Details)
+        .clickTab("Details")
         .validate(account);
 
 <div align="center">

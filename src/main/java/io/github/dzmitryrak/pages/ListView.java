@@ -15,8 +15,6 @@ import static com.codeborne.selenide.Selenide.$;
 public class ListView extends BasePage {
     protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th)[%s]";
     private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
-    //TODO make sure that active layer is selected everywhere
-    private final By NEW_BUTTON_LOCATOR = By.xpath(ACTIVE_TAB_LOCATOR + "//a[@title='New']");
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
     private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
@@ -28,7 +26,7 @@ public class ListView extends BasePage {
      * @return current instance of ListView
      */
     public void waitTillOpened() {
-        $(BREADCRUMB_LOCATOR).shouldBe(visible);
+        $(BREADCRUMB_LOCATOR).shouldBe(visible, Duration.ofSeconds(20));
     }
 
     /**
@@ -43,14 +41,6 @@ public class ListView extends BasePage {
         Selenide.open(String.format("lightning/o/%s/list", listViewName));
         waitTillOpened();
         return this;
-    }
-
-    @Step("Click on New button")
-    public NewObjectModal clickNew() {
-        $(NEW_BUTTON_LOCATOR).click();
-        NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.waitTillOpened();
-        return newObjectModal;
     }
 
     //TODO create wrapper for tableview
@@ -109,5 +99,9 @@ public class ListView extends BasePage {
             log.info("Click on the column titled {} to sort it", column);
         }
         return this;
+    }
+
+    public ListAction actions() {
+        return new ListAction();
     }
 }

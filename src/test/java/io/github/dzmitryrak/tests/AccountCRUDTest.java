@@ -1,7 +1,6 @@
 package io.github.dzmitryrak.tests;
 
 import com.github.javafaker.Faker;
-import io.github.dzmitryrak.constants.DetailsTabs;
 import io.github.dzmitryrak.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -40,7 +39,8 @@ public class AccountCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Account")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(account)
                 .save()
                 .waitTillModalClosed()
@@ -58,7 +58,7 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Country");
 
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(account);
     }
 
@@ -109,7 +109,8 @@ public class AccountCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Account")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(account)
                 .save()
                 .waitTillModalClosed()
@@ -126,7 +127,7 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(account);
         detailsPage
                 .actions()
@@ -152,7 +153,7 @@ public class AccountCRUDTest extends BaseTest {
         updatedAccount.remove("Shipping Country");
 
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(updatedAccount);
     }
 
@@ -182,7 +183,8 @@ public class AccountCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Account")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData(account)
                 .save()
                 .waitTillModalClosed()
@@ -199,7 +201,7 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate(account);
         detailsPage
                 .actions()
@@ -223,7 +225,8 @@ public class AccountCRUDTest extends BaseTest {
         homePage.isPageOpened();
         listView
                 .open("Account")
-                .clickNew()
+                .actions()
+                .newObject()
                 .enterData("Account Name", accountName)
                 //TODO fix issue with related object creation and uncomment
                 //.createRelatedObject("Parent Account", relatedAccount)
@@ -232,7 +235,7 @@ public class AccountCRUDTest extends BaseTest {
                 .waitTillOpened();
 
         detailsPage
-                .clickTab(DetailsTabs.Details)
+                .clickTab("Details")
                 .validate("Account Name", accountName);
                 //.validate("Parent Account", relatedAccount.get("Account Name"));
     }
