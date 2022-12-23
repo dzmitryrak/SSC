@@ -1,5 +1,8 @@
 package io.github.dzmitryrak.enums;
 
+/**
+ * Sort order constants.
+ */
 public enum SortOrder {
     DESC("descending"),
     ASC("ascending");

@@ -11,19 +11,25 @@ import java.util.Map;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 
-/**
- * Class representing Salesforce details page.
- */
 @Log4j2
 public class DetailsPage extends BasePage {
    private final String COMMON_TAB = ACTIVE_TAB_LOCATOR + "//a[@data-label='%s']";
 
+    /**
+     * Wait until Details tab is displayed.
+     */
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
         $(By.xpath(String.format(COMMON_TAB, "Details"))).shouldBe(visible, Duration.ofSeconds(20));
         return this;
     }
 
+    /**
+     * Wait until specified tab is displayed.
+     *
+     * @param tabName
+     * @return current instance of DetailsPage
+     */
     @Step("Open '{tabName}' tab")
     public DetailsPage clickTab(String tabName) {
         log.info("Opening {} tab", tabName);
@@ -36,6 +42,12 @@ public class DetailsPage extends BasePage {
         return this;
     }
 
+    /**
+     * Validate details fields.
+     *
+     * @param data dictionary of field name and expected field value
+     * @return current instance of DetailsPage
+     */
     @Step("Validation of entered data")
     public DetailsPage validate(Map<String, String> data) {
         log.info("Validating Details Data. Expected: {}", data);
@@ -50,11 +62,11 @@ public class DetailsPage extends BasePage {
     }
 
     /**
-     * Method allows to validate any field at Details page. Usually used for comprehensive validation
+     * Validate any field at Details page. Usually used for comprehensive validation.
      *
-     * @param label
-     * @param value
-     * @return
+     * @param label field label
+     * @param value expected field value
+     * @return current instance of DetailsPage
      */
     @Step("Validation of the field {label}")
     public DetailsPage validate(String label, String value) {
@@ -62,6 +74,11 @@ public class DetailsPage extends BasePage {
         return this;
     }
 
+    /**
+     * Access object actions.
+     *
+     * @return instance of ObjectAction
+     */
     public ObjectAction actions() {
         return new ObjectAction();
     }

@@ -11,9 +11,6 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.refresh;
 
-/**
- * Class representing new object creation popup.
- */
 @Log4j2
 public class NewObjectModal extends BasePage {
     private final By SAVE_BUTTON_LOCATOR = By.xpath("//button[@name='SaveEdit']");
@@ -57,7 +54,7 @@ public class NewObjectModal extends BasePage {
      *
      * @param field
      * @param value
-     * @return
+     * @return current instance of NewObjectModal
      */
     @Step("Filling the field {field} using value {value}")
     public NewObjectModal enterData(String field, String value) {
@@ -67,6 +64,9 @@ public class NewObjectModal extends BasePage {
 
     /**
      * Clear data from object creation window fields.
+     *
+     * @param data dictionary, where keys are fields names
+     * @return current instance of NewObjectModal
      */
     @Step("Clear data from fields")
     public NewObjectModal clearData(Map<String, String> data) {
@@ -78,6 +78,11 @@ public class NewObjectModal extends BasePage {
         return this;
     }
 
+    /**
+     * Click save.
+     *
+     * @return current instance of NewObjectModal
+     */
     @Step("Click on Save button")
     public NewObjectModal save() {
         $(SAVE_BUTTON_LOCATOR).shouldBe(visible);
@@ -116,6 +121,13 @@ public class NewObjectModal extends BasePage {
         return $(EMPTY_REQUIRED_FIELD_LOCATOR).isDisplayed();
     }
 
+    /**
+     * Create new record through lookup.
+     *
+     * @param elementLabel
+     * @param data
+     * @return current instance of NewObjectModal
+     */
     @Step("Create new related object")
     public NewObjectModal createRelatedObject(String elementLabel, Map<String, String> data) {
         log.info("Creating new entity: {}", data);

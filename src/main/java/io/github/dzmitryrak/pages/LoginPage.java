@@ -8,9 +8,6 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-/**
- * Class representing Salesforce login page.
- */
 @Log4j2
 public class LoginPage extends BasePage {
     private static final By USERNAME_LOCATOR = By.id("username");
@@ -20,11 +17,21 @@ public class LoginPage extends BasePage {
     private static final By LOGO_LOCATOR = By.id("logo");
     private static final By USERNAME_LABEL_LOCATOR = By.cssSelector(".usernamelabel");
 
+    /**
+     * Check if main logo is displayed.
+     *
+     * @return current instance of LoginPage
+     */
     public LoginPage waitTillOpened() {
         $(LOGO_LOCATOR).shouldBe(Condition.visible);
         return this;
     }
 
+    /**
+     * Open login page.
+     *
+     * @return current instance of LoginPage
+     */
     @Step("Open Login Page")
     public LoginPage open() {
         Selenide.open("/");
@@ -32,6 +39,11 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    /**
+     * @param username
+     * @param password
+     * @return current instance of LoginPage
+     */
     @Step("Login by user: {username}")
     public HomePage login(String username, String password) {
         log.info("Logging into Salesforce with username: {} and password: {}", username, password);
@@ -41,11 +53,17 @@ public class LoginPage extends BasePage {
         return new HomePage();
     }
 
+    /**
+     * @return login error message
+     */
     @Step("Get error message")
     public String getErrorMessage() {
         return $(ERROR_MESSAGE_LOCATOR).getText();
     }
 
+    /**
+     * @return true if username is displayed
+     */
     @Step("Check the displaying of Username")
     public boolean isUsernameDisplayed() {
         return $(USERNAME_LABEL_LOCATOR).isDisplayed();

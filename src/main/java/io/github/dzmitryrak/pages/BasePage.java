@@ -10,9 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import static com.codeborne.selenide.Selenide.$;
 
-/**
- * Class containing basic pages logic.
- */
 @Log4j2
 public abstract class BasePage {
 
@@ -24,6 +21,9 @@ public abstract class BasePage {
         sfHelper = new ElementHelper();
     }
 
+    /**
+     * Check if user profile button is displayed.
+     */
     public boolean isPageOpened() {
         return $(USERPROFILE_BUTTON_LOCATOR).isDisplayed();
     }
@@ -41,6 +41,8 @@ public abstract class BasePage {
 
     /**
      * Perform a js click on element.
+     *
+     * @param locator
      */
     @Step("Click on the element")
     public void clickJS(By locator) {

@@ -34,7 +34,7 @@ public class ElementHelper {
     String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
 
     /**
-     * Simple interface for filling any Salesforce element.
+     * Fill any Salesforce element.
      * The method will get the type of given element by itself.
      */
     public void fill(String elementLabel, String value) {
@@ -147,11 +147,11 @@ public class ElementHelper {
     }
 
     /**
-     * Allows to validate field value inside the panel
+     * Validate field value inside the panel.
      *
-     * @param panel - Name of the panel
-     * @param label - Label of the element
-     * @param expectedText - Expected text
+     * @param panel Name of the panel
+     * @param label Label of the element
+     * @param expectedText Expected text
      */
     public void validate(String panel, String label, String expectedText) {
         log.info("Validation that '{}' field contains value '{}'", label, expectedText);
@@ -190,6 +190,9 @@ public class ElementHelper {
         validate("", label, expectedText);
     }
 
+    /**
+     * Wait for "document.readyState" to be "complete".
+     */
     private void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
