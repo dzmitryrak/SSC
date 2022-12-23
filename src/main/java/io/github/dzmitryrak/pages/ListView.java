@@ -8,7 +8,8 @@ import org.openqa.selenium.By;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.attributeMatching;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
@@ -44,6 +45,7 @@ public class ListView extends BasePage {
     }
 
     //TODO create wrapper for tableview
+
     /**
      * Open object.
      *
@@ -83,7 +85,7 @@ public class ListView extends BasePage {
     /**
      * Sort table column.
      *
-     * @param column column to sort
+     * @param column  column to sort
      * @param ascDesc sorting type
      * @return current instance of ListView
      */
@@ -94,7 +96,7 @@ public class ListView extends BasePage {
 
         String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).getAttribute("class");
         log.debug("Actual sorting value is {}", actualSortingValue);
-        if(!actualSortingValue.contains(ascDesc.getText())) {
+        if (!actualSortingValue.contains(ascDesc.getText())) {
             $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
             log.info("Click on the column titled {} to sort it", column);
         }

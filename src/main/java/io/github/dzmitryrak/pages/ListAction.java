@@ -22,6 +22,7 @@ public class ListAction extends BasePage {
 
     /**
      * Allows to click any action inside 'More Actions' ribbon or outside it at the details page
+     *
      * @param actionName
      */
     @Step("Click {actionName} action")
@@ -31,6 +32,7 @@ public class ListAction extends BasePage {
 
     /**
      * Locator should be updated before use
+     *
      * @return
      */
     @Deprecated

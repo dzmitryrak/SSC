@@ -58,7 +58,7 @@ public class ContactCRUDTest extends BaseTest {
                 .enterData(contact)
                 .save()
                 .waitTillModalClosed()
-                .waitTillOpened();;
+                .waitTillOpened();
         contact.remove("First Name");
         contact.remove("Last Name");
         contact.remove("Salutation");
@@ -187,7 +187,7 @@ public class ContactCRUDTest extends BaseTest {
                 .enterData(updatedContact)
                 .save()
                 .waitTillModalClosed()
-                .waitTillOpened();;
+                .waitTillOpened();
 
         updatedContact.remove("First Name");
         updatedContact.remove("Last Name");
