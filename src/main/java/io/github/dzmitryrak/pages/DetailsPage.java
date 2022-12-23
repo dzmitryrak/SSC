@@ -65,4 +65,8 @@ public class DetailsPage extends BasePage {
     public ObjectAction actions() {
         return new ObjectAction();
     }
+
+    public Panel panels() {
+        return new Panel();
+    }
 }

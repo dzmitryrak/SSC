@@ -19,4 +19,9 @@
             <class name="io.github.dzmitryrak.tests.LeadCRUDTest"/>
         </classes>
     </test> <!-- Test -->
+    <test name="Cases">
+        <classes>
+            <class name="io.github.dzmitryrak.tests.CaseTest"/>
+        </classes>
+    </test> <!-- Test -->
 </suite>
