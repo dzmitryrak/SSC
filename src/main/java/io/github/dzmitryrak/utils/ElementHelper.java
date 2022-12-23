@@ -82,6 +82,7 @@ public class ElementHelper {
             } else {
                 searchForLookupValue(element, value);
             }
+
         } else if ($$(By.xpath(String.format(textArea, elementLabel))).size() > 0) {
 
             //TextArea
@@ -136,8 +137,7 @@ public class ElementHelper {
                 }
             }
         } else {
-            elementType = "ERROR! Cannot identify element";
-            throw new RuntimeException(String.format("Unable to identify type of element. Label: '%s' Element Type: '%s'", elementLabel, elementType));
+            throw new SalesforceElementNotFoundException(String.format("Unable to identify type of element. Label: '%s'", elementLabel));
         }
 
         Configuration.pollingInterval = 200;
