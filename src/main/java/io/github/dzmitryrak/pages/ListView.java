@@ -92,8 +92,11 @@ public class ListView extends BasePage {
     @Step("Check sorting of the column titled {column} with order {ascDesc}")
     public ListView sortBy(String column, SortOrder ascDesc) {
         log.info("Sorting the column titled {} in order", column, ascDesc);
-        $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5));
-
+        try {
+            $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5)).exists();
+        } catch (Throwable exception) {
+            $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
+        }
         String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).getAttribute("class");
         log.debug("Actual sorting value is {}", actualSortingValue);
         if (!actualSortingValue.contains(ascDesc.getText())) {
