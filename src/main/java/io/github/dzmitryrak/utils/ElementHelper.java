@@ -158,7 +158,7 @@ public class ElementHelper {
         log.info("Validation that '{}' field contains value '{}'", label, expectedText);
         String panelLocator = "";
         if (StringUtils.isNotEmpty(panel)) {
-            panelLocator = String.format("//a[contains(text(), '%s')]/ancestor::article", panel);
+            panelLocator = String.format("//*[contains(text(), '%s')]/ancestor::article", panel);
         }
         String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
                 panelLocator +
