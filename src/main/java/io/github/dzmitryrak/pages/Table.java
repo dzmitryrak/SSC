@@ -96,21 +96,25 @@ public class Table extends BasePage {
     /**
      * Sort table column.
      *
-     * @param column column to sort
+     * @param column  column to sort
      * @param ascDesc sorting type
      * @return current instance of ListView
      */
     @Step("Check sorting of the column titled {column} with order {ascDesc}")
     public Table sortBy(String column, SortOrder ascDesc) {
         log.info("Sorting the column titled {} in order", column, ascDesc);
-        $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5));
-
+        try {
+            $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5)).exists();
+        } catch (Throwable exception) {
+            $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
+        }
         String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).getAttribute("class");
         log.debug("Actual sorting value is {}", actualSortingValue);
-        if(!actualSortingValue.contains(ascDesc.getText())) {
+        if (!actualSortingValue.contains(ascDesc.getText())) {
             $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
             log.info("Click on the column titled {} to sort it", column);
         }
         return this;
     }
+
 }
