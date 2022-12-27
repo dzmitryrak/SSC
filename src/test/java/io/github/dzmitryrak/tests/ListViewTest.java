@@ -10,7 +10,8 @@ public class ListViewTest extends BaseTest {
     @Test(description = "Check that listview sorting exists and works")
     public void sortingListView(){
         loginPage.open().login(USERNAME, PASSWORD);
-        open("https://tms41-dev-ed.lightning.force.com/lightning");
+        open("https://tms41-dev-ed.lightning.force.com/lightning/o/Case/list?filterName=Recent");
+        listView.sortBy("Case Number", SortOrder.ASC);
         listView.clickSwitcher();
         listView.selectFilter("My Cases");
         listView.sortBy("Case Number", SortOrder.DESC);
