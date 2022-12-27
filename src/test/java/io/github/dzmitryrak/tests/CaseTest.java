@@ -43,8 +43,9 @@ public class CaseTest extends BaseTest {
                 listView
                 .open("Case")
                 .table()
+                .sortBy("Case Number", SortOrder.ASC)
                 .getTextFromCell("Subject", 1);
-        assertEquals(subject, "Seeking guidance on electrical wiring installation for GC5060");
+        assertEquals(subject, "Starting generator after electrical failure");
     }
 
     @Test(description = "Check that listview sorting exists and works")
