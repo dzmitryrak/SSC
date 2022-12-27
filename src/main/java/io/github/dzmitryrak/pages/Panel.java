@@ -1,12 +1,18 @@
 package io.github.dzmitryrak.pages;
 
+import java.time.Duration;
 import java.util.Map;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class Panel extends BasePage {
     String panelName;
 
     public Panel panel(String name) {
         panelName = name;
+        $x(String.format(ACTIVE_TAB_LOCATOR + "//*[contains(text(), '%s')]/ancestor::article", name)).shouldBe(visible, Duration.ofSeconds(10));
+
         return this;
     }
 
