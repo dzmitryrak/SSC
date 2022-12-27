@@ -39,7 +39,7 @@ jobs:
       env:
         USERNAME: ${{ secrets.username }}
         PASSWORD: ${{ secrets.password }}
-      run: mvn clean test -Dusername=$USERNAME -Dpassword=$PASSWORD
+      run: mvn clean test -P ssc-test -Dusername=$USERNAME -Dpassword=$PASSWORD
     - name: Get Allure history
       uses: actions/checkout@v2
       if: always()
