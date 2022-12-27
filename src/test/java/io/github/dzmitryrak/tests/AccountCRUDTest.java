@@ -137,7 +137,7 @@ public class AccountCRUDTest extends BaseTest {
                 .enterData(updatedAccount)
                 .save()
                 .waitTillModalClosed()
-                .waitTillOpened();;
+                .waitTillOpened();
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");
@@ -237,6 +237,6 @@ public class AccountCRUDTest extends BaseTest {
         detailsPage
                 .clickTab("Details")
                 .validate("Account Name", accountName);
-                //.validate("Parent Account", relatedAccount.get("Account Name"));
+        //.validate("Parent Account", relatedAccount.get("Account Name"));
     }
 }

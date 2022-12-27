@@ -1,9 +1,9 @@
 package io.github.dzmitryrak.tests.base;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import io.github.dzmitryrak.pages.*;
 import io.github.dzmitryrak.utils.PropertyReader;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
