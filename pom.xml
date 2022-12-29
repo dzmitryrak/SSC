@@ -116,7 +116,7 @@
         <faker.version>1.0.2</faker.version>
         <log4j-core.version>2.19.0</log4j-core.version>
         <jackson-dataformat-yaml.version>2.14.1</jackson-dataformat-yaml.version>
-        <aspect.version>1.9.19</aspect.version>
+        <aspect.version>1.9.6</aspect.version>
         <lombok.version>1.18.24</lombok.version>
         <allure-testng.version>2.20.1</allure-testng.version>
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
