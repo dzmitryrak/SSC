@@ -5,6 +5,7 @@ import io.github.dzmitryrak.enums.SortOrder;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 
 import java.time.Duration;
 
@@ -14,12 +15,13 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class ListView extends BasePage {
-    protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th)[%s]";
+    protected final String CASE_RECORD_LOCATOR = "(//*[contains(@class, 'slds-cell-edit slds-cell-error errorColumn cellContainer')]/parent::tr//th//a)[%s]";
     private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
     private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
     private final String SORTING_COLUMN_LOCATOR = "//th[@title='%s']";
+    private final By X_BUTTON = By.xpath("//*[contains(@data-key,'close')]/ancestor::button[@tabindex]");
 
     /**
      * Wait until breadcrumb is displayed.
@@ -100,6 +102,19 @@ public class ListView extends BasePage {
         if (!actualSortingValue.contains(ascDesc.getText())) {
             $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
             log.info("Click on the column titled {} to sort it", column);
+        }
+        return this;
+    }
+
+    @Step("Close all opened tabs")
+    public ListView xButtonClick() {
+        log.info("Click on [X] button on Case tab");
+        while ($(X_BUTTON).exists()){
+            try {
+                $(X_BUTTON).click();
+            } catch (Throwable exception) {
+                break;
+            }
         }
         return this;
     }
