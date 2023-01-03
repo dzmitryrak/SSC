@@ -1,9 +1,11 @@
 package io.github.dzmitryrak.tests;
 
+import io.github.dzmitryrak.enums.SortOrder;
 import io.github.dzmitryrak.tests.base.BaseTest;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.testng.Assert.assertEquals;
 
 public class CaseTest extends BaseTest {
 
@@ -27,7 +29,32 @@ public class CaseTest extends BaseTest {
                 .validate("Status", "New")
                 .validate("Priority", "Low")
                 .validate("Description", "");
+    }
 
+    @Test(description = "Check that values of cells could be interacted")
+    public void tableValidation() {
+        loginPage.open().login(USERNAME, PASSWORD);
+        listView
+                .open("Case")
+                .table()
+                .clickCell("Case Number", 1);
+        detailsPage.waitTillOpened();
+        String subject =
+                listView
+                .open("Case")
+                .table()
+                .sortBy("Case Number", SortOrder.ASC)
+                .getTextFromCell("Subject", 1);
+        assertEquals(subject, "Starting generator after electrical failure");
+    }
 
+    @Test(description = "Check that listview sorting exists and works")
+    public void sortingListView(){
+        loginPage.open().login(USERNAME, PASSWORD);
+        listView.open("Case");
+        listView.clickSwitcher();
+        listView.selectFilter("My Cases");
+        listView.table().sortBy("Case Number", SortOrder.DESC);
+        listView.table().clickCell("Case Number", 1);
     }
 }

@@ -25,12 +25,12 @@ Configuration:
         AppenderRef:
           ref: consoleAppender
       - name: fileLogger
-        level: INFO
+        level: DEBUG
         additivity: false
         AppenderRef:
           ref: fileAppender
     Root:
-      level: INFO
+      level: DEBUG
       AppenderRef:
         - ref: consoleAppender
           level: INFO
