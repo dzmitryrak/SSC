@@ -1,5 +1,6 @@
 package io.github.dzmitryrak.pages;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -8,8 +9,7 @@ import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.refresh;
+import static com.codeborne.selenide.Selenide.*;
 
 @Log4j2
 public class NewObjectModal extends BasePage {
@@ -19,6 +19,8 @@ public class NewObjectModal extends BasePage {
     private final By SAVE_AND_NEW_BUTTON_LOCATOR = By.cssSelector("[title='Save & New']");
     private final By EMPTY_REQUIRED_FIELD_LOCATOR = By.xpath("//li[contains(text(),'These required fields must be completed')]");
     private final By MODAL_HEADER_LOCATOR = By.xpath("//*[contains(@class,'slds-modal__header') and not(contains(@class,'empty'))]");
+    private final By ERROR_POPUP = By.xpath("//*[contains(@class, 'slds-popover_error')]");
+    private final By ERROR_MESSAGE = By.xpath("//*[@class='fieldLevelErrors']");
 
     /**
      * Wait until modal window header is displayed.
@@ -133,6 +135,19 @@ public class NewObjectModal extends BasePage {
     public NewObjectModal createRelatedObject(String elementLabel, Map<String, String> data) {
         log.info("Creating new entity: {}", data);
         sfHelper.createNewRecordThroughLookup(elementLabel, data);
+        return this;
+    }
+
+    /**
+     * Read all error messages on NewObjectModal.
+     * log error message
+     * @return current instance of NewObjectModal
+     */
+    @Step("Read Error Messages")
+    public NewObjectModal readErrorMessage() {
+        $(ERROR_POPUP).shouldBe(visible, Duration.ofSeconds(5));
+        String errorMessage = $(ERROR_MESSAGE).shouldBe(visible, Duration.ofSeconds(5)).getText();
+        log.info("Popup Error Message: {}", errorMessage);
         return this;
     }
 }
