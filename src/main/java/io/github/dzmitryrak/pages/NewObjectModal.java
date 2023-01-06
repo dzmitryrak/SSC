@@ -144,10 +144,10 @@ public class NewObjectModal extends BasePage {
      * @return current instance of NewObjectModal
      */
     @Step("Read Error Messages")
-    public NewObjectModal readErrorMessage() {
+    public String readErrorMessage() {
         $(ERROR_POPUP).shouldBe(visible);
         String errorMessage = $(ERROR_MESSAGE).shouldBe(visible).getText();
         log.info("Popup Error Message: {}", errorMessage);
-        return this;
+        return errorMessage;
     }
 }
