@@ -24,7 +24,7 @@
             <class name="io.github.dzmitryrak.tests.CaseTest"/>
         </classes>
     </test> <!-- Test -->
-    <test name="Read Error on New Modal Object">
+    <test name="Others">
         <classes>
             <class name="io.github.dzmitryrak.tests.ReadModalErrorTest"/>
         </classes>
