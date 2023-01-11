@@ -107,6 +107,7 @@ public class Table extends BasePage {
             $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5)).exists();
         } catch (Throwable exception) {
             $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
+//            waitForPageLoaded();
         }
         String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).getAttribute("class");
         log.debug("Actual sorting value is {}", actualSortingValue);
