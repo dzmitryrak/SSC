@@ -63,8 +63,6 @@ public abstract class BaseTest {
             log.warn("Unable to close WebDriver. Make sure that driver is initialized");
             log.warn(ex.getMessage());
             log.debug(ex.getStackTrace());
-        } finally {
-            getWebDriver().quit();
         }
     }
 }
