@@ -103,17 +103,18 @@ public class Table extends BasePage {
     @Step("Check sorting of the column titled {column} with order {ascDesc}")
     public Table sortBy(String column, SortOrder ascDesc) {
         log.info("Sorting the column titled {} in order", column, ascDesc);
+        SelenideElement element = $(By.xpath(String.format(COLUMN_LOCATOR, column)));
         try {
             $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).shouldHave(attributeMatching("class", ".*ending.*"), Duration.ofSeconds(5)).exists();
         } catch (Throwable exception) {
-            $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
-            waitForPageLoaded();
+            element.click();
+            element.shouldBe(visible);
         }
         String actualSortingValue = $(By.xpath(String.format(SORTING_COLUMN_LOCATOR, column))).getAttribute("class");
         log.debug("Actual sorting value is {}", actualSortingValue);
         if (!actualSortingValue.contains(ascDesc.getText())) {
-            $(By.xpath(String.format(COLUMN_LOCATOR, column))).click();
-            waitForPageLoaded();
+            element.click();
+            element.shouldBe(visible);
             log.info("Click on the column titled {} to sort it", column);
         }
         return this;
