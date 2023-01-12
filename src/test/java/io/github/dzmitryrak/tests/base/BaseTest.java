@@ -59,10 +59,12 @@ public abstract class BaseTest {
     public void tearDown() {
         try {
             getWebDriver().quit();
-        } catch (IllegalStateException ex) {
+        } catch (Exception ex) {
             log.warn("Unable to close WebDriver. Make sure that driver is initialized");
             log.warn(ex.getMessage());
             log.debug(ex.getStackTrace());
+        } finally {
+            getWebDriver().quit();
         }
     }
 }
