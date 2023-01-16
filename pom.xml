@@ -1,14 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>io.github.dzmitryrak</groupId>
     <artifactId>ssc</artifactId>
     <version>0.1.3</version>
     <packaging>jar</packaging>
-
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Ready-to-use core for salesforce based test automation projects</description>
+    <url>https://github.com/dzmitryrak/SSC</url>
+    <inceptionYear>2022</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>dzmitryrak</id>
+            <name>Dmitry Rak</name>
+        </developer>
+        <developer>
+            <id>vikalatosh</id>
+            <name>Viktoryia Latosh</name>
+        </developer>
+        <developer>
+            <id>DzmitryViachaslavau</id>
+            <name>Dzmitry Viachaslavau</name>
+        </developer>
+        <developer>
+            <id>VadimTrofimenkov</id>
+            <name>Vadim Trofimenkov</name>
+        </developer>
+        <developer>
+            <id>daverbk</id>
+            <name>David Rabko</name>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/dzmitryrak/SSC.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:dzmitryrak/SSC.git</developerConnection>
+        <url>https://github.com/dzmitryrak/SSC/tree/main</url>
+    </scm>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/dzmitryrak/SSC/issues</url>
+    </issueManagement>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <selenide.version>6.10.3</selenide.version>
+        <testng.version>7.7.0</testng.version>
+        <webdrivermanager.version>5.3.1</webdrivermanager.version>
+        <faker.version>1.0.2</faker.version>
+        <log4j-core.version>2.19.0</log4j-core.version>
+        <jackson-dataformat-yaml.version>2.14.1</jackson-dataformat-yaml.version>
+        <aspect.version>1.9.6</aspect.version>
+        <lombok.version>1.18.24</lombok.version>
+        <allure-testng.version>2.20.1</allure-testng.version>
+        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+        <allure-maven.version>2.12.0</allure-maven.version>
+        <allure-selenide.version>2.20.1</allure-selenide.version>
+        <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <apache.common.version>3.12.0</apache.common.version>
+    </properties>
     <profiles>
         <profile>
             <id>ssc-test</id>
@@ -96,81 +168,23 @@
                                     <goal>sign</goal>
                                 </goals>
                                 <configuration>
-                                    <ascDirectory>${project.build.directory}</ascDirectory>
+                                    <gpgArguments>
+                                        <argument>--pinentry-mode</argument>
+                                        <argument>loopback</argument>
+                                    </gpgArguments>
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                        <version>${versions-maven-plugin.version}</version>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <selenide.version>6.10.3</selenide.version>
-        <testng.version>7.7.0</testng.version>
-        <webdrivermanager.version>5.3.1</webdrivermanager.version>
-        <faker.version>1.0.2</faker.version>
-        <log4j-core.version>2.19.0</log4j-core.version>
-        <jackson-dataformat-yaml.version>2.14.1</jackson-dataformat-yaml.version>
-        <aspect.version>1.9.6</aspect.version>
-        <lombok.version>1.18.24</lombok.version>
-        <allure-testng.version>2.20.1</allure-testng.version>
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-        <allure-maven.version>2.12.0</allure-maven.version>
-        <allure-selenide.version>2.20.1</allure-selenide.version>
-        <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
-        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-        <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
-        <apache.common.version>3.12.0</apache.common.version>
-    </properties>
-
-    <name>${project.groupId}:${project.artifactId}</name>
-    <description>Ready-to-use core for salesforce based test automation projects</description>
-    <url>https://github.com/dzmitryrak/SSC</url>
-    <inceptionYear>2022</inceptionYear>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>dzmitryrak</id>
-            <name>Dmitry Rak</name>
-        </developer>
-        <developer>
-            <id>vikalatosh</id>
-            <name>Viktoryia Latosh</name>
-        </developer>
-        <developer>
-            <id>DzmitryViachaslavau</id>
-            <name>Dzmitry Viachaslavau</name>
-        </developer>
-        <developer>
-            <id>VadimTrofimenkov</id>
-            <name>Vadim Trofimenkov</name>
-        </developer>
-        <developer>
-            <id>daverbk</id>
-            <name>David Rabko</name>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:git://github.com/dzmitryrak/SSC.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:dzmitryrak/SSC.git</developerConnection>
-        <url>https://github.com/dzmitryrak/SSC/tree/main</url>
-    </scm>
 
     <dependencies>
         <dependency>
@@ -228,21 +242,4 @@
             <version>${apache.common.version}</version>
         </dependency>
     </dependencies>
-
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/dzmitryrak/SSC/issues</url>
-    </issueManagement>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
 </project>

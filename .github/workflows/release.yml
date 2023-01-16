@@ -1,0 +1,67 @@
+name: Release
+
+env:
+  PLATFORM_USERNAME: ${{ secrets.username }}
+  PLATFORM_PASSWORD: ${{ secrets.password }}
+  OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+  OSSRH_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+  GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_PASSWORD }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to bump to:'
+        required: true
+
+jobs:
+  release:
+    name: Release to Sonatype
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+          ref: ssc-0.x.x
+
+      - name: Set git username
+        run: git config --global user.name "Bullterrier"
+
+      - name: Set git email
+        run: git config --global user.email "bullyterrier@bullterriers.com"
+
+      - name: Pull main
+        run: git pull origin main
+
+      - name: Merge main into ssc-0.x.x
+        run: git merge origin/main
+
+      - name: Set up Apache Maven Central
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+          server-id: ossrh
+          server-username: OSSRH_USERNAME
+          server-password: OSSRH_PASSWORD
+          gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
+
+      - name: Change package version in pom.xml
+        run: mvn versions:set -DnewVersion=${{ github.event.inputs.version }}
+
+      - name: Delete backup file
+        run: mvn versions:commit
+
+      - name: Stage all changes
+        run: git add -A
+
+      - name: Stage all changes
+        run: git commit -m 'release ${{ github.event.inputs.version }}'
+
+      - name: Publish to Apache Maven Central
+        run: mvn deploy -P ssc-deploy -Dusername=$PLATFORM_USERNAME -Dpassword=$PLATFORM_PASSWORD
+
+      - name: Push all changes to GitHub
+        run: git push origin ssc-0.x.x
