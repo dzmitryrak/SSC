@@ -94,7 +94,7 @@ public class ElementHelper {
             if (StringUtils.isEmpty(value)) {
                 element.clear();
             } else {
-                element.sendKeys(value);
+                element.setValue(value);
             }
         } else if ($$(By.xpath(String.format(checkbox, elementLabel))).size() > 0) {
 

@@ -48,6 +48,19 @@ public class CaseTest extends BaseTest {
         assertEquals(subject, "Starting generator after electrical failure");
     }
 
+    @Test(description = "Check that correct case could be opened from table")
+    public void tableSortingValidation() {
+        loginPage.open().login(USERNAME, PASSWORD);
+        String subject = listView
+                .open("Case")
+                .table()
+                .sortBy("Case Number", SortOrder.DESC)
+                .getTextFromCell("Case Number",1);
+        listView.table().clickCell("Case Number", 1);
+        detailsPage.waitTillOpened();
+        detailsPage.panels().panel("Case Details").validate("Case Number",subject);
+    }
+
     @Test(description = "Check that listview sorting exists and works")
     public void sortingListView(){
         loginPage.open().login(USERNAME, PASSWORD);
