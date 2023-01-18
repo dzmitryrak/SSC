@@ -9,6 +9,8 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.*;
@@ -41,14 +43,25 @@ public class Table extends BasePage {
         return findCell(columnName, rowIndex).text();
     }
 
-    //TODO
+
     public Map<String, String> getRecordData(int index) {
-        return null;
+        log.info("Looking for table data by index '{}'", index);
+        Map<String, String> tableData = new LinkedHashMap<>();
+        for (SelenideElement header : headers) {
+            String columnTitle = header.attr("title");
+            String columnValue = getTextFromCell(columnTitle, index);
+            if (columnTitle.isBlank() || columnValue.isBlank()) continue;
+            tableData.put(columnTitle, columnValue);
+        }
+        log.info("Returning table data by index: '{}'", tableData);
+        return tableData;
     }
 
-    //TODO
+
     public Map<String, String> getRecordData(String columnName, String columnValue) {
-        return null;
+        log.info("Looking for table data with column name: '{}' and column value: '{}'", columnName, columnValue);
+        Map<String, String> tableData = new HashMap<>();
+        return tableData;
     }
 
     public Table clickCell(String columnName, int rowIndex) {
