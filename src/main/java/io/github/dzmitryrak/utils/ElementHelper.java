@@ -160,25 +160,42 @@ public class ElementHelper {
         if (StringUtils.isNotEmpty(panel)) {
             panelLocator = String.format("//*[contains(text(), '%s')]/ancestor::article", panel);
         }
-        String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
-                panelLocator +
-                "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
+        String standartLocator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
-        String checkboxLocator = genericLocator + "//input";
-        if ($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
-            SelenideElement checkbox = $(By.xpath(String.format(checkboxLocator, label)));
-            if (expectedText.equals("true")) {
-                checkbox.shouldBe(checked);
-            } else {
-                checkbox.shouldNotBe(checked);
-            }
-        } else {
-            //TODO throw custom exception with simple text
+        String lightningLocator = "//*[text() = '%s']/ancestor::lightning-input//input";
+
+        if ($$(By.xpath(String.format(lightningLocator, label))).size() > 0) {
+            String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
+                    panelLocator + lightningLocator;
             SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
-            if (StringUtils.isNotEmpty(expectedText)) {
-                input.shouldHave(text(expectedText));
+            if (expectedText.equals("true")) {
+                input.shouldBe(checked);
+            } else if (expectedText.equals("false")){
+                input.shouldNotBe(checked);
+            } else if (StringUtils.isNotEmpty(expectedText)) {
+                input.shouldHave(value(expectedText));
             } else {
                 input.shouldHave(exactTextCaseSensitive(expectedText));
+            }
+        } else {
+            String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
+                    panelLocator + standartLocator;
+            String checkboxLocator = genericLocator + "//input";
+            if ($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
+                SelenideElement checkbox = $(By.xpath(String.format(checkboxLocator, label)));
+                if (expectedText.equals("true")) {
+                    checkbox.shouldBe(checked);
+                } else {
+                    checkbox.shouldNotBe(checked);
+                }
+            } else {
+                //TODO throw custom exception with simple text
+                SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
+                if (StringUtils.isNotEmpty(expectedText)) {
+                    input.shouldHave(text(expectedText));
+                } else {
+                    input.shouldHave(exactTextCaseSensitive(expectedText));
+                }
             }
         }
     }
