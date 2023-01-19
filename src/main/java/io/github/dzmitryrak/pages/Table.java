@@ -9,7 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -19,6 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
 @Log4j2
 public class Table extends BasePage {
     private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
+    private final String ALL_RAW_LOCATOR = ACTIVE_TAB_LOCATOR + "//tbody//tr";
     private final String SORTING_COLUMN_LOCATOR = "//th[@title='%s']";
     private ElementsCollection headers;
     private final By HEADER_LOCATOR = By.xpath(ACTIVE_TAB_LOCATOR + "//thead//th");
@@ -49,18 +49,26 @@ public class Table extends BasePage {
         Map<String, String> tableData = new LinkedHashMap<>();
         for (SelenideElement header : headers) {
             String columnTitle = header.attr("title");
-            String columnValue = getTextFromCell(columnTitle, index);
-            if (columnTitle.isBlank() || columnValue.isBlank()) continue;
-            tableData.put(columnTitle, columnValue);
+            String cellValue = getTextFromCell(columnTitle, index);
+            if (columnTitle.isBlank() || cellValue.isBlank()) continue;
+            tableData.put(columnTitle, cellValue);
         }
         log.info("Returning table data by index: '{}'", tableData);
         return tableData;
     }
 
 
-    public Map<String, String> getRecordData(String columnName, String columnValue) {
-        log.info("Looking for table data with column name: '{}' and column value: '{}'", columnName, columnValue);
-        Map<String, String> tableData = new HashMap<>();
+    public Map<String, String> getRecordData(String columnName, String cellValue) {
+        log.info("Looking for table data with column name: '{}' and cell value: '{}'", columnName, cellValue);
+        Map<String, String> tableData = new LinkedHashMap<>();
+        int rawIndex = getRawIndex(cellValue);
+        for (SelenideElement header : headers) {
+            columnName = header.attr("title");
+            cellValue = getTextFromCell(columnName, rawIndex);
+            if (columnName.isBlank() || cellValue.isBlank()) continue;
+            tableData.put(columnName, cellValue);
+        }
+        log.info("Returning table data by columnName and cell value: {}", tableData);
         return tableData;
     }
 
@@ -103,6 +111,20 @@ public class Table extends BasePage {
         log.debug("Identified that column '{}' has index '{}'. Checked columns: {}", columnName, columnIndex, builder.toString());
 
         return columnIndex;
+    }
+
+    private int getRawIndex(String cellValue) {
+        int rawIndex = 0;
+        ElementsCollection allRaw = $$(By.xpath(ALL_RAW_LOCATOR));
+        SelenideElement cellRaw = $(By.xpath(String.format(ACTIVE_TAB_LOCATOR +
+                "//*[contains(text(), '%s')]//ancestor::tr", cellValue)));
+        for (int i = 0; i < allRaw.size(); i++) {
+            if (allRaw.get(i).equals(cellRaw)) {
+                rawIndex = i + 1;  ////Used +1 here because XPATH index starts from 1 instead of 0
+            }
+        }
+        log.debug("Identified that cell with text '{}' has raw index '{}'.", cellValue, rawIndex);
+        return rawIndex;
     }
 
     /**
