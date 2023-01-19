@@ -155,7 +155,7 @@ public class ElementHelper {
      * @param expectedText Expected text
      */
     public void validate(String panel, String label, String expectedText) {
-        log.info("Validation that '{}' field contains value '{}'", label, expectedText);
+                log.info("Validation that '{}' field contains value '{}'", label, expectedText);
         String panelLocator = "";
         if (StringUtils.isNotEmpty(panel)) {
             panelLocator = String.format("//*[contains(text(), '%s')]/ancestor::article", panel);
@@ -168,7 +168,11 @@ public class ElementHelper {
             String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
                     panelLocator + lightningLocator;
             SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
-            if (StringUtils.isNotEmpty(expectedText)) {
+            if (expectedText.equals("true")) {
+                input.shouldBe(checked);
+            } else if (expectedText.equals("false")){
+                input.shouldNotBe(checked);
+            } else if (StringUtils.isNotEmpty(expectedText)) {
                 input.shouldHave(value(expectedText));
             } else {
                 input.shouldHave(exactTextCaseSensitive(expectedText));
