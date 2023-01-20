@@ -160,26 +160,29 @@ public class ElementHelper {
         if (StringUtils.isNotEmpty(panel)) {
             panelLocator = String.format("//*[contains(text(), '%s')]/ancestor::article", panel);
         }
-        String standartLocator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
+        String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
+                panelLocator;
+        String standardLocator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
-        String lightningLocator = "//*[text() = '%s']/ancestor::lightning-input//input";
+        String lightningLocatorInput = "//*[text() = '%s']/ancestor::lightning-input//input";
+        String lightningLocatorOutput = "//*[text() = '%s']/ancestor::lightning-output-field//lightning-formatted-text";
 
-        if ($$(By.xpath(String.format(lightningLocator, label))).size() > 0) {
-            String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
-                    panelLocator + lightningLocator;
+        if ($$(By.xpath(String.format(lightningLocatorInput, label))).size() > 0) {
+            genericLocator = genericLocator + lightningLocatorInput;
             SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
             if (expectedText.equals("true")) {
                 input.shouldBe(checked);
-            } else if (expectedText.equals("false")){
+            } else if (expectedText.equals("false")) {
                 input.shouldNotBe(checked);
-            } else if (StringUtils.isNotEmpty(expectedText)) {
-                input.shouldHave(value(expectedText));
             } else {
-                input.shouldHave(exactTextCaseSensitive(expectedText));
+                input.shouldHave(value(expectedText));
             }
         } else {
-            String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
-                    panelLocator + standartLocator;
+            if ($$(By.xpath(String.format(lightningLocatorOutput, label))).size() > 0) {
+                genericLocator = genericLocator + lightningLocatorOutput;
+            } else {
+                genericLocator = genericLocator + standardLocator;
+            }
             String checkboxLocator = genericLocator + "//input";
             if ($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
                 SelenideElement checkbox = $(By.xpath(String.format(checkboxLocator, label)));
