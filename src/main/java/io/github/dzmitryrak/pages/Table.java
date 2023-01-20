@@ -43,7 +43,6 @@ public class Table extends BasePage {
         return findCell(columnName, rowIndex).text();
     }
 
-
     public Map<String, String> getRecordData(int index) {
         log.info("Looking for table data by index '{}'", index);
         Map<String, String> tableData = new LinkedHashMap<>();
@@ -57,19 +56,11 @@ public class Table extends BasePage {
         return tableData;
     }
 
-
     public Map<String, String> getRecordData(String columnName, String cellValue) {
         log.info("Looking for table data with column name: '{}' and cell value: '{}'", columnName, cellValue);
-        Map<String, String> tableData = new LinkedHashMap<>();
+        //TODO метод ниже должен искать по ключ-значение. Например "Если колонка Status имеет значение "BLABLA" в третьем ряду (а в первых двух другие статусы) - вернуть индекс 3"
         int rowIndex = getRowIndex(cellValue);
-        for (SelenideElement header : headers) {
-            columnName = header.attr("title");
-            cellValue = getTextFromCell(columnName, rowIndex);
-            if (columnName.isBlank() || cellValue.isBlank()) continue;
-            tableData.put(columnName, cellValue);
-        }
-        log.info("Returning table data by columnName and cell value: {}", tableData);
-        return tableData;
+        return getRecordData(rowIndex);
     }
 
     public Table clickCell(String columnName, int rowIndex) {
