@@ -155,12 +155,12 @@ public class ElementHelper {
      * @param expectedText Expected text
      */
     public void validate(String panel, String label, String expectedText) {
-                log.info("Validation that '{}' field contains value '{}'", label, expectedText);
+        log.info("Validation that '{}' field contains value '{}'", label, expectedText);
         String panelLocator = "";
         if (StringUtils.isNotEmpty(panel)) {
             panelLocator = String.format("//*[contains(text(), '%s')]/ancestor::article", panel);
         }
-        String standartLocator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
+        String standardLocator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
         String lightningLocator = "//*[text() = '%s']/ancestor::lightning-input//input";
 
@@ -179,7 +179,7 @@ public class ElementHelper {
             }
         } else {
             String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
-                    panelLocator + standartLocator;
+                    panelLocator + standardLocator;
             String checkboxLocator = genericLocator + "//input";
             if ($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
                 SelenideElement checkbox = $(By.xpath(String.format(checkboxLocator, label)));
