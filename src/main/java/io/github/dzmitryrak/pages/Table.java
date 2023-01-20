@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
 @Log4j2
 public class Table extends BasePage {
     private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
-    private final String ALL_RAW_LOCATOR = ACTIVE_TAB_LOCATOR + "//tbody//tr";
+    private final String ALL_ROWS_LOCATOR = ACTIVE_TAB_LOCATOR + "//tbody//tr";
     private final String SORTING_COLUMN_LOCATOR = "//th[@title='%s']";
     private ElementsCollection headers;
     private final By HEADER_LOCATOR = By.xpath(ACTIVE_TAB_LOCATOR + "//thead//th");
@@ -61,10 +61,10 @@ public class Table extends BasePage {
     public Map<String, String> getRecordData(String columnName, String cellValue) {
         log.info("Looking for table data with column name: '{}' and cell value: '{}'", columnName, cellValue);
         Map<String, String> tableData = new LinkedHashMap<>();
-        int rawIndex = getRawIndex(cellValue);
+        int rowIndex = getRowIndex(cellValue);
         for (SelenideElement header : headers) {
             columnName = header.attr("title");
-            cellValue = getTextFromCell(columnName, rawIndex);
+            cellValue = getTextFromCell(columnName, rowIndex);
             if (columnName.isBlank() || cellValue.isBlank()) continue;
             tableData.put(columnName, cellValue);
         }
@@ -113,18 +113,18 @@ public class Table extends BasePage {
         return columnIndex;
     }
 
-    private int getRawIndex(String cellValue) {
-        int rawIndex = 0;
-        ElementsCollection allRaw = $$(By.xpath(ALL_RAW_LOCATOR));
-        SelenideElement cellRaw = $(By.xpath(String.format(ACTIVE_TAB_LOCATOR +
+    private int getRowIndex(String cellValue) {
+        int rowIndex = 0;
+        ElementsCollection allRows = $$(By.xpath(ALL_ROWS_LOCATOR));
+        SelenideElement cellRow = $(By.xpath(String.format(ACTIVE_TAB_LOCATOR +
                 "//*[contains(text(), '%s')]//ancestor::tr", cellValue)));
-        for (int i = 0; i < allRaw.size(); i++) {
-            if (allRaw.get(i).equals(cellRaw)) {
-                rawIndex = i + 1;  ////Used +1 here because XPATH index starts from 1 instead of 0
+        for (int i = 0; i < allRows.size(); i++) {
+            if (allRows.get(i).equals(cellRow)) {
+                rowIndex = i + 1;  ////Used +1 here because XPATH index starts from 1 instead of 0
             }
         }
-        log.debug("Identified that cell with text '{}' has raw index '{}'.", cellValue, rawIndex);
-        return rawIndex;
+        log.debug("Identified that cell with text '{}' has row index '{}'.", cellValue, rowIndex);
+        return rowIndex;
     }
 
     /**
