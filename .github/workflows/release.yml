@@ -29,10 +29,10 @@ jobs:
           ref: ssc-0.x.x
 
       - name: Set git username
-        run: git config --global user.name "Bullterrier"
+        run: git config --global user.name "Release Agent"
 
       - name: Set git email
-        run: git config --global user.email "bullyterrier@bullterriers.com"
+        run: git config --global user.email "releaseagent@mail.com"
 
       - name: Pull main
         run: git pull origin main
