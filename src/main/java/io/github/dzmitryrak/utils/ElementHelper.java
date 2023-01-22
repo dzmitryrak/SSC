@@ -166,6 +166,7 @@ public class ElementHelper {
                 "//*[contains(@class, 'test-id__field-value')]";
         String lightningLocatorInput = "//*[text() = '%s']/ancestor::lightning-input//input";
         String lightningLocatorOutput = "//*[text() = '%s']/ancestor::lightning-output-field//lightning-formatted-text";
+        String higlightsPanelLocator = "//*[text()='%s']/ancestor::*[@slot = 'secondaryFields' or @class = 'slds-media__body']//lightning-formatted-text";
 
         if ($$(By.xpath(String.format(lightningLocatorInput, label))).size() > 0) {
             genericLocator = genericLocator + lightningLocatorInput;
@@ -181,7 +182,11 @@ public class ElementHelper {
             if ($$(By.xpath(String.format(lightningLocatorOutput, label))).size() > 0) {
                 genericLocator = genericLocator + lightningLocatorOutput;
             } else {
-                genericLocator = genericLocator + standardLocator;
+                if ($$(By.xpath(String.format(higlightsPanelLocator, label))).size() > 0) {
+                    genericLocator = genericLocator + higlightsPanelLocator;
+                } else {
+                    genericLocator = genericLocator + standardLocator;
+                }
             }
             String checkboxLocator = genericLocator + "//input";
             if ($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
