@@ -160,13 +160,12 @@ public class ElementHelper {
         if (StringUtils.isNotEmpty(panel)) {
             panelLocator = String.format("//*[contains(text(), '%s')]/ancestor::article", panel);
         }
-        String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
-                panelLocator;
-        String standardLocator = "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
+        String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";
+        String standardLocator = panelLocator + "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
-        String lightningLocatorInput = "//*[text() = '%s']/ancestor::lightning-input//input";
-        String lightningLocatorOutput = "//*[text() = '%s']/ancestor::lightning-output-field//lightning-formatted-text";
-        String higlightsPanelLocator = "//*[text()='%s']/ancestor::*[@slot = 'secondaryFields' or @class = 'slds-media__body']//lightning-formatted-text";
+        String lightningLocatorInput = panelLocator + "//*[text() = '%s']/ancestor::lightning-input//input";
+        String lightningLocatorOutput = panelLocator + "//*[text() = '%s']/ancestor::lightning-output-field//lightning-formatted-text";
+        String higlightsPanelLocator = panelLocator + "//*[text()='%s']/ancestor::*[@slot = 'secondaryFields' or @class = 'slds-media__body']//lightning-formatted-text";
 
         if ($$(By.xpath(String.format(lightningLocatorInput, label))).size() > 0) {
             genericLocator = genericLocator + lightningLocatorInput;
