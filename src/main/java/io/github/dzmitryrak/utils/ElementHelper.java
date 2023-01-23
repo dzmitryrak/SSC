@@ -160,25 +160,49 @@ public class ElementHelper {
         if (StringUtils.isNotEmpty(panel)) {
             panelLocator = String.format("//*[contains(text(), '%s')]/ancestor::article", panel);
         }
-        String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]" +
-                panelLocator +
-                "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
+        String genericLocator = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";
+        String standardLocator = panelLocator + "//*[text() = '%s']/ancestor::*[contains(@class, 'slds-hint-parent')]" +
                 "//*[contains(@class, 'test-id__field-value')]";
-        String checkboxLocator = genericLocator + "//input";
-        if ($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
-            SelenideElement checkbox = $(By.xpath(String.format(checkboxLocator, label)));
+        String lightningLocatorInput = panelLocator + "//*[text() = '%s']/ancestor::lightning-input//input";
+        String lightningLocatorOutput = panelLocator + "//*[text() = '%s']/ancestor::lightning-output-field//lightning-formatted-text";
+        String highlightsPanelLocator = panelLocator + "//*[text()='%s']/ancestor::*[@slot = 'secondaryFields' or @class = 'slds-media__body']//lightning-formatted-text";
+
+        if ($$(By.xpath(String.format(lightningLocatorInput, label))).size() > 0) {
+            genericLocator = genericLocator + lightningLocatorInput;
+            SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
             if (expectedText.equals("true")) {
-                checkbox.shouldBe(checked);
+                input.shouldBe(checked);
+            } else if (expectedText.equals("false")) {
+                input.shouldNotBe(checked);
             } else {
-                checkbox.shouldNotBe(checked);
+                input.shouldHave(value(expectedText));
             }
         } else {
-            //TODO throw custom exception with simple text
-            SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
-            if (StringUtils.isNotEmpty(expectedText)) {
-                input.shouldHave(text(expectedText));
+            if ($$(By.xpath(String.format(lightningLocatorOutput, label))).size() > 0) {
+                genericLocator = genericLocator + lightningLocatorOutput;
             } else {
-                input.shouldHave(exactTextCaseSensitive(expectedText));
+                if ($$(By.xpath(String.format(highlightsPanelLocator, label))).size() > 0) {
+                    genericLocator = genericLocator + highlightsPanelLocator;
+                } else {
+                    genericLocator = genericLocator + standardLocator;
+                }
+            }
+            String checkboxLocator = genericLocator + "//input";
+            if ($$(By.xpath(String.format(checkboxLocator, label))).size() > 0) {
+                SelenideElement checkbox = $(By.xpath(String.format(checkboxLocator, label)));
+                if (expectedText.equals("true")) {
+                    checkbox.shouldBe(checked);
+                } else {
+                    checkbox.shouldNotBe(checked);
+                }
+            } else {
+                //TODO throw custom exception with simple text
+                SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
+                if (StringUtils.isNotEmpty(expectedText)) {
+                    input.shouldHave(text(expectedText));
+                } else {
+                    input.shouldHave(exactTextCaseSensitive(expectedText));
+                }
             }
         }
     }
