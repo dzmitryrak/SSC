@@ -28,7 +28,7 @@ public class GetDataFromTableTest extends BaseTest {
                         .open("Case")
                         .table()
                         .sortBy("Case Number", SortOrder.ASC)
-                        .getRecordData("Subject", "Electric surge damaging adjacent equipment");
+                        .getRecordData("Subject", "DRak");
         assertFalse(actualTableData.isEmpty());
     }
 }

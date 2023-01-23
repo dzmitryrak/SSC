@@ -39,10 +39,23 @@ public class Table extends BasePage {
         $(HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
     }
 
+    /**
+     * Get text from cell by column name and row index
+     *
+     * @param columnName cell column name
+     * @param rowIndex  cell row index
+     * @return cell value
+     */
     public String getTextFromCell(String columnName, int rowIndex) {
         return findCell(columnName, rowIndex).text();
     }
 
+    /**
+     * Get record data from table in list view found by index
+     *
+     * @param index cell row index in table
+     * @return the mapped data with entities: column name - cell value
+     */
     public Map<String, String> getRecordData(int index) {
         log.info("Looking for table data by index '{}'", index);
         Map<String, String> tableData = new LinkedHashMap<>();
@@ -56,33 +69,66 @@ public class Table extends BasePage {
         return tableData;
     }
 
+    /**
+     * Get record data from table in list view found by column name and cell value
+     *
+     * @param columnName cell column name
+     * @param cellValue  cell value
+     * @return the mapped data with entities: column name - cell value
+     */
     public Map<String, String> getRecordData(String columnName, String cellValue) {
         log.info("Looking for table data with column name: '{}' and cell value: '{}'", columnName, cellValue);
-        //TODO метод ниже должен искать по ключ-значение. Например "Если колонка Status имеет значение "BLABLA" в третьем ряду (а в первых двух другие статусы) - вернуть индекс 3"
-        int rowIndex = getRowIndex(cellValue);
+        int rowIndex = getRowIndex(columnName, cellValue);
         return getRecordData(rowIndex);
     }
 
+    /**
+     * Click on cell found by column name and row index
+     *
+     * @param columnName cell column
+     * @param rowIndex  cell row index
+     * @return current instance of ListView
+     */
     public Table clickCell(String columnName, int rowIndex) {
         findCell(columnName, rowIndex).find("a").click();
         return this;
     }
 
+    /**
+     * Find cell by column name and row index
+     *
+     * @param columnName cell column name
+     * @param rowIndex  cell row index
+     * @return cell instance (dom element)
+     */
     private SelenideElement findCell(String columnName, int rowIndex) {
         log.debug("Looking for column by title '{}' inside row number '{}'", columnName, rowIndex);
         int columnIndex = getColumnIndex(columnName);
         return findCell(columnIndex, rowIndex);
     }
 
+    /**
+     * Find cell by column index and row index
+     *
+     * @param columnIndex cell column index
+     * @param rowIndex  cell row index
+     * @return cell instance (dom element)
+     */
     private SelenideElement findCell(int columnIndex, int rowIndex) {
         ElementsCollection allCells = $$x(String.format(
                 ACTIVE_TAB_LOCATOR + "//tbody//tr[%s]//td|" +
-                ACTIVE_TAB_LOCATOR + "//tbody//tr[%s]//th", rowIndex, rowIndex));
+                        ACTIVE_TAB_LOCATOR + "//tbody//tr[%s]//th", rowIndex, rowIndex));
         return allCells.get(columnIndex - 1);
     }
 
+    /**
+     * Get column index by column name
+     *
+     * @param columnName column name to find index
+     * @return column index
+     */
     private int getColumnIndex(String columnName) {
-        if(headers.size() == 0) {
+        if (headers.size() == 0) {
             throw new SalesforceElementNotFoundException(
                     String.format("Cannot find column '%s'. List View was not loaded or column doesn't exist", columnName)
             );
@@ -95,7 +141,7 @@ public class Table extends BasePage {
             String columnTitle = headers.get(i).attr("title");
             builder.append(columnTitle).append(";");
             if (columnTitle.equals(columnName)) {
-                columnIndex = i+1; //Used +1 here because XPATH index starts from 1 instead of 0
+                columnIndex = i + 1; //Used +1 here because XPATH index starts from 1 instead of 0
                 break;
             }
         }
@@ -104,14 +150,32 @@ public class Table extends BasePage {
         return columnIndex;
     }
 
-    private int getRowIndex(String cellValue) {
+    /**
+     * Get row index of cell find by column name and cell value
+     *
+     * @param columnValue cell column name
+     * @param cellValue cell value
+     * @return row index of cell
+     */
+    private int getRowIndex(String columnValue, String cellValue) {
         int rowIndex = 0;
+        int columnIndex = getColumnIndex(columnValue);
+        SelenideElement cellRow = null;
         ElementsCollection allRows = $$(By.xpath(ALL_ROWS_LOCATOR));
-        SelenideElement cellRow = $(By.xpath(String.format(ACTIVE_TAB_LOCATOR +
-                "//*[contains(text(), '%s')]//ancestor::tr", cellValue)));
+
+        //find row by cell value and cell column(index)
+        ElementsCollection allCellsWithCellValue = $$(By.xpath(String.format(ACTIVE_TAB_LOCATOR +
+                "//*[contains(text(), '%s')]//ancestor::td", cellValue)));
+        for (SelenideElement cellWithCellValue : allCellsWithCellValue) {
+            SelenideElement row = cellWithCellValue.$x(".//ancestor::tr");
+            ElementsCollection cells = row.$$x(".//td");
+            if (cells.get(columnIndex - 2).text().contains(cellValue)) cellRow = row;
+        }
+
+        //find index of row
         for (int i = 0; i < allRows.size(); i++) {
             if (allRows.get(i).equals(cellRow)) {
-                rowIndex = i + 1;  ////Used +1 here because XPATH index starts from 1 instead of 0
+                rowIndex = i + 1;  //Used +1 here because XPATH index starts from 1 instead of 0
             }
         }
         log.debug("Identified that cell with text '{}' has row index '{}'.", cellValue, rowIndex);
