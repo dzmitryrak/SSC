@@ -27,6 +27,7 @@
     <test name="Others">
         <classes>
             <class name="io.github.dzmitryrak.tests.ReadModalErrorTest"/>
+            <class name="io.github.dzmitryrak.tests.GetDataFromTableTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>
