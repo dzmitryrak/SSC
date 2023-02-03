@@ -55,7 +55,7 @@ SSC – generic core for speeding up your own Salesforce test automation framewo
 
 ## Contributing
 
-It is planned to cover much more Salesforce functionalities in the upcoming future, we would be thankful for your ideas on SSC improvement.
+If you are about to contribute, please, study our [release strategy](https://github.com/dzmitryrak/SSC/wiki/Release-guide) first. It is planned to cover much more Salesforce functionalities in the upcoming future, we would be thankful for your ideas on SSC improvement.
 
 ## License
 
