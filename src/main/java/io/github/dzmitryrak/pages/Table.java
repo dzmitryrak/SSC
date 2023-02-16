@@ -31,7 +31,7 @@ public class Table extends BasePage {
         headers = $$(HEADER_LOCATOR);
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < headers.size(); i++) {
-            builder.append(headers.get(0).attr("aria-label"));
+            builder.append(headers.get(0).attr("title"));
             builder.append("|");
         }
         log.debug("Loaded table with headers: {}", builder.toString());
@@ -74,7 +74,7 @@ public class Table extends BasePage {
         log.info("Looking for table data by index '{}'", index);
         Map<String, String> tableData = new LinkedHashMap<>();
         for (SelenideElement header : headers) {
-            String columnTitle = header.attr("aria-label");
+            String columnTitle = header.attr("title");
             String cellValue = getTextFromCell("", columnTitle, index);
             if (columnTitle.isBlank() || cellValue.isBlank()) continue;
             tableData.put(columnTitle, cellValue);
