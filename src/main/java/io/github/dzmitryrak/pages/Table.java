@@ -44,9 +44,9 @@ public class Table extends BasePage {
     /**
      * Get text from cell by table name, column name and row index
      *
-     * @param tableName cell column name
+     * @param tableName  cell column name
      * @param columnName cell column name
-     * @param rowIndex  cell row index
+     * @param rowIndex   cell row index
      * @return cell value
      */
     public String getTextFromCell(String tableName, String columnName, int rowIndex) {
@@ -57,7 +57,7 @@ public class Table extends BasePage {
      * Get text from cell by column name and row index
      *
      * @param columnName cell column name
-     * @param rowIndex  cell row index
+     * @param rowIndex   cell row index
      * @return cell value
      */
     public String getTextFromCell(String columnName, int rowIndex) {
@@ -73,10 +73,10 @@ public class Table extends BasePage {
     public Map<String, String> getRecordData(int index) {
         log.info("Looking for table data by index '{}'", index);
         Map<String, String> tableData = new LinkedHashMap<>();
-        for (int i = 0; i < headers.size(); i++) {
-            if (headers.get(i).getAttribute("aria-label") != null) {
-                String columnTitle = headers.get(i).attr("aria-label");
-                String cellValue = getTextFromCell(columnTitle, index);
+        for (SelenideElement header : headers) {
+            if (header.attr("aria-label") != null) {
+                String columnTitle = header.attr("aria-label");
+                String cellValue = getTextFromCell("", columnTitle, index);
                 if (columnTitle.isBlank() || cellValue.isBlank()) continue;
                 tableData.put(columnTitle, cellValue);
             }
@@ -102,7 +102,7 @@ public class Table extends BasePage {
      * Click on cell found by column name and row index
      *
      * @param columnName cell column
-     * @param rowIndex  cell row index
+     * @param rowIndex   cell row index
      * @return current instance of ListView
      */
     public Table clickCell(String columnName, int rowIndex) {
@@ -113,13 +113,13 @@ public class Table extends BasePage {
     /**
      * Click on cell found by table name, column name and row index
      *
-     * @param tableName table name
+     * @param tableName  table name
      * @param columnName cell column
-     * @param rowIndex  cell row index
+     * @param rowIndex   cell row index
      * @return current instance of ListView
      */
     public Table clickCell(String tableName, String columnName, int rowIndex) {
-        findCell(tableName,columnName,rowIndex).$x(".//a").click(ClickOptions.usingJavaScript());
+        findCell(tableName, columnName, rowIndex).$x(".//a").click(ClickOptions.usingJavaScript());
         return this;
     }
 
@@ -131,15 +131,16 @@ public class Table extends BasePage {
      * @return current instance of ListView
      */
     public Table selectCell(String tableName, int rowIndex) {
-        findCell(tableName,1,rowIndex).$x(".//input").click(ClickOptions.usingJavaScript());
+        findCell(tableName, 1, rowIndex).$x(".//input").click(ClickOptions.usingJavaScript());
         return this;
     }
+
     /**
      * Find cell by table name, column name and row index
      *
-     * @param tableName cell column name
+     * @param tableName  cell column name
      * @param columnName cell column name
-     * @param rowIndex  cell row index
+     * @param rowIndex   cell row index
      * @return cell instance (dom element)
      */
     private SelenideElement findCell(String tableName, String columnName, int rowIndex) {
@@ -151,9 +152,9 @@ public class Table extends BasePage {
     /**
      * Find cell by table name, column index and row index
      *
-     * @param tableName cell table name
+     * @param tableName   cell table name
      * @param columnIndex cell column index
-     * @param rowIndex  cell row index
+     * @param rowIndex    cell row index
      * @return cell instance (dom element)
      */
     private SelenideElement findCell(String tableName, int columnIndex, int rowIndex) {
@@ -201,7 +202,7 @@ public class Table extends BasePage {
      * Get row index of cell find by column name and cell value
      *
      * @param columnValue cell column name
-     * @param cellValue cell value
+     * @param cellValue   cell value
      * @return row index of cell
      */
     private int getRowIndex(String columnValue, String cellValue) {
