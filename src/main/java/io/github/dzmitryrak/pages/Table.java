@@ -61,7 +61,7 @@ public class Table extends BasePage {
      * @return cell value
      */
     public String getTextFromCell(String columnName, int rowIndex) {
-        return findCell("", columnName, rowIndex).text();
+        return getTextFromCell("", columnName, rowIndex);
     }
 
     /**
@@ -106,7 +106,7 @@ public class Table extends BasePage {
      * @return current instance of ListView
      */
     public Table clickCell(String columnName, int rowIndex) {
-        findCell("", columnName, rowIndex).find("a").click();
+        clickCell("", columnName, rowIndex);
         return this;
     }
 
@@ -147,6 +147,17 @@ public class Table extends BasePage {
         log.debug("Looking for column by title '{}' inside row number '{}'", columnName, rowIndex);
         int columnIndex = getColumnIndex(columnName);
         return findCell(tableName, columnIndex, rowIndex);
+    }
+
+    /**
+     * Find cell by column name and row index
+     *
+     * @param columnName cell column name
+     * @param rowIndex   cell row index
+     * @return cell instance (dom element)
+     */
+    private SelenideElement findCell(String columnName, int rowIndex) {
+        return findCell("", columnName, rowIndex);
     }
 
     /**
