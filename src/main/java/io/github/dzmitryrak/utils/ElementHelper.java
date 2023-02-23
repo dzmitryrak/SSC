@@ -30,7 +30,7 @@ public class ElementHelper {
     String pickListButton = pickList + "//button[@lightning-basecombobox_basecombobox]";
     String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='text']";
     String lookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//input";
-    String clearLookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//button[@title='Clear Selection']";
+    String clearLookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//button";
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
     String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
 
@@ -59,7 +59,7 @@ public class ElementHelper {
             //PICKLIST
         } else if ($$(By.xpath(String.format(pickListButton, elementLabel))).size() > 0) {
             elementType = "PickList";
-            String picklistOption = BASE_DETAIL_PANEL + "//label[text()='%s']/ancestor::lightning-picklist//*[@title='%s']";
+            String picklistOption = BASE_DETAIL_PANEL + "//label[text()='%s']/ancestor::lightning-picklist//*[contains(@title,'%s')]";
             SelenideElement picklist = $(By.xpath(String.format(pickListButton, elementLabel)));
             log.debug("Clicking on '{}' picklist", elementLabel);
             scrollToElement(picklist);
@@ -68,7 +68,7 @@ public class ElementHelper {
             WebElement element1;
             if (StringUtils.isEmpty(value)) {
                 log.debug("Setting value: '--None--'");
-                element1 = $(By.xpath(String.format(picklistOption, elementLabel, "--None--")));
+                element1 = $(By.xpath(String.format(picklistOption, elementLabel, "--")));
             } else {
                 element1 = $(By.xpath(String.format(picklistOption, elementLabel, value)));
             }
@@ -116,11 +116,11 @@ public class ElementHelper {
 
             //Multi-Select
             elementType = "Picklist (Multi-Select)";
-            SelenideElement moveToChosen = $(By.xpath(String.format(pickList + "//button[@title='Move selection to Chosen']", elementLabel)));
-            SelenideElement moveToAvailable = $(By.xpath(String.format(pickList + "//button[@title='Move selection to Available']", elementLabel)));
-            String lookupOption = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]";
+            SelenideElement moveToChosen = $(By.xpath(String.format(pickList + "//button[.//*[@data-key='right']]", elementLabel)));
+            SelenideElement moveToAvailable = $(By.xpath(String.format(pickList + "//button[.//*[@data-key='left']]", elementLabel)));
+
             if (StringUtils.isEmpty(value)) {
-                var chosenOptions = $$(By.xpath(String.format(pickList + "//*[text()='Chosen']//following-sibling::*[@class='slds-dueling-list__options']//li", elementLabel)));
+                var chosenOptions = $$(By.xpath(String.format(pickList + "//*[contains(@id,'selected-list')]//following-sibling::*[@class='slds-dueling-list__options']//li", elementLabel)));
                 for (var option : chosenOptions) {
                     scrollToElement(option);
                     option.shouldBe(visible).click();
@@ -130,7 +130,8 @@ public class ElementHelper {
                 var options = StringUtils.split(value, ";");
                 for (String option : options) {
                     log.debug("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
-                    SelenideElement element = $(By.xpath(String.format(lookupOption, option)));
+                    String lookupOption = String.format(pickList + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]", elementLabel, option);
+                    SelenideElement element = $(By.xpath(lookupOption));
                     scrollToElement(element);
                     //TODO possible clickIntercepted due to the duplicates
                     element.shouldBe(visible).click();

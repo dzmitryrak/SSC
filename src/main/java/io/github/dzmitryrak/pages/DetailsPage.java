@@ -20,7 +20,7 @@ public class DetailsPage extends BasePage {
      */
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
-        $(By.xpath(String.format(COMMON_TAB, "Details"))).shouldBe(visible, Duration.ofSeconds(20));
+        $(By.xpath(ACTIVE_TAB_LOCATOR + "//a[@data-tab-value='detailTab']")).shouldBe(visible, Duration.ofSeconds(20));
         return this;
     }
 
