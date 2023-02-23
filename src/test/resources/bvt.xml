@@ -12,6 +12,7 @@
     <test name="CRUD for Contact">
         <classes>
             <class name="io.github.dzmitryrak.tests.ContactCRUDTest"/>
+            <class name="io.github.dzmitryrak.tests.SpanishLanguageTest"/>
         </classes>
     </test> <!-- Test -->
     <test name="CRUD for Lead">
