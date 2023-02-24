@@ -9,7 +9,6 @@ public class ReadModalErrorTest extends BaseTest {
     public void testErrorMessage() {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         String errorMessage =
                 listView
                         .open("Contact")

@@ -36,7 +36,6 @@ public class AccountCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Account")
                 .actions()
@@ -106,7 +105,6 @@ public class AccountCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Account")
                 .actions()
@@ -180,7 +178,6 @@ public class AccountCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Account")
                 .actions()
@@ -222,7 +219,6 @@ public class AccountCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Account")
                 .actions()

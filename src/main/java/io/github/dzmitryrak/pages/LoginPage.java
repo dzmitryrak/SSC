@@ -1,11 +1,11 @@
 package io.github.dzmitryrak.pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
@@ -23,7 +23,7 @@ public class LoginPage extends BasePage {
      * @return current instance of LoginPage
      */
     public LoginPage waitTillOpened() {
-        $(LOGO_LOCATOR).shouldBe(Condition.visible);
+        $(LOGO_LOCATOR).shouldBe(visible, timeout);
         return this;
     }
 
@@ -50,7 +50,9 @@ public class LoginPage extends BasePage {
         $(USERNAME_LOCATOR).setValue(username);
         $(PASSWORD_LOCATOR).setValue(password);
         $(LOGIN_BUTTON_LOCATOR).click();
-        return new HomePage();
+        HomePage homePage = new HomePage();
+        homePage.waitTillOpened();
+        return homePage;
     }
 
     /**

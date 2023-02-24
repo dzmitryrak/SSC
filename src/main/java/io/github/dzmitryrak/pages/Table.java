@@ -27,7 +27,6 @@ public class Table extends BasePage {
 
     public Table() {
         waitTillOpened();
-        waitForPageLoaded();
         headers = $$(HEADER_LOCATOR);
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < headers.size(); i++) {
@@ -38,7 +37,7 @@ public class Table extends BasePage {
     }
 
     private void waitTillOpened() {
-        $(HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
+        $(HEADER_LOCATOR).shouldBe(visible, timeout);
     }
 
     /**

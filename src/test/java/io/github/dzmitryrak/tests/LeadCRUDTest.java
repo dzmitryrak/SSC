@@ -41,7 +41,6 @@ public class LeadCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Lead")
                 .actions()
@@ -118,7 +117,6 @@ public class LeadCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Lead")
                 .actions()
@@ -190,7 +188,6 @@ public class LeadCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Lead")
                 .actions()
