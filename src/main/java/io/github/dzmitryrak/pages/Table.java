@@ -224,17 +224,20 @@ public class Table extends BasePage {
 
         //find row by cell value and cell column(index)
         ElementsCollection allCellsWithCellValue = $$(By.xpath(String.format(ACTIVE_TAB_LOCATOR +
-                "//*[contains(text(), '%s')]//ancestor::td", cellValue)));
+                "//*[contains(text(), '%s')]//ancestor::td|" + ACTIVE_TAB_LOCATOR + "//*[contains(text(), '%s')]//ancestor::th", cellValue, cellValue)));
         for (SelenideElement cellWithCellValue : allCellsWithCellValue) {
             SelenideElement row = cellWithCellValue.$x(".//ancestor::tr");
-            ElementsCollection cells = row.$$x(".//td");
-            if (cells.get(columnIndex - 2).text().contains(cellValue)) cellRow = row;
+            ElementsCollection cells = row.$$x(".//td|.//th");
+            if (cells.get(columnIndex - 2).text().contains(cellValue) || cells.get(columnIndex - 1).text().contains(cellValue)) {
+                cellRow = row;
+            }
         }
 
         //find index of row
         for (int i = 0; i < allRows.size(); i++) {
             if (allRows.get(i).equals(cellRow)) {
                 rowIndex = i + 1;  //Used +1 here because XPATH index starts from 1 instead of 0
+                break;
             }
         }
         log.debug("Identified that cell with text '{}' has row index '{}'.", cellValue, rowIndex);
