@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
@@ -25,10 +26,9 @@ public class HomePage extends BasePage {
      *
      * @return current instance of HomePage
      */
-    @Override
-    public boolean isPageOpened() {
+    public void waitTillOpened() {
         //TODO method to check if user is logged in
-        return $(LOGO_LOCATOR).isDisplayed();
+        $(LOGO_LOCATOR).shouldBe(visible, timeout);
     }
 }
 

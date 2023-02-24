@@ -1,6 +1,5 @@
 package io.github.dzmitryrak.pages;
 
-import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -11,8 +10,8 @@ public class Panel extends BasePage {
 
     public Panel panel(String name) {
         panelName = name;
-        $x(String.format(ACTIVE_TAB_LOCATOR + "//*[contains(text(), '%s')]/ancestor::article", name)).shouldBe(visible, Duration.ofSeconds(10));
-
+        $x(String.format(ACTIVE_TAB_LOCATOR + "//*[contains(text(), '%s')]/ancestor::article", name))
+                .shouldBe(visible, timeout);
         return this;
     }
 
