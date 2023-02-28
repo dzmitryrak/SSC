@@ -20,13 +20,18 @@ import static com.codeborne.selenide.Selenide.*;
 @Log4j2
 public class Table extends BasePage {
     private final String COLUMN_LOCATOR = "//*[@title='%s']//a";
-    private final String ALL_ROWS_LOCATOR = ACTIVE_TAB_LOCATOR + "//tbody//tr";
     private final String SORTING_COLUMN_LOCATOR = "//th[@title='%s']";
     private ElementsCollection headers;
-    private final By HEADER_LOCATOR = By.xpath(ACTIVE_TAB_LOCATOR + "//thead//th");
+    private String tableName;
+    private String nameTableLocator = "";
+    private By HEADER_LOCATOR = By.xpath(ACTIVE_TAB_LOCATOR + "//thead//th");
 
-    public Table() {
-        waitTillOpened();
+    public Table(String tableName) {
+        if (StringUtils.isNotEmpty(tableName)) {
+            nameTableLocator = String.format("//span[text()='%s']/ancestor::lightning-card", tableName);
+            this.tableName = tableName;
+        }
+        HEADER_LOCATOR = By.xpath(ACTIVE_TAB_LOCATOR + nameTableLocator + "//thead//th");
         headers = $$(HEADER_LOCATOR);
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < headers.size(); i++) {
@@ -43,24 +48,12 @@ public class Table extends BasePage {
     /**
      * Get text from cell by table name, column name and row index
      *
-     * @param tableName  cell column name
-     * @param columnName cell column name
-     * @param rowIndex   cell row index
-     * @return cell value
-     */
-    public String getTextFromCell(String tableName, String columnName, int rowIndex) {
-        return findCell(tableName, columnName, rowIndex).text();
-    }
-
-    /**
-     * Get text from cell by column name and row index
-     *
      * @param columnName cell column name
      * @param rowIndex   cell row index
      * @return cell value
      */
     public String getTextFromCell(String columnName, int rowIndex) {
-        return getTextFromCell("", columnName, rowIndex);
+        return findCell(columnName, rowIndex).text();
     }
 
     /**
@@ -75,7 +68,7 @@ public class Table extends BasePage {
         for (SelenideElement header : headers) {
             if (header.attr("aria-label") != null) {
                 String columnTitle = header.attr("aria-label");
-                String cellValue = getTextFromCell("", columnTitle, index);
+                String cellValue = getTextFromCell(columnTitle, index);
                 if (columnTitle.isBlank() || cellValue.isBlank()) continue;
                 tableData.put(columnTitle, cellValue);
             }
@@ -98,80 +91,49 @@ public class Table extends BasePage {
     }
 
     /**
-     * Click on cell found by column name and row index
+     * Click on cell found by table name, column name and row index
      *
      * @param columnName cell column
      * @param rowIndex   cell row index
      * @return current instance of ListView
      */
     public Table clickCell(String columnName, int rowIndex) {
-        clickCell("", columnName, rowIndex);
-        return this;
-    }
-
-    /**
-     * Click on cell found by table name, column name and row index
-     *
-     * @param tableName  table name
-     * @param columnName cell column
-     * @param rowIndex   cell row index
-     * @return current instance of ListView
-     */
-    public Table clickCell(String tableName, String columnName, int rowIndex) {
-        findCell(tableName, columnName, rowIndex).$x(".//a").click(ClickOptions.usingJavaScript());
+        findCell(columnName, rowIndex).$x(".//a").click(ClickOptions.usingJavaScript());
         return this;
     }
 
     /**
      * Select row found by table name and row index
      *
-     * @param tableName table name
      * @param rowIndex  cell row index
      * @return current instance of ListView
      */
-    public Table selectCell(String tableName, int rowIndex) {
-        findCell(tableName, 1, rowIndex).$x(".//input").click(ClickOptions.usingJavaScript());
+    public Table selectCell(int rowIndex) {
+        findCell(1,rowIndex).$x(".//input").click(ClickOptions.usingJavaScript());
         return this;
     }
 
     /**
      * Find cell by table name, column name and row index
      *
-     * @param tableName  cell column name
-     * @param columnName cell column name
-     * @param rowIndex   cell row index
-     * @return cell instance (dom element)
-     */
-    private SelenideElement findCell(String tableName, String columnName, int rowIndex) {
-        log.debug("Looking for column by title '{}' inside row number '{}'", columnName, rowIndex);
-        int columnIndex = getColumnIndex(columnName);
-        return findCell(tableName, columnIndex, rowIndex);
-    }
-
-    /**
-     * Find cell by column name and row index
-     *
      * @param columnName cell column name
      * @param rowIndex   cell row index
      * @return cell instance (dom element)
      */
     private SelenideElement findCell(String columnName, int rowIndex) {
-        return findCell("", columnName, rowIndex);
+        log.debug("Looking for column by title '{}' inside row number '{}'", columnName, rowIndex);
+        int columnIndex = getColumnIndex(columnName);
+        return findCell(columnIndex, rowIndex);
     }
 
     /**
      * Find cell by table name, column index and row index
      *
-     * @param tableName   cell table name
      * @param columnIndex cell column index
      * @param rowIndex    cell row index
      * @return cell instance (dom element)
      */
-    private SelenideElement findCell(String tableName, int columnIndex, int rowIndex) {
-        String nameTableLocator = "";
-        if (StringUtils.isNotEmpty(tableName)) {
-            nameTableLocator = String.format("//span[text()='%s']/ancestor::lightning-card", tableName);
-        }
+    private SelenideElement findCell(int columnIndex, int rowIndex) {
         ElementsCollection allCells = $$x(String.format(
                 ACTIVE_TAB_LOCATOR + nameTableLocator + "//tbody//tr[%s]//td|" +
                         ACTIVE_TAB_LOCATOR + nameTableLocator + "//tbody//tr[%s]//th", rowIndex, rowIndex));
@@ -219,6 +181,7 @@ public class Table extends BasePage {
         int rowIndex = 0;
         int columnIndex = getColumnIndex(columnValue);
         SelenideElement cellRow = null;
+        String ALL_ROWS_LOCATOR = ACTIVE_TAB_LOCATOR + nameTableLocator + "//tbody//tr";
         ElementsCollection allRows = $$(By.xpath(ALL_ROWS_LOCATOR));
 
         //find row by cell value and cell column(index)

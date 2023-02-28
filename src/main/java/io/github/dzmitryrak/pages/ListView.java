@@ -36,7 +36,7 @@ public class ListView extends BasePage {
     }
 
     public Table table() {
-        return new Table();
+        return new Table("");
     }
 
     /**

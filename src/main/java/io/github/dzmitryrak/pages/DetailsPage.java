@@ -83,4 +83,8 @@ public class DetailsPage extends BasePage {
     public Panel panels() {
         return new Panel();
     }
+
+    public Table table(String tableName) {
+        return new Table(tableName);
+    }
 }
