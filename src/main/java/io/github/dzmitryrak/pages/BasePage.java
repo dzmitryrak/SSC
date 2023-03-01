@@ -14,9 +14,6 @@ import static com.codeborne.selenide.Selenide.$;
 public abstract class BasePage {
     /**
      * Timeout for pages' waitTillOpened methods.
-     *
-     * @default 10 seconds
-     * @param locator
      */
     public Duration timeout = Duration.ofSeconds(10);
 

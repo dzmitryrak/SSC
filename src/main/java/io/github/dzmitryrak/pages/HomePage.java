@@ -23,8 +23,6 @@ public class HomePage extends BasePage {
 
     /**
      * Check if main logo is displayed.
-     *
-     * @return current instance of HomePage
      */
     public void waitTillOpened() {
         //TODO method to check if user is logged in
