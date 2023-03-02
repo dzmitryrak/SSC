@@ -17,8 +17,9 @@ public class ListView extends BasePage {
     /**
      * Wait until breadcrumb is displayed.
      */
-    public void waitTillOpened() {
+    public ListView waitTillOpened() {
         $(BREADCRUMB_LOCATOR).shouldBe(visible, timeout);
+        return this;
     }
 
     /**

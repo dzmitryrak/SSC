@@ -41,8 +41,9 @@ public class Table extends BasePage {
         log.debug("Loaded table with headers: {}", builder.toString());
     }
 
-    private void waitTillOpened() {
+    private Table waitTillOpened() {
         $(HEADER_LOCATOR).shouldBe(visible, timeout);
+        return this;
     }
 
     /**
