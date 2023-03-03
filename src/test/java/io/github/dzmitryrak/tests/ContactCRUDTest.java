@@ -50,7 +50,6 @@ public class ContactCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Contact")
                 .actions()
@@ -154,7 +153,6 @@ public class ContactCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Contact")
                 .actions()
@@ -247,7 +245,6 @@ public class ContactCRUDTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Contact")
                 .actions()

@@ -1,11 +1,9 @@
 package io.github.dzmitryrak.pages;
 
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
-import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -27,12 +25,11 @@ public class NewObjectModal extends BasePage {
      */
     public NewObjectModal waitTillOpened() {
         try {
-            //TODO generic wait timeout
-            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible, timeout);
         } catch (Throwable e) {
             log.warn("Failed to open New Object modal. Trying once again");
             refresh();
-            $(MODAL_HEADER_LOCATOR).shouldBe(visible, Duration.ofSeconds(10));
+            $(MODAL_HEADER_LOCATOR).shouldBe(visible, timeout);
         }
         return this;
     }

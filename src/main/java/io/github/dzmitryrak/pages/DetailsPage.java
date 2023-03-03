@@ -1,11 +1,9 @@
 package io.github.dzmitryrak.pages;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
-import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -20,7 +18,7 @@ public class DetailsPage extends BasePage {
      */
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
-        $(By.xpath(ACTIVE_TAB_LOCATOR + "//a[@data-tab-value='detailTab']")).shouldBe(visible, Duration.ofSeconds(20));
+        $(By.xpath(ACTIVE_TAB_LOCATOR + "//a[@data-tab-value='detailTab']")).shouldBe(visible, timeout);
         return this;
     }
 
@@ -35,10 +33,9 @@ public class DetailsPage extends BasePage {
         log.info("Opening {} tab", tabName);
 
         By tabLocator = By.xpath(String.format(COMMON_TAB, tabName));
-        $(tabLocator).shouldBe(Condition.visible, Duration.ofSeconds(10));
+        $(tabLocator).shouldBe(visible, timeout);
         clickJS(tabLocator);
-        waitForPageLoaded();
-        $(tabLocator).shouldBe(visible, Duration.ofSeconds(10));
+        $(tabLocator).shouldBe(visible, timeout);
         return this;
     }
 
@@ -85,5 +82,9 @@ public class DetailsPage extends BasePage {
 
     public Panel panels() {
         return new Panel();
+    }
+
+    public Table table(String tableName) {
+        return new Table(tableName);
     }
 }

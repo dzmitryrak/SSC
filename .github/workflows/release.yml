@@ -35,10 +35,7 @@ jobs:
         run: git config --global user.email "releaseagent@mail.com"
 
       - name: Pull main
-        run: git pull origin main
-
-      - name: Merge main into ssc-0.x.x
-        run: git merge origin/main
+        run: git pull --no-rebase origin main
 
       - name: Set up Apache Maven Central
         uses: actions/setup-java@v3

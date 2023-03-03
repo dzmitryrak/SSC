@@ -1,19 +1,16 @@
 package io.github.dzmitryrak.pages;
 
 import com.codeborne.selenide.Selenide;
-import io.github.dzmitryrak.enums.SortOrder;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-
-import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class ListView extends BasePage {
-  private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
+    private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
 
@@ -21,7 +18,7 @@ public class ListView extends BasePage {
      * Wait until breadcrumb is displayed.
      */
     public void waitTillOpened() {
-        $(BREADCRUMB_LOCATOR).shouldBe(visible, Duration.ofSeconds(20));
+        $(BREADCRUMB_LOCATOR).shouldBe(visible, timeout);
     }
 
     /**
@@ -39,8 +36,7 @@ public class ListView extends BasePage {
     }
 
     public Table table() {
-        waitForPageLoaded();
-        return new Table();
+        return new Table("");
     }
 
     /**

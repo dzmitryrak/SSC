@@ -7,10 +7,7 @@ import io.github.dzmitryrak.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.time.Duration;
 import java.util.Map;
@@ -40,7 +37,6 @@ public class ElementHelper {
      */
     public void fill(String elementLabel, String value) {
         long startTime = System.currentTimeMillis();
-        waitForPageLoaded();
         Configuration.pollingInterval = 20;
         String elementType;
 
@@ -216,21 +212,6 @@ public class ElementHelper {
         validate("", label, expectedText);
     }
 
-    /**
-     * Wait for "document.readyState" to be "complete".
-     */
-    private void waitForPageLoaded() {
-        new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver driver) {
-                return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
-            }
-        };
-    }
-
-    private void jsClick(WebElement el) {
-        Selenide.executeJavaScript("arguments[0].click();", el);
-    }
-
     public void searchForLookupValue(SelenideElement lookup, String value) {
         log.info("Searching for lookup value: {}", value);
         String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
@@ -257,12 +238,15 @@ public class ElementHelper {
         SelenideElement createOption = $(By.xpath("//lightning-base-combobox-item[@data-value='actionCreateNew']"));
         jsClick(createOption);
         NewObjectModal newObjectModal = new NewObjectModal();
-        newObjectModal.isPageOpened();
         newObjectModal
+                .waitTillOpened()
                 .enterData(data)
                 .save()
                 .waitTillModalClosed();
+    }
 
+    private void jsClick(WebElement el) {
+        Selenide.executeJavaScript("arguments[0].click();", el);
     }
 
     private void scrollToElement(WebElement el) {
