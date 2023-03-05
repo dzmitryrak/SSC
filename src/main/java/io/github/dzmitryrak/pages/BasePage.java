@@ -14,11 +14,10 @@ import static com.codeborne.selenide.Selenide.$;
 public abstract class BasePage {
     /**
      * Timeout for pages' waitTillOpened methods.
+     * The default is 20 seconds.
      *
-     * @default 10 seconds
-     * @param locator
      */
-    public Duration timeout = Duration.ofSeconds(10);
+    public static Duration timeout = Duration.ofSeconds(20);
 
     protected final String ACTIVE_TAB_LOCATOR = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";
     protected ElementHelper sfHelper;
