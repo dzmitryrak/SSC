@@ -48,7 +48,7 @@ jobs:
         USERNAME: ${{ secrets.username }}
         SPAIN_USER: ${{ secrets.SPAIN_USER }}
         PASSWORD: ${{ secrets.password }}
-      run: mvn clean test -P ssc-test -Dusername=$USERNAME -Dpassword=$PASSWORD
+      run: mvn clean test -P ssc-test -Dusername=$USERNAME -Dpassword=$PASSWORD -DspainUser=$SPAIN_USER
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
