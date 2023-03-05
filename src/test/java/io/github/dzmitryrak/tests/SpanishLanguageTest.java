@@ -58,7 +58,6 @@ public class SpanishLanguageTest extends BaseTest {
 
         loginPage.open();
         loginPage.login(SPAIN_USER, PASSWORD);
-        homePage.isPageOpened();
         listView
                 .open("Account")
                 .actions().action("Nuevo");
