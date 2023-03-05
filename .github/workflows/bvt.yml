@@ -46,6 +46,7 @@ jobs:
     - name: Running BVT
       env:
         USERNAME: ${{ secrets.username }}
+        SPAIN_USER: ${{ secrets.SPAIN_USER }}
         PASSWORD: ${{ secrets.password }}
       run: mvn clean test -P ssc-test -Dusername=$USERNAME -Dpassword=$PASSWORD
     - name: Perform CodeQL Analysis
