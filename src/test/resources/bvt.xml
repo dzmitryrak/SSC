@@ -4,31 +4,31 @@
     <listeners>
         <listener class-name="io.github.dzmitryrak.tests.base.TestListener"/>
     </listeners>
-<!--    <test name="CRUD for Account">-->
-<!--        <classes>-->
-<!--            <class name="io.github.dzmitryrak.tests.AccountCRUDTest"/>-->
-<!--        </classes>-->
-<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
+    <test name="CRUD for Account">
+        <classes>
+            <class name="io.github.dzmitryrak.tests.AccountCRUDTest"/>
+        </classes>
+    </test> <!-- Test -->
     <test name="CRUD for Contact">
         <classes>
-<!--            <class name="io.github.dzmitryrak.tests.ContactCRUDTest"/>-->
+            <class name="io.github.dzmitryrak.tests.ContactCRUDTest"/>
             <class name="io.github.dzmitryrak.tests.SpanishLanguageTest"/>
         </classes>
     </test> <!-- Test -->
-<!--    <test name="CRUD for Lead">-->
-<!--        <classes>-->
-<!--            <class name="io.github.dzmitryrak.tests.LeadCRUDTest"/>-->
-<!--        </classes>-->
-<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
-<!--    <test name="Cases">-->
-<!--        <classes>-->
-<!--            <class name="io.github.dzmitryrak.tests.CaseTest"/>-->
-<!--        </classes>-->
-<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
-<!--    <test name="Others">-->
-<!--        <classes>-->
-<!--            <class name="io.github.dzmitryrak.tests.ReadModalErrorTest"/>-->
-<!--            <class name="io.github.dzmitryrak.tests.GetDataFromTableTest"/>-->
-<!--        </classes>-->
-<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
+    <test name="CRUD for Lead">
+        <classes>
+            <class name="io.github.dzmitryrak.tests.LeadCRUDTest"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="Cases">
+        <classes>
+            <class name="io.github.dzmitryrak.tests.CaseTest"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="Others">
+        <classes>
+            <class name="io.github.dzmitryrak.tests.ReadModalErrorTest"/>
+            <class name="io.github.dzmitryrak.tests.GetDataFromTableTest"/>
+        </classes>
+    </test> <!-- Test -->
 </suite>
