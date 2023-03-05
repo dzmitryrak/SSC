@@ -25,7 +25,7 @@ public abstract class BaseTest {
     protected PropertyReader propertyReader = new PropertyReader("src/test/resources/configuration.properties");
     protected final String USERNAME = System.getProperty("username", propertyReader.getPropertyValueByKey("username"));
     protected final String PASSWORD = System.getProperty("password", propertyReader.getPropertyValueByKey("password"));
-    protected final String SPAIN_USER = System.getProperty("SPAIN_USER", propertyReader.getPropertyValueByKey("username.spain"));
+    protected final String SPAIN_USER = System.getProperty("USER_SPAIN", propertyReader.getPropertyValueByKey("username.spain"));
 
     @BeforeMethod(description = "Open browser")
     public void setUp() {
