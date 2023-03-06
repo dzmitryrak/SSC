@@ -2,6 +2,7 @@ name: Release
 
 env:
   PLATFORM_USERNAME: ${{ secrets.username }}
+  PLATFORM_USERNAME_SPAIN: ${{ secrets.SPAIN_USER }}
   PLATFORM_PASSWORD: ${{ secrets.password }}
   OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
   OSSRH_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
@@ -61,7 +62,7 @@ jobs:
         run: git commit -m 'release ${{ github.event.inputs.version }}'
 
       - name: Publish to Apache Maven Central
-        run: mvn deploy -P ssc-deploy -Dusername=$PLATFORM_USERNAME -Dpassword=$PLATFORM_PASSWORD
+        run: mvn deploy -P ssc-deploy -Dusername=$PLATFORM_USERNAME -Dpassword=$PLATFORM_PASSWORD -DspainUser=$PLATFORM_USERNAME_SPAIN
 
       - name: Push all changes to GitHub
         run: git push origin ssc-0.x.x

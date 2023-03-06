@@ -52,7 +52,6 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Street");
         account.remove("Shipping City");
         account.remove("Shipping State/Province");
-        account.remove("Shipping State/Province");
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
 
@@ -121,7 +120,6 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Shipping Street");
         account.remove("Shipping City");
         account.remove("Shipping State/Province");
-        account.remove("Shipping State/Province");
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
         detailsPage
@@ -145,7 +143,6 @@ public class AccountCRUDTest extends BaseTest {
         updatedAccount.remove("Billing Country");
         updatedAccount.remove("Shipping Street");
         updatedAccount.remove("Shipping City");
-        updatedAccount.remove("Shipping State/Province");
         updatedAccount.remove("Shipping State/Province");
         updatedAccount.remove("Shipping Zip/Postal Code");
         updatedAccount.remove("Shipping Country");
@@ -193,7 +190,6 @@ public class AccountCRUDTest extends BaseTest {
         account.remove("Billing Country");
         account.remove("Shipping Street");
         account.remove("Shipping City");
-        account.remove("Shipping State/Province");
         account.remove("Shipping State/Province");
         account.remove("Shipping Zip/Postal Code");
         account.remove("Shipping Country");
