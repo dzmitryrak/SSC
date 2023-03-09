@@ -32,6 +32,7 @@ public class ListView extends BasePage {
     public ListView open(String listViewName) {
         log.info("Opening '{}' List View", listViewName);
         Selenide.open(String.format("lightning/o/%s/list", listViewName));
+        waitForPageLoaded();
         waitTillOpened();
         return this;
     }
