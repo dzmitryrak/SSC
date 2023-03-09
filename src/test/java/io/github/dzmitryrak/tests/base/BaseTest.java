@@ -41,6 +41,7 @@ public abstract class BaseTest {
         options.addArguments("--disable-notifications");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*");
         if (propertyReader.getPropertyValueByKey("headless").equals("true")) {
             options.addArguments("--headless");
         }
