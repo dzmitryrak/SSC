@@ -96,6 +96,7 @@ public class NewObjectModal extends BasePage {
      * Wait till modal window is closed.
      */
     public DetailsPage waitTillModalClosed() {
+        waitForPageLoaded();
         $(MODAL_HEADER_LOCATOR).shouldNotBe(visible);
         return new DetailsPage();
     }
