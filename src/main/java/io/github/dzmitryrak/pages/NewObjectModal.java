@@ -1,5 +1,6 @@
 package io.github.dzmitryrak.pages;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -25,10 +26,12 @@ public class NewObjectModal extends BasePage {
      */
     public NewObjectModal waitTillOpened() {
         try {
+            waitForPageLoaded();
             $(MODAL_HEADER_LOCATOR).shouldBe(visible, timeout);
         } catch (Throwable e) {
             log.warn("Failed to open New Object modal. Trying once again");
             refresh();
+            waitForPageLoaded();
             $(MODAL_HEADER_LOCATOR).shouldBe(visible, timeout);
         }
         return this;
@@ -144,6 +147,7 @@ public class NewObjectModal extends BasePage {
     public String getError() {
         $(ERROR_POPUP).shouldBe(visible);
         String errorMessage = $(ERROR_MESSAGE).shouldBe(visible).getText();
+        Selenide.screenshot("errorMessage :" + errorMessage);
         log.info("Popup Error Message: {}", errorMessage);
         return errorMessage;
     }
