@@ -42,7 +42,7 @@ public abstract class BasePage {
     /**
      * Wait for "document.readyState" to be "complete".
      */
-    public void waitForPageLoaded() {
+    public static void waitForPageLoaded() {
         new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 return Selenide.executeJavaScript("return document.readyState").toString().equals("complete");

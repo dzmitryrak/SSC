@@ -6,6 +6,7 @@ import io.github.dzmitryrak.pages.*;
 import io.github.dzmitryrak.utils.PropertyReader;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -35,6 +36,7 @@ public abstract class BaseTest {
                 .savePageSource(false));
         Configuration.baseUrl = propertyReader.getPropertyValueByKey("base.url");
         Configuration.timeout = 5000;
+        Configuration.pageLoadStrategy = PageLoadStrategy.NORMAL.toString();
         Configuration.browser = "chrome";
 
         var options = new ChromeOptions();
@@ -61,10 +63,12 @@ public abstract class BaseTest {
     public void tearDown() {
         try {
             getWebDriver().quit();
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             log.warn("Unable to close WebDriver. Make sure that driver is initialized");
             log.warn(ex.getMessage());
             log.debug(ex.getStackTrace());
+        } finally {
+            getWebDriver().quit();
         }
     }
 }

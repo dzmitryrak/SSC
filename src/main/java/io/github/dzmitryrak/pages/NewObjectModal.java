@@ -26,12 +26,10 @@ public class NewObjectModal extends BasePage {
      */
     public NewObjectModal waitTillOpened() {
         try {
-            waitForPageLoaded();
             $(MODAL_HEADER_LOCATOR).shouldBe(visible, timeout);
         } catch (Throwable e) {
             log.warn("Failed to open New Object modal. Trying once again");
             refresh();
-            waitForPageLoaded();
             $(MODAL_HEADER_LOCATOR).shouldBe(visible, timeout);
         }
         return this;
@@ -96,7 +94,6 @@ public class NewObjectModal extends BasePage {
      * Wait till modal window is closed.
      */
     public DetailsPage waitTillModalClosed() {
-        waitForPageLoaded();
         $(MODAL_HEADER_LOCATOR).shouldNotBe(visible);
         return new DetailsPage();
     }

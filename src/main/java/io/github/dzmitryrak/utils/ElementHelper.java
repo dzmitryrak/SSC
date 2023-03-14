@@ -3,6 +3,7 @@ package io.github.dzmitryrak.utils;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.github.dzmitryrak.pages.BasePage;
 import io.github.dzmitryrak.pages.NewObjectModal;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -251,5 +252,6 @@ public class ElementHelper {
 
     private void scrollToElement(WebElement el) {
         executeJavaScript("arguments[0].scrollIntoView();", el);
+        BasePage.waitForPageLoaded();
     }
 }
