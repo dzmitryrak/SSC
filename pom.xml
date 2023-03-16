@@ -246,5 +246,4 @@
             <version>${apache.common.version}</version>
         </dependency>
     </dependencies>
-    
 </project>
