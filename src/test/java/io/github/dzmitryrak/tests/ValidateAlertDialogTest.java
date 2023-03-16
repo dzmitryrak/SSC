@@ -1,11 +1,8 @@
 package io.github.dzmitryrak.tests;
 
-import io.github.dzmitryrak.pages.BasePage;
 import io.github.dzmitryrak.tests.base.BaseTest;
 import org.testng.annotations.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.StringContains.containsString;
+import static org.testng.Assert.assertTrue;
 
 public class ValidateAlertDialogTest extends BaseTest {
     @Test(description = "Check Success alert")
@@ -18,6 +15,6 @@ public class ValidateAlertDialogTest extends BaseTest {
                 .enterData("Case Origin", "Phone")
                 .save()
                 .getAlert();
-        assertThat(alertMessage, containsString("Success"));
+        assertTrue(alertMessage.contains("Success"));
     }
 }
