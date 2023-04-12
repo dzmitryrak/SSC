@@ -20,12 +20,12 @@ public class CaseTest extends BaseTest {
                 .validate("Subject", "Seeking guidance on electrical wiring installation for GC5060")
                 .validate("Case Number", "00001002")
                 .validate("Status", "New")
-                .validate("Priority", "Low")
                 .validate("Description", "");
         detailsPage
                 .clickTab("Details")
                 .validate("Subject", "Seeking guidance on electrical wiring installation for GC5060")
                 .validate("Case Number", "00001002")
+                .validate("Case Owner", "Dmitry Rak")
                 .validate("Status", "New")
                 .validate("Priority", "Low")
                 .validate("Description", "");

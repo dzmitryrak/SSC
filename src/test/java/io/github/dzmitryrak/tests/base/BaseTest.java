@@ -38,6 +38,7 @@ public abstract class BaseTest {
         Configuration.browser = "chrome";
 
         var options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-notifications");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
