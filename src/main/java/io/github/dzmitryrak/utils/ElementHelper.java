@@ -194,7 +194,7 @@ public class ElementHelper {
                 }
             } else {
                 //TODO throw custom exception with simple text
-                SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
+                SelenideElement input = $$(By.xpath(String.format(genericLocator + "//text()/parent::*", label))).first();
                 if (StringUtils.isNotEmpty(expectedText)) {
                     input.shouldHave(text(expectedText));
                 } else {

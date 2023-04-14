@@ -70,4 +70,20 @@ public class CaseTest extends BaseTest {
         listView.table().sortBy("Case Number", SortOrder.DESC);
         listView.table().clickCell("Case Number", 1);
     }
+
+    @Test(description = "Check that we can click on any button on case detail page")
+    public void clickButtonOnDetailPage(){
+        loginPage.open().login(USERNAME, PASSWORD);
+        listView.open("Case");
+        listView.clickSwitcher();
+        listView.selectFilter("My Cases");
+        listView.table().sortBy("Case Number", SortOrder.DESC);
+        listView.table().clickCell("Case Number", 1);
+        detailsPage.clickTab("Feed")
+                   .clickTab("Poll")
+                   .clickButton("Add new choice")
+                   .clickButton("Follow")
+                   .clickButton("Following");
+
+    }
 }

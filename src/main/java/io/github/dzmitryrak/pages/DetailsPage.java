@@ -11,7 +11,9 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class DetailsPage extends BasePage {
-    private final String COMMON_TAB = ACTIVE_TAB_LOCATOR + "//a[@data-label='%s']";
+    private final String COMMON_TAB = ACTIVE_TAB_LOCATOR + "//a[@data-label='%s' or @title='%s']";
+    private final String COMMON_BUTTON = ACTIVE_TAB_LOCATOR + "//*[@title='%s' or text()='%s']";
+    private final String COMMON_RADIOBUTTON = ACTIVE_TAB_LOCATOR + "//span[text()='%s']/ancestor::span[@class='slds-radio']//span[@class='slds-radio_faux']";
 
     /**
      * Wait until Details tab is displayed.
@@ -19,6 +21,13 @@ public class DetailsPage extends BasePage {
     @Step("Check that Details page was opened")
     public DetailsPage waitTillOpened() {
         $(By.xpath(ACTIVE_TAB_LOCATOR + "//a[@data-tab-value='detailTab']")).shouldBe(visible, timeout);
+        return this;
+    }
+
+    public DetailsPage click(String locator, String value) {
+        By tabLocator = By.xpath(String.format(locator, value, value));
+        $(tabLocator).shouldBe(visible, timeout);
+        clickJS(tabLocator);
         return this;
     }
 
@@ -31,12 +40,31 @@ public class DetailsPage extends BasePage {
     @Step("Open '{tabName}' tab")
     public DetailsPage clickTab(String tabName) {
         log.info("Opening {} tab", tabName);
+        return click(COMMON_TAB,tabName);
+    }
 
-        By tabLocator = By.xpath(String.format(COMMON_TAB, tabName));
-        $(tabLocator).shouldBe(visible, timeout);
-        clickJS(tabLocator);
-        $(tabLocator).shouldBe(visible, timeout);
-        return this;
+    /**
+     * Click any button on detail page
+     *
+     * @param buttonName
+     * @return current instance of DetailsPage
+     */
+    @Step("Click '{buttonName}' button")
+    public DetailsPage clickButton(String buttonName) {
+        log.info("Click {} button", buttonName);
+        return click(COMMON_BUTTON,buttonName);
+    }
+
+    /**
+     * Select any radioButton on detail page
+     *
+     * @param radioButtonName
+     * @return current instance of DetailsPage
+     */
+    @Step("Select '{radioButtonName}'")
+    public DetailsPage selectRadioButton(String radioButtonName) {
+        log.info("Select {}", radioButtonName);
+        return click(COMMON_RADIOBUTTON,radioButtonName);
     }
 
     /**
