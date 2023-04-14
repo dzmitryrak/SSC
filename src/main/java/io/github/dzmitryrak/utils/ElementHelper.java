@@ -194,10 +194,11 @@ public class ElementHelper {
                 }
             } else {
                 //TODO throw custom exception with simple text
-                SelenideElement input = $$(By.xpath(String.format(genericLocator + "//text()/parent::*", label))).first();
                 if (StringUtils.isNotEmpty(expectedText)) {
+                    SelenideElement input = $$(By.xpath(String.format(genericLocator + "//text()/parent::*", label))).first();
                     input.shouldHave(text(expectedText));
                 } else {
+                    SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
                     input.shouldHave(exactTextCaseSensitive(expectedText));
                 }
             }
