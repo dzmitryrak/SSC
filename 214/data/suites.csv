@@ -1,2 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Sun Mar 05 23:40:32 GMT 2023","Sun Mar 05 23:41:25 GMT 2023","52489","Build Verification Test","CRUD for Contact","io.github.dzmitryrak.tests.SpanishLanguageTest","io.github.dzmitryrak.tests.SpanishLanguageTest","createAccountEditAndDeleteInSpanish","Account CRUD test in a different language (Spanish)",""
