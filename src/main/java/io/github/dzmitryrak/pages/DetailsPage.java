@@ -40,7 +40,7 @@ public class DetailsPage extends BasePage {
     @Step("Open '{tabName}' tab")
     public DetailsPage clickTab(String tabName) {
         log.info("Opening {} tab", tabName);
-        return click(COMMON_TAB,tabName);
+        return click(COMMON_TAB, tabName);
     }
 
     /**
@@ -52,7 +52,7 @@ public class DetailsPage extends BasePage {
     @Step("Click '{buttonName}' button")
     public DetailsPage clickButton(String buttonName) {
         log.info("Click {} button", buttonName);
-        return click(COMMON_BUTTON,buttonName);
+        return click(COMMON_BUTTON, buttonName);
     }
 
     /**
@@ -64,7 +64,7 @@ public class DetailsPage extends BasePage {
     @Step("Select '{radioButtonName}'")
     public DetailsPage selectRadioButton(String radioButtonName) {
         log.info("Select {}", radioButtonName);
-        return click(COMMON_RADIOBUTTON,radioButtonName);
+        return click(COMMON_RADIOBUTTON, radioButtonName);
     }
 
     /**
