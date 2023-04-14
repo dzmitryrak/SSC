@@ -82,8 +82,7 @@ public class CaseTest extends BaseTest {
         detailsPage.clickTab("Feed")
                 .clickTab("Poll")
                 .clickButton("Add new choice")
-                .clickButton("Follow")
-                .clickButton("Following");
+                .clickButton("Edit");
 
     }
 }
