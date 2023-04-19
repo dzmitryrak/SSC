@@ -41,10 +41,10 @@ public class CaseTest extends BaseTest {
         detailsPage.waitTillOpened();
         String subject =
                 listView
-                .open("Case")
-                .table()
-                .sortBy("Case Number", SortOrder.ASC)
-                .getTextFromCell("Subject", 1);
+                        .open("Case")
+                        .table()
+                        .sortBy("Case Number", SortOrder.ASC)
+                        .getTextFromCell("Subject", 1);
         assertEquals(subject, "Starting generator after electrical failure");
     }
 
@@ -55,14 +55,14 @@ public class CaseTest extends BaseTest {
                 .open("Case")
                 .table()
                 .sortBy("Case Number", SortOrder.DESC)
-                .getTextFromCell("Case Number",1);
+                .getTextFromCell("Case Number", 1);
         listView.table().clickCell("Case Number", 1);
         detailsPage.waitTillOpened();
-        detailsPage.panels().panel("Case Details").validate("Case Number",subject);
+        detailsPage.panels().panel("Case Details").validate("Case Number", subject);
     }
 
     @Test(description = "Check that listview sorting exists and works")
-    public void sortingListView(){
+    public void sortingListView() {
         loginPage.open().login(USERNAME, PASSWORD);
         listView.open("Case");
         listView.clickSwitcher();
@@ -72,7 +72,7 @@ public class CaseTest extends BaseTest {
     }
 
     @Test(description = "Check that we can click on any button on case detail page")
-    public void clickButtonOnDetailPage(){
+    public void clickButtonOnDetailPage() {
         loginPage.open().login(USERNAME, PASSWORD);
         listView.open("Case");
         listView.clickSwitcher();
@@ -80,10 +80,9 @@ public class CaseTest extends BaseTest {
         listView.table().sortBy("Case Number", SortOrder.DESC);
         listView.table().clickCell("Case Number", 1);
         detailsPage.clickTab("Feed")
-                   .clickTab("Poll")
-                   .clickButton("Add new choice")
-                   .clickButton("Follow")
-                   .clickButton("Following");
+                .clickTab("Poll")
+                .clickButton("Add new choice")
+                .clickButton("Edit");
 
     }
 }
