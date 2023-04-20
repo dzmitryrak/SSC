@@ -3,7 +3,9 @@ package io.github.dzmitryrak.utils;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.github.dzmitryrak.pages.DetailsPage;
 import io.github.dzmitryrak.pages.NewObjectModal;
+import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -23,6 +25,7 @@ import static com.codeborne.selenide.Selenide.*;
 @Log4j2
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
+    public static final String ACTIVE_TAB_LOCATOR = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";
     String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist";
     String pickListButton = pickList + "//button[@lightning-basecombobox_basecombobox]";
     String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='text']";
@@ -30,6 +33,8 @@ public class ElementHelper {
     String clearLookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//button";
     String textArea = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-textarea//textarea";
     String checkbox = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='checkbox']";
+    String radioButton = ACTIVE_TAB_LOCATOR + "//span[text()='%s']/ancestor::span[@class='slds-radio']//span[@class='slds-radio_faux']";
+            //"//span[@class='slds-radio_faux']";
 
     /**
      * Fill any Salesforce element.
@@ -194,10 +199,11 @@ public class ElementHelper {
                 }
             } else {
                 //TODO throw custom exception with simple text
-                SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
                 if (StringUtils.isNotEmpty(expectedText)) {
+                    SelenideElement input = $$(By.xpath(String.format(genericLocator + "//text()/parent::*", label))).first();
                     input.shouldHave(text(expectedText));
                 } else {
+                    SelenideElement input = $(By.xpath(String.format(genericLocator, label)));
                     input.shouldHave(exactTextCaseSensitive(expectedText));
                 }
             }
@@ -243,6 +249,17 @@ public class ElementHelper {
                 .enterData(data)
                 .save()
                 .waitTillModalClosed();
+    }
+
+    /**
+     * Select any radioButton
+     *
+     * @param radioButtonName
+     */
+    @Step("Select '{radioButtonName}'")
+    public void selectRadioButton(String radioButtonName) {
+        log.info("Select {}", radioButtonName);
+        jsClick($(By.xpath(String.format(radioButton, radioButtonName))));
     }
 
     private void jsClick(WebElement el) {

@@ -134,6 +134,13 @@ public class AccountCRUDTest extends BaseTest {
                 .save()
                 .waitTillModalClosed()
                 .waitTillOpened();
+        detailsPage
+                .actions()
+                .moreActions()
+                .action("UI Tests");
+        detailsPage
+                .selectRadioButton("yes")
+                .clickButton("Finish");
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");
