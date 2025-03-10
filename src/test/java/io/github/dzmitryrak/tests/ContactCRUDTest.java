@@ -20,15 +20,15 @@ public class ContactCRUDTest extends BaseTest {
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Home Phone", faker.phoneNumber().phoneNumber());
             put("BVT check", "true");
-            put("Account Name", "Emory Harber");
+            put("Account Name", "Daysi Flatley");
             put("Mobile", faker.phoneNumber().phoneNumber());
             put("Title", "any title");
             put("Other Phone", faker.phoneNumber().phoneNumber());
             put("Department", "test");
             put("Fax", "test");
-            put("Birthdate", "9/27/2022");
+            put("Birthdate", "20.05.1990");
             put("Email", faker.internet().emailAddress());
-            put("Reports To", "Berry Reilly Shields");
+            put("Reports To", "Laurence Dooley Nolan");
             put("Assistant", "test");
             put("Lead Source", "Other");
             put("Asst. Phone", faker.phoneNumber().phoneNumber());
@@ -45,7 +45,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Languages", "test");
             put("Level", "Primary");
             put("Description", faker.lorem().sentence());
-            put("Multiselect", "Yes;Maybe");
+            put("Multiselect", "Maybe;Yes");
         }};
 
         loginPage.open();
@@ -87,15 +87,15 @@ public class ContactCRUDTest extends BaseTest {
             put("Home Phone", faker.phoneNumber().phoneNumber());
             put("Multiselect", "Yes;Maybe");
             put("BVT check", "false");
-            put("Account Name", "Emory Harber");
+            put("Account Name", "Jolynn Kirlin");
             put("Mobile", faker.phoneNumber().phoneNumber());
             put("Title", "any title");
             put("Other Phone", faker.phoneNumber().phoneNumber());
             put("Department", "test");
             put("Fax", "test");
-            put("Birthdate", "9/27/2022");
+            put("Birthdate", "20.05.1990");
             put("Email", faker.internet().emailAddress());
-            put("Reports To", "Berry Reilly Shields");
+            put("Reports To", "Jasper Jast Gulgowski");
             put("Assistant", "test");
             put("Lead Source", "Other");
             put("Asst. Phone", faker.phoneNumber().phoneNumber());
@@ -112,7 +112,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Languages", "test");
             put("Level", "Primary");
             put("Description", faker.lorem().sentence());
-            put("Multiselect", "Yes;Maybe");
+            put("Multiselect", "Maybe;Yes");
         }};
 
         Map<String, String> updatedContact = new HashMap<>() {{
@@ -129,9 +129,9 @@ public class ContactCRUDTest extends BaseTest {
             put("Other Phone", faker.phoneNumber().phoneNumber());
             put("Department", "test");
             put("Fax", "test");
-            put("Birthdate", "9/27/2022");
+            put("Birthdate", "10.02.2000");
             put("Email", faker.internet().emailAddress());
-            put("Reports To", "Reid Mueller Wilkinson");
+            put("Reports To", "Irwin Mayer Hamill");
             put("Assistant", "test");
             put("Lead Source", "Other");
             put("Asst. Phone", faker.phoneNumber().phoneNumber());
@@ -148,7 +148,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Languages", "test");
             put("Level", "Primary");
             put("Description", faker.lorem().sentence());
-            put("Multiselect", "Yes;Maybe");
+            put("Multiselect", "Maybe;Yes");
         }};
 
         loginPage.open();
@@ -215,15 +215,15 @@ public class ContactCRUDTest extends BaseTest {
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Home Phone", faker.phoneNumber().phoneNumber());
             put("BVT check", "true");
-            put("Account Name", "Emory Harber");
+            put("Account Name", "Desire Barton");
             put("Mobile", faker.phoneNumber().phoneNumber());
             put("Title", "any title");
             put("Other Phone", faker.phoneNumber().phoneNumber());
             put("Department", "test");
             put("Fax", "test");
-            put("Birthdate", "9/27/2022");
+            put("Birthdate", "10.02.2002");
             put("Email", faker.internet().emailAddress());
-            put("Reports To", "Berry Reilly Shields");
+            put("Reports To", "Lavern Tromp Kozey");
             put("Assistant", "test");
             put("Lead Source", "Other");
             put("Asst. Phone", faker.phoneNumber().phoneNumber());
@@ -240,7 +240,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Languages", "test");
             put("Level", "Primary");
             put("Description", faker.lorem().sentence());
-            put("Multiselect", "Yes;Maybe");
+            put("Multiselect", "Maybe;Yes");
         }};
 
         loginPage.open();

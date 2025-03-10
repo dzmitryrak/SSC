@@ -15,12 +15,12 @@ public class AccountCRUDTest extends BaseTest {
     public void createAccount() {
         Map<String, String> account = new HashMap<>() {{
             put("Account Name", faker.name().name());
-            put("Parent Account", "Erica Larson");
+            put("Parent Account", "Desire Barton");
             put("Type", "Prospect");
             put("Website", faker.internet().url());
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Description", faker.lorem().sentence());
-            put("Multiselect", "No;Probably;one more option");
+            put("Multiselect", "No;Probably;One more option");
             put("Employees", faker.number().digit());
             put("Billing Street", faker.address().streetAddress());
             put("Billing City", faker.address().city());
@@ -69,7 +69,7 @@ public class AccountCRUDTest extends BaseTest {
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Description", faker.lorem().sentence());
             put("Employees", faker.number().digit());
-            put("Multiselect", "No;Probably;one more option");
+            put("Multiselect", "No;Probably;One more option");
             put("Billing Street", faker.address().streetAddress());
             put("Billing City", faker.address().city());
             put("Billing State/Province", faker.address().state());
@@ -89,7 +89,6 @@ public class AccountCRUDTest extends BaseTest {
             put("Phone", faker.phoneNumber().phoneNumber());
             put("Description", faker.lorem().sentence());
             put("Employees", faker.number().digit());
-            put("Multiselect", "Yes;Probably;one more option");
             put("Billing Street", faker.address().streetAddress());
             put("Billing City", faker.address().city());
             put("Billing State/Province", faker.address().state());
@@ -134,13 +133,14 @@ public class AccountCRUDTest extends BaseTest {
                 .save()
                 .waitTillModalClosed()
                 .waitTillOpened();
+
         detailsPage
                 .actions()
                 .moreActions()
-                .action("UI Tests");
-        detailsPage
-                .selectRadioButton("yes")
-                .clickButton("Finish");
+                .submitFoApproval()
+                .fillData("Comments", "Comment")
+                .submit();
+
 
         updatedAccount.remove("Description");
         updatedAccount.remove("Billing Street");

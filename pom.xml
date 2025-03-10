@@ -64,25 +64,25 @@
     </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <selenide.version>6.10.3</selenide.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <selenide.version>7.5.1</selenide.version>
         <testng.version>7.7.0</testng.version>
-        <webdrivermanager.version>5.3.1</webdrivermanager.version>
+        <webdrivermanager.version>5.9.2</webdrivermanager.version>
         <faker.version>1.0.2</faker.version>
-        <log4j-core.version>2.19.0</log4j-core.version>
+        <log4j-core.version>2.24.3</log4j-core.version>
         <jackson-dataformat-yaml.version>2.14.1</jackson-dataformat-yaml.version>
-        <aspect.version>1.9.6</aspect.version>
-        <lombok.version>1.18.24</lombok.version>
-        <allure-testng.version>2.20.1</allure-testng.version>
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-        <allure-maven.version>2.12.0</allure-maven.version>
+        <aspect.version>1.9.22.1</aspect.version>
+        <lombok.version>1.18.34</lombok.version>
+        <allure-testng.version>2.29.0</allure-testng.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+        <allure-maven.version>2.14.0</allure-maven.version>
         <allure-selenide.version>2.20.1</allure-selenide.version>
-        <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
-        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
-        <versions-maven-plugin.version>2.14.2</versions-maven-plugin.version>
-        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+        <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
         <apache.common.version>3.12.0</apache.common.version>
     </properties>
     <profiles>

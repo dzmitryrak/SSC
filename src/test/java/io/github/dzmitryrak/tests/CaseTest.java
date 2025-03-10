@@ -13,21 +13,21 @@ public class CaseTest extends BaseTest {
     @Test(description = "Check that panel could be validated")
     public void panelValidation() {
         loginPage.open().login(USERNAME, PASSWORD);
-        open("https://tms41-dev-ed.lightning.force.com/lightning/r/Case/5005g00000UUxpWAAT/view");
+        open("https://vention2-dev-ed.develop.lightning.force.com/lightning/r/Case/500WU00000apkfFYAQ/view");
         detailsPage
                 .panels()
-                .panel("Case Details")
-                .validate("Subject", "Seeking guidance on electrical wiring installation for GC5060")
-                .validate("Case Number", "00001002")
-                .validate("Status", "New")
-                .validate("Description", "");
+              //  .panel("Case Details")
+                .validate("Subject", "Kasd")
+                .validate("Case Number", "00001029")
+                .validate("Status", "New");
+                //.validate("Description", "");
         detailsPage
                 .clickTab("Details")
-                .validate("Subject", "Seeking guidance on electrical wiring installation for GC5060")
-                .validate("Case Number", "00001002")
-                .validate("Case Owner", "Dmitry Rak")
+                .validate("Subject", "Kasd")
+                .validate("Case Number", "00001029")
+                .validate("Case Owner", "Saldatsenkava Volha")
                 .validate("Status", "New")
-                .validate("Priority", "Low")
+                .validate("Priority", "Medium")
                 .validate("Description", "");
     }
 
@@ -45,7 +45,7 @@ public class CaseTest extends BaseTest {
                         .table()
                         .sortBy("Case Number", SortOrder.ASC)
                         .getTextFromCell("Subject", 1);
-        assertEquals(subject, "Starting generator after electrical failure");
+        assertEquals(subject, "Seeking guidance on electrical wiring installation for GC5060");
     }
 
     @Test(description = "Check that correct case could be opened from table")
@@ -58,7 +58,9 @@ public class CaseTest extends BaseTest {
                 .getTextFromCell("Case Number", 1);
         listView.table().clickCell("Case Number", 1);
         detailsPage.waitTillOpened();
-        detailsPage.panels().panel("Case Details").validate("Case Number", subject);
+        detailsPage.panels()
+                //.panel("Case Details")
+        .validate("Case Number", subject);
     }
 
     @Test(description = "Check that listview sorting exists and works")

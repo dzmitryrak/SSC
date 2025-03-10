@@ -19,6 +19,7 @@ public class NewObjectModal extends BasePage {
     private final By MODAL_HEADER_LOCATOR = By.xpath("//*[contains(@class,'slds-modal__header') and not(contains(@class,'empty'))]");
     private final By ERROR_POPUP = By.xpath("//*[contains(@class, 'slds-popover_error')]");
     private final By ERROR_MESSAGE = By.xpath("//*[@class='fieldLevelErrors']");
+    private final By SUBMIT = By.xpath("//span[text()='Submit']");
 
     /**
      * Wait until modal window header is displayed.
@@ -117,6 +118,10 @@ public class NewObjectModal extends BasePage {
         //TODO return List page
     }
 
+    public void submit() {
+        $(SUBMIT).click();
+    }
+
     public boolean isEmptyRequiredFieldsValidationError() {
         return $(EMPTY_REQUIRED_FIELD_LOCATOR).isDisplayed();
     }
@@ -146,5 +151,11 @@ public class NewObjectModal extends BasePage {
         String errorMessage = $(ERROR_MESSAGE).shouldBe(visible).getText();
         log.info("Popup Error Message: {}", errorMessage);
         return errorMessage;
+    }
+
+    @Step("Filling the field {field} using value {value}")
+    public NewObjectModal fillData(String field, String value) {
+        sfHelper.inputText(field, value);
+        return this;
     }
 }
