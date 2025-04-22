@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.refresh;
 
 @Log4j2
 public class ListView extends BasePage {
@@ -33,7 +32,6 @@ public class ListView extends BasePage {
     public ListView open(String listViewName) {
         log.info("Opening '{}' List View", listViewName);
         Selenide.open(String.format("lightning/o/%s/list", listViewName));
-        refresh();
         waitTillOpened();
         return this;
     }
