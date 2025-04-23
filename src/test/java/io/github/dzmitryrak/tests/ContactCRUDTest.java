@@ -51,7 +51,7 @@ public class ContactCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Contact", 3000)
+                .open("Contact", WAIT_TIME_OUT)
                 .actions()
                 .newObject()
                 .enterData(contact)
@@ -154,7 +154,7 @@ public class ContactCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Contact", 3000)
+                .open("Contact", WAIT_TIME_OUT)
                 .actions()
                 .newObject()
                 .enterData(contact)
@@ -223,7 +223,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Fax", "test");
             put("Birthdate", "10.02.2002");
             put("Email", faker.internet().emailAddress());
-            put("Reports To", "Lavern Tromp Kozey");
+            put("Reports To", "Irwin Mayer Hamill");
             put("Assistant", "test");
             put("Lead Source", "Other");
             put("Asst. Phone", faker.phoneNumber().phoneNumber());
@@ -246,7 +246,7 @@ public class ContactCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Contact", 3000)
+                .open("Contact", WAIT_TIME_OUT)
                 .actions()
                 .newObject()
                 .enterData(contact)

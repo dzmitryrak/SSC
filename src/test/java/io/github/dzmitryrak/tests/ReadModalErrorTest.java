@@ -11,7 +11,7 @@ public class ReadModalErrorTest extends BaseTest {
         loginPage.login(USERNAME, PASSWORD);
         String errorMessage =
                 listView
-                        .open("Contact", 3000)
+                        .open("Contact", WAIT_TIME_OUT)
                         .actions()
                         .newObject()
                         .enterData("Birthdate", "tet")

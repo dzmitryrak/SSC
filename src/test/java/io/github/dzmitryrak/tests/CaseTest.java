@@ -35,13 +35,13 @@ public class CaseTest extends BaseTest {
     public void tableValidation() {
         loginPage.open().login(USERNAME, PASSWORD);
         listView
-                .open("Case", 3000)
+                .open("Case", WAIT_TIME_OUT)
                 .table()
                 .clickCell("Case Number", 1);
         detailsPage.waitTillOpened();
         String subject =
                 listView
-                        .open("Case", 3000)
+                        .open("Case", WAIT_TIME_OUT)
                         .table()
                         .sortBy("Case Number", SortOrder.ASC)
                         .getTextFromCell("Subject", 1);
@@ -52,7 +52,7 @@ public class CaseTest extends BaseTest {
     public void tableSortingValidation() {
         loginPage.open().login(USERNAME, PASSWORD);
         String subject = listView
-                .open("Case", 3000)
+                .open("Case", WAIT_TIME_OUT)
                 .table()
                 .sortBy("Case Number", SortOrder.DESC)
                 .getTextFromCell("Case Number", 1);
@@ -66,7 +66,7 @@ public class CaseTest extends BaseTest {
     @Test(description = "Check that listview sorting exists and works")
     public void sortingListView() {
         loginPage.open().login(USERNAME, PASSWORD);
-        listView.open("Case", 3000);
+        listView.open("Case", WAIT_TIME_OUT);
         listView.clickSwitcher();
         listView.selectFilter("My Cases");
         listView.table().sortBy("Case Number", SortOrder.DESC);
@@ -76,7 +76,7 @@ public class CaseTest extends BaseTest {
     @Test(description = "Check that we can click on any button on case detail page")
     public void clickButtonOnDetailPage() {
         loginPage.open().login(USERNAME, PASSWORD);
-        listView.open("Case", 3000);
+        listView.open("Case", WAIT_TIME_OUT);
         listView.clickSwitcher();
         listView.selectFilter("My Cases");
         listView.table().sortBy("Case Number", SortOrder.DESC);

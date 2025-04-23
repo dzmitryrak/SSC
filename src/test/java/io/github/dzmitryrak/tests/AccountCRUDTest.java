@@ -37,7 +37,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Account", 3000)
+                .open("Account", WAIT_TIME_OUT)
                 .actions()
                 .newObject()
                 .enterData(account)
@@ -104,7 +104,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Account", 3000)
+                .open("Account", WAIT_TIME_OUT)
                 .actions()
                 .newObject()
                 .enterData(account)
@@ -183,7 +183,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Account", 3000)
+                .open("Account", WAIT_TIME_OUT)
                 .actions()
                 .newObject()
                 .enterData(account)
@@ -223,7 +223,7 @@ public class AccountCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Account", 3000)
+                .open("Account", WAIT_TIME_OUT)
                 .actions()
                 .newObject()
                 .enterData("Account Name", accountName)
