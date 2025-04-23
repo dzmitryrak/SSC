@@ -40,7 +40,7 @@ jobs:
           ${{ runner.os }}-maven-
       # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: java
     - name: Running BVT
@@ -50,7 +50,7 @@ jobs:
         PASSWORD: ${{ secrets.password }}
       run: mvn clean test -P ssc-test -Dusername=$USERNAME -Dpassword=$PASSWORD -DspainUser=$SPAIN_USER
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
       with:
           category: "/language:'java'"
     - name: Get Allure history
