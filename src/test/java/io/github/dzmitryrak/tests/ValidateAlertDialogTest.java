@@ -9,7 +9,7 @@ public class ValidateAlertDialogTest extends BaseTest {
     public void tableValidation() {
         loginPage.open().login(USERNAME, PASSWORD);
         String alertMessage = listView
-                .open("Case")
+                .open("Case", 3000)
                 .actions()
                 .newObject()
                 .enterData("Case Origin", "Phone")

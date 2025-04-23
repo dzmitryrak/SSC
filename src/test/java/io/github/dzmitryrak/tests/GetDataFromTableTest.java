@@ -15,7 +15,7 @@ public class GetDataFromTableTest extends BaseTest {
         loginPage.open().login(USERNAME, PASSWORD);
         Map<String, String> actualTableData =
                 listView
-                        .open("Case")
+                        .open("Case", 3000)
                         .table()
                         .sortBy("Case Number", SortOrder.ASC)
                         .getRecordData(3);
@@ -26,23 +26,23 @@ public class GetDataFromTableTest extends BaseTest {
     public void tableDataValidationByColumnName() {
         loginPage.open().login(USERNAME, PASSWORD);
         String caseNumber = listView
-                .open("Case")
+                .open("Case", 3000)
                 .table()
                 .sortBy("Case Number", SortOrder.ASC)
                 .getTextFromCell("Case Number", 1);
         String subject = listView
-                .open("Case")
+                .open("Case", 3000)
                 .table()
                 .sortBy("Case Number", SortOrder.ASC)
                 .getTextFromCell("Subject", 1);
         Map<String, String> actualTableData =
                 listView
-                        .open("Case")
+                        .open("Case", 3000)
                         .table()
                         .sortBy("Case Number", SortOrder.ASC)
                         .getRecordData("Case Number", caseNumber);
         Map<String, String> expectedTableData = listView
-                .open("Case")
+                .open("Case", 3000)
                 .table()
                 .sortBy("Case Number", SortOrder.ASC)
                 .getRecordData("Subject", subject);

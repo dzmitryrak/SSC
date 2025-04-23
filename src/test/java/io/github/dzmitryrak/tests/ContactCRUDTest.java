@@ -51,7 +51,7 @@ public class ContactCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Contact")
+                .open("Contact", 3000)
                 .actions()
                 .newObject()
                 .enterData(contact)
@@ -154,7 +154,7 @@ public class ContactCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Contact")
+                .open("Contact", 3000)
                 .actions()
                 .newObject()
                 .enterData(contact)
@@ -246,7 +246,7 @@ public class ContactCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Contact")
+                .open("Contact", 3000)
                 .actions()
                 .newObject()
                 .enterData(contact)

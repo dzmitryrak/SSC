@@ -29,9 +29,9 @@ public class ListView extends BasePage {
      * @return current instance of ListView
      */
     @Step("Opening List View")
-    public ListView open(String listViewName) {
+    public ListView open(String listViewName, long timeout) {
         log.info("Opening '{}' List View", listViewName);
-        Selenide.open(String.format("lightning/o/%s/list", listViewName));
+        Selenide.open(String.format("lightning/o/%s/list", listViewName, timeout));
         waitTillOpened();
         return this;
     }

@@ -59,7 +59,7 @@ public class SpanishLanguageTest extends BaseTest {
         loginPage.open();
         loginPage.login(SPAIN_USER, PASSWORD);
         listView
-                .open("Account")
+                .open("Account", 3000)
                 .actions().action("Nuevo");
         NewObjectModal editModal = new NewObjectModal();
         editModal.waitTillOpened();
