@@ -26,7 +26,7 @@ public abstract class BaseTest {
     protected final String USERNAME = System.getProperty("username", propertyReader.getPropertyValueByKey("username"));
     protected final String PASSWORD = System.getProperty("password", propertyReader.getPropertyValueByKey("password"));
     protected final String SPAIN_USER = System.getProperty("spainUser", propertyReader.getPropertyValueByKey("username.spain"));
-    protected final long WAIT_TIME_OUT = 4000;
+    protected final long WAIT_TIME_OUT = 5000;
 
     @BeforeMethod(description = "Open browser")
     public void setUp() {

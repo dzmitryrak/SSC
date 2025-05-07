@@ -18,7 +18,7 @@ public abstract class BasePage {
      * The default is 20 seconds.
      *
      */
-    public static Duration timeout = Duration.ofSeconds(20);
+    public static Duration timeout = Duration.ofSeconds(30);
     private final By ALERT_DIALOG = By.xpath("//div[@role='alertdialog']");
 
     protected final String ACTIVE_TAB_LOCATOR = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";

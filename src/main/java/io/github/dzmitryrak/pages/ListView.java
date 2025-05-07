@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class ListView extends BasePage {
-    private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
+    private final By BREADCRUMB_LOCATOR = By.xpath("//div[contains(@class,'slds-breadcrumb__item')]");
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
 
