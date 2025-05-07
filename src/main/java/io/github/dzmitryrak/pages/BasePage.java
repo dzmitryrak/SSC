@@ -23,6 +23,7 @@ public abstract class BasePage {
 
     protected final String ACTIVE_TAB_LOCATOR = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";
     protected ElementHelper sfHelper;
+    protected static final long ELEMENT_WAIT_TIME_OUT = 5000;
 
     public BasePage() {
         sfHelper = new ElementHelper();

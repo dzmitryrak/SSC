@@ -1,5 +1,6 @@
 package io.github.dzmitryrak.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -7,10 +8,11 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 @Log4j2
 public class ListView extends BasePage {
-    private final By BREADCRUMB_LOCATOR = By.xpath("//div[contains(@class,'slds-breadcrumb__item')]");
+    private final String BREADCRUMB_LOCATOR = "//div[contains(@class,'slds-breadcrumb__item')]";
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
 
@@ -18,7 +20,7 @@ public class ListView extends BasePage {
      * Wait until breadcrumb is displayed.
      */
     public ListView waitTillOpened() {
-        $(BREADCRUMB_LOCATOR).shouldBe(visible, timeout);
+        $(By.xpath(BREADCRUMB_LOCATOR)).shouldBe(visible, timeout);
         return this;
     }
 
@@ -29,9 +31,10 @@ public class ListView extends BasePage {
      * @return current instance of ListView
      */
     @Step("Opening List View")
-    public ListView open(String listViewName, long timeout) {
+    public ListView open(String listViewName) {
         log.info("Opening '{}' List View", listViewName);
-        Selenide.open(String.format("lightning/o/%s/list", listViewName, timeout));
+        Selenide.open(String.format("lightning/o/%s/list", listViewName));
+        sleep(ELEMENT_WAIT_TIME_OUT);
         waitTillOpened();
         return this;
     }

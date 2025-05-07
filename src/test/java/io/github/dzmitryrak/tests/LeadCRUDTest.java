@@ -42,7 +42,7 @@ public class LeadCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Lead", WAIT_TIME_OUT)
+                .open("Lead")
                 .actions()
                 .newObject()
                 .enterData(lead)
@@ -118,7 +118,7 @@ public class LeadCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Lead", WAIT_TIME_OUT)
+                .open("Lead")
                 .actions()
                 .newObject()
                 .enterData(lead)
@@ -189,7 +189,7 @@ public class LeadCRUDTest extends BaseTest {
         loginPage.open();
         loginPage.login(USERNAME, PASSWORD);
         listView
-                .open("Lead", WAIT_TIME_OUT)
+                .open("Lead")
                 .actions()
                 .newObject()
                 .enterData(lead)
