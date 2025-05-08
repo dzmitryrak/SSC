@@ -1,6 +1,5 @@
 package io.github.dzmitryrak.pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -8,7 +7,6 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
 
 @Log4j2
 public class ListView extends BasePage {
@@ -33,7 +31,8 @@ public class ListView extends BasePage {
     @Step("Opening List View")
     public ListView open(String listViewName) {
         log.info("Opening '{}' List View", listViewName);
-        Selenide.open(String.format("lightning/o/%s/list", listViewName));
+        Selenide.open(String.format("o/%s/list", listViewName));
+        waitForPageLoaded();
         waitTillOpened();
         return this;
     }
