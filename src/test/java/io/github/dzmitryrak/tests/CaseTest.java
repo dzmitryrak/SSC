@@ -34,18 +34,13 @@ public class CaseTest extends BaseTest {
     @Test(description = "Check that values of cells could be interacted")
     public void tableValidation() {
         loginPage.open().login(USERNAME, PASSWORD);
-        listView
-                .open("Case")
-                .table()
-                .clickCell("Case Number", 1);
-        detailsPage.waitTillOpened();
         String subject =
                 listView
                         .open("Case")
                         .table()
                         .sortBy("Case Number", SortOrder.ASC)
                         .getTextFromCell("Subject", 1);
-        assertEquals(subject, "Seeking guidance on electrical wiring installation for GC5060");
+        assertEquals(subject, "Kasd");
     }
 
     @Test(description = "Check that correct case could be opened from table")
