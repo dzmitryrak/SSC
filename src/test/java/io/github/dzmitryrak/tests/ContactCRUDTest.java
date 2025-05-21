@@ -223,7 +223,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Fax", "test");
             put("Birthdate", "10.02.2002");
             put("Email", faker.internet().emailAddress());
-            put("Reports To", "Irwin Mayer Hamill");
+            put("Reports To", "Ronald Bins Mayer");
             put("Assistant", "test");
             put("Lead Source", "Other");
             put("Asst. Phone", faker.phoneNumber().phoneNumber());
