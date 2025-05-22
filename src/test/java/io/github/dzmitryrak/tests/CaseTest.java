@@ -40,7 +40,7 @@ public class CaseTest extends BaseTest {
                         .table()
                         .sortBy("Case Number", SortOrder.ASC)
                         .getTextFromCell("Subject", 1);
-        assertEquals(subject, "Kasd");
+        assertEquals(subject, "Starting generator after electrical failure");
     }
 
     @Test(description = "Check that correct case could be opened from table")
