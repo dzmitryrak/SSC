@@ -50,6 +50,7 @@ public class LoginPage extends BasePage {
         $(USERNAME_LOCATOR).setValue(username);
         $(PASSWORD_LOCATOR).setValue(password);
         $(LOGIN_BUTTON_LOCATOR).click();
+        waitForPageLoaded();
     }
 
     /**
