@@ -224,7 +224,7 @@ public class ElementHelper {
         String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
         try {
             lookup.shouldBe(visible).sendKeys(value);
-            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(20));
             screenshot("LookUp Search State " + System.currentTimeMillis());
             lookUpOption.click();
         } catch (Throwable exception) {
@@ -232,7 +232,7 @@ public class ElementHelper {
             lookup.shouldBe(visible);
             executeJavaScript("arguments[0].value ='';", lookup);
             lookup.shouldBe(visible).sendKeys(value);
-            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(20));
             screenshot("LookUp Search State 2nd attempt " + System.currentTimeMillis());
             lookUpOption.click();
         }
