@@ -16,7 +16,7 @@ public class SpanishLanguageTest extends BaseTest {
     public void createAccountEditAndDeleteInSpanish() {
         Map<String, String> account = new HashMap<>() {{
             put("Nombre de la cuenta", faker.name().name());
-            put("Cuenta principal", "Pablo Picasso");
+            put("Cuenta principal", "Pablo Reilly");
             put("Tipo", "Prospect");
             put("Sitio Web", faker.internet().url());
             put("Teléfono", faker.phoneNumber().phoneNumber());
