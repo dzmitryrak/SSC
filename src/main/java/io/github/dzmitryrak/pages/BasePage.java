@@ -5,6 +5,8 @@ import io.github.dzmitryrak.utils.ElementHelper;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.time.Duration;
 
@@ -16,9 +18,8 @@ public abstract class BasePage {
     /**
      * Timeout for pages' waitTillOpened methods.
      * The default is 20 seconds.
-     *
      */
-    public static Duration timeout = Duration.ofSeconds(20);
+    public static Duration timeout = Duration.ofSeconds(30);
     private final By ALERT_DIALOG = By.xpath("//div[@role='alertdialog']");
 
     protected final String ACTIVE_TAB_LOCATOR = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";
@@ -50,5 +51,13 @@ public abstract class BasePage {
         String alertMessage = $(ALERT_DIALOG).shouldBe(visible).getText();
         log.info("Popup Alert Message: {}", alertMessage);
         return alertMessage;
+    }
+
+    public void waitForPageLoaded() {
+        new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                return Selenide.executeJavaScript("return document.readyState").toString().equals("complete");
+            }
+        };
     }
 }

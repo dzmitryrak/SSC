@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Log4j2
 public class ListView extends BasePage {
-    private final By BREADCRUMB_LOCATOR = By.xpath("//*[contains(@class,'slds-breadcrumb__item')]");
+    private final String BREADCRUMB_LOCATOR = "//div[contains(@class,'slds-breadcrumb__item')]";
     private final By FILTER_SWITCHER_BUTTON = By.xpath("//*[contains(@class, 'slds-page-header__name-switcher')]//button");
     private final String SELECT_FILTER_LOCATOR = "(//span[contains(@class, ' virtualAutocompleteOptionText') and text()='%s'])[1]";
 
@@ -18,7 +18,7 @@ public class ListView extends BasePage {
      * Wait until breadcrumb is displayed.
      */
     public ListView waitTillOpened() {
-        $(BREADCRUMB_LOCATOR).shouldBe(visible, timeout);
+        $(By.xpath(BREADCRUMB_LOCATOR)).shouldBe(visible, timeout);
         return this;
     }
 
@@ -31,7 +31,8 @@ public class ListView extends BasePage {
     @Step("Opening List View")
     public ListView open(String listViewName) {
         log.info("Opening '{}' List View", listViewName);
-        Selenide.open(String.format("lightning/o/%s/list", listViewName));
+        Selenide.open(String.format("o/%s/list", listViewName));
+        waitForPageLoaded();
         waitTillOpened();
         return this;
     }

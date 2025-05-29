@@ -26,8 +26,9 @@ import static com.codeborne.selenide.Selenide.*;
 public class ElementHelper {
     public static final String BASE_DETAIL_PANEL = "//records-lwc-detail-panel";
     public static final String ACTIVE_TAB_LOCATOR = "//*[contains(@class,'windowViewMode') and contains(@class,'active')]";
-    String pickList = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-picklist";
-    String pickListButton = pickList + "//button[@lightning-basecombobox_basecombobox]";
+    String pickList = BASE_DETAIL_PANEL + "//label[text()='%s']/ancestor::lightning-picklist";
+    String pikListMulti = BASE_DETAIL_PANEL + "//div[text()='%s']/ancestor::lightning-picklist";
+    String pickListButton = pickList + "//button";
     String textInput = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-input//input[@type='text']";
     String lookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//input";
     String clearLookUpField = BASE_DETAIL_PANEL + "//*[text()='%s']/ancestor::lightning-lookup//button";
@@ -113,15 +114,15 @@ public class ElementHelper {
                     jsClick(ch);
                 }
             }
-        } else if ($$(By.xpath(String.format(pickList, elementLabel))).size() > 0) {
+        } else if ($$(By.xpath(String.format(pikListMulti, elementLabel))).size() > 0) {
 
             //Multi-Select
             elementType = "Picklist (Multi-Select)";
-            SelenideElement moveToChosen = $(By.xpath(String.format(pickList + "//button[.//*[@data-key='right']]", elementLabel)));
-            SelenideElement moveToAvailable = $(By.xpath(String.format(pickList + "//button[.//*[@data-key='left']]", elementLabel)));
+            SelenideElement moveToChosen = $(By.xpath(String.format(pikListMulti + "//button[.//*[@data-key='right']]", elementLabel)));
+            SelenideElement moveToAvailable = $(By.xpath(String.format(pikListMulti + "//button[.//*[@data-key='left']]", elementLabel)));
 
             if (StringUtils.isEmpty(value)) {
-                var chosenOptions = $$(By.xpath(String.format(pickList + "//*[contains(@id,'selected-list')]//following-sibling::*[@class='slds-dueling-list__options']//li", elementLabel)));
+                var chosenOptions = $$(By.xpath(String.format(pikListMulti + "//following-sibling::*[@class='slds-dueling-list__options']//li", elementLabel)));
                 for (var option : chosenOptions) {
                     scrollToElement(option);
                     option.shouldBe(visible).click();
@@ -131,7 +132,7 @@ public class ElementHelper {
                 var options = StringUtils.split(value, ";");
                 for (String option : options) {
                     log.debug("Selecting option: '{}' in multiselect: '{}'", option, elementLabel);
-                    String lookupOption = String.format(pickList + "//*[text()='%s']/ancestor::li[@lightning-duallistbox_duallistbox]", elementLabel, option);
+                    String lookupOption = String.format(pikListMulti + "//span[text()= '%s']", elementLabel, option);
                     SelenideElement element = $(By.xpath(lookupOption));
                     scrollToElement(element);
                     //TODO possible clickIntercepted due to the duplicates
@@ -223,9 +224,9 @@ public class ElementHelper {
         String optionLocator = "//lightning-base-combobox-formatted-text[contains(@title, '%s')]";
         try {
             lookup.shouldBe(visible).sendKeys(value);
-            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
+            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(20));
             screenshot("LookUp Search State " + System.currentTimeMillis());
-            lookUpOption.click();
+            executeJavaScript("arguments[0].click();", lookUpOption);
         } catch (Throwable exception) {
             log.warn("Failed to find lookup value. Trying once again: {}", value);
             lookup.shouldBe(visible);
@@ -233,7 +234,7 @@ public class ElementHelper {
             lookup.shouldBe(visible).sendKeys(value);
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
             screenshot("LookUp Search State 2nd attempt " + System.currentTimeMillis());
-            lookUpOption.click();
+            executeJavaScript("arguments[0].click();", lookUpOption);
         }
     }
 
@@ -260,6 +261,17 @@ public class ElementHelper {
     public void selectRadioButton(String radioButtonName) {
         log.info("Select {}", radioButtonName);
         jsClick($(By.xpath(String.format(radioButton, radioButtonName))));
+    }
+
+    public void inputText(String elementLabel, String value) {
+        SelenideElement element = $(By.xpath(String.format("//*[text()='%s']/../../textarea", elementLabel)));
+        scrollToElement(element);
+        element.shouldBe(visible);
+        if (StringUtils.isEmpty(value)) {
+            element.clear();
+        } else {
+            element.setValue(value);
+        }
     }
 
     private void jsClick(WebElement el) {

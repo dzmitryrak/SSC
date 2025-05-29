@@ -16,12 +16,12 @@ public class SpanishLanguageTest extends BaseTest {
     public void createAccountEditAndDeleteInSpanish() {
         Map<String, String> account = new HashMap<>() {{
             put("Nombre de la cuenta", faker.name().name());
-            put("Cuenta principal", "Pablo Picasso");
+            put("Cuenta principal", "Pablo Reilly");
             put("Tipo", "Prospect");
             put("Sitio Web", faker.internet().url());
             put("Teléfono", faker.phoneNumber().phoneNumber());
             put("Descripción", faker.lorem().sentence());
-            put("Multiselect", "Yes;Probably;one more option");
+            put("Multiselect", "No;Probably;One more option");
             put("Empleados", faker.number().digit());
             put("Calle de facturación", faker.address().streetAddress());
             put("Ciudad de facturación", faker.address().city());
@@ -42,7 +42,7 @@ public class SpanishLanguageTest extends BaseTest {
             put("Sitio Web", faker.internet().url());
             put("Teléfono", faker.phoneNumber().phoneNumber());
             put("Descripción", faker.lorem().sentence());
-            put("Multiselect", "Yes;Probably;one more option");
+            put("Multiselect", "No;Probably;One more option");
             put("Empleados", faker.number().digit());
             put("Calle de facturación", faker.address().streetAddress());
             put("Ciudad de facturación", faker.address().city());

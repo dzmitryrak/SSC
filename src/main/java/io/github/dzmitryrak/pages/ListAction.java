@@ -16,7 +16,6 @@ public class ListAction extends BasePage {
         action("New");
         NewObjectModal editModal = new NewObjectModal();
         editModal.waitTillOpened();
-
         return editModal;
     }
 

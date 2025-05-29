@@ -35,7 +35,7 @@ public class LeadCRUDTest extends BaseTest {
             put("Product Interest", "GC3000 series");
             put("Primary", "Yes");
             put("Description", faker.lorem().sentence());
-            put("SIC Code", "some code  ");
+            put("SIC Code", "1414141");
             put("Current Generator(s)", "3");
         }};
 
@@ -55,7 +55,7 @@ public class LeadCRUDTest extends BaseTest {
         lead.remove("State/Province");
         lead.remove("Street");
         lead.remove("City");
-        lead.put("Annual Revenue", "$200,000,000");
+        lead.put("Annual Revenue", "200 000 000 Br");
         detailsPage
                 .clickTab("Details")
                 .validate(lead);
@@ -85,7 +85,7 @@ public class LeadCRUDTest extends BaseTest {
             put("Product Interest", "GC3000 series");
             put("Primary", "Yes");
             put("Description", faker.lorem().sentence());
-            put("SIC Code", "some code  ");
+            put("SIC Code", "67878");
             put("Current Generator(s)", "3");
         }};
 
@@ -111,7 +111,7 @@ public class LeadCRUDTest extends BaseTest {
             put("Product Interest", "GC3000 series");
             put("Primary", "Yes");
             put("Description", faker.lorem().sentence());
-            put("SIC Code", "some code  ");
+            put("SIC Code", "90986");
             put("Current Generator(s)", "3");
         }};
 
@@ -131,7 +131,7 @@ public class LeadCRUDTest extends BaseTest {
         lead.remove("State/Province");
         lead.remove("Street");
         lead.remove("City");
-        lead.put("Annual Revenue", "$200,000,000");
+        lead.put("Annual Revenue", "200 000 000 Br");
         detailsPage
                 .clickTab("Details")
                 .validate(lead);
@@ -151,7 +151,7 @@ public class LeadCRUDTest extends BaseTest {
         updatedLead.remove("State/Province");
         updatedLead.remove("Street");
         updatedLead.remove("City");
-        updatedLead.put("Annual Revenue", "$200,000,000");
+        updatedLead.put("Annual Revenue", "200 000 000 Br");
 
         detailsPage
                 .clickTab("Details")
@@ -182,7 +182,7 @@ public class LeadCRUDTest extends BaseTest {
             put("Product Interest", "GC3000 series");
             put("Primary", "Yes");
             put("Description", faker.lorem().sentence());
-            put("SIC Code", "some code  ");
+            put("SIC Code", "8978787");
             put("Current Generator(s)", "3");
         }};
 
@@ -202,7 +202,7 @@ public class LeadCRUDTest extends BaseTest {
         lead.remove("State/Province");
         lead.remove("Street");
         lead.remove("City");
-        lead.put("Annual Revenue", "$200,000,000");
+        lead.put("Annual Revenue", "200 000 000 Br");
         detailsPage
                 .clickTab("Details")
                 .validate(lead);

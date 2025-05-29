@@ -14,7 +14,7 @@ public class ObjectAction extends BasePage {
     private final By FOLLOWING_BUTTON = By.xpath("//span[@title='Following']//ancestor::button");
     private final By MORE_ACTIONS = By.xpath(ACTIVE_TAB_LOCATOR + "//lightning-button-menu[contains(@class, 'menu-button-item')]");
     //There are 2 locators inside this one. For Ribbon and for button
-    private final String RIBBON_ACTION_LOCATOR = ACTIVE_TAB_LOCATOR + "//runtime_platform_actions-ribbon-menu-item//span[text()='%s']|" +
+    private final String RIBBON_ACTION_LOCATOR = ACTIVE_TAB_LOCATOR + "//lightning-menu-item//span[text()='%s']|" +
             ACTIVE_TAB_LOCATOR + "//runtime_platform_actions-action-renderer//button[text()='%s']";
 
     @Step("Follow object")
@@ -35,8 +35,14 @@ public class ObjectAction extends BasePage {
         action("Edit");
         NewObjectModal editModal = new NewObjectModal();
         editModal.waitTillOpened();
-
         return editModal;
+    }
+
+    public NewObjectModal submitFoApproval() {
+        action("Submit for Approval");
+        NewObjectModal submitForApp = new NewObjectModal();
+        submitForApp.waitTillOpened();
+        return submitForApp;
     }
 
     public void changeOwner() {
