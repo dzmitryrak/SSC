@@ -226,15 +226,15 @@ public class ElementHelper {
             lookup.shouldBe(visible).sendKeys(value);
             SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(20));
             screenshot("LookUp Search State " + System.currentTimeMillis());
-            lookUpOption.click();
+            executeJavaScript("arguments[0].click();", lookUpOption);
         } catch (Throwable exception) {
             log.warn("Failed to find lookup value. Trying once again: {}", value);
             lookup.shouldBe(visible);
             executeJavaScript("arguments[0].value ='';", lookup);
             lookup.shouldBe(visible).sendKeys(value);
-            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(20));
+            SelenideElement lookUpOption = $(By.xpath(String.format(optionLocator, value))).shouldBe(visible, Duration.ofSeconds(10));
             screenshot("LookUp Search State 2nd attempt " + System.currentTimeMillis());
-            lookUpOption.click();
+            executeJavaScript("arguments[0].click();", lookUpOption);
         }
     }
 

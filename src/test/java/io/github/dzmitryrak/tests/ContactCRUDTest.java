@@ -28,7 +28,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Fax", "test");
             put("Birthdate", "20.05.1990");
             put("Email", faker.internet().emailAddress());
-            put("Reports To", "Aldo Glover Koepp");
+            put("Reports To", "Lola Joka");
             put("Assistant", "test");
             put("Lead Source", "Other");
             put("Asst. Phone", faker.phoneNumber().phoneNumber());
@@ -223,7 +223,7 @@ public class ContactCRUDTest extends BaseTest {
             put("Fax", "test");
             put("Birthdate", "10.02.2002");
             put("Email", faker.internet().emailAddress());
-            put("Reports To", "Ronald Bins Mayer");
+            put("Reports To", "John Bond");
             put("Assistant", "test");
             put("Lead Source", "Other");
             put("Asst. Phone", faker.phoneNumber().phoneNumber());
